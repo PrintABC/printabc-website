@@ -1,6 +1,4 @@
 ﻿@using System.Globalization
-@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer Localizer
 
 @{
     var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
@@ -26,7 +24,7 @@
     <link rel="stylesheet" href="~/css/pages.css">
 </head>
 <body>
-    <a class="skip-link" href="#main">@Localizer["skip_link"]</a>
+    <a class="skip-link" href="#main">@L["skip_link"]</a>
     <partial name="_Header" />
     <main id="main">
         <div class="container page-head">

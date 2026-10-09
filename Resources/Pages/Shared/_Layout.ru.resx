@@ -120,4 +120,7 @@
   <data name="skip_link" xml:space="preserve">
     <value>Перейти к содержимому</value>
   </data>
+  <data name="title" xml:space="preserve">
+    <value>PrintABC — наклейки и печать в Нетании</value>
+  </data>
 </root>

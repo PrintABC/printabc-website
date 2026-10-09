@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Razor;
+using PrintABC.Utils;
 using System.Globalization;
 
 namespace PrintABC
@@ -12,10 +14,27 @@ namespace PrintABC
 
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            // Add services to the container.
-            builder.Services.AddRazorPages()
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization();
+            builder.Services.AddRazorPages(options =>
+            {
+                //detect whether website urls are prefixed with /ru/
+                options.Conventions.AddFolderRouteModelConvention("/", model =>
+                {
+                    foreach (var selector in model.Selectors.ToList())
+                    {
+                        var template = selector.AttributeRouteModel?.Template;
+
+                        model.Selectors.Add(new SelectorModel
+                        {
+                            AttributeRouteModel = new AttributeRouteModel
+                            {
+                                Template = "{culture:regex(^(ru)$)}/" + template
+                            }
+                        });
+                    }
+                });
+            })
+            .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            .AddDataAnnotationsLocalization();
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -29,12 +48,11 @@ namespace PrintABC
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
 
-                options.RequestCultureProviders = new List<IRequestCultureProvider>
-                {
-                    new QueryStringRequestCultureProvider(),
-                    new CookieRequestCultureProvider(),
-                    new AcceptLanguageHeaderRequestCultureProvider()
-                };
+                //remove default providers (cookies, headers, query string)
+                options.RequestCultureProviders.Clear();
+
+                //only using the path provider
+                options.RequestCultureProviders.Add(new UrlPathCultureProvider());
             });
 
             var app = builder.Build();
@@ -47,11 +65,11 @@ namespace PrintABC
                 app.UseHsts();
             }
 
-            app.UseRequestLocalization();
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            //after routing so that the information is available
+            app.UseRequestLocalization();
 
             app.UseAuthorization();
 
