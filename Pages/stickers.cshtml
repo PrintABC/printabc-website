@@ -1,0 +1,55 @@
+﻿@page "/stickers"
+<div class="container page-head">
+    <h1>מדבקות בהזמנה אישית</h1>
+  <p>נייר או פלסטיק · עגולות, מלבניות או בצורה חופשית · מ-1×1 ס״מ. המחיר כולל מע״מ ומתעדכן מיד.</p>
+</div>
+<div class="container product-layout">
+  <div class="product-layout__main is-sticky">
+    <div class="gallery">
+      <div class="gallery__main"><div class="crop"><img src="~/img/stickers-hero.jpg" alt="מדבקות בצורות שונות" decoding="async"><span class="crop__b" aria-hidden="true"></span></div></div>
+      <div class="gallery__thumbs"><img src="~/img/stickers-sheet.jpg" alt="גיליון מדבקות עגולות" loading="lazy" decoding="async"><img src="~/img/stickers-on-packaging.jpg" alt="מדבקות על אריזות" loading="lazy" decoding="async"><img src="~/img/sticker-closeup.jpg" alt="מדבקה בתקריב" loading="lazy" decoding="async"></div>
+    </div>
+  </div>
+  <form class="product-layout__side panel panel--raised calc" id="calc" aria-labelledby="calc-title" novalidate>
+    <div class="calc__head"><h2 id="calc-title">חישוב מחיר</h2><span class="calc__demo">[מחירים לדוגמה]</span></div>
+    <fieldset class="opt-group"><legend>חומר</legend><div class="opt-list"><label class="pill"><input type="radio" name="material" value="paper" checked><span>נייר</span></label><label class="pill"><input type="radio" name="material" value="plastic"><span>פלסטיק</span></label></div><p class="field__hint">נייר — לשימוש בתוך הבית, לא עמיד במים. פלסטיק — עמיד במים ומתאים גם לחוץ.</p></fieldset>
+    <fieldset class="opt-group"><legend>צורה</legend><div class="opt-list"><label class="pill"><input type="radio" name="shape" value="round" checked><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/></svg><span>עגולה</span></label><label class="pill"><input type="radio" name="shape" value="rect"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="6" width="16" height="12" rx="1.5"/></svg><span>מלבנית</span></label><label class="pill"><input type="radio" name="shape" value="free"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 8c2-4 7-4 8-1s5 1 5 5-4 7-8 6-9 1-9-4 2-3 4-6z"/></svg><span>צורה חופשית</span></label></div></fieldset>
+    <fieldset class="opt-group"><legend>חיתוך</legend><div class="opt-list"><label class="pill"><input type="radio" name="cut" value="sheet" checked><span>על גיליון (חיתוך חלקי)</span></label><label class="pill"><input type="radio" name="cut" value="single"><span>כל מדבקה בנפרד</span></label></div></fieldset>
+    <fieldset class="opt-group" aria-describedby="sz-hint">
+      <legend>גודל (ס״מ)</legend>
+      <div id="size-round" class="field field__input--size"><label class="field__hint" for="calc-d">קוטר</label><input class="field__input" id="calc-d" name="d" type="number" inputmode="decimal" min="1" max="31.5" step="0.1" value="5"></div>
+      <div id="size-rect" class="field-row" hidden>
+        <div class="field"><label class="field__hint" for="calc-w">רוחב</label><input class="field__input" id="calc-w" name="w" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="5"></div>
+        <div class="field"><label class="field__hint" for="calc-h">גובה</label><input class="field__input" id="calc-h" name="h" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="5"></div>
+      </div>
+      <p class="field__hint" id="sz-hint">כל גודל: מינימום 1×1 ס״מ, מקסימום 31.5×46 ס״מ</p>
+    </fieldset>
+    <div class="field">
+      <label class="field__label" for="calc-qty">כמות (יח׳)</label>
+      <input class="field__input field__input--num" id="calc-qty" name="qty" type="number" inputmode="numeric" min="1" step="1" value="250" aria-describedby="q-hint">
+      <p class="field__hint" id="q-hint">כל כמות שתרצו. סכום הזמנה באתר: 60–1,000 ₪ כולל מע״מ.</p>
+    </div>
+    <div class="alert alert--error" data-error="size" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>הגודל המינימלי הוא 1×1 ס״מ.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div><div class="alert alert--error" data-error="big" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>הגודל המקסימלי הוא 31.5×46 ס״מ (בעיגול — קוטר עד 31.5 ס״מ).</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div><div class="alert alert--error" data-error="qty" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>הזינו כמות במספר שלם.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div><div class="alert alert--error" data-error="min" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>מינימום הזמנה 60 ₪ כולל מע״מ. הגדילו את הכמות או את הגודל.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div><div class="alert alert--error" data-error="max" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>הזמנה מעל 1,000 ₪ — נכין לכם הצעת מחיר אישית.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div>
+    <div class="price-box">
+      <div class="price-box__row price-box__row--total"><span>סה״כ כולל מע״מ</span><output class="price-box__total" id="calc-total" aria-live="polite">— ₪</output></div>
+      <div class="price-box__row"><span>מתוכו מע״מ (18%)</span><output id="calc-vat">—</output></div>
+      <div class="price-box__row"><span>מחיר ליחידה</span><output id="calc-unit">—</output></div>
+      <div class="price-box__row"><span>מוכן</span><span>מיום עבודה אחד</span></div>
+    </div>
+    <a class="btn btn--primary btn--lg" id="calc-next" href="#">להמשך: העלאת קובץ <span aria-hidden="true">←</span></a>
+    <span class="btn btn--lg" id="calc-next-off" aria-disabled="true" hidden>להמשך: העלאת קובץ</span>
+    <a class="calc__ask" href="https://wa.me/972508494172"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"/><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"/></svg>שאלה? כתבו לנו ב-WhatsApp</a>
+  </form>
+</div>
+<section class="section--surface">
+  <div class="container info-cards">
+    <div class="info-card"><h2>דרישות לקובץ</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>קבצים: PDF, PNG או JPEG, עד 100MB</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>רזולוציה: [300] dpi בגודל ההדפסה</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>שוליים (bleed) של [2] מ״מ מכל צד</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>למדבקות בצורה חופשית — קו חיתוך בשכבה נפרדת (CutContour)</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>אין קובץ מוכן? כתבו לנו — נעזור להכין אותו.</span></li></ul></div>
+    <div class="info-card"><h2>איסוף ותשלום</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>איסוף עצמי מרח׳ שטמפפר 5, נתניה — חינם</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>מינימום הזמנה — 60 ₪ כולל מע״מ</span></li></ul></div>
+  </div>
+</section>
+<section class="section" aria-labelledby="after-h">
+  <div class="container section__stack">
+    <div class="section-head"><h2 id="after-h">מה קורה אחרי ההזמנה</h2></div>
+    <ol class="steps"><li class="step"><span class="step__num" aria-hidden="true">01</span><h3>בוחרים ומחשבים</h3><p class="step__text">בוחרים מוצר ופרמטרים ורואים מחיר כולל מע״מ.</p></li><li class="step"><span class="step__num" aria-hidden="true">02</span><h3>מעלים קובץ ושולחים</h3><p class="step__text">PDF, PNG או JPEG עד 100MB. אישור הזמנה יגיע למייל.</p></li><li class="step"><span class="step__num" aria-hidden="true">03</span><h3>מאשרים הדפסת ניסיון</h3><p class="step__text">נשלח צילום או וידאו ב-WhatsApp. מדפיסים אחרי האישור.</p></li><li class="step"><span class="step__num" aria-hidden="true">04</span><h3>אוספים מבית הדפוס</h3><p class="step__text">ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</p></li></ol>
+  </div>
+</section>
