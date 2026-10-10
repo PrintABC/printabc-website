@@ -117,7 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome" xml:space="preserve">
-    <value>hi</value>
+  <data name="all_products" xml:space="preserve">
+    <value>כל המוצרים</value>
   </data>
+  <data name="calc_stickers" xml:space="preserve">
+    <value>חשבו מחיר למדבקות</value>
+  </data>
+  <data name="hero_header" xml:space="preserve">
+    <value>מדבקות בכל צורה — עם מחיר מיידי אונליין</value>
+  </data>
+  <data name="hero_lead" xml:space="preserve">
+    <value>בוחרים חומר, צורה, גודל וכמות — ורואים מחיר כולל מע״מ מיד. הזמנה באתר 24/7.</value>
+  </data>
+  <data name="proof" xml:space="preserve">
+    <value>לפני ההדפסה — צילום או וידאו של הדפסת ניסיון לאישורכם</value>
+  </data>
+  <data name="ready_in" xml:space="preserve">
+    <value>מוכן מיום עבודה אחד</value>
+  </data>
+  <data name="since" xml:space="preserve">
+    <value>מאז 2001</value>
+  </data>
+  <data name="since_text" xml:space="preserve">
+    <value>בית דפוס משפחתי בנתניה · מאז 2001</value>
+  </data>
+  <data name="stickers_image_hero" xml:space="preserve">
+    <value>מדבקות בצורות ובצבעים שונים על גיליון</value>
+  </data>
+    <data name="rus_heb" xml:space="preserve">
+      <value>עברית ורוסית</value>
+    </data>
+    <data name="talk_whatsapp" xml:space="preserve">
+      <value>מדברים איתכם בשפה הנוחה לכם — בטלפון, ב-WhatsApp ובמייל.</value>
+    </data>
+    <data name="ready_depends" xml:space="preserve">
+      <value>זמן הייצור תלוי במוצר ובכמות.</value>
+    </data>
+    <data name="collect_print" xml:space="preserve">
+      <value>איסוף מבית הדפוס</value>
+    </data>
+    <data name="collect_address" xml:space="preserve">
+      <value>חינם, מרח׳ שטמפפר 5 בנתניה — בשעות הפעילות.</value>
+    </data>
+    <data name="order_site" xml:space="preserve">
+      <value>הזמנה באתר 24/7</value>
+    </data>
+    <data name="order_description" xml:space="preserve">
+      <value>מחשבים, מעלים קובץ ושולחים — גם מחוץ לשעות הפעילות.</value>
+    </data>
+    <data name="our_products" xml:space="preserve">
+      <value>המוצרים שלנו</value>
+    </data>
+    <data name="minimum_price_incl" xml:space="preserve">
+      <value>המחירים כוללים מע״מ · מינימום הזמנה 60 ₪</value>
+    </data>
 </root>

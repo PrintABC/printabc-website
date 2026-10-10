@@ -117,7 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome" xml:space="preserve">
-    <value>ih</value>
+  <data name="all_products" xml:space="preserve">
+    <value>Вся продукция</value>
   </data>
+  <data name="calc_stickers" xml:space="preserve">
+    <value>Рассчитать цену наклеек</value>
+  </data>
+  <data name="hero_header" xml:space="preserve">
+    <value>Наклейки любой формы — цена сразу онлайн</value>
+  </data>
+  <data name="hero_lead" xml:space="preserve">
+    <value>Выберите материал, форму, размер и тираж — цена с НДС сразу. Заказ на сайте 24/7.</value>
+  </data>
+  <data name="proof" xml:space="preserve">
+    <value>Перед печатью — фото или видео пробного оттиска на ваше утверждение</value>
+  </data>
+  <data name="ready_in" xml:space="preserve">
+    <value>Готово от 1 рабочего дня</value>
+  </data>
+  <data name="since" xml:space="preserve">
+    <value>С 2001 года</value>
+  </data>
+  <data name="since_text" xml:space="preserve">
+    <value>Семейная типография в Нетании · с 2001 года</value>
+  </data>
+  <data name="stickers_image_hero" xml:space="preserve">
+    <value>Наклейки разных форм и цветов на листе</value>
+  </data>
+    <data name="rus_heb" xml:space="preserve">
+      <value>Иврит и Русский</value>
+    </data>
+    <data name="talk_whatsapp" xml:space="preserve">
+      <value>Общаемся на удобном вам языке — по телефону, в WhatsApp и по почте.</value>
+    </data>
+    <data name="ready_depends" xml:space="preserve">
+      <value>Срок зависит от продукта и тиража.</value>
+    </data>
+    <data name="collect_print" xml:space="preserve">
+      <value>Самовывоз из типографии</value>
+    </data>
+    <data name="collect_address" xml:space="preserve">
+      <value>Бесплатно, ул. Штампфер 5, Нетания — в часы работы.</value>
+    </data>
+    <data name="order_site" xml:space="preserve">
+      <value>Заказ на сайте 24/7</value>
+    </data>
+    <data name="order_description" xml:space="preserve">
+      <value>Рассчитать, загрузить макет и отправить — даже вне рабочих часов.</value>
+    </data>
+    <data name="our_products" xml:space="preserve">
+      <value>Наша продукция</value>
+    </data>
+    <data name="minimum_price_incl" xml:space="preserve">
+      <value>Цены с НДС · минимальный заказ 60 ₪</value>
+    </data>
 </root>
