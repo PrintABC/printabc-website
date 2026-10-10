@@ -27,10 +27,8 @@
     <a class="skip-link" href="#main">@L["skip_link"]</a>
     <partial name="_Header" />
     <main id="main">
-        <div class="container page-head">
-        <nav class="breadcrumbs" aria-label="פירורי לחם"><ol><li><a href="/">דף הבית</a></li><li aria-current="page">מדבקות בהזמנה אישית</li></ol></nav>
-            </div>
-            @RenderBody()
+        <partial name="_Breadcrumbs" />
+        @RenderBody()
     </main>
     <partial name="_Footer" />
     <partial name="_BottomBar" model="@ViewData["BottomBar"]" />
