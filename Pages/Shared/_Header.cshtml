@@ -1,0 +1,81 @@
+﻿@using System.Globalization
+
+@{
+    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+}
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="/"><span class="logo__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span class="logo__text">@L["company_name"]</span></a>
+    <nav class="site-nav" aria-label="@L["main_navigation"]">
+      <a href="/#products">@L["products"]</a>
+      <a href="/#how">@L["how_order"]</a>
+      <a href="/#reviews">@L["reviews"]</a>
+      <a href="/#contact">@L["contact"]</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-phone ltr" href="tel:+97298874680">09-887-4680</a>
+      <button class="btn-icon" type="button" data-a11y-open aria-controls="a11y-panel" aria-expanded="false" aria-label="@L["access_aria"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="4.5" r="1.8"/><path d="M5 8.5l7 1.5 7-1.5"/><path d="M12 10v5l-3 6"/><path d="M12 15l3 6"/></svg><span class="btn-icon__label">@L["access"]</span></button>
+      <div class="lang-switch lang-full">
+        @{
+            var currentPath = Context.Request.Path.Value ?? "/";
+            string targetUrl = "";
+        }
+        @if (isRtl)
+        {
+            targetUrl = currentPath == "/" ? "/ru" : $"/ru{currentPath}";
+            <span aria-current="page">עב</span>
+            <a href="@targetUrl" lang="ru" hreflang="ru" aria-label="Русская версия">RU</a>
+        }
+        else
+        {
+            targetUrl = currentPath.StartsWith("/ru/", StringComparison.OrdinalIgnoreCase) 
+            ? currentPath.Substring(3) 
+            : (currentPath.Equals("/ru", StringComparison.OrdinalIgnoreCase) ? "/" : currentPath);
+            <a href="@targetUrl" lang="he" hreflang="he" aria-label="גרסה בעברית">עב</a>
+            <span aria-current="page">RU</span>
+        }
+      </div>
+      @if (isRtl)
+      {
+         <a class="btn-icon lang-short" href="@targetUrl" lang="he" hreflang="he" aria-label="גרסה בעברית">עב</a>
+      }
+      else
+      {
+         <a class="btn-icon lang-short" href="@targetUrl" lang="ru" hreflang="ru" aria-label="Русская версия">RU</a>  
+      }
+      <a class="btn btn--primary header-cta" href="/stickers">@L["calc_price"]</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="@L["open_mobile_menu_aria"]"><svg class="icon icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="icon icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="@L["main_nav_aria"]" hidden>
+    <a href="/stickers">@L["stickers"]</a>
+    <a href="/business-cards">@L["business_cards"]</a>
+    <a href="/#products">@L["all_products"]</a>
+    <a href="/#how">@L["how_order"]</a>
+    <a href="/#reviews">@L["reviews"]</a>
+    <a href="/#contact">@L["contact"]</a>
+    <a class="mobile-menu__minor" href="#">@L["access_policy"]</a>
+    <div class="mobile-menu__actions">
+      <a class="btn btn--secondary" href="tel:+97298874680"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><span class="ltr">09-887-4680</span></a>
+      <a class="btn btn--whatsapp" href="https://wa.me/972508494172"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"/><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"/></svg>WhatsApp</a>
+    </div>
+  </nav>
+  <section class="a11y-panel" id="a11y-panel" aria-labelledby="a11y-h" hidden>
+    <h2 id="a11y-h">@L["access_settings"]</h2>
+    <div class="a11y-panel__group" role="group" aria-label="@L["access_text_size_aria"]">
+      <button class="btn-icon" type="button" data-a11y="text" data-value="lg" aria-pressed="false">A+</button>
+      <button class="btn-icon" type="button" data-a11y="text" data-value="xl" aria-pressed="false">A++</button>
+    </div>
+    <div class="a11y-panel__group">
+      <button class="btn-icon" type="button" data-a11y="contrast" aria-pressed="false">@L["access_high_contrast"]</button>
+      <button class="btn-icon" type="button" data-a11y="links" aria-pressed="false">@L["access_link_highlight"]</button>
+    </div>
+    <div class="a11y-panel__group">
+      <button class="btn-icon" type="button" data-a11y="reset">@L["access_reset"]</button>
+      <button class="btn-icon" type="button" data-a11y="close">@L["access_close"]</button>
+      <a class="link-more" href="#">@L["access_policy"]</a>
+    </div>
+  </section>
+</header>

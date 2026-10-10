@@ -1,0 +1,362 @@
+﻿@page "/"
+@model IndexModel
+@{
+  ViewData["Title"] = "Home page";
+}
+    
+
+<main id="main">
+  <section class="container hero" aria-labelledby="hero-h">
+    <div class="hero__text">
+      <p class="eyebrow"><span class="cmyk-bars"
+                                 aria-hidden="true"><span></span><span></span><span></span><span></span></span>@L["since_text"]</p>
+        <h1 id="hero-h">@L["hero_header"]</h1>
+        <p class="hero__lead">@L["hero_lead"]</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--lg" href="/stickers">@L["calc_stickers"]</a>
+          <a class="link-action" href="#products">@L["all_products"] <span aria-hidden="true">←</span></a>
+        </div>
+        <p class="hero__proof"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <rect x="3" y="6" width="18" height="13" rx="2" />
+          <circle cx="12" cy="12.5" r="3.5" />
+          <path d="M8 6l1.5-2h5L16 6" />
+        </svg>@L["proof"]</p>
+        <ul class="trust">
+          @* untranslated for future functionality *@
+          <li><span class="stars" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"
+                                                          focusable="false">
+            <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+          </svg></span><strong>4.9</strong> בגוגל · 13 ביקורות</li>
+          @* untranslated for future functionality *@
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M5 12.5l4.5 4.5L19 7.5" />
+          </svg>@L["since"]</li>
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M5 12.5l4.5 4.5L19 7.5" />
+          </svg>@L["ready_in"]</li>
+        </ul>
+      </div>
+      <div class="hero__media">
+        <div class="crop"><img src="~/img/stickers-hero.jpg" alt="@L["stickers_image_hero"]" decoding="async"><span
+          class="crop__b" aria-hidden="true"></span></div>
+        </div>
+      </section>
+
+      <section class="section--surface" aria-label="@L["rus_heb"]">
+        <ul class="container benefits">
+          <li class="benefit"><span class="chip-icon chip-icon--magenta"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                                                                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                                                              focusable="false">
+            <path d="M3 5h11v8H8l-3 3v-3H3z" />
+            <path d="M14 9h7v8h-2v3l-3-3h-5v-4" />
+          </svg></span>
+          <div class="benefit__body"><strong class="benefit__title">@L["rus_heb"]</strong><span
+            class="benefit__text">@L["talk_whatsapp"]</span></div>
+          </li>
+          <li class="benefit"><span class="chip-icon chip-icon--cyan"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                                                                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                                                           focusable="false">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" />
+          </svg></span>
+          <div class="benefit__body"><strong class="benefit__title">@L["ready_in"]</strong><span
+            class="benefit__text">@L["ready_depends"]</span></div>
+          </li>
+          <li class="benefit"><span class="chip-icon chip-icon--yellow"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                                                                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                                                             focusable="false">
+            <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" />
+            <circle cx="12" cy="9.5" r="2.5" />
+          </svg></span>
+          <div class="benefit__body"><strong class="benefit__title">@L["collect_print"]</strong><span
+            class="benefit__text">@L["collect_address"]</span></div>
+          </li>
+          <li class="benefit"><span class="chip-icon chip-icon--grey"><svg class="icon" viewBox="0 0 24 24" fill="none"
+                                                                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                                                           focusable="false">
+            <rect x="3" y="4" width="18" height="13" rx="2" />
+            <path d="M8 21h8M12 17v4M9 9l2 2 4-4" />
+          </svg></span>
+          <div class="benefit__body"><strong class="benefit__title">@L["order_site"]</strong><span
+            class="benefit__text">@L["order_description"]</span></div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section" id="products" aria-labelledby="prod-h">
+        <div class="container section__stack">
+          <div class="section-head">
+            <h2 id="prod-h">@L["our_products"]</h2>
+            <p>@L["minimum_price_incl"]</p>
+          </div>
+          <div class="products-grid">
+            <a class="tile" href="/stickers">
+              <img src="~/img/stickers-sheet.jpg" alt="" class="tile__img" loading="lazy" decoding="async">
+              <div class="tile__body"><span class="badge badge--calc">מחשבון מחיר</span>
+                <h3>מדבקות</h3>
+                <p class="tile__desc">נייר או פלסטיק — עגולות, מלבניות או בצורה חופשית.</p><span class="tile__more">לפרטים
+                ומחיר <span aria-hidden="true">←</span></span>
+              </div>
+            </a>
+            <a class="tile" href="/business-cards">
+              <img src="~/img/business-cards.jpg" alt="" class="tile__img" loading="lazy" decoding="async">
+              <div class="tile__body"><span class="badge badge--table">טבלת מחירים</span>
+                <h3>כרטיסי ביקור</h3>
+                <p class="tile__desc">חד או דו-צדדי, למינציה ופינות מעוגלות.</p><span class="tile__more">לפרטים ומחיר <span
+                aria-hidden="true">←</span></span>
+              </div>
+            </a>
+            <a class="tile" href="#">
+              <img src="~/img/event-printing.jpg" alt="" class="tile__img" loading="lazy" decoding="async">
+              <div class="tile__body"><span class="badge badge--table">טבלת מחירים</span>
+                <h3>מיתוג ודפוס לאירועים</h3>
+                <p class="tile__desc">הזמנות, גלויות ותפריטים לחתונה, לבר/בת מצווה ולכל אירוע.</p><span
+                class="tile__more">לפרטים ומחיר <span aria-hidden="true">←</span></span>
+              </div>
+            </a>
+            <a class="tile" href="#">
+              <img src="~/img/receipt-books.jpg" alt="" class="tile__img" loading="lazy" decoding="async">
+              <div class="tile__body"><span class="badge badge--table">טבלת מחירים</span>
+                <h3>פנקסים</h3>
+                <p class="tile__desc">פנקסי קבלות, חשבוניות והזמנות עבודה ממוספרים.</p><span class="tile__more">לפרטים ומחיר
+                <span aria-hidden="true">←</span></span>
+              </div>
+            </a>
+            <a class="tile" href="#">
+              <img src="~/img/envelopes.jpg" alt="" class="tile__img" loading="lazy" decoding="async">
+              <div class="tile__body"><span class="badge badge--table">טבלת מחירים</span>
+                <h3>מעטפות</h3>
+                <p class="tile__desc">מעטפות ממותגות עם לוגו וכתובת, בכל הגדלים.</p><span class="tile__more">לפרטים ומחיר
+                <span aria-hidden="true">←</span></span>
+              </div>
+            </a>
+            <a class="tile" href="#">
+              <img src="~/img/catalogs.jpg" alt="" class="tile__img" loading="lazy" decoding="async">
+              <div class="tile__body"><span class="badge badge--calc">מחשבון מחיר</span>
+                <h3>קטלוגים</h3>
+                <p class="tile__desc">קטלוגים וחוברות — מחיר מיידי במחשבון.</p><span class="tile__more">לפרטים ומחיר <span
+                aria-hidden="true">←</span></span>
+              </div>
+            </a>
+            <a class="tile" href="#">
+              <img src="~/img/roll-ups.jpg" alt="" class="tile__img" loading="lazy" decoding="async">
+              <div class="tile__body"><span class="badge badge--table">טבלת מחירים</span>
+                <h3>רול-אפים</h3>
+                <p class="tile__desc">רול-אפ עם מתקן — לתערוכות, לחנויות ולאירועים.</p><span class="tile__more">לפרטים ומחיר
+                <span aria-hidden="true">←</span></span>
+              </div>
+            </a>
+            <a class="tile" href="#">
+              <img src="~/img/banners.jpg" alt="" class="tile__img" loading="lazy" decoding="async">
+              <div class="tile__body"><span class="badge badge--calc">מחשבון מחיר</span>
+                <h3>באנרים</h3>
+                <p class="tile__desc">באנרים בפורמט רחב — מחיר מיידי במחשבון.</p><span class="tile__more">לפרטים ומחיר <span
+                aria-hidden="true">←</span></span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--dark on-dark" id="how" aria-labelledby="how-h">
+        <div class="container section__stack">
+          <div class="section-head">
+            <h2 id="how-h">איך מזמינים</h2>
+          </div>
+          <ol class="steps">
+            <li class="step"><span class="step__num" aria-hidden="true">01</span>
+              <h3>בוחרים ומחשבים</h3>
+              <p class="step__text">בוחרים מוצר ופרמטרים ורואים מחיר כולל מע״מ.</p>
+            </li>
+            <li class="step"><span class="step__num" aria-hidden="true">02</span>
+              <h3>מעלים קובץ ושולחים</h3>
+              <p class="step__text">PDF, PNG או JPEG עד 100MB. אישור הזמנה יגיע למייל.</p>
+            </li>
+            <li class="step"><span class="step__num" aria-hidden="true">03</span>
+              <h3>מאשרים הדפסת ניסיון</h3>
+              <p class="step__text">נשלח צילום או וידאו ב-WhatsApp. מדפיסים אחרי האישור.</p>
+            </li>
+            <li class="step"><span class="step__num" aria-hidden="true">04</span>
+              <h3>אוספים מבית הדפוס</h3>
+              <p class="step__text">ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</p>
+            </li>
+          </ol>
+          <p class="pay-line"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <rect x="3" y="7" width="18" height="11" rx="2" />
+            <path d="M3 11h18" />
+          </svg>התשלום מחוץ לאתר: מזומן, כרטיס אשראי, Bit או העברה בנקאית.</p>
+        </div>
+      </section>
+
+      <section class="section" id="reviews" aria-labelledby="rev-h">
+        <div class="container section__stack">
+          <div class="section-head">
+            <h2 id="rev-h">מה הלקוחות אומרים</h2>
+          </div>
+          <div class="reviews-grid">
+            <div class="rating-card"><span class="rating-card__score">4.9</span><span class="stars" aria-hidden="true"><svg
+              class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+            </svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+          </svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+        </svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+      </svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+    </svg></span><span>13 ביקורות בגוגל</span><a class="link-more"
+                                               href="https://www.google.com/search?q=PrintABC+Netanya">לכל הביקורות בגוגל <span
+    aria-hidden="true">←</span></a></div>
+    <figure class="review"><span class="stars" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"
+                                                                       aria-hidden="true" focusable="false">
+      <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+    </svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+  </svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg></span>
+<blockquote>«תודה רבה, היה שירות מעולה ברמה גבוהה מאוד.»</blockquote>
+<figcaption>Artem Y · Google</figcaption>
+</figure>
+<figure class="review"><span class="stars" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"
+                                                                   aria-hidden="true" focusable="false">
+  <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg></span>
+<blockquote>«שירות נפלא, איכות מדהימה!»</blockquote>
+<figcaption>Oren Grinfeld · Google</figcaption>
+</figure>
+<figure class="review"><span class="stars" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"
+                                                                   aria-hidden="true" focusable="false">
+  <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+</svg></span>
+<blockquote>«שירות מעולה ומהיר, ממליצה בחום.»</blockquote>
+<figcaption>מירי חורם · Google</figcaption>
+</figure>
+</div>
+    
+</div>
+</section>
+
+<section class="section section--surface" id="about" aria-labelledby="about-h">
+  <div class="container about">
+    <div class="about__media">
+      <div class="about__photo-wrap">
+        <figure class="about__photo crop"><img src="~/img/family-archive-lowres.jpg"
+                                                 alt="המשפחה של דפוס איי.בי.סי בבית הדפוס בנתניה" loading="lazy" decoding="async">
+          <figcaption>אנחנו — דפוס איי.בי.סי</figcaption><span class="crop__b" aria-hidden="true"></span>
+        </figure>
+        <div class="since-sticker" aria-hidden="true"><span class="since-sticker__small">מאז</span><span
+          class="since-sticker__year">2001</span></div>
+        </div>
+      </div>
+      <div class="about__text">
+        <p class="eyebrow"><span class="cmyk-bars"
+                                   aria-hidden="true"><span></span><span></span><span></span><span></span></span>מי אנחנו</p>
+          <h2 id="about-h">בית דפוס משפחתי מאז 2001</h2>
+          <p>דפוס איי.בי.סי הוא עסק משפחתי בנתניה. מאז 2001 אנחנו מדפיסים לעצמאים, לעסקים וללקוחות פרטיים — ומכירים אישית
+            את מי שמזמין מאיתנו.</p>
+            <ul class="check-list">
+              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg><span>מדפיסים בעצמנו — בבית הדפוס שלנו בנתניה</span></li>
+              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg><span>בודקים כל קובץ לפני ההדפסה</span></li>
+              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg><span>מדברים איתכם ישירות — בעברית או ברוסית</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact" aria-labelledby="contact-h">
+        <div class="container">
+          <div class="contact-card">
+            <div>
+              <h2 id="contact-h">איך מגיעים אלינו</h2>
+              <ul class="contact-list">
+                <li><span class="chip-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" />
+                  <circle cx="12" cy="9.5" r="2.5" />
+                </svg></span>
+                <div class="contact-list__body"><span class="contact-list__label">כתובת</span><span>רח׳ שטמפפר 5,
+                  נתניה</span><a class="link-more" href="https://waze.com/ul?q=Shtampfer%205%20Netanya">ניווט ב-Waze
+                  <span aria-hidden="true">←</span></a></div>
+                </li>
+                <li><span class="chip-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 2" />
+                </svg></span>
+                <div class="contact-list__body"><span class="contact-list__label">שעות פעילות</span><span>א׳–ה׳ <bdi
+                  dir="ltr">9:00–14:00</bdi></span><span class="contact-list__sub">הזמנה באתר — 24/7</span></div>
+                </li>
+                <li><span class="chip-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path
+                  d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" />
+                </svg></span>
+                <div class="contact-list__body"><span class="contact-list__label">טלפון</span><a
+                  class="contact-list__value ltr" href="tel:+97298874680">09-887-4680</a></div>
+                </li>
+                <li><span class="chip-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" />
+                  <path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z"
+                        stroke-width="1.6" />
+                </svg></span>
+                <div class="contact-list__body"><span class="contact-list__label">WhatsApp</span><a
+                  class="contact-list__value ltr" href="https://wa.me/972508494172">050-849-4172</a></div>
+                </li>
+                <li><span class="chip-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="M3.5 6.5l8.5 6.5 8.5-6.5" />
+                </svg></span>
+                <div class="contact-list__body"><span class="contact-list__label">דוא״ל</span><a
+                  class="contact-list__value" href="mailto:print@printabc.co.il">print@printabc.co.il</a></div>
+                </li>
+              </ul>
+            </div>
+            <div class="map">
+              <!-- Replace with Google Maps embed: <iframe src="https://www.google.com/maps?q=Shtampfer+5+Netanya&output=embed" title="מפה: רח׳ שטמפפר 5, נתניה" loading="lazy"></iframe> -->
+              <svg class="icon icon--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" />
+                <circle cx="12" cy="9.5" r="2.5" />
+              </svg><span>מפת גוגל: רח׳ שטמפפר 5, נתניה</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>

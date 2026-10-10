@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__col site-footer__brand">
+      <span class="logo"><span class="logo__mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span class="logo__text">@L["printabc"]</span></span>
+      <span>@L["family_print"]</span>
+      <span>@L["since"]</span>
+    </div>
+    <nav class="site-footer__col" aria-labelledby="f-prod"><strong id="f-prod">@L["products"]</strong><a href="/stickers">@L["stickers"]</a><a href="/business-cards">@L["business_cards"]</a><a href="#">@L["branding"]</a><a href="#">@L["pinkasim"]</a><a href="#">@L["envelopes"]</a><a href="#">@L["catalogs"]</a><a href="#">@L["rollups"]</a><a href="#">@L["banners"]</a></nav>
+    <nav class="site-footer__col" aria-labelledby="f-info"><strong id="f-info">@L["info"]</strong><a href="#">@L["about"]</a><a href="#">@L["file_requirements"]</a><a href="#">@L["order_requirements"]</a><a href="#">@L["tos"]</a><a href="#">@L["privacy_policy"]</a><a href="#">@L["accessibility_terms"]</a></nav>
+    <address class="site-footer__col">
+      <strong>@L["contact"]</strong>
+      <span>@L["contact_address"]</span>
+      <span>@L["contact_days"] <bdi dir="ltr">9:00–14:00</bdi></span>
+      <a class="site-footer__strong" href="tel:+97298874680"><span class="ltr">09-887-4680</span></a>
+      <a class="site-footer__strong" href="https://wa.me/972508494172">WhatsApp <span class="ltr">050-849-4172</span></a>
+      <a href="mailto:print@printabc.co.il">print@printabc.co.il</a>
+    </address>
+  </div>
+  <div class="container site-footer__copy"><bdi dir="ltr">© 2001–2026</bdi>@L["copyright"]</div>
+</footer>
