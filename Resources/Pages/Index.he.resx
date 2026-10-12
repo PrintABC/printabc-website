@@ -144,31 +144,115 @@
   <data name="stickers_image_hero" xml:space="preserve">
     <value>מדבקות בצורות ובצבעים שונים על גיליון</value>
   </data>
-    <data name="rus_heb" xml:space="preserve">
-      <value>עברית ורוסית</value>
-    </data>
-    <data name="talk_whatsapp" xml:space="preserve">
-      <value>מדברים איתכם בשפה הנוחה לכם — בטלפון, ב-WhatsApp ובמייל.</value>
-    </data>
-    <data name="ready_depends" xml:space="preserve">
-      <value>זמן הייצור תלוי במוצר ובכמות.</value>
-    </data>
-    <data name="collect_print" xml:space="preserve">
-      <value>איסוף מבית הדפוס</value>
-    </data>
-    <data name="collect_address" xml:space="preserve">
-      <value>חינם, מרח׳ שטמפפר 5 בנתניה — בשעות הפעילות.</value>
-    </data>
-    <data name="order_site" xml:space="preserve">
-      <value>הזמנה באתר 24/7</value>
-    </data>
-    <data name="order_description" xml:space="preserve">
-      <value>מחשבים, מעלים קובץ ושולחים — גם מחוץ לשעות הפעילות.</value>
-    </data>
-    <data name="our_products" xml:space="preserve">
-      <value>המוצרים שלנו</value>
-    </data>
-    <data name="minimum_price_incl" xml:space="preserve">
-      <value>המחירים כוללים מע״מ · מינימום הזמנה 60 ₪</value>
-    </data>
+  <data name="rus_heb" xml:space="preserve">
+    <value>עברית ורוסית</value>
+  </data>
+  <data name="talk_whatsapp" xml:space="preserve">
+    <value>מדברים איתכם בשפה הנוחה לכם — בטלפון, ב-WhatsApp ובמייל.</value>
+  </data>
+  <data name="ready_depends" xml:space="preserve">
+    <value>זמן הייצור תלוי במוצר ובכמות.</value>
+  </data>
+  <data name="collect_print" xml:space="preserve">
+    <value>איסוף מבית הדפוס</value>
+  </data>
+  <data name="collect_address" xml:space="preserve">
+    <value>חינם, מרח׳ שטמפפר 5 בנתניה — בשעות הפעילות.</value>
+  </data>
+  <data name="order_site" xml:space="preserve">
+    <value>הזמנה באתר 24/7</value>
+  </data>
+  <data name="order_description" xml:space="preserve">
+    <value>מחשבים, מעלים קובץ ושולחים — גם מחוץ לשעות הפעילות.</value>
+  </data>
+  <data name="our_products" xml:space="preserve">
+    <value>המוצרים שלנו</value>
+  </data>
+  <data name="minimum_price_incl" xml:space="preserve">
+    <value>המחירים כוללים מע״מ · מינימום הזמנה 60 ₪</value>
+  </data>
+  <data name="stickers" xml:space="preserve">
+    <value>מדבקות</value>
+  </data>
+  <data name="stickers_description" xml:space="preserve">
+    <value>נייר או פלסטיק — עגולות, מלבניות או בצורה חופשית.</value>
+  </data>
+  <data name="price_calculator_badge" xml:space="preserve">
+    <value>מחשבון מחיר</value>
+  </data>
+  <data name="more_details" xml:space="preserve">
+    <value>לפרטים ומחיר </value>
+  </data>
+  <data name="price_table_badge" xml:space="preserve">
+    <value>טבלת מחירים</value>
+  </data>
+  <data name="business_cards" xml:space="preserve">
+    <value>כרטיסי ביקור</value>
+  </data>
+  <data name="business_cards_description" xml:space="preserve">
+    <value>חד או דו-צדדי, למינציה ופינות מעוגלות.</value>
+  </data>
+  <data name="print_events" xml:space="preserve">
+    <value>מיתוג ודפוס לאירועים</value>
+  </data>
+  <data name="print_events_description" xml:space="preserve">
+    <value>הזמנות, גלויות ותפריטים לחתונה, לבר/בת מצווה ולכל אירוע.</value>
+  </data>
+  <data name="pinkasim_description" xml:space="preserve">
+    <value>פנקסי קבלות, חשבוניות והזמנות עבודה ממוספרים.</value>
+  </data>
+  <data name="pinkasim" xml:space="preserve">
+    <value>פנקסים</value>
+  </data>
+  <data name="envelopes" xml:space="preserve">
+    <value>מעטפות</value>
+  </data>
+  <data name="envelopes_description" xml:space="preserve">
+    <value>מעטפות ממותגות עם לוגו וכתובת, בכל הגדלים.</value>
+  </data>
+  <data name="catalogs" xml:space="preserve">
+    <value>קטלוגים</value>
+  </data>
+  <data name="catalogs_description" xml:space="preserve">
+    <value>קטלוגים וחוברות — מחיר מיידי במחשבון.</value>
+  </data>
+  <data name="rollups" xml:space="preserve">
+    <value>רול-אפים</value>
+  </data>
+  <data name="rollups_description" xml:space="preserve">
+    <value>רול-אפ עם מתקן — לתערוכות, לחנויות ולאירועים.</value>
+  </data>
+  <data name="banners" xml:space="preserve">
+    <value>באנרים</value>
+  </data>
+  <data name="banners_description" xml:space="preserve">
+    <value>באנרים בפורמט רחב — מחיר מיידי במחשבון.</value>
+  </data>
+  <data name="how_to_order" xml:space="preserve">
+    <value>איך מזמינים</value>
+  </data>
+  <data name="approve_sample" xml:space="preserve">
+    <value>מאשרים הדפסת ניסיון</value>
+  </data>
+  <data name="approve_sample_description" xml:space="preserve">
+    <value>נשלח צילום או וידאו ב-WhatsApp. מדפיסים אחרי האישור.</value>
+  </data>
+  <data name="collect_order" xml:space="preserve">
+    <value>אוספים מבית הדפוס</value>
+  </data>
+  <data name="collect_order_description" xml:space="preserve">
+    <value>ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</value>
+  </data>
+  <data name="pick_calculate" xml:space="preserve">
+    <value>בוחרים ומחשבים</value>
+  </data>
+  <data name="pick_calculate_description" xml:space="preserve">
+    <value>בוחרים מוצר ופרמטרים ורואים מחיר כולל מע״מ.</value>
+  </data>
+  <data name="send_file" xml:space="preserve">
+    <value>מעלים קובץ ושולחים</value>
+  </data>
+  <data name="send_file_description" xml:space="preserve">
+    <value>PDF, PNG או JPEG עד 100MB. אישור הזמנה יגיע למייל.</value>
+  </data>
 </root>
