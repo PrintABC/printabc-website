@@ -210,7 +210,7 @@
   <data name="total_inc_vat" xml:space="preserve">
     <value>Итого с НДС</value>
   </data>
-  <data name="price_just_goof" xml:space="preserve">
+  <data name="price_just_vat" xml:space="preserve">
     <value>в т. ч. НДС (18%)</value>
   </data>
   <data name="price_per_unit" xml:space="preserve">
@@ -290,5 +290,8 @@
   </data>
   <data name="meta_title" xml:space="preserve">
     <value>Наклейки на заказ — PrintABC</value>
+  </data>
+  <data name="roll_round_stickers_alt" xml:space="preserve">
+    <value>Лист круглых наклеек</value>
   </data>
 </root>

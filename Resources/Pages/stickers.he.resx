@@ -210,7 +210,7 @@
   <data name="total_inc_vat" xml:space="preserve">
     <value>סה״כ כולל מע״מ</value>
   </data>
-  <data name="price_just_goof" xml:space="preserve">
+  <data name="price_just_vat" xml:space="preserve">
     <value>מתוכו מע״מ (18%)</value>
   </data>
   <data name="price_per_unit" xml:space="preserve">
@@ -286,9 +286,12 @@
     <value>מינימום הזמנה — 60 ₪ כולל מע״מ</value>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>בוחרים חומר, צורה, גודל וכמות — ורואים מחיר כולל מע״מ מיד. הזמנה באתר 24/7.</value>
+    <value>נייר או פלסטיק · עגולות, מלבניות או בצורה חופשית · מ-1×1 ס״מ. המחיר כולל מע״מ ומתעדכן מיד.</value>
   </data>
   <data name="meta_title" xml:space="preserve">
     <value>מדבקות בהזמנה אישית — דפוס איי.בי.סי</value>
+  </data>
+  <data name="roll_round_stickers_alt" xml:space="preserve">
+    <value>גיליון מדבקות עגולות</value>
   </data>
 </root>

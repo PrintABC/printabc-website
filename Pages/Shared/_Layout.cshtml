@@ -14,8 +14,6 @@
     <title>@(ViewData["Title"]?? "PrintABC")</title>
     <meta name="description" content="@(ViewData["MetaDescription"] ?? "PrintABC")" />
     <script type="importmap"></script>
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PrintABC.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800&amp;family=Assistant:wght@400;600;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800&amp;family=Golos+Text:wght@400;600;700&amp;display=swap">
@@ -34,10 +32,7 @@
     </main>
     <partial name="_Footer" />
     <partial name="_BottomBar" model="@ViewData["BottomBar"]" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/main.js" defer></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
