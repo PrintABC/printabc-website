@@ -255,10 +255,142 @@
   <data name="send_file_description" xml:space="preserve">
     <value>PDF, PNG או JPEG עד 100MB. אישור הזמנה יגיע למייל.</value>
   </data>
-  <data name="meta_title" xml:space="preserve">
-    <value>דפוס איי.בי.סי — מדבקות ודפוס בנתניה</value>
+  <data name="pay_line" xml:space="preserve">
+    <value>התשלום מחוץ לאתר: מזומן, כרטיס אשראי, Bit או העברה בנקאית.</value>
   </data>
-  <data name="meta_description" xml:space="preserve">
-    <value>בוחרים חומר, צורה, גודל וכמות — ורואים מחיר כולל מע״מ מיד. הזמנה באתר 24/7.</value>
+  <data name="what_clients_say" xml:space="preserve">
+    <value>מה הלקוחות אומרים</value>
+  </data>
+  <data name="reviews_count" xml:space="preserve">
+    <value>13 ביקורות בגוגל</value>
+  </data>
+  <data name="all_google_reviews" xml:space="preserve">
+    <value>לכל הביקורות בגוגל </value>
+  </data>
+  <data name="review_1_text" xml:space="preserve">
+    <value>«תודה רבה, היה שירות מעולה ברמה גבוהה מאוד.»</value>
+  </data>
+  <data name="review_1_author" xml:space="preserve">
+    <value>Artem Y · Google</value>
+  </data>
+  <data name="review_2_text" xml:space="preserve">
+    <value>«שירות נפלא, איכות מדהימה!»</value>
+  </data>
+  <data name="review_2_author" xml:space="preserve">
+    <value>Oren Grinfeld · Google</value>
+  </data>
+  <data name="review_3_text" xml:space="preserve">
+    <value>«שירות מעולה ומהיר, ממליצה בחום.»</value>
+  </data>
+  <data name="review_3_author" xml:space="preserve">
+    <value>מירי חורם · Google</value>
+  </data>
+  <data name="reviews_translated_note" xml:space="preserve">
+    <value />
+  </data>
+  <data name="about_photo_alt" xml:space="preserve">
+    <value>המשפחה של דפוס איי.בי.סי בבית הדפוס בנתניה</value>
+  </data>
+  <data name="about_photo_caption" xml:space="preserve">
+    <value>אנחנו — דפוס איי.בי.סי</value>
+  </data>
+  <data name="since_badge_small" xml:space="preserve">
+    <value>מאז</value>
+  </data>
+  <data name="about_eyebrow" xml:space="preserve">
+    <value>מי אנחנו</value>
+  </data>
+  <data name="about_header" xml:space="preserve">
+    <value>בית דפוס משפחתי מאז 2001</value>
+  </data>
+  <data name="about_text_1" xml:space="preserve">
+    <value>דפוס איי.בי.סי הוא עסק משפחתי בנתניה. מאז 2001 אנחנו מדפיסים לעצמאים, לעסקים וללקוחות פרטיים — ומכירים אישית את מי שמזמין מאיתנו.</value>
+  </data>
+  <data name="checklist_1" xml:space="preserve">
+    <value>מדפיסים בעצמנו — בבית הדפוס שלנו בנתניה</value>
+  </data>
+  <data name="checklist_2" xml:space="preserve">
+    <value>בודקים כל קובץ לפני ההדפסה</value>
+  </data>
+  <data name="checklist_3" xml:space="preserve">
+    <value>מדברים איתכם ישירות — בעברית או ברוסית</value>
+  </data>
+  <data name="contact_header" xml:space="preserve">
+    <value>איך מגיעים אלינו</value>
+  </data>
+  <data name="address_label" xml:space="preserve">
+    <value>כתובת</value>
+  </data>
+  <data name="address_value" xml:space="preserve">
+    <value>רח׳ שטמפפר 5, נתניה</value>
+  </data>
+  <data name="waze_nav" xml:space="preserve">
+    <value>ניווט ב-Waze </value>
+  </data>
+  <data name="hours_label" xml:space="preserve">
+    <value>שעות פעילות</value>
+  </data>
+  <data name="hours_value" xml:space="preserve">
+    <value>א׳–ה׳ </value>
+  </data>
+  <data name="hours_sub" xml:space="preserve">
+    <value>הזמנה באתר — 24/7</value>
+  </data>
+  <data name="phone_label" xml:space="preserve">
+    <value>טלפון</value>
+  </data>
+  <data name="whatsapp_label" xml:space="preserve">
+    <value>WhatsApp</value>
+  </data>
+  <data name="email_label" xml:space="preserve">
+    <value>דוא״ל</value>
+  </data>
+  <data name="map_caption" xml:space="preserve">
+    <value>מפת גוגל: רח׳ שטמפפר 5, נתניה</value>
+  </data>
+  <data name="logo_text" xml:space="preserve">
+    <value>דפוס איי.בי.סי</value>
+  </data>
+  <data name="footer_subtitle" xml:space="preserve">
+    <value>בית דפוס משפחתי בנתניה</value>
+  </data>
+  <data name="footer_since" xml:space="preserve">
+    <value>מאז 2001</value>
+  </data>
+  <data name="footer_products_heading" xml:space="preserve">
+    <value>מוצרים</value>
+  </data>
+  <data name="footer_info_heading" xml:space="preserve">
+    <value>מידע</value>
+  </data>
+  <data name="footer_contact_heading" xml:space="preserve">
+    <value>יצירת קשר</value>
+  </data>
+  <data name="footer_info_about" xml:space="preserve">
+    <value>אודות</value>
+  </data>
+  <data name="footer_info_file_req" xml:space="preserve">
+    <value>דרישות לקבצים</value>
+  </data>
+  <data name="footer_info_order_terms" xml:space="preserve">
+    <value>תנאי הזמנה</value>
+  </data>
+  <data name="footer_info_terms" xml:space="preserve">
+    <value>תנאי שימוש</value>
+  </data>
+  <data name="footer_info_privacy" xml:space="preserve">
+    <value>מדיניות פרטיות</value>
+  </data>
+  <data name="footer_info_accessibility" xml:space="preserve">
+    <value>הצהרת נגישות</value>
+  </data>
+  <data name="copyright" xml:space="preserve">
+    <value>דפוס איי.בי.סי. כל הזכויות שמורות.</value>
+  </data>
+  <data name="wa_aria" xml:space="preserve">
+    <value>כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="call_aria" xml:space="preserve">
+    <value>התקשרו אלינו</value>
   </data>
 </root>

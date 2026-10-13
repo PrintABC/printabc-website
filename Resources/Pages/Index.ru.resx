@@ -255,10 +255,142 @@
   <data name="send_file_description" xml:space="preserve">
     <value>PDF, PNG или JPEG до 100 МБ. Подтверждение придёт на e-mail.</value>
   </data>
-  <data name="meta_title" xml:space="preserve">
-    <value>PrintABC — наклейки и печать в Нетании</value>
+  <data name="pay_line" xml:space="preserve">
+    <value>Оплата вне сайта: наличные, карта, Bit или банковский перевод.</value>
   </data>
-  <data name="meta_description" xml:space="preserve">
-    <value>Выберите материал, форму, размер и тираж — цена с НДС сразу. Заказ на сайте 24/7.</value>
+  <data name="what_clients_say" xml:space="preserve">
+    <value>Что говорят клиенты</value>
+  </data>
+  <data name="reviews_count" xml:space="preserve">
+    <value>13 отзывов в Google</value>
+  </data>
+  <data name="all_google_reviews" xml:space="preserve">
+    <value>Все отзывы в Google </value>
+  </data>
+  <data name="review_1_text" xml:space="preserve">
+    <value>«Спасибо большое, отличный сервис на очень высоком уровне.»</value>
+  </data>
+  <data name="review_1_author" xml:space="preserve">
+    <value>Artem Y · Google</value>
+  </data>
+  <data name="review_2_text" xml:space="preserve">
+    <value>«Прекрасный сервис, потрясающее качество!»</value>
+  </data>
+  <data name="review_2_author" xml:space="preserve">
+    <value>Oren Grinfeld · Google</value>
+  </data>
+  <data name="review_3_text" xml:space="preserve">
+    <value>«Отличный и быстрый сервис, горячо рекомендую.»</value>
+  </data>
+  <data name="review_3_author" xml:space="preserve">
+    <value>Мири Хорам · Google</value>
+  </data>
+  <data name="reviews_translated_note" xml:space="preserve">
+    <value>Отзывы переведены с иврита.</value>
+  </data>
+  <data name="about_photo_alt" xml:space="preserve">
+    <value>Семья PrintABC в типографии в Нетании</value>
+  </data>
+  <data name="about_photo_caption" xml:space="preserve">
+    <value>Это мы — PrintABC</value>
+  </data>
+  <data name="since_badge_small" xml:space="preserve">
+    <value>с</value>
+  </data>
+  <data name="about_eyebrow" xml:space="preserve">
+    <value>Кто мы</value>
+  </data>
+  <data name="about_header" xml:space="preserve">
+    <value>Семейная типография с 2001 года</value>
+  </data>
+  <data name="about_text_1" xml:space="preserve">
+    <value>PrintABC — семейная типография в Нетании. С 2001 года печатаем для частных предпринимателей, бизнеса и частных клиентов — и лично знаем тех, кто у нас заказывает.</value>
+  </data>
+  <data name="checklist_1" xml:space="preserve">
+    <value>Печатаем сами — в своей типографии в Нетании</value>
+  </data>
+  <data name="checklist_2" xml:space="preserve">
+    <value>Проверяем каждый файл перед печатью</value>
+  </data>
+  <data name="checklist_3" xml:space="preserve">
+    <value>Общаемся напрямую — на иврите или по-русски</value>
+  </data>
+  <data name="contact_header" xml:space="preserve">
+    <value>Как нас найти</value>
+  </data>
+  <data name="address_label" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="address_value" xml:space="preserve">
+    <value>ул. Штампфер 5, Нетания</value>
+  </data>
+  <data name="waze_nav" xml:space="preserve">
+    <value>Маршрут в Waze </value>
+  </data>
+  <data name="hours_label" xml:space="preserve">
+    <value>Часы работы</value>
+  </data>
+  <data name="hours_value" xml:space="preserve">
+    <value>Вс–Чт  </value>
+  </data>
+  <data name="hours_sub" xml:space="preserve">
+    <value>Заказ на сайте — круглосуточно</value>
+  </data>
+  <data name="phone_label" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="whatsapp_label" xml:space="preserve">
+    <value>WhatsApp</value>
+  </data>
+  <data name="email_label" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="map_caption" xml:space="preserve">
+    <value>Карта Google: ул. Штампфер 5, Нетания</value>
+  </data>
+  <data name="logo_text" xml:space="preserve">
+    <value>PrintABC</value>
+  </data>
+  <data name="footer_subtitle" xml:space="preserve">
+    <value>Семейная типография в Нетании</value>
+  </data>
+  <data name="footer_since" xml:space="preserve">
+    <value>С 2001 года</value>
+  </data>
+  <data name="footer_products_heading" xml:space="preserve">
+    <value>Продукция</value>
+  </data>
+  <data name="footer_info_heading" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="footer_contact_heading" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="footer_info_about" xml:space="preserve">
+    <value>О компании</value>
+  </data>
+  <data name="footer_info_file_req" xml:space="preserve">
+    <value>Требования к макетам</value>
+  </data>
+  <data name="footer_info_order_terms" xml:space="preserve">
+    <value>Условия заказа</value>
+  </data>
+  <data name="footer_info_terms" xml:space="preserve">
+    <value>Условия использования</value>
+  </data>
+  <data name="footer_info_privacy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="footer_info_accessibility" xml:space="preserve">
+    <value>Заявление о доступности</value>
+  </data>
+  <data name="copyright" xml:space="preserve">
+    <value>PrintABC. Все права защищены.</value>
+  </data>
+  <data name="wa_aria" xml:space="preserve">
+    <value>Написать в WhatsApp</value>
+  </data>
+  <data name="call_aria" xml:space="preserve">
+    <value>Позвонить</value>
   </data>
 </root>
