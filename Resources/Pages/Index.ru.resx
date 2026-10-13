@@ -393,4 +393,10 @@
   <data name="call_aria" xml:space="preserve">
     <value>Позвонить</value>
   </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>PrintABC — наклейки и печать в Нетании</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>Выберите материал, форму, размер и тираж — цена с НДС сразу. Заказ на сайте 24/7.</value>
+  </data>
 </root>

@@ -393,4 +393,10 @@
   <data name="call_aria" xml:space="preserve">
     <value>התקשרו אלינו</value>
   </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>דפוס איי.בי.סי — מדבקות ודפוס בנתניה</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>בוחרים חומר, צורה, גודל וכמות — ורואים מחיר כולל מע״מ מיד. הזמנה באתר 24/7.</value>
+  </data>
 </root>
