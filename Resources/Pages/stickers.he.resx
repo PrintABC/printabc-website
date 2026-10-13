@@ -276,4 +276,19 @@
   <data name="collect_order_description" xml:space="preserve">
     <value>ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</value>
   </data>
+  <data name="file_address" xml:space="preserve">
+    <value>איסוף עצמי מרח׳ שטמפפר 5, נתניה — חינם</value>
+  </data>
+  <data name="file_payment" xml:space="preserve">
+    <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
+  </data>
+  <data name="file_min_order" xml:space="preserve">
+    <value>מינימום הזמנה — 60 ₪ כולל מע״מ</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>בוחרים חומר, צורה, גודל וכמות — ורואים מחיר כולל מע״מ מיד. הזמנה באתר 24/7.</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>מדבקות בהזמנה אישית — דפוס איי.בי.סי</value>
+  </data>
 </root>

@@ -276,4 +276,19 @@
   <data name="collect_order_description" xml:space="preserve">
     <value>Заказ готов — бесплатно забираете на ул. Штампфер 5, Нетания.</value>
   </data>
+  <data name="file_address" xml:space="preserve">
+    <value>Самовывоз: ул. Штампфер 5, Нетания — бесплатно</value>
+  </data>
+  <data name="file_payment" xml:space="preserve">
+    <value>Оплата вне сайта: наличные, карта, Bit или перевод</value>
+  </data>
+  <data name="file_min_order" xml:space="preserve">
+    <value>Минимальный заказ — 60 ₪ с НДС</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>נייר או פלסטיק · עגולות, מלבניות או בצורה חופשית · מ-1×1 ס״מ. המחיר כולל מע״מ ומתעדכן מיד.</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>Наклейки на заказ — PrintABC</value>
+  </data>
 </root>
