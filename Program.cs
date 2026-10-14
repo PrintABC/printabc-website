@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Razor;
+using PrintABC.Services;
 using PrintABC.Utils;
 using System.Globalization;
 
@@ -35,6 +36,8 @@ namespace PrintABC
             })
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization();
+
+            builder.Services.AddSingleton<StickerCalculatorService>();
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {
