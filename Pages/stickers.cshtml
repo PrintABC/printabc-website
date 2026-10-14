@@ -26,7 +26,7 @@
                 @foreach (StickerMaterial item in Enum.GetValues<StickerMaterial>())
                 {
                     <label class="pill">
-                        <input type="radio" name="quoteRequest.Material" value="@item" checked="@(Model.quoteRequest.Material == item)"><span>@L[item.ToString().ToLower()]</span>
+                        <input type="radio" name="Material" value="@item" checked="@(Model.Material == item)" ><span>@L[item.ToString().ToLower()]</span>
                     </label>
                 }
             </div>
@@ -41,7 +41,7 @@
                 @foreach (ShapeType item in Enum.GetValues<ShapeType>())
                 {
                     <label class="pill">
-                        <input type="radio" name="quoteRequest.Shape" value="@item" checked="@(Model.quoteRequest.Shape == item)">
+                        <input type="radio" name="Shape" value="@item" checked="@(Model.Shape == item)" data-shape="@item.ToString().ToLower()">
                         @Html.Raw(Model.ShapeHTML[i])
                         <span>@L[$"shape_{item.ToString().ToLower()}"]</span>
                     </label>
@@ -55,7 +55,7 @@
                 @foreach (CutMode item in Enum.GetValues<CutMode>())
                 {
                     <label class="pill">
-                        <input type="radio" name="quoteRequest.CutMode" value="@item.ToString().ToLower()" checked="@(Model.quoteRequest.CutMode == item)"><span>@L[$"cutting_{item.ToString().ToLower()}"]</span>
+                        <input type="radio" name="CutMode" value="@item.ToString().ToLower()" checked="@(Model.CutMode == item)"><span>@L[$"cutting_{item.ToString().ToLower()}"]</span>
                     </label>
                 }
             </div>
@@ -64,23 +64,23 @@
             <legend>@L["size_cm"]</legend>
             <div id="size-round" class="field field__input--size">
                 <label class="field__hint" for="calc-d">@L["size_diameter"]</label>
-                <input class="field__input" id="calc-d" name="quoteRequest.WidthMm" type="number" inputmode="decimal" min="1" max="31.5" step="0.1" value="@Model.quoteRequest.WidthMm">
+                <input class="field__input" id="calc-d" name="WidthCm" type="number" inputmode="decimal" min="1" max="31.5" step="0.1" value="@Model.WidthCm">
             </div>
             <div id="size-rect" class="field-row" hidden>
                 <div class="field">
                     <label class="field__hint" for="calc-w">@L["size_width"]</label>
-                    <input class="field__input" id="calc-w" name="quoteRequest.WidthMm" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="@Model.quoteRequest.WidthMm">
+                    <input class="field__input" id="calc-w" name="WidthCm" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="@Model.WidthCm">
                 </div>
                 <div class="field">
                     <label class="field__hint" for="calc-h">@L["size_height"]</label>
-                    <input class="field__input" id="calc-h" name="quoteRequest.HeightMm" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="@Model.quoteRequest.HeightMm">
+                    <input class="field__input" id="calc-h" name="HeightCm" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="@Model.HeightCm">
                 </div>
             </div>
             <p class="field__hint" id="sz-hint">@L["size_min_max"]</p>
         </fieldset>
         <div class="field">
             <label class="field__label" for="calc-qty">@L["quantity"]</label>
-            <input class="field__input field__input--num" id="calc-qty" name="quoteRequest.Quantity" type="number" inputmode="numeric" min="1" step="1" value="@Model.quoteRequest.Quantity" aria-describedby="q-hint">
+            <input class="field__input field__input--num" id="calc-qty" name="Quantity" type="number" inputmode="numeric" min="1" step="1" value="@Model.Quantity" aria-describedby="q-hint">
             <p class="field__hint" id="q-hint">@L["quantity_price_limit"]</p>
         </div>
         <div class="alert alert--error" data-error="size" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_min_size"]</span></div><a href="https://wa.me/972508494172">@L["special_description"]</a></div><div class="alert alert--error" data-error="big" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_max_size"]</span></div><a href="https://wa.me/972508494172">@L["special_description"]</a></div><div class="alert alert--error" data-error="qty" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_whole_number"]</span></div><a href="https://wa.me/972508494172">@L["special_description"]</a></div><div class="alert alert--error" data-error="min" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_min_cost"]</span></div><a href="https://wa.me/972508494172">@L["special_description"]</a></div><div class="alert alert--error" data-error="max" role="alert" hidden><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_max_price"]</span></div><a href="https://wa.me/972508494172">@L["special_description"]</a></div>
@@ -116,7 +116,7 @@
         const vatOutput = document.getElementById('calc-vat');
         const unitOutput = document.getElementById('calc-unit');
 
-        const shapeRadios = form.querySelectorAll('input[name="quoteRequest.Shape"]');
+        const shapeRadios = form.querySelectorAll('input[name="Shape"]');
         const sizeRound = document.getElementById('size-round');
         const sizeRect = document.getElementById('size-rect');
 
