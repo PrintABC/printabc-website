@@ -1,0 +1,141 @@
+/* ==========================================================================
+   PrintABC — site chrome: header, mobile menu, a11y panel, footer,
+   floating WhatsApp (desktop) and bottom action bar (mobile).
+   Mobile = max-width 767.98px. Desktop styles are the default.
+   ========================================================================== */
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 30;
+  background: var(--c-white);
+  border-bottom: 1px solid var(--c-line);
+}
+.site-header__inner {
+  display: flex; align-items: center; gap: 20px;
+  min-height: var(--header-h);
+  padding-block: 12px;
+}
+.site-nav { display: flex; gap: 26px; margin-inline-start: 12px; font-weight: 600; font-size: 1.0625rem; }
+.site-nav a { color: var(--c-ink); text-decoration: none; padding-block: 8px; }
+.site-nav a:hover { color: var(--c-accent); }
+
+.header-actions { margin-inline-start: auto; display: flex; align-items: center; gap: 10px; }
+.header-phone { padding: 0 6px; color: var(--c-ink); font-weight: 700; font-size: 1.0625rem; text-decoration: none; }
+
+.lang-switch {
+  display: flex; padding: 2px;
+  border: 1px solid var(--c-border); border-radius: var(--r-pill);
+  font-family: var(--font-head); font-weight: 700; font-size: var(--fs-hint);
+}
+.lang-switch > * { display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--r-pill); color: var(--c-ink); text-decoration: none; }
+.lang-switch [aria-current] { background: var(--c-ink); color: var(--c-white); }
+.lang-short { display: none; }
+
+.menu-toggle {
+  display: none;
+  align-items: center; justify-content: center;
+  width: var(--target); height: var(--target);
+  border: 0; border-radius: var(--r-md);
+  background: var(--c-ink); color: var(--c-white);
+}
+.menu-toggle .icon-close { display: none; }
+.menu-toggle[aria-expanded="true"] .icon-open { display: none; }
+.menu-toggle[aria-expanded="true"] .icon-close { display: block; }
+
+/* Mobile drop-down menu */
+.mobile-menu {
+  display: flex; flex-direction: column;
+  padding: 4px 18px 20px;
+  border-top: 1px solid var(--c-line);
+  background: var(--c-white);
+  box-shadow: 0 16px 30px rgba(20, 22, 26, .12);
+}
+.mobile-menu a:not(.btn) {
+  display: flex; align-items: center; min-height: 52px; padding: 0 4px;
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-ink); text-decoration: none; font-weight: 600; font-size: 1.1875rem;
+}
+.mobile-menu a.mobile-menu__minor { font-weight: 400; font-size: 1.0625rem; color: var(--c-muted); }
+.mobile-menu__actions { display: flex; gap: 10px; padding-top: 16px; }
+.mobile-menu__actions .btn { flex: 1 1 0; }
+
+/* ---------- Accessibility panel (dialog-like popover) ---------- */
+.a11y-panel {
+  position: absolute; top: calc(100% + 8px); inset-inline-end: var(--gutter);
+  z-index: 50;
+  width: min(320px, calc(100vw - 2 * var(--gutter)));
+  display: flex; flex-direction: column; gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--c-line); border-radius: var(--r-lg);
+  background: var(--c-white); box-shadow: var(--shadow-panel);
+}
+.a11y-panel h2 { font-size: 1.25rem; }
+.a11y-panel__group { display: flex; flex-wrap: wrap; gap: 8px; }
+.a11y-panel .btn-icon[aria-pressed="true"] { background: var(--c-ink); color: var(--c-white); border-color: var(--c-ink); }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--c-ink); color: #C9CDD3; font-size: var(--fs-small); }
+.site-footer__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 32px;
+  padding-block: 56px 32px;
+}
+.site-footer__col { display: flex; flex-direction: column; gap: 8px; }
+.site-footer__col strong { color: var(--c-white); }
+.site-footer a { color: #C9CDD3; text-decoration: none; }
+.site-footer a:hover { color: var(--c-white); text-decoration: underline; }
+.site-footer a.site-footer__strong { color: var(--c-white); font-weight: 600; }
+.site-footer__brand { gap: 12px; }
+.site-footer__copy { padding-block: 18px 28px; border-top: 1px solid #3A3E46; font-size: var(--fs-xs); }
+
+/* ---------- Floating WhatsApp (desktop) ---------- */
+.wa-float {
+  position: fixed; bottom: 24px; inset-inline-end: 24px; z-index: 40;
+  display: flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--c-whatsapp); color: var(--c-white);
+  box-shadow: var(--shadow-float);
+}
+.wa-float:hover { color: var(--c-white); background: #156a31; }
+/* Hebrew (RTL): button sits on the left = inline-end. Russian (LTR): right = inline-end. */
+
+/* ---------- Bottom action bar (mobile only) ---------- */
+.bottom-bar { display: none; }
+.bottom-bar__price { display: flex; flex-direction: column; line-height: 1.1; flex-shrink: 0; }
+.bottom-bar__label { font-size: 0.8125rem; color: var(--c-muted); }
+.bottom-bar__total { font-family: var(--font-head); font-weight: 800; font-size: 1.375rem; white-space: nowrap; }
+.bottom-bar .btn { flex-grow: 1; }
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  :root { --header-h: 60px; --gutter: 16px; }
+
+  .site-header__inner { gap: 8px; padding-block: 8px; }
+  .site-nav, .header-phone, .header-cta, .btn-icon__label, .lang-full { display: none; }
+  .lang-short { display: inline-flex; }
+  .header-actions { gap: 6px; }
+  .header-actions .btn-icon { width: var(--target); height: var(--target); padding: 0; border-radius: 50%; font-family: var(--font-head); font-weight: 700; }
+  .menu-toggle { display: inline-flex; }
+  .logo { gap: 8px; }
+  .logo__mark { grid-template-columns: repeat(2, 8px); }
+  .logo__mark span { width: 8px; height: 8px; }
+  .logo__text { font-size: 1.25rem; }
+
+  .wa-float { display: none; }
+
+  .bottom-bar {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 40;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: var(--c-white);
+    border-top: 1px solid var(--c-line);
+    box-shadow: var(--shadow-bar);
+  }
+  /* keep last content visible above the fixed bar */
+  body.has-bottom-bar { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom)); }
+}
+
+@media (min-width: 768px) {
+  .mobile-menu { display: none !important; }
+}
