@@ -199,7 +199,7 @@
     <value>Введите тираж целым числом.</value>
   </data>
   <data name="error_min_cost" xml:space="preserve">
-    <value>Минимальный заказ — 100 ₪ с НДС. Увеличьте тираж или размер.</value>
+    <value>Минимальный заказ — 118 ₪ с НДС. Увеличьте тираж или размер.</value>
   </data>
   <data name="error_max_price" xml:space="preserve">
     <value>Заказ больше 1 000 ₪ — подготовим для вас индивидуальное предложение.</value>

@@ -1,8 +1,10 @@
-﻿namespace PrintABC.Data
+﻿using static PrintABC.Utils.Helpers;
+
+namespace PrintABC.Data
 {
     public class QuoteResponse
     {
-        public string Status { get; set; }
+        public ValidationStatus Status { get; set; }
         public string ErrorCode { get; set; }
         public int? StickersPerSheet { get; set; }
         public int? ProductionSheets { get; set; }

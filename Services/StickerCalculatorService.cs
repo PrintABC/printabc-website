@@ -1,4 +1,5 @@
 ﻿using PrintABC.Data;
+using static PrintABC.Utils.Helpers;
 
 namespace PrintABC.Services
 {
@@ -31,7 +32,7 @@ namespace PrintABC.Services
         private const decimal ContourStartStopSec = 0m;
         private const decimal CutHourlyRateIls = 200m;
         private const decimal PreparationMinutes = 20m;
-        private const decimal MinimumOrderIls = 100m;
+        private const decimal MinimumOrderIls = 118m;
         private const decimal VatRate = 0.18m;
         private const decimal MaxAutoPriceIncVatIls = 1000m;
         private const decimal SingleCutSurchargeIls = 20m;
@@ -39,14 +40,14 @@ namespace PrintABC.Services
         private static readonly Dictionary<StickerMaterial, MaterialSpec> Materials = new()
         {
             [StickerMaterial.Paper] = new("paper", 0.50003m, 0.13325m),
-            [StickerMaterial.WhiteFilm] = new("while_film", 2.58m, 0.13325m),
+            [StickerMaterial.WhiteFilm] = new("white_film", 2.58m, 0.13325m),
             [StickerMaterial.TransparentFilm] = new("transparent_film", 2.58m, 0.13325m)
         };
         public record QuoteRequest(StickerMaterial Material, ShapeType Shape, decimal DiameterMm, decimal WidthMm, decimal HeightMm, int Quantity, CutMode CutMode);
         private record MaterialSpec(string Name, decimal SheetCost, decimal ClickCost);
         private QuoteResponse ValidationError(string errorCode) => new()
         {
-            Status = "validation_error",
+            Status = ValidationStatus.ValidationError,
             ErrorCode = errorCode
         };
 
@@ -59,17 +60,17 @@ namespace PrintABC.Services
 
             if (request.Quantity < 1)
             {
-                return ValidationError("quantity");
+                return ValidationError("qty");
             }
 
-            if (request.WidthMm < 1 || (request.Shape != ShapeType.Circle && request.HeightMm < 1))
+            if (request.DiameterMm < 1 || (request.Shape != ShapeType.Circle && request.HeightMm < 1))
             {
                 return ValidationError("size");
             }
 
             if (request.Shape == ShapeType.Circle && request.DiameterMm > UsableWidth)
             {
-                return ValidationError("too_big");
+                return ValidationError("big");
             }
 
             decimal gap = request.CutMode == CutMode.Separate ? 5m : 2m;
@@ -83,7 +84,7 @@ namespace PrintABC.Services
 
             if (stickersPerSheet == 0)
             {
-                return ValidationError("too_big");
+                return ValidationError("big");
             }
 
             int productionSheets = (int)Math.Ceiling((decimal)request.Quantity / stickersPerSheet);
@@ -111,16 +112,25 @@ namespace PrintABC.Services
             decimal surcharge = request.CutMode == CutMode.Separate ? SingleCutSurchargeIls : 0m;
 
             decimal rawTotal = prepCost + printCost + cutCost + surcharge;
-            decimal priceExVat = Math.Round(Math.Max(MinimumOrderIls, rawTotal), 2, MidpointRounding.AwayFromZero);
+            decimal priceExVat = Math.Round(rawTotal, 2, MidpointRounding.AwayFromZero);
 
             decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
             decimal priceIncVat = priceExVat + vat;
+
+            if(priceIncVat< MinimumOrderIls)
+            {
+                return ValidationError("price_min");
+            }
+            if(priceIncVat>MaxAutoPriceIncVatIls)
+            {
+                return ValidationError("price_max");
+            }
 
             decimal unitPriceExVat = Math.Round(priceExVat / request.Quantity, 4, MidpointRounding.AwayFromZero);
 
             return new QuoteResponse
             {
-                Status = (priceIncVat > MaxAutoPriceIncVatIls ? "manual_quote" : "ready"),
+                Status = (priceIncVat > MaxAutoPriceIncVatIls ? ValidationStatus.ManualQuote : ValidationStatus.Ready),
                 ErrorCode = "",
                 StickersPerSheet = stickersPerSheet,
                 ProductionSheets = productionSheets,

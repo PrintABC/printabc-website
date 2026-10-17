@@ -4,6 +4,7 @@ using PrintABC.Data;
 using PrintABC.Services;
 using System.Globalization;
 using static PrintABC.Services.StickerCalculatorService;
+using static PrintABC.Utils.Helpers;
 
 namespace PrintABC.Pages
 {
@@ -43,7 +44,7 @@ namespace PrintABC.Pages
             {
                 var quoteRequest = BuildQuoteRequest();
                 var result = stickerCalculatorService.Calculate(quoteRequest);
-                return new JsonResult(new { success = true, data = result });
+                return new JsonResult(new { success = result.Status != ValidationStatus.ValidationError, data = result });
             }
             catch (Exception ex)
             {
@@ -56,7 +57,7 @@ namespace PrintABC.Pages
             return new QuoteRequest(
                 Material,
                 Shape,
-                DiameterCm *10,
+                DiameterCm * 10,
                 WidthCm * 10m,
                 HeightCm * 10m,
                 Quantity,
