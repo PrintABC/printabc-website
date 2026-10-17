@@ -40,6 +40,17 @@ namespace PrintABC.Pages
 
         public IActionResult OnPostCalculate()
         {
+            if(!ModelState.IsValid)
+            {
+                var errors = ModelState.First(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid).Key.ToLower();
+                var error = "";
+                if (errors.Contains("quantity"))
+                    error = "qty";
+                if (errors.Contains("mm"))
+                    error = "size";
+                else error = "";
+                return new JsonResult(new { status = ValidationStatus.ValidationError, errorCode = error });
+            }
             try
             {
                 var quoteRequest = BuildQuoteRequest();
