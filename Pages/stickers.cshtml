@@ -1,0 +1,228 @@
+﻿@page "/Stickers"
+@using System.Globalization
+@using static PrintABC.Services.StickerCalculatorService
+
+@model StickersModel
+
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+}
+<div class="container page-head">
+    <h1>@L["stickers_personal_order"]</h1>
+    <p>@L["stickers_description"]</p>
+</div>
+<div class="container product-layout">
+    <div class="product-layout__main is-sticky">
+        <div class="gallery">
+            <div class="gallery__main"><div class="crop"><img src="~/img/stickers-hero.jpg" alt="@L["stickers_diff_shapes_alt"]" decoding="async"><span class="crop__b" aria-hidden="true"></span></div></div>
+            <div class="gallery__thumbs"><img src="~/img/stickers-sheet.jpg" alt="@L["roll_round_stickers_alt"]" loading="lazy" decoding="async"><img src="~/img/stickers-on-packaging.jpg" alt="@L["stickers_packaging_alt"]" loading="lazy" decoding="async"><img src="~/img/sticker-closeup.jpg" alt="@L["stickers_zoomed_alt"]" loading="lazy" decoding="async"></div>
+        </div>
+    </div>
+    <form class="product-layout__side panel panel--raised calc" id="calc-form" aria-labelledby="calc-title" novalidate>
+        @Html.AntiForgeryToken()
+        <div class="calc__head"><h2 id="calc-title">@L["price_calculator"]</h2></div>
+        <fieldset class="opt-group">
+            <legend>@L["material"]</legend>
+            <div class="opt-list">
+                @foreach (StickerMaterial item in Enum.GetValues<StickerMaterial>())
+                {
+                    <label class="pill">
+                        <input type="radio" name="Material" value="@item" checked="@(Model.Material == item)"><span>@L[item.ToString().ToLower()]</span>
+                    </label>
+                }
+            </div>
+            <p class="field__hint">@L["paper_hint"]</p>
+        </fieldset>
+        <fieldset class="opt-group">
+            <legend>@L["shape"]</legend>
+            <div class="opt-list">
+                @{
+                    int i = 0;
+                }
+                @foreach (ShapeType item in Enum.GetValues<ShapeType>())
+                {
+                    <label class="pill">
+                        <input type="radio" name="Shape" value="@item" checked="@(Model.Shape == item)" data-shape="@item.ToString().ToLower()">
+                        @Html.Raw(Model.ShapeHTML[i])
+                        <span>@L[$"shape_{item.ToString().ToLower()}"]</span>
+                    </label>
+                    i++;
+                }
+            </div>
+        </fieldset>
+        <fieldset class="opt-group">
+            <legend>@L["cutting"]</legend>
+            <div class="opt-list">
+                @foreach (CutMode item in Enum.GetValues<CutMode>())
+                {
+                    <label class="pill">
+                        <input type="radio" name="CutMode" value="@item.ToString().ToLower()" checked="@(Model.CutMode == item)"><span>@L[$"cutting_{item.ToString().ToLower()}"]</span>
+                    </label>
+                }
+            </div>
+        </fieldset>
+        <fieldset class="opt-group" aria-describedby="sz-hint">
+            <legend>@L["size_cm"]</legend>
+            <div id="size-round" class="field field__input--size">
+                <label class="field__hint" for="calc-d">@L["size_diameter"]</label>
+                <input class="field__input" id="calc-d" name="DiameterCm" type="number" inputmode="decimal" min="1" max="31.5" step="0.1" value="@Model.DiameterCm.ToString(CultureInfo.InvariantCulture)">
+            </div>
+            <div id="size-rect" class="field-row" hidden>
+                <div class="field">
+                    <label class="field__hint" for="calc-w">@L["size_width"]</label>
+                    <input class="field__input" id="calc-w" name="WidthCm" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="@Model.WidthCm.ToString(CultureInfo.InvariantCulture)">
+                </div>
+                <div class="field">
+                    <label class="field__hint" for="calc-h">@L["size_height"]</label>
+                    <input class="field__input" id="calc-h" name="HeightCm" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="@Model.HeightCm.ToString(CultureInfo.InvariantCulture)">
+                </div>
+            </div>
+            <p class="field__hint" id="sz-hint">@L["size_min_max"]</p>
+        </fieldset>
+        <div class="field">
+            <label class="field__label" for="calc-qty">@L["quantity"]</label>
+            <input class="field__input field__input--num" id="calc-qty" name="Quantity" type="number" inputmode="numeric" min="1" step="1" value="@Model.Quantity" aria-describedby="q-hint">
+            <p class="field__hint" id="q-hint">@L["quantity_price_limit"]</p>
+        </div>
+        <!--errors-->
+        <div class="alert alert--error" data-error="size" role="alert" hidden>
+            <div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_min_size"]</span></div><a href="https://wa.me/972508494172">@L["special_description"]</a>
+        </div>
+        <div class="alert alert--error" data-error="big" role="alert" hidden>
+            <div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_max_size"]</span></div><a href="https://wa.me/972508494172">@L["special_description"]</a>
+        </div>
+        <div class="alert alert--error" data-error="qty" role="alert" hidden>
+            <div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_whole_number"]</span></div><a href="https://wa.me/972508494172">@L["special_description"]</a>
+        </div>
+        <div class="alert alert--error" data-error="price_min" role="alert" hidden>
+            <div class="alert__row">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_min_cost"]</span>
+            </div><a href="https://wa.me/972508494172">@L["special_description"]</a>
+        </div>
+        <div class="alert alert--error" data-error="price_max" role="alert" hidden>
+            <div class="alert__row">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_max_price"]</span>
+            </div><a href="https://wa.me/972508494172">@L["special_description"]</a>
+        </div>
+        <!--errors-->
+        <div class="price-box">
+            <div class="price-box__row price-box__row--total"><span>@L["total_inc_vat"]</span><output class="price-box__total" id="calc-total" aria-live="polite">@Model.response.PriceIncVatIls₪</output></div>
+            <div class="price-box__row"><span>@L["price_just_vat"]</span><output id="calc-vat">@Model.response.VatIls</output></div>
+            <div class="price-box__row"><span>@L["price_per_unit"]</span><output id="calc-unit">@Model.response.UnitPriceExVatIls</output></div>
+            <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
+        </div>
+        <a class="btn btn--primary btn--lg" id="calc-next" href="#">@L["next_load_file"]<span class="arrow" aria-hidden="true">←</span></a>
+        <span class="btn btn--lg" id="calc-next-off" aria-disabled="true" hidden>@L["next_load_file"]</span>
+        <a class="calc__ask" href="https://wa.me/972508494172"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg>@L["question_write_us"]</a>
+    </form>
+</div>
+<section class="section--surface">
+    <div class="container info-cards">
+        <div class="info-card"><h2>@L["file_requirements"]</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg><span>@L["file_types"]</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg><span>@L["file_resolution"]</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg><span>@L["file_bleeds"]</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg><span>@L["file_contour"]</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg><span>@L["file_not_ready_help"]</span></li></ul></div>
+        <div class="info-card"><h2>@L["payment_pickup"]</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg><span>@L["file_address"]</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg><span>@L["file_payment"]</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg><span>@L["file_min_order"]</span></li></ul></div>
+    </div>
+</section>
+<section class="section" aria-labelledby="after-h">
+    <div class="container section__stack">
+        <div class="section-head"><h2 id="after-h">@L["after_order"]</h2></div>
+        <ol class="steps"><li class="step"><span class="step__num" aria-hidden="true">01</span><h3>@L["pick_calculate"]</h3><p class="step__text">@L["pick_calculate_description"]</p></li><li class="step"><span class="step__num" aria-hidden="true">02</span><h3>@L["send_file"]</h3><p class="step__text">@L["send_file_description"]</p></li><li class="step"><span class="step__num" aria-hidden="true">03</span><h3>@L["approve_sample"]</h3><p class="step__text">@L["approve_sample_description"]</p></li><li class="step"><span class="step__num" aria-hidden="true">04</span><h3>@L["collect_order"]</h3><p class="step__text">@L["collect_order_description"]</p></li></ol>
+    </div>
+</section>
+
+
+@section Scripts {
+    <script asp-append-version="true" defer>
+        const form = document.getElementById('calc-form');
+        const totalOutput = document.getElementById('calc-total');
+        const vatOutput = document.getElementById('calc-vat');
+        const unitOutput = document.getElementById('calc-unit');
+
+        const shapeRadios = form.querySelectorAll('input[name="Shape"]');
+        const sizeRound = document.getElementById('size-round');
+        const sizeRect = document.getElementById('size-rect');
+
+        const errorAlerts = form.querySelectorAll('.alert--error');
+
+        function hideAllErrors() {
+            errorAlerts.forEach(alert => alert.hidden = true);
+        }
+
+        function updateShapeUI(selectedShape) {
+            if (selectedShape === 'circle') {
+                sizeRound.hidden = false;
+                sizeRect.hidden = true;
+            } else {
+                sizeRound.hidden = true;
+                sizeRect.hidden = false;
+            }
+        }
+
+        shapeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    updateShapeUI(e.target.dataset.shape);
+                    triggerCalculation();
+                }
+            });
+        });
+
+        form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', debounce(triggerCalculation, 300));
+            input.addEventListener('change', debounce(triggerCalculation, 300));
+        });
+
+        async function triggerCalculation() {
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('?handler=Calculate', {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+
+                    hideAllErrors();
+
+                    if (result.data.errorCode) {
+                        const targetError = form.querySelector(`[data-error="${result.data.errorCode}"]`);
+                        if (targetError) {
+                            targetError.hidden = false; //unhide the correct error message
+                        
+
+                        //disable "next" button and clear price outputs
+                        totalOutput.textContent = '—';
+                        vatOutput.textContent = '—';
+                        unitOutput.textContent = '—';
+                        }
+                    } else {
+                    //valid results, no errors
+                    totalOutput.textContent = result.data.priceIncVatIls + '₪';
+                    vatOutput.textContent = result.data.vatIls;
+                    unitOutput.textContent = result.data.unitPriceExVatIls;
+
+                    }   
+
+                
+                     
+                }
+            }
+            catch (error) {
+                console.error('Calculation error:', error);
+            }
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+    </script>
+}
