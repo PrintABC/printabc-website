@@ -187,10 +187,10 @@
     <value>כמות (יח׳)</value>
   </data>
   <data name="quantity_price_limit" xml:space="preserve">
-    <value>כל כמות שתרצו. סכום הזמנה באתר: 60–1,000 ₪ כולל מע״מ.</value>
+    <value>כל כמות שתרצו. סכום הזמנה באתר: 118–1,000 ₪ כולל מע״מ.</value>
   </data>
   <data name="error_min_size" xml:space="preserve">
-    <value>הגודל המינימלי הוא 1×1 ס״מ.</value>
+    <value>הגודל המינימלי הוא 1×1 מ״מ.</value>
   </data>
   <data name="error_max_size" xml:space="preserve">
     <value>הגודל המקסימלי הוא 31.5×46 ס״מ (בעיגול — קוטר עד 31.5 ס״מ).</value>
@@ -283,7 +283,7 @@
     <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
   </data>
   <data name="file_min_order" xml:space="preserve">
-    <value>מינימום הזמנה — 60 ₪ כולל מע״מ</value>
+    <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
   </data>
   <data name="meta_description" xml:space="preserve">
     <value>נייר או פלסטיק · עגולות, מלבניות או בצורה חופשית · מ-1×1 ס״מ. המחיר כולל מע״מ ומתעדכן מיד.</value>

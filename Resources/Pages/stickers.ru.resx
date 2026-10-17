@@ -187,10 +187,10 @@
     <value>Тираж (шт.)</value>
   </data>
   <data name="quantity_price_limit" xml:space="preserve">
-    <value>Любой тираж. Сумма заказа на сайте: от 60 до 1 000 ₪ с НДС.</value>
+    <value>Любой тираж. Сумма заказа на сайте: от 118 до 1 000 ₪ с НДС.</value>
   </data>
   <data name="error_min_size" xml:space="preserve">
-    <value>Минимальный размер — 1×1 см.</value>
+    <value>Минимальный размер — 1×1 мм.</value>
   </data>
   <data name="error_max_size" xml:space="preserve">
     <value>Максимальный размер — 31,5×46 см (для круга — диаметр до 31,5 см).</value>
@@ -283,7 +283,7 @@
     <value>Оплата вне сайта: наличные, карта, Bit или перевод</value>
   </data>
   <data name="file_min_order" xml:space="preserve">
-    <value>Минимальный заказ — 60 ₪ с НДС</value>
+    <value>Минимальный заказ — 118 ₪ с НДС</value>
   </data>
   <data name="meta_description" xml:space="preserve">
     <value>Бумажные или пластиковые · круглые, прямоугольные или фигурные · от 1×1 см. Цена с НДС пересчитывается сразу.</value>
