@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrintABC.Data;
 using PrintABC.Services;
+using System.Globalization;
 using static PrintABC.Services.StickerCalculatorService;
 
 namespace PrintABC.Pages

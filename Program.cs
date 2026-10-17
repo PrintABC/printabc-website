@@ -34,6 +34,11 @@ namespace PrintABC
                     }
                 });
             })
+            .AddMvcOptions(
+            options =>
+            {
+                options.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
+            })
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization();
 
