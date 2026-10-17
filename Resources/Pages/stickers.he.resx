@@ -199,7 +199,7 @@
     <value>הזינו כמות במספר שלם.</value>
   </data>
   <data name="error_min_cost" xml:space="preserve">
-    <value>מינימום הזמנה 60 ₪ כולל מע״מ. הגדילו את הכמות או את הגודל.</value>
+    <value>מינימום הזמנה 100 ₪ כולל מע״מ. הגדילו את הכמות או את הגודל.</value>
   </data>
   <data name="error_max_price" xml:space="preserve">
     <value>הזמנה מעל 1,000 ₪ — נכין לכם הצעת מחיר אישית.</value>
