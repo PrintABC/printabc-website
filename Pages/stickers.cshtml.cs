@@ -31,7 +31,7 @@ namespace PrintABC.Pages
         [BindProperty] public int Quantity { get; set; } = 250;
         [BindProperty] public CutMode CutMode { get; set; } = CutMode.Normal;
 
-        public required QuoteResponse response;
+        public QuoteResponse? response;
 
         public void OnGet()
         {

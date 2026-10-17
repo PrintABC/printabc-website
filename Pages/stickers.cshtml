@@ -112,7 +112,7 @@
             <div class="price-box__row"><span>@L["price_per_unit"]</span><output id="calc-unit">@Model.response.UnitPriceExVatIls</output></div>
             <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
         </div>
-        <a class="btn btn--primary btn--lg" id="calc-next" href="#">@L["next_load_file"]<span aria-hidden="true">←</span></a>
+        <a class="btn btn--primary btn--lg" id="calc-next" href="#">@L["next_load_file"]<span class="arrow" aria-hidden="true">←</span></a>
         <span class="btn btn--lg" id="calc-next-off" aria-disabled="true" hidden>@L["next_load_file"]</span>
         <a class="calc__ask" href="https://wa.me/972508494172"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg>@L["question_write_us"]</a>
     </form>
@@ -132,7 +132,7 @@
 
 
 @section Scripts {
-    <script>
+    <script asp-append-version="true" defer>
         const form = document.getElementById('calc-form');
         const totalOutput = document.getElementById('calc-total');
         const vatOutput = document.getElementById('calc-vat');
@@ -169,7 +169,7 @@
 
         form.querySelectorAll('input').forEach(input => {
             input.addEventListener('input', debounce(triggerCalculation, 300));
-            input.addEventListener('change', triggerCalculation);
+            input.addEventListener('change', debounce(triggerCalculation, 300));
         });
 
         async function triggerCalculation() {

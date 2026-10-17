@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -63,7 +64,17 @@ namespace PrintABC
                 options.RequestCultureProviders.Add(new UrlPathCultureProvider());
             });
 
+            builder.Services.Configure<ForwardedHeadersOptions>(o =>
+            {
+                o.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                o.KnownIPNetworks.Clear();
+                o.KnownProxies.Clear();
+            });
+            
+
             var app = builder.Build();
+
+            app.UseForwardedHeaders();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -74,6 +85,19 @@ namespace PrintABC
             }
 
             app.UseHttpsRedirection();
+
+            app.Use(async (ctx, next) =>
+            {
+                var h = ctx.Response.Headers;
+                h["X-Content-Type-Options"] = "nosniff";
+                h["Referrer-Policy"] = "strict-origin-when-cross-origin";
+                h["X-Frame-Options"] = "DENY";
+                h["Content-Security-Policy"] =
+                "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; " +
+                "font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; " +
+                "form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'";
+                await next();
+            });
 
             app.UseRouting();
             //after routing so that the information is available

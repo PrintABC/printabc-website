@@ -150,7 +150,7 @@
   <data name="access_link_highlight" xml:space="preserve">
     <value>הדגשת קישורים</value>
   </data>
-  <data name="main_nav_aria" xml:space="preserve">
+  <data name="main_navigation" xml:space="preserve">
     <value>ניווט ראשי</value>
   </data>
   <data name="products" xml:space="preserve">
