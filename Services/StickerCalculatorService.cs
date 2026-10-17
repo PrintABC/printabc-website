@@ -12,9 +12,9 @@ namespace PrintABC.Services
         }
         public enum StickerMaterial
         {
-            Paper=0,
+            Paper = 0,
             WhiteFilm = 1,
-            TransparentFilm= 2
+            TransparentFilm = 2
         }
         //numbers are in Millimeters(mm)
         private const decimal SheetWidth = 330m;
@@ -42,7 +42,7 @@ namespace PrintABC.Services
             [StickerMaterial.WhiteFilm] = new("while_film", 2.58m, 0.13325m),
             [StickerMaterial.TransparentFilm] = new("transparent_film", 2.58m, 0.13325m)
         };
-        public record QuoteRequest(StickerMaterial Material, ShapeType Shape, decimal WidthMm, decimal? HeightMm, int Quantity, CutMode CutMode);
+        public record QuoteRequest(StickerMaterial Material, ShapeType Shape, decimal DiameterMm, decimal WidthMm, decimal HeightMm, int Quantity, CutMode CutMode);
         private record MaterialSpec(string Name, decimal SheetCost, decimal ClickCost);
         private QuoteResponse ValidationError(string errorCode) => new()
         {
@@ -52,7 +52,7 @@ namespace PrintABC.Services
 
         public QuoteResponse Calculate(QuoteRequest request)
         {
-            if (request.Shape != ShapeType.Circle && request.Shape != ShapeType.Rectangle  && request.Shape != ShapeType.Custom)
+            if (request.Shape != ShapeType.Circle && request.Shape != ShapeType.Rectangle && request.Shape != ShapeType.Custom)
             {
                 return ValidationError("shape");
             }
@@ -67,14 +67,19 @@ namespace PrintABC.Services
                 return ValidationError("size");
             }
 
-            if (request.Shape == ShapeType.Circle && request.WidthMm > UsableWidth)
+            if (request.Shape == ShapeType.Circle && request.DiameterMm > UsableWidth)
             {
                 return ValidationError("too_big");
             }
 
             decimal gap = request.CutMode == CutMode.Separate ? 5m : 2m;
 
-            int stickersPerSheet = CalculateStickersPerSheet(request.Shape, request.WidthMm, request.HeightMm ?? request.WidthMm, gap);
+            int stickersPerSheet = 0;
+
+            if (request.Shape == ShapeType.Circle)
+                stickersPerSheet = CalculateStickersPerSheet(request.Shape, request.DiameterMm, request.DiameterMm, gap);
+            else
+                stickersPerSheet = CalculateStickersPerSheet(request.Shape, request.WidthMm, request.HeightMm, gap);
 
             if (stickersPerSheet == 0)
             {
@@ -90,8 +95,8 @@ namespace PrintABC.Services
 
             decimal perimeter = request.Shape switch
             {
-                ShapeType.Circle => (decimal)Math.PI * request.WidthMm,
-                ShapeType.Rectangle or ShapeType.Custom => 2m * (request.WidthMm + (request.HeightMm ?? request.WidthMm)),
+                ShapeType.Circle => (decimal)Math.PI * request.DiameterMm,
+                ShapeType.Rectangle or ShapeType.Custom => 2m * (request.WidthMm + request.HeightMm),
                 _ => 0m
             };
 
@@ -113,18 +118,9 @@ namespace PrintABC.Services
 
             decimal unitPriceExVat = Math.Round(priceExVat / request.Quantity, 4, MidpointRounding.AwayFromZero);
 
-            if (priceIncVat > MaxAutoPriceIncVatIls)
-            {
-                return new QuoteResponse
-                {
-                    Status = "manual_quote",
-                    ErrorCode = ""
-                };
-            }
-
             return new QuoteResponse
             {
-                Status = "ready",
+                Status = (priceIncVat > MaxAutoPriceIncVatIls ? "manual_quote" : "ready"),
                 ErrorCode = "",
                 StickersPerSheet = stickersPerSheet,
                 ProductionSheets = productionSheets,

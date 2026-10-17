@@ -23,7 +23,8 @@ namespace PrintABC.Pages
 
         [BindProperty] public StickerMaterial Material { get; set; } = StickerMaterial.Paper;
         [BindProperty] public ShapeType Shape { get; set; } = ShapeType.Circle;
-        [BindProperty] public decimal WidthCm { get; set; } = 5.0m; //also diameter
+        [BindProperty] public decimal DiameterCm { get; set; } = 5.0m;
+        [BindProperty] public decimal WidthCm { get; set; } = 5.0m;
         [BindProperty] public decimal HeightCm { get; set; } = 5.0m;
         [BindProperty] public int Quantity { get; set; } = 250;
         [BindProperty] public CutMode CutMode { get; set; } = CutMode.Normal;
@@ -54,6 +55,7 @@ namespace PrintABC.Pages
             return new QuoteRequest(
                 Material,
                 Shape,
+                DiameterCm *10,
                 WidthCm * 10m,
                 HeightCm * 10m,
                 Quantity,
