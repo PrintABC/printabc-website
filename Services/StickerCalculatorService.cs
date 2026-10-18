@@ -64,8 +64,8 @@ namespace PrintABC.Services
             }
 
             bool sizeOk = request.Shape == ShapeType.Circle
-                ? request.DiameterMm >= MinSizeMm
-                : request.WidthMm >= MinSizeMm && request.HeightMm >= MinSizeMm;
+                ? request.DiameterMm >= 0.1m
+                : request.WidthMm >= 0.1m && request.HeightMm >= 0.1m;
             if (!sizeOk) return ValidationError("size");
 
 

@@ -43,7 +43,7 @@ namespace PrintABC
                 options.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
             })
             .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(
-                new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower)));
+                new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower)))
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization();
 

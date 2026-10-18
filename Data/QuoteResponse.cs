@@ -5,7 +5,7 @@ namespace PrintABC.Data
     public class QuoteResponse
     {
         public ValidationStatus Status { get; set; }
-        public string ErrorCode { get; set; }
+        public required string ErrorCode { get; set; }
         public int? StickersPerSheet { get; set; }
         public int? ProductionSheets { get; set; }
         public int? PrintSheets { get; set; }
