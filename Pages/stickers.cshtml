@@ -175,15 +175,13 @@
         async function triggerCalculation() {
             controller?.abort();
             controller = new AbortController();
-            const response = await fetch('?handler=Calculate', { method: 'POST', body: new FormData(form),
-            headers: { 'RequestVerificationToken': token } });
             try {
                 const response = await fetch('?handler=Calculate', {
                     method: 'POST',
                     headers: {
                         'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
                     },
-                    body: FormData(form),
+                    body: new FormData(form),
                     signal: controller.signal
                 });
 
