@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="price_calculator" xml:space="preserve">
+    <value>חישוב מחיר</value>
+  </data>
+  <data name="stickers_description" xml:space="preserve">
+    <value>נייר או פלסטיק · עגולות, מלבניות או בצורה חופשית · מ-1×1 ס״מ. המחיר כולל מע״מ ומתעדכן מיד.</value>
+  </data>
+  <data name="stickers_diff_shapes_alt" xml:space="preserve">
+    <value>מדבקות בצורות שונות</value>
+  </data>
+  <data name="stickers_packaging_alt" xml:space="preserve">
+    <value>מדבקות על אריזות</value>
+  </data>
+  <data name="stickers_personal_order" xml:space="preserve">
+    <value>מדבקות בהזמנה אישית</value>
+  </data>
+  <data name="stickers_zoomed_alt" xml:space="preserve">
+    <value>מדבקה בתקריב</value>
+  </data>
+  <data name="material" xml:space="preserve">
+    <value>חומר</value>
+  </data>
+  <data name="shape" xml:space="preserve">
+    <value>צורה</value>
+  </data>
+  <data name="cutting" xml:space="preserve">
+    <value>חיתוך</value>
+  </data>
+  <data name="paper" xml:space="preserve">
+    <value>נייר מדבקה</value>
+  </data>
+  <data name="plastic" xml:space="preserve">
+    <value>פלסטיק</value>
+  </data>
+  <data name="paper_hint" xml:space="preserve">
+    <value>נייר — לשימוש בתוך הבית, לא עמיד במים. פלסטיק — עמיד במים ומתאים גם לחוץ.</value>
+  </data>
+  <data name="shape_circle" xml:space="preserve">
+    <value>עגולה</value>
+  </data>
+  <data name="shape_rectangle" xml:space="preserve">
+    <value>מלבנית</value>
+  </data>
+  <data name="shape_custom" xml:space="preserve">
+    <value>צורה חופשית</value>
+  </data>
+  <data name="cutting_normal" xml:space="preserve">
+    <value>על גיליון (חיתוך חלקי)</value>
+  </data>
+  <data name="cutting_separate" xml:space="preserve">
+    <value>כל מדבקה בנפרד</value>
+  </data>
+  <data name="size_cm" xml:space="preserve">
+    <value>גודל (ס״מ)</value>
+  </data>
+  <data name="size_diameter" xml:space="preserve">
+    <value>קוטר</value>
+  </data>
+  <data name="size_width" xml:space="preserve">
+    <value>רוחב</value>
+  </data>
+  <data name="size_height" xml:space="preserve">
+    <value>גובה</value>
+  </data>
+  <data name="size_min_max" xml:space="preserve">
+    <value>כל גודל: מינימום 1×1 ס״מ, מקסימום 31.5×46 ס״מ</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>כמות (יח׳)</value>
+  </data>
+  <data name="quantity_price_limit" xml:space="preserve">
+    <value>כל כמות שתרצו. סכום הזמנה באתר: 118–1,000 ₪ כולל מע״מ.</value>
+  </data>
+  <data name="error_min_size" xml:space="preserve">
+    <value>הגודל המינימלי הוא 1×1 מ״מ.</value>
+  </data>
+  <data name="error_max_size" xml:space="preserve">
+    <value>הגודל המקסימלי הוא 31.0×45.8 ס״מ (בעיגול — קוטר עד 31.0 ס״מ).</value>
+  </data>
+  <data name="error_whole_number" xml:space="preserve">
+    <value>הזינו כמות במספר שלם.</value>
+  </data>
+  <data name="error_min_cost" xml:space="preserve">
+    <value>מינימום הזמנה 118 ₪ כולל מע״מ. הגדילו את הכמות או את הגודל.</value>
+  </data>
+  <data name="error_max_price" xml:space="preserve">
+    <value>הזמנה מעל 1,000 ₪ — נכין לכם הצעת מחיר אישית.</value>
+  </data>
+  <data name="special_description" xml:space="preserve">
+    <value>צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="total_inc_vat" xml:space="preserve">
+    <value>סה״כ כולל מע״מ</value>
+  </data>
+  <data name="price_just_vat" xml:space="preserve">
+    <value>מתוכו מע״מ (18%)</value>
+  </data>
+  <data name="price_per_unit" xml:space="preserve">
+    <value>מחיר ליחידה</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>מיום עבודה אחד</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>להמשך: העלאת קובץ </value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>שאלה? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>דרישות לקובץ</value>
+  </data>
+  <data name="payment_pickup" xml:space="preserve">
+    <value>איסוף ותשלום</value>
+  </data>
+  <data name="file_types" xml:space="preserve">
+    <value>קבצים: PDF, PNG או JPEG, עד 100MB</value>
+  </data>
+  <data name="file_resolution" xml:space="preserve">
+    <value>רזולוציה: [300] dpi בגודל ההדפסה</value>
+  </data>
+  <data name="file_bleeds" xml:space="preserve">
+    <value>שוליים (bleed) של [2] מ״מ מכל צד</value>
+  </data>
+  <data name="file_contour" xml:space="preserve">
+    <value>למדבקות בצורה חופשית — קו חיתוך בשכבה נפרדת (CutContour)</value>
+  </data>
+  <data name="file_not_ready_help" xml:space="preserve">
+    <value>אין קובץ מוכן? כתבו לנו — נעזור להכין אותו.</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>מה קורה אחרי ההזמנה</value>
+  </data>
+  <data name="pick_calculate" xml:space="preserve">
+    <value>בוחרים ומחשבים</value>
+  </data>
+  <data name="pick_calculate_description" xml:space="preserve">
+    <value>בוחרים מוצר ופרמטרים ורואים מחיר כולל מע״מ.</value>
+  </data>
+  <data name="send_file" xml:space="preserve">
+    <value>מעלים קובץ ושולחים</value>
+  </data>
+  <data name="send_file_description" xml:space="preserve">
+    <value>PDF, PNG או JPEG עד 100MB. אישור הזמנה יגיע למייל.</value>
+  </data>
+  <data name="approve_sample" xml:space="preserve">
+    <value>מאשרים הדפסת ניסיון</value>
+  </data>
+  <data name="approve_sample_description" xml:space="preserve">
+    <value>נשלח צילום או וידאו ב-WhatsApp. מדפיסים אחרי האישור.</value>
+  </data>
+  <data name="collect_order" xml:space="preserve">
+    <value>אוספים מבית הדפוס</value>
+  </data>
+  <data name="collect_order_description" xml:space="preserve">
+    <value>ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</value>
+  </data>
+  <data name="file_address" xml:space="preserve">
+    <value>איסוף עצמי מרח׳ שטמפפר 5, נתניה — חינם</value>
+  </data>
+  <data name="file_payment" xml:space="preserve">
+    <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
+  </data>
+  <data name="file_min_order" xml:space="preserve">
+    <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>נייר או פלסטיק · עגולות, מלבניות או בצורה חופשית · מ-1×1 ס״מ. המחיר כולל מע״מ ומתעדכן מיד.</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>מדבקות בהזמנה אישית — דפוס איי.בי.סי</value>
+  </data>
+  <data name="roll_round_stickers_alt" xml:space="preserve">
+    <value>גיליון מדבקות עגולות</value>
+  </data>
+  <data name="whitefilm" xml:space="preserve">
+    <value>פלסטיק לבן</value>
+  </data>
+  <data name="transparentfilm" xml:space="preserve">
+    <value>פלסטיק שקוף</value>
+  </data>
+</root>
