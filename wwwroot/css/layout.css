@@ -136,6 +136,11 @@
   body.has-bottom-bar { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom)); }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 1099.98px) {
+  .site-nav, .header-phone, .btn-icon__label, .lang-full { display: none; }
+  .lang-short, .menu-toggle { display: inline-flex; }
+}
+
+@media (min-width: 1100px) {
   .mobile-menu { display: none !important; }
 }

@@ -26,10 +26,10 @@ namespace PrintABC.Pages
 
         [BindProperty] public StickerMaterial Material { get; set; } = StickerMaterial.Paper;
         [BindProperty] public ShapeType Shape { get; set; } = ShapeType.Circle;
-        [BindProperty, Range(typeof(decimal), "0.1", "100")] public decimal DiameterCm { get; set; } = 5.0m;
-        [BindProperty, Range(typeof(decimal), "0.1", "100")] public decimal WidthCm { get; set; } = 5.0m;
-        [BindProperty, Range(typeof(decimal), "0.1", "100")] public decimal HeightCm { get; set; } = 5.0m;
-        [BindProperty, Range(1, 1_000_000)] public int Quantity { get; set; } = 250;
+        [BindProperty, Range(typeof(decimal), "0.1", "100", ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public decimal DiameterCm { get; set; } = 5.0m;
+        [BindProperty, Range(typeof(decimal), "0.1", "100", ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public decimal WidthCm { get; set; } = 5.0m;
+        [BindProperty, Range(typeof(decimal), "0.1", "100", ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public decimal HeightCm { get; set; } = 5.0m;
+        [BindProperty, Range(1, 1_000_000, ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public int Quantity { get; set; } = 250;
         [BindProperty] public CutMode CutMode { get; set; } = CutMode.Normal;
 
         public QuoteResponse? response;
@@ -69,9 +69,9 @@ namespace PrintABC.Pages
             return new QuoteRequest(
                 Material,
                 Shape,
-                DiameterCm * 10,
-                WidthCm * 10m,
-                HeightCm * 10m,
+                Math.Round(DiameterCm,1) * 10,
+                Math.Round(WidthCm, 1) * 10m,
+                Math.Round(HeightCm, 1) * 10m,
                 Quantity,
                 CutMode
             );

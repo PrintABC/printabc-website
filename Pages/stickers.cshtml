@@ -221,5 +221,11 @@
                 timeout = setTimeout(() => func.apply(this, args), wait);
             };
         }
+
+        updateShapeUI(form.querySelector('input[name="Shape"]:checked')?.dataset.shape);
+        triggerCalculation();
+        window.addEventListener('pageshow', e => {
+            if (e.persisted) { updateShapeUI(form.querySelector('input[name="Shape"]:checked')?.dataset.shape); triggerCalculation(); }
+        });
     </script>
 }

@@ -32,6 +32,7 @@ namespace PrintABC.Services
         private const decimal ContourStartStopSec = 0m;
         private const decimal CutHourlyRateIls = 200m;
         private const decimal PreparationMinutes = 20m;
+        private const decimal MinimumOrderIlsPreVat = 100m;
         private const decimal MinimumOrderIls = 118m;
         private const decimal VatRate = 0.18m;
         private const decimal MaxAutoPriceIncVatIls = 1000m;
@@ -64,8 +65,8 @@ namespace PrintABC.Services
             }
 
             bool sizeOk = request.Shape == ShapeType.Circle
-                ? request.DiameterMm >= 0.1m
-                : request.WidthMm >= 0.1m && request.HeightMm >= 0.1m;
+                ? request.DiameterMm >= 1m
+                : request.WidthMm >= 1m && request.HeightMm >= 1m;
             if (!sizeOk) return ValidationError("size");
 
 
@@ -113,21 +114,26 @@ namespace PrintABC.Services
             decimal surcharge = request.CutMode == CutMode.Separate ? SingleCutSurchargeIls : 0m;
 
             decimal rawTotal = prepCost + printCost + cutCost + surcharge;
+            string errorCode = "";
+            if (rawTotal < MinimumOrderIlsPreVat)
+            {
+                rawTotal = 100;
+                errorCode = "min"; //set to a nonexisting error due to the error not being needed right now
+            }
+
             decimal priceExVat = Math.Round(rawTotal, 2, MidpointRounding.AwayFromZero);
+
+            
 
             decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
             decimal priceIncVat = priceExVat + vat;
-            string errorCode = "";
+            
             ValidationStatus status = ValidationStatus.Ready;
-            if (priceIncVat < MinimumOrderIls)
-            {
-                priceIncVat = MinimumOrderIls;
-                errorCode = "min";//set to a nonexisting error due to the error not being needed right now
-            }
 
-            else if (priceIncVat > MaxAutoPriceIncVatIls)
+            if (priceIncVat > MaxAutoPriceIncVatIls)
             {
                 priceIncVat = 0;
+                priceExVat = 0;
                 errorCode = "price_max";
                 status = ValidationStatus.ManualQuote;
             }
