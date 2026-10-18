@@ -154,8 +154,7 @@ a {
         color: var(--c-white);
     }
 
-[dir="ltr"]
-.arrow {
+[dir="ltr"].arrow {
     display: inline-block;
     transform: scaleX(-1);
 }

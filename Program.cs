@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using PrintABC.Services;
 using PrintABC.Utils;
 using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PrintABC
 {
@@ -40,6 +42,8 @@ namespace PrintABC
             {
                 options.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
             })
+            .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(
+                new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower)));
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization();
 

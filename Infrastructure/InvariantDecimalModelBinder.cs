@@ -24,14 +24,18 @@ public class InvariantDecimalModelBinder : IModelBinder
         bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueResult);
 
         var valueAsString = valueResult.FirstValue;
-        if (string.IsNullOrWhiteSpace(valueAsString))
+        if (string.IsNullOrWhiteSpace(valueAsString))//empty values need to invalidate modelstate
         {
+            if (bindingContext.ModelMetadata.IsReferenceOrNullableType)
+                bindingContext.Result = ModelBindingResult.Success(null);
+            else
+                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "required");
             return;
         }
 
         var normalized = valueAsString.Trim().Replace(',', '.');
 
-        if (decimal.TryParse(normalized, NumberStyles.Number | NumberStyles.AllowExponent, CultureInfo.InvariantCulture, out var result))
+        if (decimal.TryParse(normalized, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var result))
         {
             bindingContext.Result = ModelBindingResult.Success(result);
         }

@@ -193,7 +193,7 @@
     <value>הגודל המינימלי הוא 1×1 מ״מ.</value>
   </data>
   <data name="error_max_size" xml:space="preserve">
-    <value>הגודל המקסימלי הוא 31.5×46 ס״מ (בעיגול — קוטר עד 31.5 ס״מ).</value>
+    <value>הגודל המקסימלי הוא 31.0×45.8 ס״מ (בעיגול — קוטר עד 31.0 ס״מ).</value>
   </data>
   <data name="error_whole_number" xml:space="preserve">
     <value>הזינו כמות במספר שלם.</value>

@@ -66,16 +66,16 @@
             <legend>@L["size_cm"]</legend>
             <div id="size-round" class="field field__input--size">
                 <label class="field__hint" for="calc-d">@L["size_diameter"]</label>
-                <input class="field__input" id="calc-d" name="DiameterCm" type="number" inputmode="decimal" min="1" max="31.5" step="0.1" value="@Model.DiameterCm.ToString(CultureInfo.InvariantCulture)">
+                <input class="field__input" id="calc-d" name="DiameterCm" type="number" inputmode="decimal" min="1" max="31.0" step="0.1" value="@Model.DiameterCm.ToString(CultureInfo.InvariantCulture)">
             </div>
             <div id="size-rect" class="field-row" hidden>
                 <div class="field">
                     <label class="field__hint" for="calc-w">@L["size_width"]</label>
-                    <input class="field__input" id="calc-w" name="WidthCm" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="@Model.WidthCm.ToString(CultureInfo.InvariantCulture)">
+                    <input class="field__input" id="calc-w" name="WidthCm" type="number" inputmode="decimal" min="1" max="31.0" step="0.1" value="@Model.WidthCm.ToString(CultureInfo.InvariantCulture)">
                 </div>
                 <div class="field">
                     <label class="field__hint" for="calc-h">@L["size_height"]</label>
-                    <input class="field__input" id="calc-h" name="HeightCm" type="number" inputmode="decimal" min="1" max="46" step="0.1" value="@Model.HeightCm.ToString(CultureInfo.InvariantCulture)">
+                    <input class="field__input" id="calc-h" name="HeightCm" type="number" inputmode="decimal" min="1" max="45.8" step="0.1" value="@Model.HeightCm.ToString(CultureInfo.InvariantCulture)">
                 </div>
             </div>
             <p class="field__hint" id="sz-hint">@L["size_min_max"]</p>
@@ -107,9 +107,9 @@
         </div>
         <!--errors-->
         <div class="price-box">
-            <div class="price-box__row price-box__row--total"><span>@L["total_inc_vat"]</span><output class="price-box__total" id="calc-total" aria-live="polite">@Model.response.PriceIncVatIls₪</output></div>
-            <div class="price-box__row"><span>@L["price_just_vat"]</span><output id="calc-vat">@Model.response.VatIls</output></div>
-            <div class="price-box__row"><span>@L["price_per_unit"]</span><output id="calc-unit">@Model.response.UnitPriceExVatIls</output></div>
+            <div class="price-box__row price-box__row--total"><span>@L["total_inc_vat"]</span><output class="price-box__total" id="calc-total" aria-live="polite">@Model.response?.PriceIncVatIls₪</output></div>
+            <div class="price-box__row"><span>@L["price_just_vat"]</span><output id="calc-vat">@Model.response?.VatIls</output></div>
+            <div class="price-box__row"><span>@L["price_per_unit"]</span><output id="calc-unit">@Model.response?.UnitPriceExVatIls</output></div>
             <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
         </div>
         <a class="btn btn--primary btn--lg" id="calc-next" href="#">@L["next_load_file"]<span class="arrow" aria-hidden="true">←</span></a>
@@ -167,53 +167,52 @@
             });
         });
 
-        form.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', debounce(triggerCalculation, 300));
-            input.addEventListener('change', debounce(triggerCalculation, 300));
-        });
+        
+        const recalc = debounce(triggerCalculation, 300);
+        form.addEventListener('input', recalc);
+        let controller;
 
         async function triggerCalculation() {
-            const formData = new FormData(form);
-
+            controller?.abort();
+            controller = new AbortController();
+            const response = await fetch('?handler=Calculate', { method: 'POST', body: new FormData(form),
+            headers: { 'RequestVerificationToken': token } });
             try {
                 const response = await fetch('?handler=Calculate', {
                     method: 'POST',
                     headers: {
                         'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
                     },
-                    body: formData
+                    body: FormData(form),
+                    signal: controller.signal
                 });
 
                 if (response.ok) {
-                    const result = await response.json();
-
                     hideAllErrors();
 
-                    if (result.data.errorCode) {
-                        const targetError = form.querySelector(`[data-error="${result.data.errorCode}"]`);
-                        if (targetError) {
-                            targetError.hidden = false; //unhide the correct error message
-                        
+                    const result = await response.json();
+                    const targetError = (result.data.errorCode) ? form.querySelector(`[data-error="${result.data.errorCode}"]`) : null;
+
+                    if (targetError) {
+                        targetError.hidden = false; //unhide the correct error message
 
                         //disable "next" button and clear price outputs
                         totalOutput.textContent = '—';
                         vatOutput.textContent = '—';
                         unitOutput.textContent = '—';
-                        }
-                    } else {
-                    //valid results, no errors
-                    totalOutput.textContent = result.data.priceIncVatIls + '₪';
-                    vatOutput.textContent = result.data.vatIls;
-                    unitOutput.textContent = result.data.unitPriceExVatIls;
-
-                    }   
-
-                
-                     
+                    }
+                    else {
+                        //valid results, no errors
+                        totalOutput.textContent = result.data.priceIncVatIls + '₪';
+                        vatOutput.textContent = result.data.vatIls;
+                        unitOutput.textContent = result.data.unitPriceExVatIls;
+                    }
                 }
             }
             catch (error) {
-                console.error('Calculation error:', error);
+                totalOutput.textContent = '—';
+                vatOutput.textContent = '—';
+                unitOutput.textContent = '—';
             }
         }
 

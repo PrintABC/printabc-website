@@ -193,7 +193,7 @@
     <value>Минимальный размер — 1×1 мм.</value>
   </data>
   <data name="error_max_size" xml:space="preserve">
-    <value>Максимальный размер — 31,5×46 см (для круга — диаметр до 31,5 см).</value>
+    <value>Максимальный размер — 31,0×45.8 см (для круга — диаметр до 31,0 см).</value>
   </data>
   <data name="error_whole_number" xml:space="preserve">
     <value>Введите тираж целым числом.</value>

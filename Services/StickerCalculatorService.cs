@@ -63,10 +63,11 @@ namespace PrintABC.Services
                 return ValidationError("qty");
             }
 
-            if (request.DiameterMm < 1 || (request.Shape != ShapeType.Circle && request.HeightMm < 1))
-            {
-                return ValidationError("size");
-            }
+            bool sizeOk = request.Shape == ShapeType.Circle
+                ? request.DiameterMm >= MinSizeMm
+                : request.WidthMm >= MinSizeMm && request.HeightMm >= MinSizeMm;
+            if (!sizeOk) return ValidationError("size");
+
 
             if (request.Shape == ShapeType.Circle && request.DiameterMm > UsableWidth)
             {
@@ -116,22 +117,27 @@ namespace PrintABC.Services
 
             decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
             decimal priceIncVat = priceExVat + vat;
-
-            if(priceIncVat< MinimumOrderIls)
+            string errorCode = "";
+            ValidationStatus status = ValidationStatus.Ready;
+            if (priceIncVat < MinimumOrderIls)
             {
-                return ValidationError("price_min");
+                priceIncVat = MinimumOrderIls;
+                errorCode = "min";//set to a nonexisting error due to the error not being needed right now
             }
-            if(priceIncVat>MaxAutoPriceIncVatIls)
+
+            else if (priceIncVat > MaxAutoPriceIncVatIls)
             {
-                return ValidationError("price_max");
+                priceIncVat = 0;
+                errorCode = "price_max";
+                status = ValidationStatus.ManualQuote;
             }
 
             decimal unitPriceExVat = Math.Round(priceExVat / request.Quantity, 4, MidpointRounding.AwayFromZero);
 
             return new QuoteResponse
             {
-                Status = (priceIncVat > MaxAutoPriceIncVatIls ? ValidationStatus.ManualQuote : ValidationStatus.Ready),
-                ErrorCode = "",
+                Status = status,
+                ErrorCode = errorCode,
                 StickersPerSheet = stickersPerSheet,
                 ProductionSheets = productionSheets,
                 PrintSheets = printSheets,

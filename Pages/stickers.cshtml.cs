@@ -25,10 +25,10 @@ namespace PrintABC.Pages
 
         [BindProperty] public StickerMaterial Material { get; set; } = StickerMaterial.Paper;
         [BindProperty] public ShapeType Shape { get; set; } = ShapeType.Circle;
-        [BindProperty] public decimal DiameterCm { get; set; } = 5.0m;
-        [BindProperty] public decimal WidthCm { get; set; } = 5.0m;
-        [BindProperty] public decimal HeightCm { get; set; } = 5.0m;
-        [BindProperty] public int Quantity { get; set; } = 250;
+        [BindProperty] Range(typeof(decimal), "0.1", "100")] public decimal DiameterCm { get; set; } = 5.0m;
+        [BindProperty] Range(typeof(decimal), "0.1", "100")] public decimal WidthCm { get; set; } = 5.0m;
+        [BindProperty] Range(typeof(decimal), "0.1", "100")] public decimal HeightCm { get; set; } = 5.0m;
+        [BindProperty] Range(1, 1_000_000)] public int Quantity { get; set; } = 250;
         [BindProperty] public CutMode CutMode { get; set; } = CutMode.Normal;
 
         public QuoteResponse? response;
@@ -40,27 +40,27 @@ namespace PrintABC.Pages
 
         public IActionResult OnPostCalculate()
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var errors = ModelState.First(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid).Key.ToLower();
-                var error = "";
-                if (errors.Contains("quantity"))
-                    error = "qty";
-                if (errors.Contains("mm"))
-                    error = "size";
-                else error = "";
-                return new JsonResult(new { status = ValidationStatus.ValidationError, errorCode = error });
+                var key = ModelState.Where(kv => kv.Value!.Errors.Count > 0)
+                    .Select(kv => kv.Key).FirstOrDefault() ?? "";
+                var code = key switch
+                {
+                    nameof(Quantity) => "qty",
+                    nameof(DiameterCm) or nameof(WidthCm) or nameof(HeightCm) => "size",
+                    _ => "input"
+                };
+                return new JsonResult(new
+                {
+                    success = false,
+                    data = new QuoteResponse { Status = ValidationStatus.ValidationError, ErrorCode = code }
+                });
             }
-            try
-            {
-                var quoteRequest = BuildQuoteRequest();
-                var result = stickerCalculatorService.Calculate(quoteRequest);
-                return new JsonResult(new { success = result.Status != ValidationStatus.ValidationError, data = result });
-            }
-            catch (Exception ex)
-            {
-                return new JsonResult(new { success = false, message = ex.Message });
-            }
+
+            var quoteRequest = BuildQuoteRequest();
+            var result = stickerCalculatorService.Calculate(quoteRequest);
+            return new JsonResult(new { success = result.Status != ValidationStatus.ValidationError, data = result });
+
         }
 
         private QuoteRequest BuildQuoteRequest()
