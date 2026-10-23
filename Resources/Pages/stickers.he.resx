@@ -300,4 +300,31 @@
   <data name="transparentfilm" xml:space="preserve">
     <value>פלסטיק שקוף</value>
   </data>
+  <data name="msg_hello" xml:space="preserve">
+    <value>שלום! אני רוצה להזמין מדבקות.</value>
+  </data>
+  <data name="msg_material" xml:space="preserve">
+    <value>חומר: {0}</value>
+  </data>
+  <data name="msg_shape" xml:space="preserve">
+    <value>צורה: {0}, {1} ס"מ</value>
+  </data>
+  <data name="msg_qty" xml:space="preserve">
+    <value>כמות: {0} יח׳</value>
+  </data>
+  <data name="msg_cut" xml:space="preserve">
+    <value>חיתוך: {0}</value>
+  </data>
+  <data name="msg_price" xml:space="preserve">
+    <value>מחיר: {0} כולל מע״מ</value>
+  </data>
+  <data name="msg_file_whatsapp" xml:space="preserve">
+    <value>את קובץ ההדפסה אשלח מיד דרך %0a %F0%9F%93%8E%20← "מסמך" (לא "גלריה").</value>
+  </data>
+  <data name="msg_file_email" xml:space="preserve">
+    <value>קובץ ההדפסה מצורף למייל.</value>
+  </data>
+  <data name="mail_subject" xml:space="preserve">
+    <value>הזמנת מדבקות</value>
+  </data>
 </root>

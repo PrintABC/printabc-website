@@ -2,7 +2,7 @@
 
 namespace PrintABC.Data
 {
-    public class QuoteResponse
+    public class StickerQuoteResponse
     {
         public ValidationStatus Status { get; set; }
         public required string ErrorCode { get; set; }

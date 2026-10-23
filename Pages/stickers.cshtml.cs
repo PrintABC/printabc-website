@@ -1,21 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using PrintABC.Data;
 using PrintABC.Services;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Text;
 using static PrintABC.Services.StickerCalculatorService;
 using static PrintABC.Utils.Helpers;
 
 namespace PrintABC.Pages
 {
-    public class StickersModel : PageModel
+    public class StickersModel : PageModel, IWhatsappSendable
     {
         private readonly StickerCalculatorService stickerCalculatorService;
+        private readonly IStringLocalizer L;
 
-        public StickersModel(StickerCalculatorService _stickerCalculatorService)
+        public StickersModel(IStringLocalizerFactory factory, StickerCalculatorService _stickerCalculatorService)
         {
             stickerCalculatorService = _stickerCalculatorService;
+            //matches the stickers page resources
+            L = factory.Create("Pages.stickers", this.GetType().Assembly.GetName().Name!);
         }
         public string[] ShapeHTML =
         {
@@ -32,12 +37,15 @@ namespace PrintABC.Pages
         [BindProperty, Range(1, 1_000_000, ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public int Quantity { get; set; } = 250;
         [BindProperty] public CutMode CutMode { get; set; } = CutMode.Normal;
 
-        public QuoteResponse? response;
+        public StickerQuoteResponse? response;
 
-        public void OnGet()
-        {
-            response = stickerCalculatorService.Calculate(BuildQuoteRequest());
-        }
+        public string WhatsappMessage { get; set; } = "";
+
+        //public void OnGet()
+        //{
+        //    response = stickerCalculatorService.Calculate(BuildQuoteRequest());
+        //    CreateMessage();
+        //}
 
         public IActionResult OnPostCalculate()
         {
@@ -54,27 +62,49 @@ namespace PrintABC.Pages
                 return new JsonResult(new
                 {
                     success = false,
-                    data = new QuoteResponse { Status = ValidationStatus.ValidationError, ErrorCode = code }
+                    data = new StickerQuoteResponse { Status = ValidationStatus.ValidationError, ErrorCode = code }
                 });
             }
 
             var quoteRequest = BuildQuoteRequest();
-            var result = stickerCalculatorService.Calculate(quoteRequest);
-            return new JsonResult(new { success = result.Status != ValidationStatus.ValidationError, data = result });
+            response = stickerCalculatorService.Calculate(quoteRequest);
+            CreateMessage();
+            return new JsonResult(new { success = response.Status != ValidationStatus.ValidationError, data = response, wpmessage = WHATSAPP_URL + WhatsappMessage });
 
         }
 
-        private QuoteRequest BuildQuoteRequest()
+        private StickerQuoteRequest BuildQuoteRequest()
         {
-            return new QuoteRequest(
+            return new StickerQuoteRequest(
                 Material,
                 Shape,
-                Math.Round(DiameterCm,1) * 10,
-                Math.Round(WidthCm, 1) * 10m,
-                Math.Round(HeightCm, 1) * 10m,
+                DiameterMm: Math.Round(DiameterCm, 1) * 10,
+                WidthMm: Math.Round(WidthCm, 1) * 10m,
+                HeightMm: Math.Round(HeightCm, 1) * 10m,
                 Quantity,
                 CutMode
             );
+        }
+        public void CreateMessage()
+        {
+            string size = Shape == ShapeType.Circle ? $"{L["size_diameter"]} {DiameterCm}" : $"{WidthCm}x{HeightCm}";
+
+            var sb = new StringBuilder();
+            string newline = "%0a";
+            sb.Append(L["msg_hello"]);
+            sb.Append(newline);
+            sb.Append(string.Format(L["msg_material"], L[Material.ToString().ToLower()]));
+            sb.Append(newline);
+            sb.Append(string.Format(L["msg_shape"], L[$"shape_{Shape.ToString().ToLower()}"], size));
+            sb.Append(newline);
+            sb.Append(string.Format(L["msg_qty"], Quantity));
+            sb.Append(newline);
+            sb.Append(string.Format(L["msg_cut"], L[$"cutting_{CutMode.ToString().ToLower()}"]));
+            sb.Append(newline);
+            sb.Append(string.Format(L["msg_price"], response!.PriceIncVatIls));
+            sb.Append(newline);
+            sb.Append(L["msg_file_whatsapp"]);
+            WhatsappMessage = sb.ToString();
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using PrintABC.Data;
+using static PrintABC.Services.StickerCalculatorService;
 using static PrintABC.Utils.Helpers;
 
 namespace PrintABC.Services
 {
-    public partial class StickerCalculatorService
+    public record StickerQuoteRequest(StickerMaterial Material, ShapeType Shape, decimal DiameterMm, decimal WidthMm, decimal HeightMm, int Quantity, CutMode CutMode);
+    public class StickerCalculatorService
     {
         public enum ShapeType { Circle, Rectangle, Custom }
         public enum CutMode
@@ -17,6 +19,8 @@ namespace PrintABC.Services
             WhiteFilm = 1,
             TransparentFilm = 2
         }
+
+        public const float STICKER_CALC_VERSION = 1.0f;
         //numbers are in Millimeters(mm)
         private const decimal SheetWidth = 330m;
         private const decimal SheetHeight = 488m;
@@ -44,15 +48,15 @@ namespace PrintABC.Services
             [StickerMaterial.WhiteFilm] = new("white_film", 2.58m, 0.13325m),
             [StickerMaterial.TransparentFilm] = new("transparent_film", 2.58m, 0.13325m)
         };
-        public record QuoteRequest(StickerMaterial Material, ShapeType Shape, decimal DiameterMm, decimal WidthMm, decimal HeightMm, int Quantity, CutMode CutMode);
+        
         private record MaterialSpec(string Name, decimal SheetCost, decimal ClickCost);
-        private QuoteResponse ValidationError(string errorCode) => new()
+        private static StickerQuoteResponse ValidationError(string errorCode) => new()
         {
             Status = ValidationStatus.ValidationError,
             ErrorCode = errorCode
         };
 
-        public QuoteResponse Calculate(QuoteRequest request)
+        public StickerQuoteResponse Calculate(StickerQuoteRequest request)
         {
             if (request.Shape != ShapeType.Circle && request.Shape != ShapeType.Rectangle && request.Shape != ShapeType.Custom)
             {
@@ -77,7 +81,7 @@ namespace PrintABC.Services
 
             decimal gap = request.CutMode == CutMode.Separate ? 5m : 2m;
 
-            int stickersPerSheet = 0;
+            int stickersPerSheet;
 
             if (request.Shape == ShapeType.Circle)
                 stickersPerSheet = CalculateStickersPerSheet(request.Shape, request.DiameterMm, request.DiameterMm, gap);
@@ -140,7 +144,7 @@ namespace PrintABC.Services
 
             decimal unitPriceExVat = Math.Round(priceExVat / request.Quantity, 4, MidpointRounding.AwayFromZero);
 
-            return new QuoteResponse
+            return new StickerQuoteResponse
             {
                 Status = status,
                 ErrorCode = errorCode,
@@ -155,7 +159,7 @@ namespace PrintABC.Services
             };
         }
 
-        private int CalculateStickersPerSheet(ShapeType shape, decimal width, decimal height, decimal gap)
+        private static int CalculateStickersPerSheet(ShapeType shape, decimal width, decimal height, decimal gap)
         {
             if (shape == ShapeType.Circle)
             {

@@ -300,4 +300,31 @@
   <data name="transparentfilm" xml:space="preserve">
     <value>Прозрачная плёнка</value>
   </data>
+  <data name="msg_hello" xml:space="preserve">
+    <value>Здравствуйте! Хочу заказать наклейки.</value>
+  </data>
+  <data name="msg_material" xml:space="preserve">
+    <value>Материал: {0}</value>
+  </data>
+  <data name="msg_shape" xml:space="preserve">
+    <value>Форма: {0}, {1} см</value>
+  </data>
+  <data name="msg_qty" xml:space="preserve">
+    <value>Количество: {0} шт.</value>
+  </data>
+  <data name="msg_cut" xml:space="preserve">
+    <value>Нарезка: {0}</value>
+  </data>
+  <data name="msg_price" xml:space="preserve">
+    <value>Цена: {0} с НДС</value>
+  </data>
+  <data name="msg_file_whatsapp" xml:space="preserve">
+    <value>Файл макета пришлю следом через %0a %F0%9F%93%8E%20 → «Документ» (не «Галерея»).</value>
+  </data>
+  <data name="msg_file_email" xml:space="preserve">
+    <value>Файл макета прикладываю к письму.</value>
+  </data>
+  <data name="mail_subject" xml:space="preserve">
+    <value>Заказ наклеек</value>
+  </data>
 </root>
