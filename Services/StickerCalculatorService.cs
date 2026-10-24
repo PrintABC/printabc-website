@@ -20,7 +20,6 @@ namespace PrintABC.Services
             TransparentFilm = 2
         }
 
-        public const float STICKER_CALC_VERSION = 1.0f;
         //numbers are in Millimeters(mm)
         private const decimal SheetWidth = 330m;
         private const decimal SheetHeight = 488m;

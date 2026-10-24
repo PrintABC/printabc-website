@@ -17,7 +17,10 @@ namespace PrintABC.Utils
         }
 
         public static string[] OrderCodes = new string[] { "ST" };
-        public const string WHATSAPP_URL = "https://api.whatsapp.com/send/?phone=972508494172&text=";
+
+        public const string PHONE_NUMBER = "972508494172";
+        public const string LANDLINE = "97298874680";
+        public const string WHATSAPP_URL = $"https://api.whatsapp.com/send/?phone={PHONE_NUMBER}&text=";
 
         public static string ToInvariantString(this IConvertible value)
         {
