@@ -47,7 +47,7 @@ namespace PrintABC.Services
             [StickerMaterial.WhiteFilm] = new("white_film", 2.58m, 0.13325m),
             [StickerMaterial.TransparentFilm] = new("transparent_film", 2.58m, 0.13325m)
         };
-        
+
         private record MaterialSpec(string Name, decimal SheetCost, decimal ClickCost);
         private static StickerQuoteResponse ValidationError(string errorCode) => new()
         {
@@ -126,11 +126,11 @@ namespace PrintABC.Services
 
             decimal priceExVat = Math.Round(rawTotal, 2, MidpointRounding.AwayFromZero);
 
-            
+
 
             decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
             decimal priceIncVat = priceExVat + vat;
-            
+
             ValidationStatus status = ValidationStatus.Ready;
 
             if (priceIncVat > MaxAutoPriceIncVatIls)
@@ -153,7 +153,7 @@ namespace PrintABC.Services
                 CutTimeSec = Math.Round((double)cutTimeSec, 2),
                 PriceExVatIls = priceExVat,
                 VatIls = vat,
-                PriceIncVatIls = priceIncVat,
+                PriceIncVatIls = Math.Round(priceIncVat, 0, MidpointRounding.AwayFromZero),
                 UnitPriceExVatIls = unitPriceExVat
             };
         }

@@ -16,8 +16,6 @@ namespace PrintABC.Utils
             Stickers = 0,
         }
 
-        public static string[] OrderCodes = new string[] { "ST" };
-
         public const string PHONE_NUMBER = "972508494172";
         public const string LANDLINE = "97298874680";
         public const string WHATSAPP_URL = $"https://api.whatsapp.com/send/?phone={PHONE_NUMBER}&text=";
@@ -26,5 +24,6 @@ namespace PrintABC.Utils
         {
             return value.ToString(CultureInfo.InvariantCulture);
         }
+
     }
 }

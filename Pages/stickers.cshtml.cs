@@ -102,7 +102,7 @@ namespace PrintABC.Pages
             sb.Append(newline);
             sb.Append(string.Format(L["msg_cut"], L[$"cutting_{CutMode.ToString().ToLower()}"]));
             sb.Append(newline);
-            sb.Append(string.Format(L["msg_price"], (int)response!.PriceIncVatIls!));
+            sb.Append(string.Format(L["msg_price"], response!.PriceIncVatIls));
             sb.Append(newline);
             sb.Append(L["msg_file_whatsapp"]);
             WhatsappMessage = sb.ToString();
