@@ -9,6 +9,7 @@ using System.Text;
 using static PrintABC.Services.StickerCalculatorService;
 using static PrintABC.Utils.Helpers;
 
+
 namespace PrintABC.Pages
 {
     public class StickersModel : PageModel, IWhatsappSendable
@@ -87,7 +88,7 @@ namespace PrintABC.Pages
         }
         public void CreateMessage()
         {
-            string size = Shape == ShapeType.Circle ? $"{L["size_diameter"]} {DiameterCm}" : $"{WidthCm}x{HeightCm}";
+            string size = Shape == ShapeType.Circle ? $"{L["size_diameter"]} {DiameterCm.ToInvariantString()}" : $"{WidthCm.ToInvariantString()}x{HeightCm.ToInvariantString()}";
 
             var sb = new StringBuilder();
             string newline = "%0a";
@@ -101,10 +102,11 @@ namespace PrintABC.Pages
             sb.Append(newline);
             sb.Append(string.Format(L["msg_cut"], L[$"cutting_{CutMode.ToString().ToLower()}"]));
             sb.Append(newline);
-            sb.Append(string.Format(L["msg_price"], response!.PriceIncVatIls));
+            sb.Append(string.Format(L["msg_price"],  response!.PriceIncVatIls!.Value.ToInvariantString()));
             sb.Append(newline);
             sb.Append(L["msg_file_whatsapp"]);
             WhatsappMessage = sb.ToString();
+
         }
     }
 }
