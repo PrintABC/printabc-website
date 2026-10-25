@@ -177,4 +177,7 @@
   <data name="all_products" xml:space="preserve">
     <value>Вся продукция</value>
   </data>
+  <data name="business-cards" xml:space="preserve">
+    <value>Визитки</value>
+  </data>
 </root>

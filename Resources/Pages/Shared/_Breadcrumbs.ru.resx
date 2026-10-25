@@ -120,6 +120,9 @@
   <data name="aria" xml:space="preserve">
     <value>Навигационная цепочка</value>
   </data>
+  <data name="business-cards" xml:space="preserve">
+    <value>Визитки</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>Главная</value>
   </data>
