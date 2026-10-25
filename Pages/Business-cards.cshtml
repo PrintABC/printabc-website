@@ -128,6 +128,9 @@
 
 @section Scripts {
     <script>
+        const lamText = @Json.Serialize(L["lamination"]);
+        const cornersText = @Json.Serialize(L["round_corners"]);
+        const messageTemplate = @Json.Serialize(L["whatsapp_template"]);
         const priceButtons = document.querySelectorAll(".price-btn");
         var prices = [];
         var lams = []
@@ -141,9 +144,12 @@
         const twoside = document.getElementById("cards-sides-two");
         const qty = document.getElementById("cards-spec");
         const totalPrice = document.getElementById("cards-total");
+        const whatsappUrl = "https://api.whatsapp.com/send/?phone={@(PHONE_NUMBER)}&text=";
+        const whatsappButton = document.getElementById("calc-next");
         lamInc.style.display = "none";
         roundInc.style.display = "none";
         oneside.style.display = "none";
+
 
         priceButtons.forEach(x => {
             x.addEventListener('click', (e) => {
@@ -204,11 +210,39 @@
 
             return Number(price);
         }
+        function updateWhatsappLink(price) {
+            let template = messageTemplate.value;
+            let adds = []
+            if (lamAdd.checked || roundAdd.checked) {
+                if (lamAdd.checked)
+                    adds.push(lamText.value);
+                if (roundAdd.checked)
+                    adds.push(cornersText.value);
+            }
 
-        function updateDisplayPrice(){
-            let price = calculateTotalPrice();
-            totalPrice.innerText = price + " ₪";
+            let addText = "";
+            if (adds.length > 0) {
+                addText = adds.join(', ');
+            }
+
+            data = {
+                qty: getSelectedQuantity(),
+                adds: addText,
+                price: price,
+            };
+            for (const [key, value] of Object.entries(data)) {
+                template = template.replaceAll(`{${key}}`, value);
+            }
+            whatsappButton.href = whatsappUrl + template;
         }
 
+        function updateDisplayPrice() {
+            let price = calculateTotalPrice();
+            totalPrice.innerText = price + " ₪";
+            updateWhatsappLink(price);
+        }
+
+        
+        updateDisplayPrice();
     </script>
 }

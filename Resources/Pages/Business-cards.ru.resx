@@ -267,4 +267,12 @@
   <data name="business_cards_title_description" xml:space="preserve">
     <value />
   </data>
+  <data name="whatsapp_template" xml:space="preserve">
+    <value>Здравствуйте! Хочу заказать визитки 9×5 см. %0a
+Печать: Двусторонняя %0a
+Количество: {qty} шт. %0a
+Отделка: {adds} %0a
+Цена: {price} ₪ с НДС %0a
+Файл макета пришлю следом через  %0a 📎 → «Документ» (не «Галерея»).</value>
+  </data>
 </root>

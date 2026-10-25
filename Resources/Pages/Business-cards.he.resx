@@ -267,4 +267,12 @@
   <data name="business_cards_title_description" xml:space="preserve">
     <value>גודל 9×5 ס״מ · נייר כרומו מט 350 גר׳ · המחירים כוללים מע״מ</value>
   </data>
+  <data name="whatsapp_template" xml:space="preserve">
+    <value>שלום! אני רוצה להזמין כרטיסי ביקור 9×5 ס״מ.%0a
+הדפסה: דו־צדדית %0a
+כמות: {qty} יח׳ %0a
+גימור: {adds} %0a
+מחיר: {price} ₪ כולל מע״מ %0a
+את קובץ ההדפסה אשלח מיד דרך %0a 📎 ← "מסמך" (לא "גלריה").</value>
+  </data>
 </root>
