@@ -138,7 +138,7 @@
   <data name="business_cards" xml:space="preserve">
     <value>Визитки</value>
   </data>
-  <data name="business_cards_pile" xml:space="preserve">
+  <data name="business_cards_pile_alt" xml:space="preserve">
     <value>Стопка визиток</value>
   </data>
   <data name="business_cards_with_lamination_alt" xml:space="preserve">
@@ -151,7 +151,7 @@
     <value>Следите, чтобы графика и текст не выходили за границы печати — иначе их может срезать.</value>
   </data>
   <data name="lamination" xml:space="preserve">
-    <value>ламинация</value>
+    <value>Ламинация</value>
   </data>
   <data name="pricelist" xml:space="preserve">
     <value>Прайс</value>
@@ -169,7 +169,7 @@
     <value>Тираж</value>
   </data>
   <data name="thead_lamination" xml:space="preserve">
-    <value>+ ламинация</value>
+    <value>+ Ламинация</value>
   </data>
   <data name="thead_one_side" xml:space="preserve">
     <value>Односторонние</value>
@@ -226,7 +226,7 @@
     <value>Оплата вне сайта: наличные, карта, Bit или перевод</value>
   </data>
   <data name="file_min_order" xml:space="preserve">
-    <value>Минимальный заказ — 118 ₪ с НДС</value>
+    <value>Минимальный заказ — 100 ₪ с НДС</value>
   </data>
   <data name="payment_pickup" xml:space="preserve">
     <value>Получение и оплата</value>
@@ -274,5 +274,11 @@
 Отделка: {adds} %0a
 Цена: {price} ₪ с НДС %0a
 Файл макета пришлю следом через  %0a 📎 → «Документ» (не «Галерея»).</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>Визитки — PrintABC</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>Формат 9×5 см · мелованная матовая бумага 350 г · цены с НДС</value>
   </data>
 </root>

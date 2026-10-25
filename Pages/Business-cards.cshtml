@@ -1,7 +1,9 @@
 ﻿@page "/business-cards"
-@model PrintABC.Pages.Business_cardsModel
 
-
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+}
 <div class="container page-head">
     <h1>@L["business_cards_title"]</h1>
     <p>@L["business_cards_title_description"]</p>
@@ -73,9 +75,9 @@
         <h2 id="sum-h">@L["your_order"]</h2>
         <fieldset class="opt-group">
             <legend>@L["additions"]</legend>
-            <label class="check"><input type="checkbox" id="opt-lam-gloss"><span>@L["addition_lamination_gloss"]</span></label>
-            <label class="check"><input type="checkbox" id="opt-lam-matte"><span>@L["addition_lamination_matte"]</span></label>
-            <label class="check"><input type="checkbox" id="opt-round"><span>@L["addition_round_corners"]</span></label>
+            <label class="check"><input autocomplete="off" type="checkbox" id="opt-lam-gloss"><span>@L["addition_lamination_gloss"]</span></label>
+            <label class="check"><input autocomplete="off" type="checkbox" id="opt-lam-matte"><span>@L["addition_lamination_matte"]</span></label>
+            <label class="check"><input autocomplete="off" type="checkbox" id="opt-round"><span>@L["addition_round_corners"]</span></label>
         </fieldset>
         <div class="price-box">
             <strong>
@@ -149,7 +151,7 @@
         const twoside = document.getElementById("cards-sides-two");
         const qty = document.getElementById("cards-spec");
         const totalPrice = document.getElementById("cards-total");
-        const whatsappUrl = "https://api.whatsapp.com/send/?phone={@(PHONE_NUMBER)}&text=";
+        const whatsappUrl = "https://api.whatsapp.com/send/?phone=@(PHONE_NUMBER)&text=";
         const whatsappButton = document.getElementById("calc-next");
         lamInc.style.display = "none";
         roundInc.style.display = "none";
@@ -177,16 +179,18 @@
             calculateTotalPrice();
         });
         lamGlossAdd.addEventListener('change', (e) => {
-            updateAdditionalLabels();
-            calculateTotalPrice();
             if (e.target.checked)
                 lamMatteAdd.checked = false;
-        });
-        lamMatteAdd.addEventListener('change', (e) => {
             updateAdditionalLabels();
             calculateTotalPrice();
+            
+        });
+        lamMatteAdd.addEventListener('change', (e) => {
             if (e.target.checked)
                 lamGlossAdd.checked = false;
+            updateAdditionalLabels();
+            calculateTotalPrice();
+            
         });
 
         function resetButtons() {

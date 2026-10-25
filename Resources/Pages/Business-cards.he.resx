@@ -130,15 +130,15 @@
     <value>פינות מעוגלות</value>
   </data>
   <data name="amt_oneside_aria" xml:space="preserve">
-    <value>יח׳ · דו-צדדי ·</value>
+    <value>יח׳ · צד אחד ·</value>
   </data>
   <data name="amt_twoside_aria" xml:space="preserve">
-    <value>יח׳ · צד אחד ·</value>
+    <value>יח׳ · דו-צדדי ·</value>
   </data>
   <data name="business_cards" xml:space="preserve">
     <value>כרטיסי ביקור</value>
   </data>
-  <data name="business_cards_pile" xml:space="preserve">
+  <data name="business_cards_pile_alt" xml:space="preserve">
     <value>ערימת כרטיסי ביקור</value>
   </data>
   <data name="business_cards_with_lamination_alt" xml:space="preserve">
@@ -226,7 +226,7 @@
     <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
   </data>
   <data name="file_min_order" xml:space="preserve">
-    <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
+    <value>מינימום הזמנה — 100 ₪ כולל מע״מ</value>
   </data>
   <data name="payment_pickup" xml:space="preserve">
     <value>איסוף ותשלום</value>
@@ -274,5 +274,11 @@
 גימור: {adds} %0a
 מחיר: {price} ₪ כולל מע״מ %0a
 את קובץ ההדפסה אשלח מיד דרך %0a 📎 ← "מסמך" (לא "גלריה").</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>כרטיסי ביקור — דפוס איי.בי.סי</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>גודל 9×5 ס״מ · נייר כרומו מט 350 גר׳ · המחירים כוללים מע״מ</value>
   </data>
 </root>
