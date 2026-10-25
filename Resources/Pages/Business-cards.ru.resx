@@ -120,8 +120,11 @@
   <data name="additions" xml:space="preserve">
     <value>Дополнительно</value>
   </data>
-  <data name="addition_lamination" xml:space="preserve">
-    <value>Ламинация матовая или глянцевая</value>
+  <data name="addition_lamination_gloss" xml:space="preserve">
+    <value>Ламинация глянцевая</value>
+  </data>
+  <data name="addition_lamination_matte" xml:space="preserve">
+    <value>Ламинация матовая</value>
   </data>
   <data name="addition_round_corners" xml:space="preserve">
     <value>Скруглённые углы</value>
@@ -266,7 +269,7 @@
   </data>
   <data name="whatsapp_template" xml:space="preserve">
     <value>Здравствуйте! Хочу заказать визитки 9×5 см. %0a
-Печать: Двусторонняя %0a
+Печать: {sides} %0a
 Количество: {qty} шт. %0a
 Отделка: {adds} %0a
 Цена: {price} ₪ с НДС %0a

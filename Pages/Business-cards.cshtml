@@ -73,7 +73,8 @@
         <h2 id="sum-h">@L["your_order"]</h2>
         <fieldset class="opt-group">
             <legend>@L["additions"]</legend>
-            <label class="check"><input type="checkbox" id="opt-lam"><span>@L["addition_lamination"]</span></label>
+            <label class="check"><input type="checkbox" id="opt-lam-gloss"><span>@L["addition_lamination_gloss"]</span></label>
+            <label class="check"><input type="checkbox" id="opt-lam-matte"><span>@L["addition_lamination_matte"]</span></label>
             <label class="check"><input type="checkbox" id="opt-round"><span>@L["addition_round_corners"]</span></label>
         </fieldset>
         <div class="price-box">
@@ -128,14 +129,18 @@
 
 @section Scripts {
     <script>
-        const lamText = @Json.Serialize(L["lamination"]);
+        const lamGlossText = @Json.Serialize(L["addition_lamination_gloss"]);
+        const lamMatteText = @Json.Serialize(L["addition_lamination_matte"]);
         const cornersText = @Json.Serialize(L["round_corners"]);
+        const onesideText = @Json.Serialize(@L["oneside"]);
+        const twosideText = @Json.Serialize(@L["twoside"]);
         const messageTemplate = @Json.Serialize(L["whatsapp_template"]);
         const priceButtons = document.querySelectorAll(".price-btn");
         var prices = [];
         var lams = []
         var rounds = [];
-        const lamAdd = document.getElementById("opt-lam");
+        const lamGlossAdd = document.getElementById("opt-lam-gloss");
+        const lamMatteAdd = document.getElementById("opt-lam-matte");
         const roundAdd = document.getElementById("opt-round")
         const priceRows = document.querySelectorAll(".price-table tbody tr");
         const lamInc = document.getElementById("lam-add");
@@ -167,11 +172,21 @@
             lams.push(x.parentElement.parentElement.dataset.lam);
             rounds.push(x.parentElement.parentElement.dataset.round);
         });
-        [lamAdd, roundAdd].forEach(x => {
-            x.addEventListener('change', (e) => {
-                updateAdditionalLabels();
-                calculateTotalPrice();
-            })
+        roundAdd.addEventListener('change', (e) => {
+            updateAdditionalLabels();
+            calculateTotalPrice();
+        });
+        lamGlossAdd.addEventListener('change', (e) => {
+            updateAdditionalLabels();
+            calculateTotalPrice();
+            if (e.target.checked)
+                lamMatteAdd.checked = false;
+        });
+        lamMatteAdd.addEventListener('change', (e) => {
+            updateAdditionalLabels();
+            calculateTotalPrice();
+            if (e.target.checked)
+                lamGlossAdd.checked = false;
         });
 
         function resetButtons() {
@@ -185,7 +200,7 @@
             twoside.style.display = "none";
         }
         function updateAdditionalLabels() {
-            lamInc.style.display = lamAdd.checked ? "" : "none";
+            lamInc.style.display = (lamGlossAdd.checked || lamMatteAdd.checked) ? "" : "none";
             roundInc.style.display = roundAdd.checked ? "" : "none";
             updateDisplayPrice();
         }
@@ -203,7 +218,7 @@
         function calculateTotalPrice() {
             var itemId = getSelectedPriceId();
             var price = Number(prices[itemId]);
-            if (lamAdd.checked)
+            if (lamMatteAdd.checked || lamGlossAdd.checked)
                 price += Number(lams[itemId]);
             if (roundAdd.checked)
                 price += Number(rounds[itemId]);
@@ -213,22 +228,23 @@
         function updateWhatsappLink(price) {
             let template = messageTemplate.value;
             let adds = []
-            if (lamAdd.checked || roundAdd.checked) {
-                if (lamAdd.checked)
-                    adds.push(lamText.value);
+            if (lamMatteAdd.checked || lamGlossAdd.checked || roundAdd.checked) {
+                if (lamMatteAdd.checked)
+                    adds.push(lamMatteText.value);
+                else if (lamGlossAdd.checked)
+                    adds.push(lamGlossText.value);
+
                 if (roundAdd.checked)
                     adds.push(cornersText.value);
             }
 
-            let addText = "";
-            if (adds.length > 0) {
-                addText = adds.join(', ');
-            }
-
+            let addText = adds.join(', ');
+            let sides = priceButtons[getSelectedPriceId()].dataset.sides == "one" ? onesideText.value : twosideText.value;
             data = {
                 qty: getSelectedQuantity(),
                 adds: addText,
                 price: price,
+                sides: sides,
             };
             for (const [key, value] of Object.entries(data)) {
                 template = template.replaceAll(`{${key}}`, value);
@@ -242,7 +258,7 @@
             updateWhatsappLink(price);
         }
 
-        
+        updateAdditionalLabels();
         updateDisplayPrice();
     </script>
 }

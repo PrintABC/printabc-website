@@ -120,8 +120,11 @@
   <data name="additions" xml:space="preserve">
     <value>תוספות</value>
   </data>
-  <data name="addition_lamination" xml:space="preserve">
-    <value>למינציה מט או מבריקה</value>
+  <data name="addition_lamination_gloss" xml:space="preserve">
+    <value>למינציה מבריקה</value>
+  </data>
+  <data name="addition_lamination_matte" xml:space="preserve">
+    <value>למינציה מט</value>
   </data>
   <data name="addition_round_corners" xml:space="preserve">
     <value>פינות מעוגלות</value>
@@ -266,7 +269,7 @@
   </data>
   <data name="whatsapp_template" xml:space="preserve">
     <value>שלום! אני רוצה להזמין כרטיסי ביקור 9×5 ס״מ.%0a
-הדפסה: דו־צדדית %0a
+הדפסה: {sides} %0a
 כמות: {qty} יח׳ %0a
 גימור: {adds} %0a
 מחיר: {price} ₪ כולל מע״מ %0a
