@@ -118,88 +118,85 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="additions" xml:space="preserve">
-    <value />
+    <value>Дополнительно</value>
   </data>
   <data name="addition_lamination" xml:space="preserve">
-    <value />
+    <value>Ламинация матовая или глянцевая</value>
   </data>
   <data name="addition_round_corners" xml:space="preserve">
-    <value />
+    <value>Скруглённые углы</value>
   </data>
   <data name="amt_oneside_aria" xml:space="preserve">
-    <value />
+    <value>· Односторонние ·</value>
   </data>
   <data name="amt_twoside_aria" xml:space="preserve">
-    <value />
+    <value>· Двусторонние ·</value>
   </data>
   <data name="business_cards" xml:space="preserve">
-    <value />
+    <value>Визитки</value>
   </data>
   <data name="business_cards_pile" xml:space="preserve">
-    <value />
+    <value>Стопка визиток</value>
   </data>
   <data name="business_cards_with_lamination_alt" xml:space="preserve">
-    <value />
+    <value>Визитки с ламинацией</value>
   </data>
   <data name="info_lamination_explanation" xml:space="preserve">
-    <value />
+    <value>Ламинация — прозрачное матовое или глянцевое покрытие: визитка прочнее и выглядит дороже.</value>
   </data>
   <data name="info_warning_print_limit" xml:space="preserve">
-    <value />
+    <value>Следите, чтобы графика и текст не выходили за границы печати — иначе их может срезать.</value>
   </data>
   <data name="lamination" xml:space="preserve">
-    <value />
+    <value>ламинация</value>
   </data>
   <data name="pricelist" xml:space="preserve">
-    <value />
+    <value>Прайс</value>
   </data>
   <data name="pricelist_choose_table" xml:space="preserve">
-    <value />
+    <value>Выберите тираж и тип печати в таблице</value>
   </data>
   <data name="pricelist_choose_table_caption" xml:space="preserve">
-    <value />
+    <value>Прайс — Выберите тираж и тип печати в таблице</value>
   </data>
   <data name="round_corners" xml:space="preserve">
-    <value />
+    <value>Скруглённые углы</value>
   </data>
   <data name="thead_amount" xml:space="preserve">
-    <value />
+    <value>Тираж</value>
   </data>
   <data name="thead_lamination" xml:space="preserve">
-    <value />
+    <value>+ ламинация</value>
   </data>
   <data name="thead_one_side" xml:space="preserve">
-    <value />
+    <value>Односторонние</value>
   </data>
   <data name="thead_round_corners" xml:space="preserve">
-    <value />
+    <value>+ скругление углов</value>
   </data>
   <data name="thead_two_sides" xml:space="preserve">
-    <value />
+    <value>Двусторонние</value>
   </data>
   <data name="total_inc_vat" xml:space="preserve">
-    <value />
+    <value>Итого с НДС</value>
   </data>
   <data name="units" xml:space="preserve">
-    <value />
-  </data>
-  <data name="price_vat" xml:space="preserve">
-    <value />
+    <value>шт.</value>
   </data>
   <data name="your_order" xml:space="preserve">
-    <value />
+    <value>Ваш заказ</value>
   </data>
   <data name="prep_time" xml:space="preserve">
-    <value />
+    <value>от 1 рабочего дня</value>
   </data>
   <data name="price_ready" xml:space="preserve">
-    <value />
+    <value>Готовность</value>
   </data>
   <data name="oneside" xml:space="preserve">
-    <value />
+    <value>односторонние</value>
   </data>
   <data name="twoside" xml:space="preserve">
-    <value />
+    <value>двусторонние</value>
   </data>
   <data name="next_load_file" xml:space="preserve">
     <value>«Заказать в WhatsApp»</value>
@@ -262,10 +259,10 @@
     <value>Заказ готов — бесплатно забираете на ул. Штампфер 5, Нетания.</value>
   </data>
   <data name="business_cards_title" xml:space="preserve">
-    <value />
+    <value>Визитки</value>
   </data>
   <data name="business_cards_title_description" xml:space="preserve">
-    <value />
+    <value>Формат 9×5 см · мелованная матовая бумага 350 г · цены с НДС</value>
   </data>
   <data name="whatsapp_template" xml:space="preserve">
     <value>Здравствуйте! Хочу заказать визитки 9×5 см. %0a

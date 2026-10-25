@@ -183,9 +183,6 @@
   <data name="units" xml:space="preserve">
     <value>יח׳</value>
   </data>
-  <data name="price_vat" xml:space="preserve">
-    <value>מתוכו מע״מ (18%)</value>
-  </data>
   <data name="your_order" xml:space="preserve">
     <value>ההזמנה שלכם</value>
   </data>
