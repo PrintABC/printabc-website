@@ -85,7 +85,6 @@
                 <span id="round-add"> · @L["round_corners"]</span>
             </strong>
             <div class="price-box__row price-box__row--total"><span>@L["total_inc_vat"]</span><output class="price-box__total" id="cards-total" aria-live="polite">230 ₪</output></div>
-            <div class="price-box__row"><span>@L["price_vat"]</span><output id="cards-vat">35.08 ₪</output></div>
             <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
         </div>
         <a class="btn btn--primary btn--lg" id="calc-next" href="#" target="_blank" rel="noopener noreferrer">@L["next_load_file"]<span class="arrow" aria-hidden="true">←</span></a>
@@ -142,7 +141,6 @@
         const twoside = document.getElementById("cards-sides-two");
         const qty = document.getElementById("cards-spec");
         const totalPrice = document.getElementById("cards-total");
-        const vatPrice = document.getElementById("cards-vat");
         lamInc.style.display = "none";
         roundInc.style.display = "none";
         oneside.style.display = "none";
@@ -196,19 +194,6 @@
             return document.getElementsByClassName('is-selected')[0].dataset.qty;
         }
 
-        function reversePercentage(value, percentage = 18) {
-            if (isNaN(Number(value)))
-                return 0;
-            return value / (100 + percentage) * percentage;
-        }
-
-        function getVatOfPrice(value) {
-            if (isNaN(Number(value)))
-                return 0;
-
-            return Number(reversePercentage(value).toFixed(2));
-        }
-
         function calculateTotalPrice() {
             var itemId = getSelectedPriceId();
             var price = Number(prices[itemId]);
@@ -223,31 +208,7 @@
         function updateDisplayPrice(){
             let price = calculateTotalPrice();
             totalPrice.innerText = price + " ₪";
-            vatPrice.innerText = getVatOfPrice(price) + " ₪";
         }
 
-        let controller;
-        async function triggerUpdate() {
-            controller?.abort();
-            controller = new AbortController();
-
-            var itemId = getSelectedPriceId()
-
-            var data = {
-                quantity: getSelectedQuantity(),
-                price: prices[itemId],
-                // sides: priceButtons[itemId].dataset.sides ==
-
-            };
-
-            const response = await fetch('?handler=Update', {
-                method: 'POST',
-                headers: {
-
-                },
-                body: new FormData(form),
-                signal: controller.signal
-            });
-        }
     </script>
 }
