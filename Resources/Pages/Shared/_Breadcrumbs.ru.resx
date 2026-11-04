@@ -123,6 +123,9 @@
   <data name="business-cards" xml:space="preserve">
     <value>Визитки</value>
   </data>
+  <data name="catalogs" xml:space="preserve">
+    <value>Каталоги и журналы</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>Главная</value>
   </data>

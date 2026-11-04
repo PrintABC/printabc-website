@@ -1,0 +1,85 @@
+﻿@page "/Catalogs"
+@model CatalogsModel
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+}
+
+<div class="container page-head">
+    <h1>@L["catalogs_header"]</h1>
+    <p>@L["catalogs_description"]</p>
+</div>
+
+<div class="container product-layout">
+    <div class="product-layout__main is-sticky">
+        <div class="cat-preview">
+            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="תצוגה של החוברת: A4, סיכות, 12 עמ׳">
+                <span class="cat-preview__cmyk" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+                <div class="cat-book" data-fmt="A4" data-binding="staple">
+                    <span class="cat-book__page cat-book__page--2" aria-hidden="true"></span>
+                    <span class="cat-book__page cat-book__page--1" aria-hidden="true"></span>
+                    <div class="cat-book__cover" aria-hidden="true">
+                        <div class="cat-book__top"><span class="cat-book__mark"><span></span><span></span><span></span><span></span></span><span class="cat-book__title">קטלוג</span><span class="cat-book__sub" data-cover-sub="">A4 · 16 עמ׳</span></div>
+                        <div class="cat-book__band"><span></span><span></span><span></span><span></span></div>
+                        <span class="cat-book__gloss"></span>
+                    </div>
+                    <span class="cat-book__staple cat-book__staple--top" aria-hidden="true"></span>
+                    <span class="cat-book__staple cat-book__staple--bottom" aria-hidden="true"></span>
+                    <span class="cat-book__spiral" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="cat-preview__chips" data-chips=""><span>A4</span><span>סיכות</span><span>12 עמ׳ · 130 גרם</span><span>כריכה 250 גרם</span></div>
+        </div>
+    </div>
+    <form class="product-layout__side panel panel--raised calc" id="calc" aria-labelledby="calc-title" autocomplete="off" novalidate="">
+        <div class="calc__head"><h2 id="calc-title">חישוב מחיר</h2></div>
+        <fieldset class="opt-group" id="g-fmt"><legend>גודל</legend><div class="opt-list"><label class="pill"><input type="radio" name="fmt" value="A4" checked=""><span>A4 · <span class="ltr">21×29.7</span> ס״מ</span></label><label class="pill"><input type="radio" name="fmt" value="A5"><span>A5 · <span class="ltr">14.8×21</span> ס״מ</span></label><label class="pill"><input type="radio" name="fmt" value="A6"><span>A6 · <span class="ltr">10.5×14.8</span> ס״מ</span></label></div></fieldset>
+        <fieldset class="opt-group" id="g-bind"><legend>חיבור</legend><div class="opt-list"><label class="pill"><input type="radio" name="binding" value="staple" checked=""><span>סיכות</span></label><label class="pill"><input type="radio" name="binding" value="spiral"><span>ספירלה</span></label></div></fieldset>
+        <fieldset class="opt-group" id="g-paper" aria-describedby="g-paper-hint"><legend>נייר פנים</legend><div class="opt-list"><label class="pill"><input type="radio" name="paper" value="80"><span>80 גרם (אופסט)</span></label><label class="pill"><input type="radio" name="paper" value="130" checked=""><span>130 גרם</span></label><label class="pill"><input type="radio" name="paper" value="170"><span>170 גרם</span></label><label class="pill"><input type="radio" name="paper" value="250"><span>250 גרם</span></label><label class="pill pill--disabled"><input type="radio" name="paper" value="300" disabled=""><span>300 גרם</span></label></div><p class="field__hint" id="g-paper-hint">הדפסה בצבע משני הצדדים (4+4). 130–300 גרם — כרומו מט.</p></fieldset>
+        <div class="field">
+            <label class="field__label" for="calc-pages">עמודי פנים (בלי הכריכה)</label>
+            <input class="field__input field__input--num" id="calc-pages" name="pages" type="number" inputmode="numeric" min="4" max="36" step="4" value="12" aria-describedby="pages-hint" aria-invalid="false">
+            <p class="field__hint" id="pages-hint" data-pages-hint="">סיכות, 130 גרם: מ- 4 עד 36 עמ׳, בכפולות של 4</p>
+        </div>
+        <fieldset class="opt-group" id="g-cover" aria-describedby="g-cover-hint"><legend>כריכה נפרדת</legend><div class="opt-list"><label class="pill"><input type="radio" name="cover" value="yes" checked=""><span>כן</span></label><label class="pill"><input type="radio" name="cover" value="no"><span>לא</span></label></div><p class="field__hint" id="g-cover-hint">בלי כריכה נפרדת — העמוד הראשון והאחרון של הפנים משמשים ככריכה.</p></fieldset>
+        <div class="cat-cover-opts" data-cover-opts="">
+            <fieldset class="opt-group" id="g-cpaper" aria-describedby="g-cpaper-hint"><legend>נייר כריכה</legend><div class="opt-list"><label class="pill"><input type="radio" name="coverPaper" value="250" checked=""><span>250 גרם</span></label><label class="pill"><input type="radio" name="coverPaper" value="300"><span>300 גרם</span></label></div><p class="field__hint" id="g-cpaper-hint">כרומו מט</p></fieldset>
+            <fieldset class="opt-group" id="g-cprint"><legend>הדפסת כריכה</legend><div class="opt-list"><label class="pill"><input type="radio" name="coverPrint" value="40"><span>4+0 (מבחוץ בלבד)</span></label><label class="pill"><input type="radio" name="coverPrint" value="44" checked=""><span>4+4 (משני הצדדים)</span></label></div></fieldset>
+            <fieldset class="opt-group" id="g-lam" aria-describedby="g-lam-hint"><legend>למינציה לכריכה</legend><div class="opt-list"><label class="pill"><input type="radio" name="lam" value="none" checked=""><span>ללא</span></label><label class="pill"><input type="radio" name="lam" value="matte"><span>מט</span></label><label class="pill"><input type="radio" name="lam" value="gloss"><span>מבריקה</span></label></div><p class="field__hint" id="g-lam-hint">מבחוץ בלבד, אותו מחיר למט ולמבריק.</p></fieldset>
+        </div>
+        <div class="field">
+            <label class="field__label" for="calc-qty">כמות (יח׳)</label>
+            <input class="field__input field__input--num" id="calc-qty" name="qty" type="number" inputmode="numeric" min="6" step="1" value="100" aria-describedby="q-hint" aria-invalid="false">
+            <p class="field__hint" id="q-hint">מ-6 יח׳. הזמנה מעל 2,360 ₪ — הצעת מחיר אישית.</p>
+        </div>
+        <div class="alert alert--error" data-error="pages_step" role="alert" hidden=""><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5v.5"></path></svg><span>מספר העמודים לא מתאים לשלב. בחרו ערך בעזרת החצים.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div><div class="alert alert--error" data-error="pages_min" role="alert" hidden=""><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5v.5"></path></svg><span>מספר העמודים קטן מהמינימום לחיבור ולנייר שבחרתם.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div><div class="alert alert--error" data-error="pages_max" role="alert" hidden=""><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5v.5"></path></svg><span>מספר העמודים גדול מהמקסימום לחיבור ולנייר שבחרתם.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div><div class="alert alert--error" data-error="qty_min" role="alert" hidden=""><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5v.5"></path></svg><span>כמות מינימלית — 6 יח׳.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div><div class="alert alert--error" data-error="too_thick" role="alert" hidden=""><div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5v.5"></path></svg><span>החוברת עבה מדי לספירלה. הקטינו את מספר העמודים או בחרו נייר דק יותר.</span></div><a href="https://wa.me/972508494172">צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</a></div>
+        <div class="price-box">
+            <p class="cat-summary"><strong>ההזמנה שלכם</strong><br><span data-summary="">A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳</span></p>
+            <div data-priced="">
+                <div class="price-box__row price-box__row--total"><span>סה״כ כולל מע״מ</span><output class="price-box__total" id="calc-total" aria-live="polite">‎1346.19 ₪‎</output></div>
+                <div class="price-box__row"><span>מתוכו מע״מ (18%)</span><output id="calc-vat">‎205.35 ₪‎</output></div>
+                <div class="price-box__row"><span>מחיר ליחידה</span><output id="calc-unit">‎13.46 ₪‎</output></div>
+                <p class="field__hint" data-min-note="" hidden="">מינימום הזמנה 118 ₪ כולל מע״מ</p>
+            </div>
+            <div data-manual="" hidden="" aria-live="polite"><p class="price-box__total">נחשב לכם אישית</p><p class="field__hint">שלחו לנו את הפרמטרים ב-WhatsApp — נחזור עם מחיר.</p></div>
+            <div class="price-box__row"><span>מוכן</span><span>עד 7 ימי עבודה</span></div>
+        </div>
+        <a class="btn btn--whatsapp btn--lg" id="calc-next" href="https://wa.me/972508494172?text=%D7%A9%D7%9C%D7%95%D7%9D!%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%94%D7%96%D7%9E%D7%99%D7%9F%20%D7%A7%D7%98%D7%9C%D7%95%D7%92.%0A%D7%92%D7%95%D7%93%D7%9C%3A%20A4%2C%20%D7%A1%D7%99%D7%9B%D7%95%D7%AA%0A%D7%A4%D7%A0%D7%99%D7%9D%3A%2012%20%D7%A2%D7%9E%D7%B3%2C%20%D7%9B%D7%A8%D7%95%D7%9E%D7%95%20%D7%9E%D7%98%20130%20%D7%92%D7%A8%D7%9D%0A%D7%9B%D7%A8%D7%99%D7%9B%D7%94%3A%20%D7%9B%D7%A8%D7%95%D7%9E%D7%95%20%D7%9E%D7%98%20250%20%D7%92%D7%A8%D7%9D%2C%20%D7%94%D7%93%D7%A4%D7%A1%D7%94%204%2B4%2C%20%D7%9C%D7%9C%D7%90%20%D7%9C%D7%9E%D7%99%D7%A0%D7%A6%D7%99%D7%94%0A%D7%9B%D7%9E%D7%95%D7%AA%3A%20100%20%D7%99%D7%97%D7%B3%0A%D7%9E%D7%97%D7%99%D7%A8%3A%20%E2%80%8E1346.19%20%E2%82%AA%E2%80%8E%20%D7%9B%D7%95%D7%9C%D7%9C%20%D7%9E%D7%A2%D7%B4%D7%9E%0A%D7%90%D7%AA%20%D7%A7%D7%95%D7%91%D7%A5%20%D7%94%D7%94%D7%93%D7%A4%D7%A1%D7%94%20%D7%90%D7%A9%D7%9C%D7%97%20%D7%9E%D7%99%D7%93%20%D7%93%D7%A8%D7%9A%20%F0%9F%93%8E%20%E2%86%90%20%22%D7%9E%D7%A1%D7%9E%D7%9A%22%20(%D7%9C%D7%90%20%22%D7%92%D7%9C%D7%A8%D7%99%D7%94%22)."><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg><span data-cta="">להזמנה ב-WhatsApp</span></a>
+        <span class="btn btn--lg" id="calc-next-off" aria-disabled="true" hidden="">להזמנה ב-WhatsApp</span>
+        <a class="calc__ask" href="https://wa.me/972508494172"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg>שאלה? כתבו לנו ב-WhatsApp</a>
+    </form>
+</div>
+
+<section class="section--surface">
+    <div class="container info-cards">
+        <div class="info-card"><h2>דרישות לקובץ</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>קובץ PDF אחד מרובה עמודים, לפי הסדר; הכריכה — בקובץ PDF נפרד</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>גודל עמוד = הפורמט + 2 מ״מ גלישה מכל צד (A4: <span class="ltr">214×301</span> מ״מ)</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>רזולוציה 300 dpi, אזור בטוח 3 מ״מ מקו החיתוך</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>בספירלה — עוד 8 מ״מ מהשדרה בלי טקסט</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>אין קובץ מוכן? כתבו לנו.</span></li></ul></div>
+        <div class="info-card"><h2>איסוף ותשלום</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>איסוף עצמי מרח׳ שטמפפר 5, נתניה — חינם</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>מינימום הזמנה — 118 ₪ כולל מע״מ</span></li><li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>מוכן תוך עד 7 ימי עבודה</span></li></ul></div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="after-h">
+    <div class="container section__stack">
+        <div class="section-head"><h2 id="after-h">מה קורה אחרי ההזמנה</h2></div>
+        <ol class="steps"><li class="step"><span class="step__num" aria-hidden="true">01</span><h3>בוחרים ומחשבים</h3><p class="step__text">בוחרים פרמטרים ורואים מחיר כולל מע״מ.</p></li><li class="step"><span class="step__num" aria-hidden="true">02</span><h3>שולחים ב-WhatsApp</h3><p class="step__text">ההודעה עם פרטי ההזמנה מוכנה. את הקובץ שולחים באותה שיחה כ"מסמך".</p></li><li class="step"><span class="step__num" aria-hidden="true">03</span><h3>מאשרים הדפסת ניסיון</h3><p class="step__text">נשלח צילום או וידאו ב-WhatsApp. מדפיסים אחרי האישור.</p></li><li class="step"><span class="step__num" aria-hidden="true">04</span><h3>אוספים מבית הדפוס</h3><p class="step__text">ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</p></li></ol>
+    </div>
+</section>
