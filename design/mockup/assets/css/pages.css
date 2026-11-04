@@ -291,3 +291,57 @@
 
 /* Flex children must be allowed to shrink below their content (wide table scrolls inside its wrapper) */
 .product-layout > *, .order-layout__main, .order-layout__side { min-width: 0; }
+
+/* ---------- Catalogs & magazines (catalogs.html) ---------- */
+.pill--disabled { background: var(--c-surface); color: var(--c-border); border-style: dashed; text-decoration: line-through; cursor: not-allowed; }
+.cat-cover-opts { display: flex; flex-direction: column; gap: 22px; }
+.cat-cover-opts[hidden] { display: none; }
+.cat-summary { margin: 0 0 6px; color: var(--c-muted); font-size: var(--fs-small); }
+.cat-summary strong { color: var(--c-ink); }
+.cat-preview { display: flex; flex-direction: column; gap: 14px; }
+.cat-preview__stage { position: relative; height: clamp(380px, 36vw, 480px); border-radius: var(--r-xl); background: var(--c-surface); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.cat-preview__cmyk { position: absolute; top: 18px; inset-inline-end: 18px; display: flex; gap: 4px; }
+.cat-preview__cmyk span { width: 14px; height: 6px; }
+.cat-preview__cmyk span:nth-child(1), .cat-book__mark span:nth-child(1), .cat-book__band span:nth-child(2) { background: var(--c-cyan); }
+.cat-preview__cmyk span:nth-child(2), .cat-book__mark span:nth-child(2) { background: var(--c-accent); }
+.cat-preview__cmyk span:nth-child(3), .cat-book__mark span:nth-child(3), .cat-book__band span:nth-child(3) { background: var(--c-yellow); }
+.cat-preview__cmyk span:nth-child(4), .cat-book__mark span:nth-child(4), .cat-book__band span:nth-child(4) { background: var(--c-ink); }
+.cat-preview__chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.cat-preview__chips span { padding: 6px 14px; border-radius: var(--r-pill); background: var(--c-surface); font-weight: 600; font-size: 0.9375rem; }
+
+/* Book mock-up: size follows the format (A4 230×325, A5 172×243, A6 128×181) */
+.cat-book { position: relative; width: 230px; height: 325px; }
+.cat-book[data-fmt="A5"] { width: 172px; height: 243px; }
+.cat-book[data-fmt="A6"] { width: 128px; height: 181px; }
+.cat-book__page { position: absolute; background: var(--c-white); border: 1px solid var(--c-line); border-radius: 3px; }
+.cat-book__page--2 { top: 10px; bottom: -10px; inset-inline-start: 10px; inset-inline-end: -12px; }
+.cat-book__page--1 { top: 5px; bottom: -5px; inset-inline-start: 5px; inset-inline-end: -6px; }
+.cat-book__cover { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; overflow: hidden; background: var(--c-white); border-radius: 3px; box-shadow: var(--shadow-float); }
+.cat-book__top { flex-grow: 1; display: flex; flex-direction: column; gap: 6px; padding: 22px 20px 0 28px; }
+[dir="rtl"] .cat-book__top { padding: 22px 28px 0 20px; }
+.cat-book__mark { display: grid; grid-template-columns: repeat(2, 10px); gap: 3px; }
+.cat-book__mark span { width: 10px; height: 10px; }
+.cat-book__title { margin-top: 8px; font-family: var(--font-head); font-weight: 800; font-size: 30px; line-height: 1.05; }
+.cat-book__sub { font-size: 13px; color: var(--c-muted); }
+.cat-book__band { height: 36%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--c-accent); }
+.cat-book__gloss { display: none; position: absolute; top: 0; bottom: 0; inset-inline-end: 18%; width: 22%; background: var(--c-white); opacity: .35; transform: skewX(-12deg); }
+.cat-book--gloss .cat-book__gloss { display: block; }
+.cat-book[data-fmt="A6"] .cat-book__top { padding: 14px 12px 0 18px; }
+[dir="rtl"] .cat-book[data-fmt="A6"] .cat-book__top { padding: 14px 18px 0 12px; }
+.cat-book[data-fmt="A6"] .cat-book__title { font-size: 18px; }
+.cat-book__staple { display: none; position: absolute; z-index: 3; inset-inline-start: 4px; width: 3px; height: 22px; border-radius: 1px; background: var(--c-border); }
+.cat-book__staple--top { top: 24%; }
+.cat-book__staple--bottom { bottom: 24%; }
+.cat-book[data-binding="staple"] .cat-book__staple { display: block; }
+/* Spiral: rings drawn with a repeating gradient, one every 24 px */
+.cat-book__spiral { display: none; position: absolute; z-index: 3; top: 10px; bottom: 10px; inset-inline-start: -9px; width: 22px;
+  background: repeating-linear-gradient(to bottom, transparent 0 8px, var(--c-border) 8px 9px, var(--c-white) 9px 14px, var(--c-border) 14px 15px, transparent 15px 24px); }
+.cat-book[data-binding="spiral"] .cat-book__spiral { display: block; }
+
+@media (max-width: 767.98px) {
+  .cat-preview__stage { height: 300px; }
+  .cat-book { width: 166px; height: 234px; }
+  .cat-book[data-fmt="A5"] { width: 124px; height: 175px; }
+  .cat-book[data-fmt="A6"] { width: 92px; height: 130px; }
+  .cat-book__title { font-size: 22px; }
+}
