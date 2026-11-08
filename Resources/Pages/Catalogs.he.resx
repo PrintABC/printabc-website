@@ -117,10 +117,220 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="binding_label" xml:space="preserve">
+    <value>חיבור</value>
+  </data>
+  <data name="binding_spiral" xml:space="preserve">
+    <value>ספירלה</value>
+  </data>
+  <data name="binding_staple" xml:space="preserve">
+    <value>סיכות</value>
+  </data>
+  <data name="catalogs_description" xml:space="preserve">
+    <value>A4, A5, A6 · סיכות או ספירלה · מ-6 יח׳ · המחירים כוללים מע״מ</value>
+  </data>
+  <data name="catalogs_header" xml:space="preserve">
+    <value>קטלוגים ומגזינים</value>
+  </data>
+  <data name="cover" xml:space="preserve">
+    <value>כריכה</value>
+  </data>
+  <data name="cover_paper_250" xml:space="preserve">
+    <value>250 גרם</value>
+  </data>
+  <data name="cover_paper_300" xml:space="preserve">
+    <value>300 גרם</value>
+  </data>
+  <data name="cover_paper_hint" xml:space="preserve">
+    <value>כרומו מט</value>
+  </data>
+  <data name="cover_paper_label" xml:space="preserve">
+    <value>נייר כריכה</value>
+  </data>
+  <data name="cover_print_40" xml:space="preserve">
+    <value>4+0 (מבחוץ בלבד)</value>
+  </data>
+  <data name="cover_print_44" xml:space="preserve">
+    <value>4+4 (משני הצדדים)</value>
+  </data>
+  <data name="cover_print_label" xml:space="preserve">
+    <value>הדפסת כריכה</value>
+  </data>
+  <data name="has_cover_hint" xml:space="preserve">
+    <value>בלי כריכה נפרדת — העמוד הראשון והאחרון של הפנים משמשים ככריכה.</value>
+  </data>
+  <data name="innerpaper_80" xml:space="preserve">
+    <value>80 גרם (אופסט)</value>
+  </data>
+  <data name="innerpaper_130" xml:space="preserve">
+    <value>130 גרם</value>
+  </data>
+  <data name="innerpaper_170" xml:space="preserve">
+    <value>170 גרם</value>
+  </data>
+  <data name="innerpaper_250" xml:space="preserve">
+    <value>250 גרם</value>
+  </data>
+  <data name="innerpaper_300" xml:space="preserve">
+    <value>300 גרם</value>
+  </data>
+  <data name="innerpaper_label" xml:space="preserve">
+    <value>נייר פנים</value>
+  </data>
+  <data name="inner_pages_label" xml:space="preserve">
+    <value>עמודי פנים (בלי הכריכה)</value>
+  </data>
+  <data name="lamination" xml:space="preserve">
+    <value>למינציה</value>
+  </data>
+  <data name="lamination_gloss" xml:space="preserve">
+    <value>מבריקה</value>
+  </data>
+  <data name="lamination_hint" xml:space="preserve">
+    <value>מבחוץ בלבד, אותו מחיר למט ולמבריק.</value>
+  </data>
+  <data name="lamination_label" xml:space="preserve">
+    <value>למינציה לכריכה</value>
+  </data>
+  <data name="lamination_matte" xml:space="preserve">
+    <value>מט</value>
+  </data>
+  <data name="lamination_none" xml:space="preserve">
+    <value>ללא</value>
+  </data>
   <data name="meta_description" xml:space="preserve">
     <value>A4, A5, A6 · סיכות או ספירלה · מ-6 יח׳ · המחירים כוללים מע״מ</value>
   </data>
   <data name="meta_title" xml:space="preserve">
     <value>קטלוגים ומגזינים — דפוס איי.בי.סי</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>כן</value>
+  </data>
+  <data name="page" xml:space="preserve">
+    <value>עמ׳</value>
+  </data>
+  <data name="paper_hint" xml:space="preserve">
+    <value>הדפסה בצבע משני הצדדים (4+4). 130–300 גרם — כרומו מט.</value>
+  </data>
+  <data name="price_calculator" xml:space="preserve">
+    <value>חישוב מחיר</value>
+  </data>
+  <data name="price_just_vat" xml:space="preserve">
+    <value>מתוכו מע״מ (18%)</value>
+  </data>
+  <data name="price_per_unit" xml:space="preserve">
+    <value>מחיר ליחידה</value>
+  </data>
+  <data name="quantity_hint" xml:space="preserve">
+    <value>מ-6 יח׳. הזמנה מעל 2,360 ₪ — הצעת מחיר אישית.</value>
+  </data>
+  <data name="quantity_label" xml:space="preserve">
+    <value>כמות (יח׳)</value>
+  </data>
+  <data name="separate_cover_label" xml:space="preserve">
+    <value>כריכה נפרדת</value>
+  </data>
+  <data name="size_A4" xml:space="preserve">
+    <value>21×29.7</value>
+  </data>
+  <data name="size_A5" xml:space="preserve">
+    <value>14.8×21</value>
+  </data>
+  <data name="size_A6" xml:space="preserve">
+    <value>10.5×14.8</value>
+  </data>
+  <data name="size_label" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="total_inc_vat" xml:space="preserve">
+    <value>סה״כ כולל מע״מ</value>
+  </data>
+  <data name="unit" xml:space="preserve">
+    <value>יח׳</value>
+  </data>
+  <data name="unit_cm" xml:space="preserve">
+    <value>ס״מ</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>לא</value>
+  </data>
+  <data name="your_order" xml:space="preserve">
+    <value>ההזמנה שלכם</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>«להזמנה ב-WhatsApp»</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>עד 7 ימי עבודה</value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>שאלה? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>דרישות לקובץ</value>
+  </data>
+  <data name="payment_pickup" xml:space="preserve">
+    <value>איסוף ותשלום</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>מה קורה אחרי ההזמנה</value>
+  </data>
+  <data name="pick_calculate" xml:space="preserve">
+    <value>בוחרים ומחשבים</value>
+  </data>
+  <data name="send_file" xml:space="preserve">
+    <value>מעלים קובץ ושולחים</value>
+  </data>
+  <data name="send_file_description" xml:space="preserve">
+    <value>PDF, PNG או JPEG עד 100MB. אישור הזמנה יגיע למייל.</value>
+  </data>
+  <data name="pick_calculate_description" xml:space="preserve">
+    <value>בוחרים מוצר ופרמטרים ורואים מחיר כולל מע״מ.</value>
+  </data>
+  <data name="approve_sample" xml:space="preserve">
+    <value>מאשרים הדפסת ניסיון</value>
+  </data>
+  <data name="approve_sample_description" xml:space="preserve">
+    <value>נשלח צילום או וידאו ב-WhatsApp. מדפיסים אחרי האישור.</value>
+  </data>
+  <data name="collect_order" xml:space="preserve">
+    <value>אוספים מבית הדפוס</value>
+  </data>
+  <data name="collect_order_description" xml:space="preserve">
+    <value>ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</value>
+  </data>
+  <data name="file_type_description" xml:space="preserve">
+    <value>קובץ PDF אחד מרובה עמודים, לפי הסדר; הכריכה — בקובץ PDF נפרד</value>
+  </data>
+  <data name="page_size_description" xml:space="preserve">
+    <value>גודל עמוד = הפורמט + 2 מ״מ גלישה מכל צד</value>
+  </data>
+  <data name="file_resolution_description" xml:space="preserve">
+    <value>רזולוציה 300 dpi, אזור בטוח 3 מ״מ מקו החיתוך</value>
+  </data>
+  <data name="spiral_gap_description" xml:space="preserve">
+    <value>בספירלה — עוד 8 מ״מ מהשדרה בלי טקסט</value>
+  </data>
+  <data name="file_not_ready_help" xml:space="preserve">
+    <value>אין קובץ מוכן? כתבו לנו — נעזור להכין אותו.</value>
+  </data>
+  <data name="file_address" xml:space="preserve">
+    <value>איסוף עצמי מרח׳ שטמפפר 5, נתניה — חינם</value>
+  </data>
+  <data name="file_payment" xml:space="preserve">
+    <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
+  </data>
+  <data name="file_min_order" xml:space="preserve">
+    <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
+  </data>
+  <data name="unit_mm" xml:space="preserve">
+    <value>מ״מ</value>
+  </data>
+  <data name="file_ready_in" xml:space="preserve">
+    <value>מוכן תוך עד 7 ימי עבודה</value>
   </data>
 </root>

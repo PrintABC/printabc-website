@@ -48,6 +48,7 @@ namespace PrintABC
             .AddDataAnnotationsLocalization();
 
             builder.Services.AddSingleton<StickerCalculatorService>();
+            builder.Services.AddSingleton<CatalogCalculatorService>();
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {

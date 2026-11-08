@@ -117,10 +117,220 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="binding_label" xml:space="preserve">
+    <value>Переплёт</value>
+  </data>
+  <data name="binding_spiral" xml:space="preserve">
+    <value>Спираль</value>
+  </data>
+  <data name="binding_staple" xml:space="preserve">
+    <value>Скоба</value>
+  </data>
+  <data name="catalogs_description" xml:space="preserve">
+    <value>A4, A5, A6 · скоба или спираль · от 6 шт. · цены с НДС</value>
+  </data>
+  <data name="catalogs_header" xml:space="preserve">
+    <value>Каталоги и журналы</value>
+  </data>
+  <data name="cover" xml:space="preserve">
+    <value>обложка</value>
+  </data>
+  <data name="cover_paper_250" xml:space="preserve">
+    <value>250 г</value>
+  </data>
+  <data name="cover_paper_300" xml:space="preserve">
+    <value>300 г</value>
+  </data>
+  <data name="cover_paper_hint" xml:space="preserve">
+    <value>Мелованная матовая</value>
+  </data>
+  <data name="cover_paper_label" xml:space="preserve">
+    <value>Бумага обложки</value>
+  </data>
+  <data name="cover_print_40" xml:space="preserve">
+    <value>4+0 (только снаружи)</value>
+  </data>
+  <data name="cover_print_44" xml:space="preserve">
+    <value>4+4 (с двух сторон)</value>
+  </data>
+  <data name="cover_print_label" xml:space="preserve">
+    <value>Печать обложки</value>
+  </data>
+  <data name="has_cover_hint" xml:space="preserve">
+    <value>Без отдельной обложки обложкой служат первая и последняя страницы блока.</value>
+  </data>
+  <data name="innerpaper_80" xml:space="preserve">
+    <value>80 г офсет</value>
+  </data>
+  <data name="innerpaper_130" xml:space="preserve">
+    <value>130 г</value>
+  </data>
+  <data name="innerpaper_170" xml:space="preserve">
+    <value>170 г</value>
+  </data>
+  <data name="innerpaper_250" xml:space="preserve">
+    <value>250 г</value>
+  </data>
+  <data name="innerpaper_300" xml:space="preserve">
+    <value>300 г</value>
+  </data>
+  <data name="innerpaper_label" xml:space="preserve">
+    <value>Бумага блока</value>
+  </data>
+  <data name="inner_pages_label" xml:space="preserve">
+    <value>Страниц в блоке (без обложки)</value>
+  </data>
+  <data name="lamination" xml:space="preserve">
+    <value>ламинация</value>
+  </data>
+  <data name="lamination_gloss" xml:space="preserve">
+    <value>Глянцевая</value>
+  </data>
+  <data name="lamination_hint" xml:space="preserve">
+    <value>Только снаружи, цена одна для матовой и глянцевой.</value>
+  </data>
+  <data name="lamination_label" xml:space="preserve">
+    <value>Ламинация обложки</value>
+  </data>
+  <data name="lamination_matte" xml:space="preserve">
+    <value>Матовая</value>
+  </data>
+  <data name="lamination_none" xml:space="preserve">
+    <value>Нет</value>
+  </data>
   <data name="meta_description" xml:space="preserve">
     <value>A4, A5, A6 · скоба или спираль · от 6 шт. · цены с НДС</value>
   </data>
   <data name="meta_title" xml:space="preserve">
     <value>Каталоги и журналы — PrintABC</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="page" xml:space="preserve">
+    <value>стр.</value>
+  </data>
+  <data name="paper_hint" xml:space="preserve">
+    <value>Блок печатается в цвете с двух сторон (4+4). 130–300 г — мелованная матовая.</value>
+  </data>
+  <data name="price_calculator" xml:space="preserve">
+    <value>Расчёт цены</value>
+  </data>
+  <data name="price_just_vat" xml:space="preserve">
+    <value>в т. ч. НДС (18%)</value>
+  </data>
+  <data name="price_per_unit" xml:space="preserve">
+    <value>Цена за экземпляр</value>
+  </data>
+  <data name="quantity_hint" xml:space="preserve">
+    <value>От 6 шт. Заказ дороже 2 360 ₪ — рассчитаем индивидуально.</value>
+  </data>
+  <data name="quantity_label" xml:space="preserve">
+    <value>Количество (шт.)</value>
+  </data>
+  <data name="separate_cover_label" xml:space="preserve">
+    <value>Отдельная обложка</value>
+  </data>
+  <data name="size_A4" xml:space="preserve">
+    <value>21×29.7</value>
+  </data>
+  <data name="size_A5" xml:space="preserve">
+    <value>14.8×21</value>
+  </data>
+  <data name="size_A6" xml:space="preserve">
+    <value>10.5×14.8</value>
+  </data>
+  <data name="size_label" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="total_inc_vat" xml:space="preserve">
+    <value>Итого с НДС</value>
+  </data>
+  <data name="unit" xml:space="preserve">
+    <value>шт.</value>
+  </data>
+  <data name="unit_cm" xml:space="preserve">
+    <value>см</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="your_order" xml:space="preserve">
+    <value>Ваш заказ</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>«Заказать в WhatsApp»</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>Готовность</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>до 7 рабочих дней</value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>Вопрос? Напишите в WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>Требования к макету</value>
+  </data>
+  <data name="payment_pickup" xml:space="preserve">
+    <value>Получение и оплата</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>Что происходит после заказа</value>
+  </data>
+  <data name="pick_calculate" xml:space="preserve">
+    <value>Выбираете и считаете</value>
+  </data>
+  <data name="send_file" xml:space="preserve">
+    <value>Загружаете макет</value>
+  </data>
+  <data name="send_file_description" xml:space="preserve">
+    <value>PDF, PNG или JPEG до 100 МБ. Подтверждение придёт на e-mail.</value>
+  </data>
+  <data name="pick_calculate_description" xml:space="preserve">
+    <value>Продукт и параметры — цена с НДС сразу.</value>
+  </data>
+  <data name="approve_sample" xml:space="preserve">
+    <value>Утверждаете пробу</value>
+  </data>
+  <data name="approve_sample_description" xml:space="preserve">
+    <value>Пришлём фото или видео в WhatsApp. Печатаем после одобрения.</value>
+  </data>
+  <data name="collect_order" xml:space="preserve">
+    <value>Забираете в типографии</value>
+  </data>
+  <data name="collect_order_description" xml:space="preserve">
+    <value>Заказ готов — бесплатно забираете на ул. Штампфер 5, Нетания.</value>
+  </data>
+  <data name="file_type_description" xml:space="preserve">
+    <value>Один многостраничный PDF, страницы по порядку; обложка — отдельным PDF</value>
+  </data>
+  <data name="page_size_description" xml:space="preserve">
+    <value>Размер страницы = формат + вылеты 2 мм с каждой стороны</value>
+  </data>
+  <data name="file_resolution_description" xml:space="preserve">
+    <value>300 dpi, безопасная зона 3 мм от реза</value>
+  </data>
+  <data name="spiral_gap_description" xml:space="preserve">
+    <value>Для спирали — ещё 8 мм от корешка без текста</value>
+  </data>
+  <data name="file_not_ready_help" xml:space="preserve">
+    <value>Нет готового макета? Напишите нам — поможем подготовить.</value>
+  </data>
+  <data name="file_address" xml:space="preserve">
+    <value>Самовывоз: ул. Штампфер 5, Нетания — бесплатно</value>
+  </data>
+  <data name="file_payment" xml:space="preserve">
+    <value>Оплата вне сайта: наличные, карта, Bit или перевод</value>
+  </data>
+  <data name="file_min_order" xml:space="preserve">
+    <value>Минимальный заказ — 118 ₪ с НДС</value>
+  </data>
+  <data name="unit_mm" xml:space="preserve">
+    <value>мм</value>
+  </data>
+  <data name="file_ready_in" xml:space="preserve">
+    <value>Готово — до 7 рабочих дней</value>
   </data>
 </root>
