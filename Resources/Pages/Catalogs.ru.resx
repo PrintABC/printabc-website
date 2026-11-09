@@ -204,7 +204,7 @@
   <data name="meta_title" xml:space="preserve">
     <value>Каталоги и журналы — PrintABC</value>
   </data>
-  <data name="no" xml:space="preserve">
+  <data name="yes" xml:space="preserve">
     <value>Да</value>
   </data>
   <data name="page" xml:space="preserve">
@@ -252,7 +252,7 @@
   <data name="unit_cm" xml:space="preserve">
     <value>см</value>
   </data>
-  <data name="yes" xml:space="preserve">
+  <data name="no" xml:space="preserve">
     <value>Нет</value>
   </data>
   <data name="your_order" xml:space="preserve">
@@ -283,25 +283,25 @@
     <value>Выбираете и считаете</value>
   </data>
   <data name="send_file" xml:space="preserve">
-    <value>Загружаете макет</value>
+    <value>Пишете в WhatsApp</value>
   </data>
   <data name="send_file_description" xml:space="preserve">
-    <value>PDF, PNG или JPEG до 100 МБ. Подтверждение придёт на e-mail.</value>
+    <value>Сообщение с параметрами заказа уже готово. Файл отправляете в том же чате как «Документ».</value>
   </data>
   <data name="pick_calculate_description" xml:space="preserve">
-    <value>Продукт и параметры — цена с НДС сразу.</value>
+    <value>Выбираете параметры и сразу видите цену с НДС.</value>
   </data>
   <data name="approve_sample" xml:space="preserve">
     <value>Утверждаете пробу</value>
   </data>
   <data name="approve_sample_description" xml:space="preserve">
-    <value>Пришлём фото или видео в WhatsApp. Печатаем после одобрения.</value>
+    <value>Пришлём фото или видео пробной печати в WhatsApp. Печатаем после вашего «да».</value>
   </data>
   <data name="collect_order" xml:space="preserve">
     <value>Забираете в типографии</value>
   </data>
   <data name="collect_order_description" xml:space="preserve">
-    <value>Заказ готов — бесплатно забираете на ул. Штампфер 5, Нетания.</value>
+    <value>Заказ готов — бесплатный самовывоз: ул. Штампфер 5, Нетания.</value>
   </data>
   <data name="file_type_description" xml:space="preserve">
     <value>Один многостраничный PDF, страницы по порядку; обложка — отдельным PDF</value>

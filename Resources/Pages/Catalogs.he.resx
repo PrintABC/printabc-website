@@ -204,7 +204,7 @@
   <data name="meta_title" xml:space="preserve">
     <value>קטלוגים ומגזינים — דפוס איי.בי.סי</value>
   </data>
-  <data name="no" xml:space="preserve">
+  <data name="yes" xml:space="preserve">
     <value>כן</value>
   </data>
   <data name="page" xml:space="preserve">
@@ -252,7 +252,7 @@
   <data name="unit_cm" xml:space="preserve">
     <value>ס״מ</value>
   </data>
-  <data name="yes" xml:space="preserve">
+  <data name="no" xml:space="preserve">
     <value>לא</value>
   </data>
   <data name="your_order" xml:space="preserve">
@@ -283,10 +283,10 @@
     <value>בוחרים ומחשבים</value>
   </data>
   <data name="send_file" xml:space="preserve">
-    <value>מעלים קובץ ושולחים</value>
+    <value>שולחים ב-WhatsApp</value>
   </data>
   <data name="send_file_description" xml:space="preserve">
-    <value>PDF, PNG או JPEG עד 100MB. אישור הזמנה יגיע למייל.</value>
+    <value>ההודעה עם פרטי ההזמנה מוכנה. את הקובץ שולחים באותה שיחה כ"מסמך".</value>
   </data>
   <data name="pick_calculate_description" xml:space="preserve">
     <value>בוחרים מוצר ופרמטרים ורואים מחיר כולל מע״מ.</value>
