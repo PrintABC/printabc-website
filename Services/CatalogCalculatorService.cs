@@ -48,6 +48,9 @@ namespace PrintABC.Services
 
         public CatalogQuoteResponse Calculate(CatalogQuoteRequest req)
         {
+            if (req.Pages % 4 != 0)
+                return CatalogQuoteResponse.Error("pages_step");
+
             int sheetsPerCopy = req.Pages / 2;
             PaperInfo innerPaper = GetPaperInfo(req.InnerPaper);
             PaperInfo coverPaper = GetPaperInfo(req.CoverPaper);

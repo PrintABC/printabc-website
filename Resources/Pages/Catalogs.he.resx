@@ -372,4 +372,22 @@
   <data name="msg_file_whatsapp" xml:space="preserve">
     <value>את קובץ ההדפסה אשלח מיד דרך %0a %F0%9F%93%8E%20← "מסמך" (לא "גלריה").</value>
   </data>
+  <data name="special_description" xml:space="preserve">
+    <value>צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="error_pages_step" xml:space="preserve">
+    <value>מספר העמודים לא מתאים לשלב. בחרו ערך בעזרת החצים.</value>
+  </data>
+  <data name="error_pages_min" xml:space="preserve">
+    <value>מספר העמודים קטן מהמינימום לחיבור ולנייר שבחרתם.</value>
+  </data>
+  <data name="error_pages_max" xml:space="preserve">
+    <value>מספר העמודים גדול מהמקסימום לחיבור ולנייר שבחרתם.</value>
+  </data>
+  <data name="error_qty_min" xml:space="preserve">
+    <value>כמות מינימלית — 6 יח׳.</value>
+  </data>
+  <data name="error_too_thick" xml:space="preserve">
+    <value>החוברת עבה מדי לספירלה. הקטינו את מספר העמודים או בחרו נייר דק יותר.</value>
+  </data>
 </root>

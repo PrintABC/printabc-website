@@ -372,4 +372,22 @@
   <data name="msg_file_whatsapp" xml:space="preserve">
     <value>Файл макета пришлю следом через %0a %F0%9F%93%8E%20 → «Документ» (не «Галерея»).</value>
   </data>
+  <data name="special_description" xml:space="preserve">
+    <value>Нужно что-то особенное? Напишите в WhatsApp</value>
+  </data>
+  <data name="error_pages_step" xml:space="preserve">
+    <value>Такое число страниц не подходит по шагу. Выберите значение стрелками.</value>
+  </data>
+  <data name="error_pages_min" xml:space="preserve">
+    <value>Страниц меньше минимума для выбранного переплёта и бумаги.</value>
+  </data>
+  <data name="error_pages_max" xml:space="preserve">
+    <value>Страниц больше максимума для выбранного переплёта и бумаги.</value>
+  </data>
+  <data name="error_qty_min" xml:space="preserve">
+    <value>Минимальный тираж — 6 шт.</value>
+  </data>
+  <data name="error_too_thick" xml:space="preserve">
+    <value>Слишком толстый блок для спирали. Уменьшите число страниц или выберите бумагу тоньше.</value>
+  </data>
 </root>
