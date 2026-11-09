@@ -82,7 +82,29 @@ namespace PrintABC.Pages
             string newline = "%0a";
             sb.Append(L["msg_hello"]);
             sb.Append(newline);
-
+            sb.Append($"{L["msg_format"]}: {Format.ToString()}, {L[Binding.ToString().ToLower()]}");
+            sb.Append(newline);
+            sb.Append($"{L["msg_inner"]}: {InnerPageCount} {L["page"]}, {L["innerpaper_" + InnerPaper]}");
+            sb.Append(newline);
+            if (HasCover)
+            {
+                string coverprint = (CoverPrint == "44") ? "4%2B4" : "4%2B0";
+                string lam = Lamination switch
+                {
+                    LaminationType.None => L["no_lamination"],
+                    LaminationType.Gloss => $"{L["lamination"]} {L["lamination_gloss"].ToString().ToLower()}",
+                    LaminationType.Matte => $"{L["lamination"]} {L["lamination_matte"].ToString().ToLower()}",
+                    _ => L["no_lamination"]
+                };
+                sb.Append($"{L["msg_cover"]}: {L["cover_paper_hint"]} {L["cover_paper_" + CoverPaper]}, {L["print"]} {coverprint}, {lam}");
+            }
+            else
+                sb.Append($"{L["msg_cover"]}: {L["msg_no_cover"]}");
+            sb.Append(newline);
+            sb.Append($"{L["msg_quantity"]}: {Quantity} {L["unit"]}");
+            sb.Append(newline);
+            sb.Append($"{L["msg_price"]}: {response.PriceIncVatIls}₪ {L["msg_with_vat"]}");
+            sb.Append(newline);
             sb.Append(L["msg_file_whatsapp"]);
             WhatsappMessage = sb.ToString();
 

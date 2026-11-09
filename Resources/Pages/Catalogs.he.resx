@@ -333,4 +333,43 @@
   <data name="file_ready_in" xml:space="preserve">
     <value>מוכן תוך עד 7 ימי עבודה</value>
   </data>
+  <data name="msg_hello" xml:space="preserve">
+    <value>שלום! אני רוצה להזמין קטלוג.</value>
+  </data>
+  <data name="staple" xml:space="preserve">
+    <value>סיכות</value>
+  </data>
+  <data name="spiral" xml:space="preserve">
+    <value>ספירלה</value>
+  </data>
+  <data name="msg_format" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="msg_inner" xml:space="preserve">
+    <value>פנים</value>
+  </data>
+  <data name="msg_cover" xml:space="preserve">
+    <value>כריכה</value>
+  </data>
+  <data name="msg_no_cover" xml:space="preserve">
+    <value>ללא כריכה נפרדת</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>הדפסה</value>
+  </data>
+  <data name="no_lamination" xml:space="preserve">
+    <value>ללא למינציה</value>
+  </data>
+  <data name="msg_quantity" xml:space="preserve">
+    <value>כמות</value>
+  </data>
+  <data name="msg_price" xml:space="preserve">
+    <value>מחיר</value>
+  </data>
+  <data name="msg_with_vat" xml:space="preserve">
+    <value>כולל מע״מ</value>
+  </data>
+  <data name="msg_file_whatsapp" xml:space="preserve">
+    <value>את קובץ ההדפסה אשלח מיד דרך %0a %F0%9F%93%8E%20← "מסמך" (לא "גלריה").</value>
+  </data>
 </root>

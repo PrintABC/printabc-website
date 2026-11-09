@@ -333,4 +333,43 @@
   <data name="file_ready_in" xml:space="preserve">
     <value>Готово — до 7 рабочих дней</value>
   </data>
+  <data name="msg_hello" xml:space="preserve">
+    <value>Здравствуйте! Хочу заказать каталог.</value>
+  </data>
+  <data name="staple" xml:space="preserve">
+    <value>скоба</value>
+  </data>
+  <data name="spiral" xml:space="preserve">
+    <value>спираль</value>
+  </data>
+  <data name="msg_format" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="msg_inner" xml:space="preserve">
+    <value>Блок</value>
+  </data>
+  <data name="msg_cover" xml:space="preserve">
+    <value>Обложка</value>
+  </data>
+  <data name="msg_no_cover" xml:space="preserve">
+    <value>без отдельной обложки</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>печать</value>
+  </data>
+  <data name="no_lamination" xml:space="preserve">
+    <value>без ламинации</value>
+  </data>
+  <data name="msg_quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="msg_price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="msg_with_vat" xml:space="preserve">
+    <value>с НДС</value>
+  </data>
+  <data name="msg_file_whatsapp" xml:space="preserve">
+    <value>Файл макета пришлю следом через %0a %F0%9F%93%8E%20 → «Документ» (не «Галерея»).</value>
+  </data>
 </root>
