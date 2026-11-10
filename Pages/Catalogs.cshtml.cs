@@ -107,7 +107,10 @@ namespace PrintABC.Pages
             sb.Append(newline);
             sb.Append($"{L["msg_quantity"]}: {Quantity} {L["unit"]}");
             sb.Append(newline);
-            sb.Append($"{L["msg_price"]}: {response.PriceIncVatIls}₪ {L["msg_with_vat"]}");
+            if (response!.Status == ValidationStatus.ManualQuote)
+                sb.Append(L["msg_ask"]);
+            else
+                sb.Append($"{L["msg_price"]}: {response.PriceIncVatIls}₪ {L["msg_with_vat"]}");
             sb.Append(newline);
             sb.Append(L["msg_file_whatsapp"]);
             WhatsappMessage = sb.ToString();

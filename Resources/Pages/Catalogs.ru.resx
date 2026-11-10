@@ -390,4 +390,13 @@
   <data name="error_too_thick" xml:space="preserve">
     <value>Слишком толстый блок для спирали. Уменьшите число страниц или выберите бумагу тоньше.</value>
   </data>
+  <data name="msg_ask" xml:space="preserve">
+    <value>Прошу рассчитать цену</value>
+  </data>
+  <data name="manual_title" xml:space="preserve">
+    <value>Рассчитаем индивидуально</value>
+  </data>
+  <data name="manual_text" xml:space="preserve">
+    <value>Отправьте параметры в WhatsApp — пришлём цену.</value>
+  </data>
 </root>

@@ -10,7 +10,8 @@ namespace PrintABC.Data
         public decimal? VatIls { get; set; }
         public decimal? PriceIncVatIls { get; set; }
         public decimal? UnitPriceIncVatIls { get; set; }
-
+        public bool MinApplied { get; set; }
+        public decimal? SpiralMm { get; set; }
         public static CatalogQuoteResponse Error(string errorCode) => new() { Status = ValidationStatus.ValidationError, ErrorCode = errorCode };
 
 

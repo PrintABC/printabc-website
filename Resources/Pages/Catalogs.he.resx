@@ -390,4 +390,13 @@
   <data name="error_too_thick" xml:space="preserve">
     <value>החוברת עבה מדי לספירלה. הקטינו את מספר העמודים או בחרו נייר דק יותר.</value>
   </data>
+  <data name="msg_ask" xml:space="preserve">
+    <value>אבקש הצעת מחיר</value>
+  </data>
+  <data name="manual_title" xml:space="preserve">
+    <value>נחשב לכם אישית</value>
+  </data>
+  <data name="manual_text" xml:space="preserve">
+    <value>שלחו לנו את הפרמטרים ב-WhatsApp — נחזור עם מחיר.</value>
+  </data>
 </root>

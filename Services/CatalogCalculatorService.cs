@@ -103,14 +103,14 @@ namespace PrintABC.Services
             decimal costWithWaste = productionCost * (1 + WasteRate);
 
             decimal markup = costWithWaste < MarkupThresholdIls ? MarkupLow : MarkupHigh;
-            decimal calculatedPrice = Math.Round(costWithWaste * markup, 2);
+            decimal calculatedPrice = Math.Round(costWithWaste * markup, 2, MidpointRounding.AwayFromZero);
             bool minApplied = calculatedPrice < MinOrderIls;
             decimal priceExVat = minApplied ? MinOrderIls : calculatedPrice;
             if (priceExVat > MaxAutoPriceIls)
                 return new CatalogQuoteResponse() { Status = ValidationStatus.ManualQuote, ErrorCode = "" };
-            decimal vat = Math.Round(priceExVat * VatRate, 2);
+            decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
             decimal priceIncVat = priceExVat + vat;
-            decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2);
+            decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
 
             return new CatalogQuoteResponse()
             {
@@ -119,6 +119,8 @@ namespace PrintABC.Services
                 PriceIncVatIls = priceIncVat,
                 VatIls = vat,
                 UnitPriceIncVatIls = pricePerCopy,
+                MinApplied = minApplied,
+                SpiralMm = spiralDiameterMm,
                 Status = ValidationStatus.Ready
             };
         }
