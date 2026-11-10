@@ -399,4 +399,10 @@
   <data name="manual_text" xml:space="preserve">
     <value>שלחו לנו את הפרמטרים ב-WhatsApp — נחזור עם מחיר.</value>
   </data>
+  <data name="pages_hint" xml:space="preserve">
+    <value>בקפיצות של {0} עמ׳, מ־{1} עד {2} עמ׳</value>
+  </data>
+  <data name="error_bad_paper" xml:space="preserve">
+    <value>הנייר הזה לא מתאים לחיבור שבחרתם. בסיכות בחרו נייר עד 250 גרם.</value>
+  </data>
 </root>

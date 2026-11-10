@@ -14,7 +14,31 @@ namespace PrintABC.Services
         const decimal MarkupThresholdIls = 200, MarkupLow = 5, MarkupHigh = 4.5m;
         const decimal LaminationUsdPerM2 = 0.37m, SheetAreaM2 = 0.16104m, WasteRate = 0.1m, VatRate = 0.18m;
         const int PunchSec = 30, SpiralCloseSec = 30, LaborRateIlsPerHour = 200, MinOrderIls = 100, MaxAutoPriceIls = 2000;
+        const int StaplePageStep = 4, SpiralPageStep = 2;
+        const int StapleMinPagesNoCover = 8, StapleMinPagesWithCover = 4, SpiralMinPages = 20;
 
+        public record PageLimits(int Step, int Min, int Max);
+        public static PageLimits? GetPageLimits(CatalogBinding binding, int innerPaper, bool hasCover)
+        {
+            if (!GetInnerPaperSizes().Contains(innerPaper))
+                return null;
+            PaperInfo paper = GetPaperInfo(innerPaper);
+            PageLimits limits = binding switch
+            {
+                CatalogBinding.Staple => new(StaplePageStep, hasCover ? StapleMinPagesWithCover : StapleMinPagesNoCover, paper.StapleMaxPages),
+                CatalogBinding.Spiral => new(SpiralPageStep, SpiralMinPages, paper.SpiralMaxPages),
+                _ => throw new ArgumentOutOfRangeException(nameof(binding), binding, null)
+            };
+            return limits.Max == 0 ? null : limits;
+        }
+        public record PageLimitsRow(string Binding, int Paper, bool HasCover, int Step, int Min, int Max);
+        public static PageLimitsRow[] GetPageLimitsTable() =>
+                [.. from binding in Enum.GetValues<CatalogBinding>()
+                from paper in GetInnerPaperSizes()
+                from hasCover in new[] { true, false }
+                let limits = GetPageLimits(binding, paper, hasCover)
+                where limits != null
+                select new PageLimitsRow(binding.ToString(), paper, hasCover, limits.Step, limits.Min, limits.Max)];
         public record PaperInfo(decimal SheetPriceIls, decimal ThicknessMm, int SheetsPerPunch, int StapleMaxPages, int SpiralMaxPages);
         private static PaperInfo GetPaperInfo(int paper) => paper switch
         {
@@ -45,11 +69,24 @@ namespace PrintABC.Services
             new (Name: "5/8", DiameterMm:16, MaxThicknessMm:14, PriceA4Ils:1.25m),
             ];
 
-
+        public static string? ValidatePages(CatalogQuoteRequest req)
+        {
+            PageLimits? limits = GetPageLimits(req.Binding, req.InnerPaper, req.HasCover);
+            if (limits == null)
+                return "bad_paper";
+            if (req.Pages % limits.Step != 0)
+                return "pages_step";
+            if (req.Pages < limits.Min)
+                return "pages_min";
+            if (req.Pages > limits.Max)
+                return "pages_max";
+            return null;
+        }
         public CatalogQuoteResponse Calculate(CatalogQuoteRequest req)
         {
-            if (req.Pages % 4 != 0)
-                return CatalogQuoteResponse.Error("pages_step");
+            string? pagesError = ValidatePages(req);
+            if (pagesError != null)
+                return CatalogQuoteResponse.Error(pagesError);
 
             int sheetsPerCopy = req.Pages / 2;
             PaperInfo innerPaper = GetPaperInfo(req.InnerPaper);

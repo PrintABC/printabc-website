@@ -111,8 +111,11 @@
         </fieldset>
         <div class="field">
             <label class="field__label" for="calc-pages">@L["inner_pages_label"]</label>
-            <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="4" max="36" step="4" value="12" aria-describedby="pages-hint" aria-invalid="false">
-            <p class="field__hint" id="pages-hint" data-pages-hint="">?</p>
+            @{
+                var pageLimits = GetPageLimits(Model.Binding, Model.InnerPaper, Model.HasCover)!;
+            }
+            <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="@pageLimits.Min" max="@pageLimits.Max" step="@pageLimits.Step" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
+            <p class="field__hint" id="pages-hint" data-pages-hint="" data-template="@L.GetString("pages_hint")">@L["pages_hint", pageLimits.Step, pageLimits.Min, pageLimits.Max]</p>
         </div>
         <fieldset class="opt-group" id="g-cover" aria-describedby="g-cover-hint">
             <legend>@L["separate_cover_label"]</legend>
@@ -233,6 +236,18 @@
                     </path>
                 </svg>
                 <span>@L["error_too_thick"]</span>
+            </div>
+            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+        </div>
+        <div class="alert alert--error" data-error="bad_paper" role="alert" hidden="">
+            <div class="alert__row">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <circle cx="12" cy="12" r="9">
+                    </circle>
+                    <path d="M12 11v6M12 7.5v.5">
+                    </path>
+                </svg>
+                <span>@L["error_bad_paper"]</span>
             </div>
             <a href="https://wa.me/972508494172">@L["special_description"]</a>
         </div>
@@ -381,6 +396,9 @@
         const totalOutput = document.getElementById('calc-total');
         const vatOutput = document.getElementById('calc-vat');
         const unitOutput = document.getElementById('calc-unit');
+        const pageLimitsTable = @Json.Serialize(GetPageLimitsTable());
+        const pagesInput = document.getElementById('calc-pages');
+        const pagesHint = document.getElementById('pages-hint');
 
         const errorAlerts = form.querySelectorAll('.alert--error');
 
@@ -408,6 +426,46 @@
                 document.getElementById('calc-next-off').hidden = false;
             }
         }
+
+        function updatePageLimits() {
+            const binding = form.querySelector("input[name='Binding']:checked").value;
+            const hasCover = form.querySelector("input[name='HasCover']:checked").value == 'true';
+
+            //paper that is not allowed for this binding (300 g for staple) is disabled, 250 g is picked instead
+            form.querySelectorAll("input[name='InnerPaper']").forEach(radio => {
+                const allowed = pageLimitsTable.some(r => r.binding == binding && r.paper == radio.value);
+                radio.disabled = !allowed;
+                if (!allowed && radio.checked)
+                    form.querySelector("input[name='InnerPaper'][value='250']").checked = true;
+            });
+
+            const paper = form.querySelector("input[name='InnerPaper']:checked").value;
+            const limits = pageLimitsTable.find(r => r.binding == binding && r.paper == paper && r.hasCover == hasCover);
+            if (!limits)
+                return;
+
+            pagesInput.min = limits.min;
+            pagesInput.max = limits.max;
+            pagesInput.step = limits.step;
+            pagesHint.textContent = pagesHint.dataset.template
+                .replace('{0}', limits.step).replace('{1}', limits.min).replace('{2}', limits.max);
+
+            //move the value to the nearest allowed one: down to max, up to min, down to a multiple of the step
+            let pages = parseInt(pagesInput.value) || limits.min;
+            pages = Math.min(Math.max(pages, limits.min), limits.max);
+            pages = pages - pages % limits.step;
+            if (pages < limits.min)
+                pages = limits.min;
+            pagesInput.value = pages;
+
+            updateUIElements();
+        }
+
+        //only on change of binding, paper or cover: while the client types the page count we do not move the value
+        form.addEventListener('change', e => {
+            if (['Binding', 'InnerPaper', 'HasCover'].includes(e.target.name))
+                updatePageLimits();
+        });
 
         setSend(false);
         const recalc = debounce(triggerCalculation, 300);
@@ -502,6 +560,7 @@
                 timeout = setTimeout(() => func.apply(this, args), wait);
             };
         }
+        updatePageLimits();
         triggerCalculation();
         updateUIElements();
         window.addEventListener('pageshow', e => {

@@ -24,11 +24,11 @@ namespace PrintABC.Pages
             L = factory.Create("Pages.catalogs", this.GetType().Assembly.GetName().Name!);
         }
 
-        const int MIN_INNER_PAGE_COUNT = 4, MAX_INNER_PAGE_COUNT = 36, MIN_QUANTITY = 6, MAX_QUANTITY = 1_000_000;
+        const int MIN_QUANTITY = 6, MAX_QUANTITY = 1_000_000;
 
         [BindProperty] public CatalogSize Format { get; set; } = CatalogSize.A4;
         [BindProperty] public CatalogBinding Binding { get; set; } = CatalogBinding.Staple;
-        [BindProperty, Range(MIN_INNER_PAGE_COUNT, MAX_INNER_PAGE_COUNT, ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public int InnerPageCount { get; set; } = 12;
+        [BindProperty] public int InnerPageCount { get; set; } = 12;
         [BindProperty] public int InnerPaper { get; set; } = 130;
         [BindProperty] public bool HasCover { get; set; } = true;
         [BindProperty] public int CoverPaper { get; set; } = 250;
@@ -49,7 +49,6 @@ namespace PrintABC.Pages
                 var code = key switch
                 {
                     "Quantity" => Quantity < MIN_QUANTITY ? "qty_min" : "generic",
-                    "InnerPageCount" => InnerPageCount < MIN_INNER_PAGE_COUNT ? "pages_min" : "pages_max",
                     _ => "generic"
                 };
                 return new JsonResult(new
