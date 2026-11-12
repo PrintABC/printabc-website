@@ -319,7 +319,7 @@
     <value>אין קובץ מוכן? כתבו לנו — נעזור להכין אותו.</value>
   </data>
   <data name="file_address" xml:space="preserve">
-    <value>איסוף עצמי מרח׳ שטמפפר 5, נתניה — חינם</value>
+    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים</value>
   </data>
   <data name="file_payment" xml:space="preserve">
     <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
@@ -404,5 +404,20 @@
   </data>
   <data name="error_bad_paper" xml:space="preserve">
     <value>הנייר הזה לא מתאים לחיבור שבחרתם. בסיכות בחרו נייר עד 250 גרם.</value>
+  </data>
+  <data name="paper_note_80" xml:space="preserve">
+    <value>כמו נייר משרדי, לחוברות פנימיות</value>
+  </data>
+  <data name="paper_note_130" xml:space="preserve">
+    <value>עבה יותר, סטנדרט לקטלוגים ומגזינים</value>
+  </data>
+  <data name="paper_note_170" xml:space="preserve">
+    <value>נייר עבה, לקטלוגים ותפריטים מכובדים</value>
+  </data>
+  <data name="paper_note_250" xml:space="preserve">
+    <value>כמעט קרטון, לחוברות דקות</value>
+  </data>
+  <data name="paper_note_300" xml:space="preserve">
+    <value>קרטון, לספירלה בלבד</value>
   </data>
 </root>

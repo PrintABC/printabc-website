@@ -290,3 +290,34 @@
 
 /* Flex children must be allowed to shrink below their content (wide table scrolls inside its wrapper) */
 .product-layout > *, .order-layout__main, .order-layout__side { min-width: 0; }
+.opt-list--stack {
+    flex-direction: column;
+}
+
+    .opt-list--stack .pill {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2px;
+        padding: 8px 16px;
+        border-radius: var(--r-md);
+    }
+
+        .opt-list--stack .pill:has(input:checked) {
+            padding: 7px 15px;
+        }
+
+.pill__note {
+    font-weight: 400;
+    font-size: var(--fs-hint);
+    line-height: 1.35;
+    color: var(--c-muted);
+}
+
+.opt-list--stack .pill--disabled {
+    text-decoration: none;
+}
+
+    .opt-list--stack .pill--disabled > span {
+        text-decoration: line-through;
+    }

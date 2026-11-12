@@ -14,7 +14,7 @@ namespace PrintABC.Services
         const decimal MarkupThresholdIls = 200, MarkupLow = 5, MarkupHigh = 4.5m;
         const decimal LaminationUsdPerM2 = 0.37m, SheetAreaM2 = 0.16104m, WasteRate = 0.1m, VatRate = 0.18m;
         const int PunchSec = 30, SpiralCloseSec = 30, LaborRateIlsPerHour = 200, MinOrderIls = 100, MaxAutoPriceIls = 2000;
-        const int StaplePageStep = 4, SpiralPageStep = 2;
+        const int StaplePageStep = 4, SpiralPageStep = 2, CoverPages = 4;
         const int StapleMinPagesNoCover = 8, StapleMinPagesWithCover = 4, SpiralMinPages = 20;
 
         public record PageLimits(int Step, int Min, int Max);
@@ -25,7 +25,8 @@ namespace PrintABC.Services
             PaperInfo paper = GetPaperInfo(innerPaper);
             PageLimits limits = binding switch
             {
-                CatalogBinding.Staple => new(StaplePageStep, hasCover ? StapleMinPagesWithCover : StapleMinPagesNoCover, paper.StapleMaxPages),
+                CatalogBinding.Staple => new(StaplePageStep, hasCover ? StapleMinPagesWithCover : StapleMinPagesNoCover,
+    hasCover && paper.StapleMaxIncludesCover ? paper.StapleMaxPages - CoverPages : paper.StapleMaxPages),
                 CatalogBinding.Spiral => new(SpiralPageStep, SpiralMinPages, paper.SpiralMaxPages),
                 _ => throw new ArgumentOutOfRangeException(nameof(binding), binding, null)
             };
@@ -39,14 +40,16 @@ namespace PrintABC.Services
                 let limits = GetPageLimits(binding, paper, hasCover)
                 where limits != null
                 select new PageLimitsRow(binding.ToString(), paper, hasCover, limits.Step, limits.Min, limits.Max)];
-        public record PaperInfo(decimal SheetPriceIls, decimal ThicknessMm, int SheetsPerPunch, int StapleMaxPages, int SpiralMaxPages);
+        public record PaperInfo(decimal SheetPriceIls, decimal ThicknessMm, int SheetsPerPunch, int StapleMaxPages, int SpiralMaxPages, bool StapleMaxIncludesCover = false);
+
         private static PaperInfo GetPaperInfo(int paper) => paper switch
         {
             80 => new(0.091m, 0.1m, 20, 36, 200),
             130 => new(0.1485m, 0.115m, 17, 36, 150),
-            170 => new(0.197m, 0.15m, 13, 8, 120),
-            250 => new(0.29322m, 0.24m, 8, 8, 60),
+            170 => new(0.197m, 0.15m, 13, 24, 120),
+            250 => new(0.29322m, 0.24m, 8, 12, 60, StapleMaxIncludesCover: true),
             300 => new(0.35216m, 0.29m, 6, 0, 60),
+
             _ => throw new ArgumentOutOfRangeException(nameof(paper), paper, "Unsupported paper weight")
         };
 
@@ -146,7 +149,7 @@ namespace PrintABC.Services
             if (priceExVat > MaxAutoPriceIls)
                 return new CatalogQuoteResponse() { Status = ValidationStatus.ManualQuote, ErrorCode = "" };
             decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
-            decimal priceIncVat = priceExVat + vat;
+            decimal priceIncVat = Math.Round(priceExVat + vat, 0, MidpointRounding.AwayFromZero);
             decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
 
             return new CatalogQuoteResponse()

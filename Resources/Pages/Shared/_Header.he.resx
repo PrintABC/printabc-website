@@ -180,4 +180,7 @@
   <data name="business-cards" xml:space="preserve">
     <value>כרטיסי ביקור</value>
   </data>
+  <data name="catalogs" xml:space="preserve">
+    <value>קטלוגים</value>
+  </data>
 </root>

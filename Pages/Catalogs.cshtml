@@ -104,6 +104,7 @@
                     <label class="pill">
                         <input type="radio" name="InnerPaper" value="@item" checked="@(Model.InnerPaper == item)">
                         <span>@L[$"innerpaper_{item}"]</span>
+                        <small class="pill__note">@L[$"paper_note_{item}"]</small>
                     </label>
                 }
             </div>
@@ -211,7 +212,7 @@
                     <path d="M12 11v6M12 7.5v.5">
                     </path>
                 </svg>
-                <span>@L["error_pages_max"]</span>
+                <span data-limit="max" data-limit-template="@L.GetString("error_pages_max")">@L["error_pages_max", pageLimits.Max]</span>
             </div>
             <a href="https://wa.me/972508494172">@L["special_description"]</a>
         </div>
@@ -256,7 +257,7 @@
             <p class="cat-summary">
                 <strong>@L["your_order"]</strong>
                 <br>
-                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> יח׳</span>
+                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> @L["unit"]</span>
             </p>
             <div id="valid_prices" data-priced="">
                 <div class="price-box__row price-box__row--total">
@@ -438,6 +439,8 @@
                 if (!allowed && radio.checked)
                     form.querySelector("input[name='InnerPaper'][value='250']").checked = true;
             });
+
+            
 
             const paper = form.querySelector("input[name='InnerPaper']:checked").value;
             const limits = pageLimitsTable.find(r => r.binding == binding && r.paper == paper && r.hasCover == hasCover);
