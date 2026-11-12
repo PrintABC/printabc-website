@@ -63,7 +63,8 @@ namespace PrintABC.Pages
 
             var quoteRequest = BuildQuoteRequest();
             response = stickerCalculatorService.Calculate(quoteRequest);
-            CreateMessage();
+            // ссылку заказа строим только для готовой цены: при ошибке и индивидуальном расчёте её нет
+            if (response.Status == ValidationStatus.Ready) CreateMessage(); else WhatsappMessage = "";
             return new JsonResult(new { success = response.Status != ValidationStatus.ValidationError, data = response, wpmessage = WHATSAPP_URL + WhatsappMessage });
 
         }
@@ -96,7 +97,9 @@ namespace PrintABC.Pages
             sb.Append(newline);
             sb.Append(string.Format(L["msg_cut"], L[$"cutting_{CutMode.ToString().ToLower()}"]));
             sb.Append(newline);
-            sb.Append(string.Format(L["msg_price"], response!.PriceIncVatIls));
+            // Р18: целые ₪, знак валюты после числа, вокруг LRM (U+200E), чтобы в иврите число не переворачивалось
+            var price = response!.PriceIncVatIls!.Value.ToString("0", CultureInfo.InvariantCulture);
+            sb.Append(string.Format(L["msg_price"], "\u200E" + price + " ₪\u200E"));
             sb.Append(newline);
             sb.Append(L["msg_file_whatsapp"]);
             WhatsappMessage = sb.ToString();

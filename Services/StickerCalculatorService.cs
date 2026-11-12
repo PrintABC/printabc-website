@@ -142,6 +142,9 @@ namespace PrintABC.Services
             }
 
             decimal unitPriceExVat = Math.Round(priceExVat / request.Quantity, 4, MidpointRounding.AwayFromZero);
+            // Р18: клиенту итог целыми ₪; цена за штуку (Р17) считается от этого показанного итога
+            decimal priceIncVatShown = Math.Round(priceIncVat, 0, MidpointRounding.AwayFromZero);
+            decimal unitPriceIncVat = Math.Round(priceIncVatShown / request.Quantity, 4, MidpointRounding.AwayFromZero);
 
             return new StickerQuoteResponse
             {
@@ -153,8 +156,9 @@ namespace PrintABC.Services
                 CutTimeSec = Math.Round((double)cutTimeSec, 2),
                 PriceExVatIls = priceExVat,
                 VatIls = vat,
-                PriceIncVatIls = Math.Round(priceIncVat, 0, MidpointRounding.AwayFromZero),
-                UnitPriceExVatIls = unitPriceExVat
+                PriceIncVatIls = priceIncVatShown,
+                UnitPriceExVatIls = unitPriceExVat,
+                UnitPriceIncVatIls = unitPriceIncVat
             };
         }
 
