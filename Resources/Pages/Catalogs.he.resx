@@ -259,7 +259,7 @@
     <value>ההזמנה שלכם</value>
   </data>
   <data name="next_load_file" xml:space="preserve">
-    <value>«להזמנה ב-WhatsApp»</value>
+    <value>להזמנה ב-WhatsApp</value>
   </data>
   <data name="price_ready" xml:space="preserve">
     <value>מוכן</value>
@@ -319,7 +319,7 @@
     <value>אין קובץ מוכן? כתבו לנו — נעזור להכין אותו.</value>
   </data>
   <data name="file_address" xml:space="preserve">
-    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים</value>
+    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים.</value>
   </data>
   <data name="file_payment" xml:space="preserve">
     <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
@@ -431,5 +431,8 @@
   </data>
   <data name="preview_title" xml:space="preserve">
     <value>קטלוג</value>
+  </data>
+  <data name="no_cover_short" xml:space="preserve">
+    <value>בלי כריכה נפרדת</value>
   </data>
 </root>

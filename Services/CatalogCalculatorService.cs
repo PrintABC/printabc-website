@@ -93,7 +93,7 @@ namespace PrintABC.Services
 
             int sheetsPerCopy = req.Pages / 2;
             PaperInfo innerPaper = GetPaperInfo(req.InnerPaper);
-            PaperInfo coverPaper = GetPaperInfo(req.CoverPaper);
+            PaperInfo? coverPaper = req.HasCover ? GetPaperInfo(req.CoverPaper) : null;
             CatalogSizeInfo format = GetSizeInfo(req.Format);
             int innerSheetsTotal = CeilDiv(req.Quantity * req.Pages, format.PagesPerSheet);
 
@@ -105,7 +105,7 @@ namespace PrintABC.Services
             if (req.HasCover)
             {
                 int coverPrintedSides = req.CoverPrint == "44" ? 2 : 1;
-                coverCost = coverSheetsTotal * (coverPaper.SheetPriceIls + coverPrintedSides * ClickColorIls);
+                coverCost = coverSheetsTotal * (coverPaper!.SheetPriceIls + coverPrintedSides * ClickColorIls);
             }
 
             decimal laminationCost = 0;
@@ -115,7 +115,7 @@ namespace PrintABC.Services
                 laminationCost = coverSheetsTotal * laminationPerSheet;
             }
 
-            decimal copyThicknessMm = sheetsPerCopy * innerPaper.ThicknessMm + (req.HasCover ? 2 * coverPaper.ThicknessMm : 0);
+            decimal copyThicknessMm = sheetsPerCopy * innerPaper.ThicknessMm + (req.HasCover ? 2 * coverPaper!.ThicknessMm : 0);
 
             decimal bindingMaterialsCost;
             decimal laborCost = 0;

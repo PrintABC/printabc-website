@@ -259,7 +259,7 @@
     <value>Ваш заказ</value>
   </data>
   <data name="next_load_file" xml:space="preserve">
-    <value>«Заказать в WhatsApp»</value>
+    <value>Заказать в WhatsApp</value>
   </data>
   <data name="price_ready" xml:space="preserve">
     <value>Готовность</value>
@@ -431,5 +431,8 @@
   </data>
   <data name="preview_title" xml:space="preserve">
     <value>Каталог</value>
+  </data>
+  <data name="no_cover_short" xml:space="preserve">
+    <value>без отдельной обложки</value>
   </data>
 </root>

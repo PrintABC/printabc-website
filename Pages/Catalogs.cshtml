@@ -290,13 +290,25 @@
                         <span id="lamination_section" hidden="@(Model.Lamination == LaminationType.None)">
                             @L["lamination"]
                             <span id="lamination_summary"></span>
-                        </span> ·
+                        </span>
                     </span>
-                    <span id="no_cover_section" hidden> · @L["no_cover_short"]</span>
+                    <span id="no_cover_section" hidden>@L["no_cover_short"]</span> ·
                     <span id="quantity_summary">@Model.Quantity</span> @L["unit"]
                 </span>
             </p>
             <div id="valid_prices" data-priced="">
+                <div class="alert alert--error" data-error="generic" role="alert" hidden="">
+                    <div class="alert__row">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <circle cx="12" cy="12" r="9">
+                            </circle>
+                            <path d="M12 11v6M12 7.5v.5">
+                            </path>
+                        </svg>
+                        <span>@L["error_generic"]</span>
+                    </div>
+                    <a href="https://wa.me/972508494172">@L["special_description"]</a>
+                </div>
                 <div class="price-box__row price-box__row--total">
                     <span>@L["total_inc_vat"]</span>
                     <output class="price-box__total" id="calc-total" aria-live="polite">‎1346.19 ₪‎</output>
@@ -444,7 +456,6 @@
         function hideAllErrors() {
             errorAlerts.forEach(alert => {
                 alert.hidden = true;
-                alert.setAttribute('aria-invalid', 'false');
             });
             pagesInput.setAttribute('aria-invalid', 'false');
             catalogQuantity.setAttribute('aria-invalid', 'false');
@@ -543,12 +554,13 @@
                     const targetError = (result.data.errorCode) ? form.querySelector(`[data-error="${result.data.errorCode}"]`) : null;
                     if (result.data.status == "manual_quote") {
                         toggleInvalidPrices(true);
+                        document.getElementById('calc-next').href = result.wpmessage;
+                        setSend(true);
                     }
                     else {
                         if (targetError || result.data.errorCode == "generic") {
                             if (targetError)
                                 showError(targetError);
-                            toggleInvalidPrices(true);
                             //disable "next" button and clear price outputs
                             setSend(false);
                             totalOutput.textContent = '—';
@@ -560,9 +572,9 @@
                             toggleInvalidPrices(false);
                             document.getElementById('calc-next').href = result.wpmessage;
                             setSend(true);
-                            totalOutput.textContent = result.data.priceIncVatIls + '₪';
-                            vatOutput.textContent = result.data.vatIls;
-                            unitOutput.textContent = result.data.unitPriceIncVatIls;
+                            totalOutput.textContent = '' + result.data.priceIncVatIls + '₪';
+                            unitOutput.textContent = '' + Number(result.data.unitPriceIncVatIls).toFixed(2) + '₪';
+                            document.querySelector('[data-min-note]').hidden = !result.data.minApplied;
                         }
                     }
                 }

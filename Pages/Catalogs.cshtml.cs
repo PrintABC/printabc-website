@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
 using PrintABC.Data;
 using PrintABC.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Text;
 using static PrintABC.Services.CatalogCalculatorService;
 using static PrintABC.Utils.Helpers;
@@ -24,7 +25,7 @@ namespace PrintABC.Pages
             L = factory.Create("Pages.catalogs", this.GetType().Assembly.GetName().Name!);
         }
 
-        const int MIN_QUANTITY = 6, MAX_QUANTITY = 1_000_000;
+        const int MIN_QUANTITY = 6, MAX_QUANTITY = 100_000;
 
         [BindProperty] public CatalogSize Format { get; set; } = CatalogSize.A4;
         [BindProperty] public CatalogBinding Binding { get; set; } = CatalogBinding.Staple;
@@ -46,19 +47,17 @@ namespace PrintABC.Pages
             {
                 var key = ModelState.Where(kv => kv.Value!.Errors.Count > 0)
                     .Select(kv => kv.Key).FirstOrDefault() ?? "";
-                string code = "generic";
-                if (key == "Quantity")
+                var attempted = ModelState[key]?.AttemptedValue;
+                bool isInt = int.TryParse(attempted, NumberStyles.Integer, CultureInfo.InvariantCulture, out var n);
+                string code = key switch
                 {
-                    if (string.IsNullOrWhiteSpace(ModelState[key]?.AttemptedValue))
-                        code = "qty_int";
-                    else if (Quantity < MIN_QUANTITY)
-                        code = "qty_min";
-                }
-                else if (key == "InnerPageCount")
-                {
-                    if (string.IsNullOrWhiteSpace(ModelState[key]?.AttemptedValue))
-                        code = "pages_int";
-                }
+                    "Quantity" => !isInt ? "qty_int" : n < MIN_QUANTITY ? "qty_min" : n > MAX_QUANTITY ? "qty_max" : "generic",
+                    "InnerPageCount" => !isInt ? "pages_int" : "generic",
+                    "Format" => "bad_format",
+                    "Binding" => "bad_binding",
+                    "Lamination" => "bad_lamination",
+                    _ => "generic"
+                };
 
                 return new JsonResult(new
                 {
