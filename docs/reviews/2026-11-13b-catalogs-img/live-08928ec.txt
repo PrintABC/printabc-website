@@ -1,0 +1,851 @@
+
+## ru init
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "‎205.35 ₪‎",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru nocover
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1133₪",
+ "totalCodes": "113320aa",
+ "vatRow": "‎205.35 ₪‎",
+ "unit": "11.33₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · без отдельной обложки · 100 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: без отдельной обложки\nКоличество: 100 шт.\nЦена: 1133₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru cover-back
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "‎205.35 ₪‎",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru manual-32p
+{
+ "sw": 650,
+ "valid": false,
+ "manual": true,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "(hidden)",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 32 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 32 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nПрошу рассчитать цену\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru manual-then-pages7
+{
+ "sw": 650,
+ "valid": false,
+ "manual": true,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "(hidden)",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "pages_step: Такое число страниц не подходит по шагу. Выберите значение стрелками. | Нужно что-то особенное? Напишите в WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-pages"
+ ],
+ "summary": "A4 · Скоба · 7 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 32 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nПрошу рассчитать цену\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru back12
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "—",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru manual-qty1000
+{
+ "sw": 650,
+ "valid": false,
+ "manual": true,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "(hidden)",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 1000 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 1000 шт.\nПрошу рассчитать цену\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru qty100
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "—",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru pages[7]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "pages_step: Такое число страниц не подходит по шагу. Выберите значение стрелками. | Нужно что-то особенное? Напишите в WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-pages"
+ ],
+ "summary": "A4 · Скоба · 7 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru pages[]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "pages_int: Введите число страниц целым числом, например 12. | Нужно что-то особенное? Напишите в WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-pages"
+ ],
+ "summary": "A4 · Скоба · стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru pages[12.5]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "pages_int: Введите число страниц целым числом, например 12. | Нужно что-то особенное? Напишите в WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-pages"
+ ],
+ "summary": "A4 · Скоба · 12.5 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru pages12
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "—",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru qty[0]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "qty_min: Минимальный тираж — 6 шт. | Нужно что-то особенное? Напишите в WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-qty"
+ ],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 0 шт.",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru qty[5.5]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "qty_int: Введите тираж целым числом, от 6 шт., например 100. | Нужно что-то особенное? Напишите в WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-qty"
+ ],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 5.5 шт.",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru qty[]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "qty_int: Введите тираж целым числом, от 6 шт., например 100. | Нужно что-то особенное? Напишите в WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-qty"
+ ],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · шт.",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru qty[100001]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "null₪",
+ "totalCodes": "null20aa",
+ "vatRow": "—",
+ "unit": "0.00₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 100001 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "undefined",
+ "text": null,
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru qty[6]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "118₪",
+ "totalCodes": "11820aa",
+ "vatRow": "—",
+ "unit": "19.67₪",
+ "minNote": "order_minimum_hint",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 6 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 6 шт.\nЦена: 118₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+
+## ru final
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "—",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · Скоба · 12 стр. · 130 г · обложка 250 г 4+4 · 100 шт.",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "Заказать в WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "Здравствуйте! Хочу заказать каталог.\nФормат: A4, скоба\nБлок: 12 стр., 130 г\nОбложка: Мелованная матовая 250 г, печать 4+4, без ламинации\nКоличество: 100 шт.\nЦена: 1346₪ с НДС\nФайл макета пришлю следом через \n 📎  → «Документ» (не «Галерея»).",
+ "preview": true,
+ "previewText": "Каталог"
+}
+ru LOG []
+1366 preview { vis: true, w: 622.6875, h: 27.890625, display: 'block' }
+
+## he init
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "‎205.35 ₪‎",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he nocover
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1133₪",
+ "totalCodes": "113320aa",
+ "vatRow": "‎205.35 ₪‎",
+ "unit": "11.33₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · בלי כריכה נפרדת · 100 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: ללא כריכה נפרדת\nכמות: 100 יח׳\nמחיר: 1133₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he cover-back
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "‎205.35 ₪‎",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he manual-32p
+{
+ "sw": 390,
+ "valid": false,
+ "manual": true,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "(hidden)",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 32 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 32 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nאבקש הצעת מחיר\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he manual-then-pages7
+{
+ "sw": 390,
+ "valid": false,
+ "manual": true,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "(hidden)",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "pages_step: מספר העמודים לא מתאים לשלב. בחרו ערך בעזרת החצים. | צריכים משהו מיוחד? כתבו לנו ב-WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-pages"
+ ],
+ "summary": "A4 · סיכות · 7 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 32 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nאבקש הצעת מחיר\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he back12
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "—",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he manual-qty1000
+{
+ "sw": 390,
+ "valid": false,
+ "manual": true,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "(hidden)",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 1000 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 1000 יח׳\nאבקש הצעת מחיר\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he qty100
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "—",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he pages[7]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "pages_step: מספר העמודים לא מתאים לשלב. בחרו ערך בעזרת החצים. | צריכים משהו מיוחד? כתבו לנו ב-WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-pages"
+ ],
+ "summary": "A4 · סיכות · 7 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he pages[]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "pages_int: הזינו מספר עמודים שלם, למשל 12. | צריכים משהו מיוחד? כתבו לנו ב-WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-pages"
+ ],
+ "summary": "A4 · סיכות · עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he pages[12.5]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "pages_int: הזינו מספר עמודים שלם, למשל 12. | צריכים משהו מיוחד? כתבו לנו ב-WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-pages"
+ ],
+ "summary": "A4 · סיכות · 12.5 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he pages12
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "—",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he qty[0]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "qty_min: כמות מינימלית — 6 יח׳. | צריכים משהו מיוחד? כתבו לנו ב-WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-qty"
+ ],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 0 יח׳",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he qty[5.5]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "qty_int: הזינו כמות במספר שלם, מ-6 יח׳ ומעלה, למשל 100. | צריכים משהו מיוחד? כתבו לנו ב-WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-qty"
+ ],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 5.5 יח׳",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he qty[]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "—",
+ "totalCodes": "2014",
+ "vatRow": "—",
+ "unit": "—",
+ "minNote": "(hidden)",
+ "errors": [
+  "qty_int: הזינו כמות במספר שלם, מ-6 יח׳ ומעלה, למשל 100. | צריכים משהו מיוחד? כתבו לנו ב-WhatsApp"
+ ],
+ "ariaInv": [
+  "calc-qty"
+ ],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · יח׳",
+ "nextVis": false,
+ "nextOffVis": true,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he qty[100001]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "null₪",
+ "totalCodes": "null20aa",
+ "vatRow": "—",
+ "unit": "0.00₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100001 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "undefined",
+ "text": null,
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he qty[6]
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "118₪",
+ "totalCodes": "11820aa",
+ "vatRow": "—",
+ "unit": "19.67₪",
+ "minNote": "order_minimum_hint",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 6 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 6 יח׳\nמחיר: 118₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+
+## he final
+{
+ "sw": 390,
+ "valid": true,
+ "manual": false,
+ "total": "1346₪",
+ "totalCodes": "134620aa",
+ "vatRow": "—",
+ "unit": "13.46₪",
+ "minNote": "(hidden)",
+ "errors": [],
+ "ariaInv": [],
+ "summary": "A4 · סיכות · 12 עמ׳ · 130 גרם · כריכה 250 גרם 4+4 · 100 יח׳",
+ "nextVis": true,
+ "nextOffVis": false,
+ "cta": "להזמנה ב-WhatsApp",
+ "hrefHost": "https://api.whatsapp.com/send/?phone=97250849",
+ "text": "שלום! אני רוצה להזמין קטלוג.\nגודל: A4, סיכות\nפנים: 12 עמ׳, 130 גרם\nכריכה: כרומו מט 250 גרם, הדפסה 4+4, ללא למינציה\nכמות: 100 יח׳\nמחיר: 1346₪ כולל מע״מ\nאת קובץ ההדפסה אשלח מיד דרך \n 📎 ← \"מסמך\" (לא \"גלריה\").",
+ "preview": true,
+ "previewText": "קטלוג"
+}
+he LOG []
