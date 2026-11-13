@@ -441,7 +441,6 @@
     <script>
         const form = document.getElementById('calc-form');
         const totalOutput = document.getElementById('calc-total');
-        const vatOutput = document.getElementById('calc-vat');
         const unitOutput = document.getElementById('calc-unit');
         const pageLimitsTable = @Json.Serialize(GetPageLimitsTable());
         const pagesInput = document.getElementById('calc-pages');
@@ -548,7 +547,6 @@
                 if (response.ok) {
                     hideAllErrors();
                     const result = await response.json();
-                    const targetError = (result.data.errorCode) ? form.querySelector(`[data-error="${result.data.errorCode}"]`) : null;
                     if (result.data.status == "manual_quote") {
                         toggleInvalidPrices(true);
                         document.getElementById('calc-next').href = result.wpmessage;
@@ -565,7 +563,6 @@
                             //disable "next" button and clear price outputs
                             setSend(false);
                             totalOutput.textContent = '—';
-                            vatOutput.textContent = '—';
                             unitOutput.textContent = '—';
                         }
                         else {
@@ -583,7 +580,6 @@
             catch (error) {
                 setSend(false);
                 totalOutput.textContent = '—';
-                                        vatOu    tput.textContent = '—';
                 unitOutput.textContent = '—';
             }
         }
