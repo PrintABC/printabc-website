@@ -1,0 +1,83 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 6528b1d..92e30c1 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -146,7 +146,7 @@
+                         <path d="M12 11v6M12 7.5v.5">
+                         </path>
+                     </svg>
+-                    <span>@L["error_pages_step"]</span>
++                    <span data-limit="step" data-limit-template="@L.GetString("error_pages_step")">@L["error_pages_step", pageLimits.Step]</span>
+                 </div>
+                 <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+@@ -158,7 +158,7 @@
+                         <path d="M12 11v6M12 7.5v.5">
+                         </path>
+                     </svg>
+-                    <span>@L["error_pages_min"]</span>
++                    <span data-limit="min" data-limit-template="@L.GetString("error_pages_min")">@L["error_pages_min", pageLimits.Min]</span>
+                 </div>
+                 <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+@@ -170,7 +170,7 @@
+                         <path d="M12 11v6M12 7.5v.5">
+                         </path>
+                     </svg>
+-                    <span>@L["error_pages_max"]</span>
++                    <span data-limit="max" data-limit-template="@L.GetString("error_pages_max")">@L["error_pages_max", pageLimits.Max]</span>
+                 </div>
+                 <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+@@ -556,6 +556,9 @@
+             pagesInput.step = limits.step;
+             pagesHint.textContent = pagesHint.dataset.template
+                 .replace('{0}', limits.step).replace('{1}', limits.min).replace('{2}', limits.max);
++            //page errors name the number: "Maximum for this paper and binding — 12 p."
++            form.querySelectorAll('[data-limit-template]').forEach(span =>
++                span.textContent = span.dataset.limitTemplate.replace('{0}', limits[span.dataset.limit]));
+ 
+             //move the value to the nearest allowed one: down to max, up to min, down to a multiple of the step
+             const oldPages = parseInt(pagesInput.value);
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 0b182ef..66f92a5 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -373,13 +373,13 @@
+     <value>צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</value>
+   </data>
+   <data name="error_pages_step" xml:space="preserve">
+-    <value>מספר העמודים לא מתאים לשלב. בחרו ערך בעזרת החצים.</value>
++    <value>מספר העמודים צריך להיות בקפיצות של {0}. בחרו ערך בעזרת החצים.</value>
+   </data>
+   <data name="error_pages_min" xml:space="preserve">
+-    <value>מספר העמודים קטן מהמינימום לחיבור ולנייר שבחרתם.</value>
++    <value>המינימום לנייר ולחיבור האלה — {0} עמ׳.</value>
+   </data>
+   <data name="error_pages_max" xml:space="preserve">
+-    <value>מספר העמודים גדול מהמקסימום לחיבור ולנייר שבחרתם.</value>
++    <value>המקסימום לנייר ולחיבור האלה — {0} עמ׳.</value>
+   </data>
+   <data name="error_qty_min" xml:space="preserve">
+     <value>כמות מינימלית — 6 יח׳.</value>
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 4d0ad61..dd0a900 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -373,13 +373,13 @@
+     <value>Нужно что-то особенное? Напишите в WhatsApp</value>
+   </data>
+   <data name="error_pages_step" xml:space="preserve">
+-    <value>Такое число страниц не подходит по шагу. Выберите значение стрелками.</value>
++    <value>Число страниц должно быть кратно {0}. Выберите значение стрелками.</value>
+   </data>
+   <data name="error_pages_min" xml:space="preserve">
+-    <value>Страниц меньше минимума для выбранного переплёта и бумаги.</value>
++    <value>Минимум для этой бумаги и переплёта — {0} стр.</value>
+   </data>
+   <data name="error_pages_max" xml:space="preserve">
+-    <value>Страниц больше максимума для выбранного переплёта и бумаги.</value>
++    <value>Максимум для этой бумаги и переплёта — {0} стр.</value>
+   </data>
+   <data name="error_qty_min" xml:space="preserve">
+     <value>Минимальный тираж — 6 шт.</value>

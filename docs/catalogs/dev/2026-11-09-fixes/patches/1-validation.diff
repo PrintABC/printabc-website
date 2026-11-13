@@ -1,0 +1,261 @@
+diff --git a/Pages/Catalogs.cshtml.cs b/Pages/Catalogs.cshtml.cs
+index 77e9ab3..88d9a53 100644
+--- a/Pages/Catalogs.cshtml.cs
++++ b/Pages/Catalogs.cshtml.cs
+@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
+ using Microsoft.Extensions.Localization;
+ using PrintABC.Data;
+ using PrintABC.Services;
+-using System.ComponentModel.DataAnnotations;
+ using System.Text;
+ using static PrintABC.Services.CatalogCalculatorService;
+ using static PrintABC.Utils.Helpers;
+@@ -24,60 +23,49 @@ namespace PrintABC.Pages
+             L = factory.Create("Pages.catalogs", this.GetType().Assembly.GetName().Name!);
+         }
+ 
+-        const int MIN_INNER_PAGE_COUNT = 4, MAX_INNER_PAGE_COUNT = 36, MIN_QUANTITY = 6, MAX_QUANTITY = 1_000_000;
+-
+-        [BindProperty] public CatalogSize Format { get; set; } = CatalogSize.A4;
+-        [BindProperty] public CatalogBinding Binding { get; set; } = CatalogBinding.Staple;
+-        [BindProperty, Range(MIN_INNER_PAGE_COUNT, MAX_INNER_PAGE_COUNT, ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public int InnerPageCount { get; set; } = 12;
+-        [BindProperty] public int InnerPaper { get; set; } = 130;
+-        [BindProperty] public bool HasCover { get; set; } = true;
+-        [BindProperty] public int CoverPaper { get; set; } = 250;
+-        [BindProperty] public string CoverPrint { get; set; } = "44";
+-        [BindProperty] public LaminationType Lamination { get; set; } = LaminationType.None;
+-        [BindProperty, Range(MIN_QUANTITY, MAX_QUANTITY, ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public int Quantity { get; set; } = 100;
++        // Значения по умолчанию для страницы и данные для сообщения. Из формы НЕ привязываются:
++        // форма приходит строками в CatalogFormInput и проверяется в сервисе (ТЗ §5).
++        public CatalogSize Format { get; set; } = CatalogSize.A4;
++        public CatalogBinding Binding { get; set; } = CatalogBinding.Staple;
++        public int InnerPageCount { get; set; } = 12;
++        public int InnerPaper { get; set; } = 130;
++        public bool HasCover { get; set; } = true;
++        public int CoverPaper { get; set; } = 250;
++        public string CoverPrint { get; set; } = "44";
++        public LaminationType Lamination { get; set; } = LaminationType.None;
++        public int Quantity { get; set; } = 100;
+ 
+ 
+         public CatalogQuoteResponse? response;
+ 
+         public string WhatsappMessage { get; set; } = "";
+-        public IActionResult OnPostCalculate()
++        public IActionResult OnPostCalculate(CatalogFormInput input)
+         {
+-            if (!ModelState.IsValid)
+-            {
+-                var key = ModelState.Where(kv => kv.Value!.Errors.Count > 0)
+-                    .Select(kv => kv.Key).FirstOrDefault() ?? "";
+-                var code = key switch
+-                {
+-                    "Quantity" => Quantity < MIN_QUANTITY ? "qty_min" : "generic",
+-                    "InnerPageCount" => InnerPageCount < MIN_INNER_PAGE_COUNT ? "pages_min" : "pages_max",
+-                    _ => "generic"
+-                };
+-                return new JsonResult(new
+-                {
+-                    success = false,
+-                    data = new CatalogQuoteResponse { Status = ValidationStatus.ValidationError, ErrorCode = code }
+-                });
+-            }
++            string? errorCode = catalogCalculatorService.ValidateInput(input, out CatalogQuoteRequest? quoteRequest);
++            if (errorCode != null)
++                return new JsonResult(new { success = false, data = CatalogQuoteResponse.Error(errorCode) });
+ 
+-            var quoteRequest = BuildQuoteRequest();
+-            response = catalogCalculatorService.Calculate(quoteRequest);
+-            CreateMessage();
+-            return new JsonResult(new { success = response.Status != ValidationStatus.ValidationError, data = response, wpmessage = WHATSAPP_URL + WhatsappMessage });
++            CopyFromRequest(quoteRequest!);
++            response = catalogCalculatorService.Calculate(quoteRequest!);
++            if (response.Status == ValidationStatus.ValidationError) // too_thick: без сообщения WhatsApp
++                return new JsonResult(new { success = false, data = response });
+ 
++            CreateMessage();
++            return new JsonResult(new { success = true, data = response, wpmessage = WHATSAPP_URL + WhatsappMessage });
+         }
+ 
+-        private CatalogQuoteRequest BuildQuoteRequest()
++        // проверенные значения -> свойства, из которых CreateMessage собирает текст
++        private void CopyFromRequest(CatalogQuoteRequest r)
+         {
+-            return new CatalogQuoteRequest(
+-                Format,
+-                Binding,
+-                InnerPageCount,
+-                InnerPaper,
+-                HasCover,
+-                CoverPaper,
+-                CoverPrint,
+-                Lamination,
+-                Quantity);
++            Format = r.Format;
++            Binding = r.Binding;
++            InnerPageCount = r.Pages;
++            InnerPaper = r.InnerPaper;
++            HasCover = r.HasCover;
++            CoverPaper = r.CoverPaper;
++            CoverPrint = r.CoverPrint;
++            Lamination = r.Lamination;
++            Quantity = r.Quantity;
+         }
+ 
+         public void CreateMessage()
+@@ -107,7 +95,10 @@ namespace PrintABC.Pages
+             sb.Append(newline);
+             sb.Append($"{L["msg_quantity"]}: {Quantity} {L["unit"]}");
+             sb.Append(newline);
+-            sb.Append($"{L["msg_price"]}: {response.PriceIncVatIls}₪ {L["msg_with_vat"]}");
++            if (response!.Status == ValidationStatus.ManualQuote)
++                sb.Append(L["msg_ask"]);                     // «Прошу рассчитать цену» / «אבקש הצעת מחיר»
++            else
++                sb.Append($"{L["msg_price"]}: {response.PriceIncVatIls}₪ {L["msg_with_vat"]}");
+             sb.Append(newline);
+             sb.Append(L["msg_file_whatsapp"]);
+             WhatsappMessage = sb.ToString();
+diff --git a/Services/CatalogCalculatorService.cs b/Services/CatalogCalculatorService.cs
+index fde0df7..b7e1766 100644
+--- a/Services/CatalogCalculatorService.cs
++++ b/Services/CatalogCalculatorService.cs
+@@ -1,9 +1,24 @@
+ ﻿using PrintABC.Data;
++using System.Globalization;
+ using static PrintABC.Services.CatalogCalculatorService;
+ using static PrintABC.Utils.Helpers;
+ 
+ namespace PrintABC.Services
+ {
++    // Сырые значения формы: всё строки, чтобы самим решать, какая ошибка (bad_request, bad_format, ...)
++    public class CatalogFormInput
++    {
++        public string? Format { get; set; }
++        public string? Binding { get; set; }
++        public string? InnerPageCount { get; set; }
++        public string? InnerPaper { get; set; }
++        public string? HasCover { get; set; }
++        public string? CoverPaper { get; set; }
++        public string? CoverPrint { get; set; }
++        public string? Lamination { get; set; }
++        public string? Quantity { get; set; }
++    }
++
+     public record CatalogQuoteRequest(CatalogSize Format, CatalogBinding Binding, int Pages, int InnerPaper, bool HasCover, int CoverPaper, string CoverPrint, LaminationType Lamination, int Quantity);
+     public class CatalogCalculatorService
+     {
+@@ -27,6 +42,81 @@ namespace PrintABC.Services
+         };
+ 
+         public static int[] GetInnerPaperSizes() => [80, 130, 170, 250, 300];
++        public static int[] GetCoverPaperSizes() => [250, 300];
++        public static string[] GetCoverPrints() => ["40", "44"];
++        public const int MinQuantity = 6, MaxQuantity = 100_000;
++
++        // ТЗ §2: шаг и минимум страниц блока
++        public static int GetPagesStep(CatalogBinding binding) => binding == CatalogBinding.Staple ? 4 : 2;
++        public static int GetPagesMin(CatalogBinding binding, bool hasCover) =>
++            binding == CatalogBinding.Spiral ? 20 : (hasCover ? 4 : 8);
++        public static int GetPagesMax(CatalogBinding binding, int innerPaper) =>
++            binding == CatalogBinding.Staple ? GetPaperInfo(innerPaper).StapleMaxPages : GetPaperInfo(innerPaper).SpiralMaxPages;
++
++        private static bool TryParseInt(string? s, out int value) =>
++            int.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out value);
++
++        // принимает только имя из enum (без учёта регистра); "1" или "A3" -> false
++        private static bool TryParseName<T>(string? s, out T value) where T : struct, Enum
++        {
++            value = default;
++            string? name = Enum.GetNames<T>().FirstOrDefault(n => string.Equals(n, s?.Trim(), StringComparison.OrdinalIgnoreCase));
++            return name != null && Enum.TryParse(name, out value);
++        }
++
++        /// <summary>
++        /// Проверки ТЗ §5 строго в этом порядке. Возвращает код первой ошибки или null, если всё верно.
++        /// too_thick проверяется в Calculate (нужна толщина).
++        /// </summary>
++        public string? ValidateInput(CatalogFormInput f, out CatalogQuoteRequest? request)
++        {
++            request = null;
++
++            // 1. bad_request: поле отсутствует, не число, дробное
++            if (string.IsNullOrWhiteSpace(f.Format) || string.IsNullOrWhiteSpace(f.Binding)
++                || !TryParseInt(f.InnerPageCount, out int pages)
++                || !TryParseInt(f.InnerPaper, out int innerPaper)
++                || !bool.TryParse(f.HasCover, out bool hasCover)
++                || !TryParseInt(f.Quantity, out int quantity))
++                return "bad_request";
++            int coverPaper = 0;
++            if (hasCover && (!TryParseInt(f.CoverPaper, out coverPaper)
++                             || string.IsNullOrWhiteSpace(f.CoverPrint)
++                             || string.IsNullOrWhiteSpace(f.Lamination)))
++                return "bad_request";
++
++            // 2. bad_format, 3. bad_binding
++            if (!TryParseName(f.Format, out CatalogSize format)) return "bad_format";
++            if (!TryParseName(f.Binding, out CatalogBinding binding)) return "bad_binding";
++
++            // 4. bad_paper: не из списка или запрещена для переплёта (300 г при скобе)
++            if (!GetInnerPaperSizes().Contains(innerPaper) || GetPagesMax(binding, innerPaper) == 0)
++                return "bad_paper";
++
++            // 5. bad_cover, 6. bad_lamination — только при обложке
++            string coverPrint = "";
++            LaminationType lamination = LaminationType.None;
++            if (hasCover)
++            {
++                coverPrint = f.CoverPrint!.Trim();
++                if (!GetCoverPaperSizes().Contains(coverPaper) || !GetCoverPrints().Contains(coverPrint))
++                    return "bad_cover";
++                if (!TryParseName(f.Lamination, out lamination))
++                    return "bad_lamination";
++            }
++
++            // 7-9. страницы
++            if (pages % GetPagesStep(binding) != 0) return "pages_step";
++            if (pages < GetPagesMin(binding, hasCover)) return "pages_min";
++            if (pages > GetPagesMax(binding, innerPaper)) return "pages_max";
++
++            // 10-11. тираж
++            if (quantity < MinQuantity) return "qty_min";
++            if (quantity > MaxQuantity) return "qty_max";
++
++            request = new CatalogQuoteRequest(format, binding, pages, innerPaper, hasCover, coverPaper, coverPrint, lamination, quantity);
++            return null;
++        }
+ 
+         public record CatalogSizeInfo(int PagesPerSheet, int CoversPerSheet, decimal SpiralLengthFactor);
+         private static CatalogSizeInfo GetSizeInfo(CatalogSize size) => size switch
+@@ -48,12 +138,10 @@ namespace PrintABC.Services
+ 
+         public CatalogQuoteResponse Calculate(CatalogQuoteRequest req)
+         {
+-            if (req.Pages % 4 != 0)
+-                return CatalogQuoteResponse.Error("pages_step");
+-
++            // вход уже проверен в ValidateInput
+             int sheetsPerCopy = req.Pages / 2;
+             PaperInfo innerPaper = GetPaperInfo(req.InnerPaper);
+-            PaperInfo coverPaper = GetPaperInfo(req.CoverPaper);
++            PaperInfo? coverPaper = req.HasCover ? GetPaperInfo(req.CoverPaper) : null; // без обложки бумагу обложки не трогаем
+             CatalogSizeInfo format = GetSizeInfo(req.Format);
+             int innerSheetsTotal = CeilDiv(req.Quantity * req.Pages, format.PagesPerSheet);
+ 
+@@ -65,7 +153,7 @@ namespace PrintABC.Services
+             if (req.HasCover)
+             {
+                 int coverPrintedSides = req.CoverPrint == "44" ? 2 : 1;
+-                coverCost = coverSheetsTotal * (coverPaper.SheetPriceIls + coverPrintedSides * ClickColorIls);
++                coverCost = coverSheetsTotal * (coverPaper!.SheetPriceIls + coverPrintedSides * ClickColorIls);
+             }
+ 
+             decimal laminationCost = 0;
+@@ -75,7 +163,7 @@ namespace PrintABC.Services
+                 laminationCost = coverSheetsTotal * laminationPerSheet;
+             }
+ 
+-            decimal copyThicknessMm = sheetsPerCopy * innerPaper.ThicknessMm + (req.HasCover ? 2 * coverPaper.ThicknessMm : 0);
++            decimal copyThicknessMm = sheetsPerCopy * innerPaper.ThicknessMm + (req.HasCover ? 2 * coverPaper!.ThicknessMm : 0);
+ 
+             decimal bindingMaterialsCost;
+             decimal laborCost = 0;

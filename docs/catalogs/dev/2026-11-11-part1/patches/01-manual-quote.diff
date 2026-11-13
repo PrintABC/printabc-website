@@ -1,0 +1,99 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 2cf287e..9241289 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -286,7 +286,7 @@
+                 <path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6">
+                 </path>
+             </svg>
+-            <span data-cta="">@L["next_load_file"]</span>
++            <span data-cta="" data-text-order="@L["next_load_file"]" data-text-manual="@L["cta_manual"]">@L["next_load_file"]</span>
+         </a>
+         <span class="btn btn--lg" id="calc-next-off" aria-disabled="true" hidden="">@L["next_load_file"]</span>
+         <a class="calc__ask" href="https://wa.me/972508494172">
+@@ -427,6 +427,12 @@
+             }
+         }
+ 
++        //button text: "Order in WhatsApp" or, when the price is by quote, "Request a quote in WhatsApp"
++        function setCta(manual) {
++            const cta = form.querySelector('[data-cta]');
++            cta.textContent = manual ? cta.dataset.textManual : cta.dataset.textOrder;
++        }
++
+         function updatePageLimits() {
+             const binding = form.querySelector("input[name='Binding']:checked").value;
+             const hasCover = form.querySelector("input[name='HasCover']:checked").value == 'true';
+@@ -470,6 +476,8 @@
+         setSend(false);
+         const recalc = debounce(triggerCalculation, 300);
+         form.addEventListener('input', updateUIElements);
++        //until the new answer arrives the old link must not be clicked: it holds the previous parameters and price
++        form.addEventListener('input', () => setSend(false));
+         form.addEventListener('input', recalc);
+ 
+         let controller;
+@@ -492,7 +500,11 @@
+                     const result = await response.json();
+                     const targetError = (result.data.errorCode) ? form.querySelector(`[data-error="${result.data.errorCode}"]`) : null;
+                     if (result.data.status == "manual_quote") {
++                        //no price, but the client can still send the CURRENT parameters and ask for a quote
+                         toggleInvalidPrices(true);
++                        setCta(true);
++                        document.getElementById('calc-next').href = result.wpmessage;
++                        setSend(true);
+                     }
+                     else {
+                         if (targetError || result.data.errorCode == "generic") {
+@@ -508,6 +520,7 @@
+                         else {
+                             //valid results, no errors
+                             toggleInvalidPrices(false);
++                            setCta(false);
+                             document.getElementById('calc-next').href = result.wpmessage;
+                             setSend(true);
+                             totalOutput.textContent = result.data.priceIncVatIls + '₪';
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 0f0adca..7a6f062 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -259,7 +259,7 @@
+     <value>ההזמנה שלכם</value>
+   </data>
+   <data name="next_load_file" xml:space="preserve">
+-    <value>«להזמנה ב-WhatsApp»</value>
++    <value>להזמנה ב-WhatsApp</value>
+   </data>
+   <data name="price_ready" xml:space="preserve">
+     <value>מוכן</value>
+@@ -405,4 +405,7 @@
+   <data name="error_bad_paper" xml:space="preserve">
+     <value>הנייר הזה לא מתאים לחיבור שבחרתם. בסיכות בחרו נייר עד 250 גרם.</value>
+   </data>
++  <data name="cta_manual" xml:space="preserve">
++    <value>לבקשת הצעת מחיר ב-WhatsApp</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 8205545..622e7bf 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -259,7 +259,7 @@
+     <value>Ваш заказ</value>
+   </data>
+   <data name="next_load_file" xml:space="preserve">
+-    <value>«Заказать в WhatsApp»</value>
++    <value>Заказать в WhatsApp</value>
+   </data>
+   <data name="price_ready" xml:space="preserve">
+     <value>Готовность</value>
+@@ -405,4 +405,7 @@
+   <data name="error_bad_paper" xml:space="preserve">
+     <value>Эта бумага не подходит для выбранного переплёта. Для скобы выберите блок до 250 г.</value>
+   </data>
++  <data name="cta_manual" xml:space="preserve">
++    <value>Запросить расчёт в WhatsApp</value>
++  </data>
+ </root>
+\ No newline at end of file

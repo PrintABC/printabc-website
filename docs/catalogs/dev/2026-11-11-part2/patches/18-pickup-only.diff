@@ -1,0 +1,26 @@
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 0fd9a27..c13cd08 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -316,7 +316,7 @@
+     <value>אין קובץ מוכן? כתבו לנו — נעזור להכין אותו.</value>
+   </data>
+   <data name="file_address" xml:space="preserve">
+-    <value>איסוף עצמי מרח׳ שטמפפר 5, נתניה — חינם</value>
++    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים.</value>
+   </data>
+   <data name="file_payment" xml:space="preserve">
+     <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 99a10eb..7221d79 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -316,7 +316,7 @@
+     <value>Нет готового макета? Напишите нам — поможем подготовить.</value>
+   </data>
+   <data name="file_address" xml:space="preserve">
+-    <value>Самовывоз: ул. Штампфер 5, Нетания — бесплатно</value>
++    <value>Только самовывоз: ул. Штампфер 5, Нетания — бесплатно. Доставки нет.</value>
+   </data>
+   <data name="file_payment" xml:space="preserve">
+     <value>Оплата вне сайта: наличные, карта, Bit или перевод</value>

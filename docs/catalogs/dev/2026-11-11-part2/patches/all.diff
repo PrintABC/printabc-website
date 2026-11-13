@@ -1,0 +1,589 @@
+diff --git a/Data/CatalogQuoteResponse.cs b/Data/CatalogQuoteResponse.cs
+index b09ec1d..31c6a4a 100644
+--- a/Data/CatalogQuoteResponse.cs
++++ b/Data/CatalogQuoteResponse.cs
+@@ -9,6 +9,8 @@ namespace PrintABC.Data
+         public decimal? PriceExVatIls { get; set; }
+         public decimal? VatIls { get; set; }
+         public decimal? PriceIncVatIls { get; set; }
++        //what the page and the WhatsApp message show: PriceIncVatIls rounded to whole shekels (1346.19 -> 1346)
++        public decimal? TotalIncVatIls { get; set; }
+         public decimal? UnitPriceIncVatIls { get; set; }
+         public bool MinApplied { get; set; }
+         public decimal? SpiralMm { get; set; }
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 7b091d4..aedc913 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -105,12 +105,15 @@
+         </fieldset>
+         <fieldset class="opt-group" id="g-paper" aria-describedby="g-paper-hint">
+             <legend>@L["innerpaper_label"]</legend>
+-            <div class="opt-list">
++            @* one option per line, a short note under its name (decision 11.11.2026);
++               the name stays the first <span> after the input: the script reads it for the summary and the preview *@
++            <div class="opt-list opt-list--stack">
+                 @foreach (int item in GetInnerPaperSizes())
+                 {
+                     <label class="pill">
+                         <input type="radio" name="InnerPaper" value="@item" checked="@(Model.InnerPaper == item)">
+                         <span>@L[$"innerpaper_{item}"]</span>
++                        <small class="pill__note">@L[$"paper_note_{item}"]</small>
+                     </label>
+                 }
+             </div>
+@@ -123,6 +126,8 @@
+             }
+             <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="@pageLimits.Min" max="@pageLimits.Max" step="@pageLimits.Step" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
+             <p class="field__hint" id="pages-hint" data-pages-hint="" data-template="@L.GetString("pages_hint")">@L["pages_hint", pageLimits.Step, pageLimits.Min, pageLimits.Max]</p>
++            @* the calculator changed the page count itself (other paper, binding or cover): what and why, filled by updatePageLimits() *@
++            <p class="field__hint cat-autofix" data-autofix="" role="status" hidden="" data-text-max="@L.GetString("autofix_max")" data-text-min="@L.GetString("autofix_min")" data-text-step="@L.GetString("autofix_step")" data-text-staple="@L["binding_with_staple"]" data-text-spiral="@L["binding_with_spiral"]"></p>
+             @* errors about the page count stand right under the field, so they are seen on a phone too *@
+             <div class="alert alert--error" data-error="pages_int" role="alert" hidden="">
+                 <div class="alert__row">
+@@ -144,7 +149,7 @@
+                         <path d="M12 11v6M12 7.5v.5">
+                         </path>
+                     </svg>
+-                    <span>@L["error_pages_step"]</span>
++                    <span data-limit="step" data-limit-template="@L.GetString("error_pages_step")">@L["error_pages_step", pageLimits.Step]</span>
+                 </div>
+                 <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+@@ -156,7 +161,7 @@
+                         <path d="M12 11v6M12 7.5v.5">
+                         </path>
+                     </svg>
+-                    <span>@L["error_pages_min"]</span>
++                    <span data-limit="min" data-limit-template="@L.GetString("error_pages_min")">@L["error_pages_min", pageLimits.Min]</span>
+                 </div>
+                 <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+@@ -168,7 +173,7 @@
+                         <path d="M12 11v6M12 7.5v.5">
+                         </path>
+                     </svg>
+-                    <span>@L["error_pages_max"]</span>
++                    <span data-limit="max" data-limit-template="@L.GetString("error_pages_max")">@L["error_pages_max", pageLimits.Max]</span>
+                 </div>
+                 <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+@@ -307,10 +312,6 @@
+                     <span>@L["total_inc_vat"]</span>
+                     <output class="price-box__total" id="calc-total" aria-live="polite">— ₪</output>
+                 </div>
+-                <div class="price-box__row">
+-                    <span>@L["price_just_vat"]</span>
+-                    <output id="calc-vat">—</output>
+-                </div>
+                 <div class="price-box__row">
+                     <span>@L["price_per_unit"]</span>
+                     <output id="calc-unit">—</output>
+@@ -438,7 +439,6 @@
+     <script>
+         const form = document.getElementById('calc-form');
+         const totalOutput = document.getElementById('calc-total');
+-        const vatOutput = document.getElementById('calc-vat');
+         const unitOutput = document.getElementById('calc-unit');
+         const pageLimitsTable = @Json.Serialize(GetPageLimitsTable());
+         const pagesInput = document.getElementById('calc-pages');
+@@ -447,11 +447,12 @@
+         const errorAlerts = form.querySelectorAll('.alert--error');
+         const minNote = form.querySelector('[data-min-note]');
+ 
+-        //price as in tz §4/§6: two decimals, a space and ₪ ("1346.19 ₪", "13.50 ₪");
++        //price as in tz §4/§6: a space and ₪; the total in whole shekels ("1346 ₪", the server already rounded it),
++        //the price per copy with two decimals ("13.46 ₪");
+         //on the Hebrew page it is wrapped in LRM marks so that the number and ₪ are not mirrored
+         const lrm = document.documentElement.dir == 'rtl' ? '\u200E' : '';
+-        function money(value) {
+-            return lrm + Number(value).toFixed(2) + ' ₪' + lrm;
++        function money(value, decimals = 2) {
++            return lrm + Number(value).toFixed(decimals) + ' ₪' + lrm;
+         }
+ 
+         const qtyInput = document.getElementById('calc-qty');
+@@ -519,7 +520,23 @@
+             cta.textContent = manual ? cta.dataset.textManual : cta.dataset.textOrder;
+         }
+ 
+-        function updatePageLimits() {
++        //"For 250 g with staple the maximum is 12 p. — changed 32 → 12." under the page field
++        const autofix = form.querySelector('[data-autofix]');
++        function showAutofix(reason, limits, oldPages, newPages) {
++            const text = autofix.dataset;
++            const paper = form.querySelector("input[name='InnerPaper']:checked").nextElementSibling.textContent;
++            const binding = limits.binding == 'Staple' ? text.textStaple : text.textSpiral;
++            const number = { max: limits.max, min: limits.min, step: limits.step }[reason];
++            const template = { max: text.textMax, min: text.textMin, step: text.textStep }[reason];
++            autofix.textContent = template.replace('{0}', paper).replace('{1}', binding).replace('{2}', number)
++                .replace('{3}', oldPages).replace('{4}', newPages);
++            autofix.hidden = false;
++        }
++        //the client types the page count himself: the old note is not true any more
++        pagesInput.addEventListener('input', () => autofix.hidden = true);
++
++        //silent = true on page load and on restore from the browser: there the client changed nothing
++        function updatePageLimits(silent = false) {
+             const binding = form.querySelector("input[name='Binding']:checked").value;
+             const hasCover = form.querySelector("input[name='HasCover']:checked").value == 'true';
+ 
+@@ -542,15 +559,25 @@
+             pagesInput.step = limits.step;
+             pagesHint.textContent = pagesHint.dataset.template
+                 .replace('{0}', limits.step).replace('{1}', limits.min).replace('{2}', limits.max);
++            //page errors name the number: "Maximum for this paper and binding — 12 p."
++            form.querySelectorAll('[data-limit-template]').forEach(span =>
++                span.textContent = span.dataset.limitTemplate.replace('{0}', limits[span.dataset.limit]));
+ 
+             //move the value to the nearest allowed one: down to max, up to min, down to a multiple of the step
+-            let pages = parseInt(pagesInput.value) || limits.min;
++            const oldPages = parseInt(pagesInput.value);
++            let pages = oldPages || limits.min;
+             pages = Math.min(Math.max(pages, limits.min), limits.max);
+             pages = pages - pages % limits.step;
+             if (pages < limits.min)
+                 pages = limits.min;
+             pagesInput.value = pages;
+ 
++            //tell the client what we changed and why (decision 11.11.2026); the price is recalculated by the form 'input' event
++            if (!silent && !isNaN(oldPages) && oldPages != pages)
++                showAutofix(oldPages > limits.max ? 'max' : oldPages < limits.min ? 'min' : 'step', limits, oldPages, pages);
++            else
++                autofix.hidden = true;
++
+             updateUIElements();
+         }
+ 
+@@ -604,7 +631,6 @@
+                             setSend(false);
+                             totalOutput.textContent = '— ₪';
+                             minNote.hidden = true;
+-                            vatOutput.textContent = '—';
+                             unitOutput.textContent = '—';
+                         }
+                         else {
+@@ -613,8 +639,7 @@
+                             setCta(false);
+                             document.getElementById('calc-next').href = result.wpmessage;
+                             setSend(true);
+-                            totalOutput.textContent = money(result.data.priceIncVatIls);
+-                            vatOutput.textContent = money(result.data.vatIls);
++                            totalOutput.textContent = money(result.data.totalIncVatIls, 0); //whole shekels, no separate VAT line
+                             unitOutput.textContent = money(result.data.unitPriceIncVatIls);
+                             minNote.hidden = !result.data.minApplied; //"minimum order 118 ₪ incl. VAT"
+                         }
+@@ -625,7 +650,6 @@
+                 setSend(false);
+                 totalOutput.textContent = '— ₪';
+                 minNote.hidden = true;
+-                vatOutput.textContent = '—';
+                 unitOutput.textContent = '—';
+             }
+             updateBar();
+@@ -710,11 +734,59 @@
+                 timeout = setTimeout(() => func.apply(this, args), wait);
+             };
+         }
+-        updatePageLimits();
+-        triggerCalculation();
+-        updateUIElements();
++        //"Back" in the browser: the client's choice is kept in sessionStorage (this tab only, until it is closed)
++        //and put back into the form, then the price is calculated again (decision 11.11.2026)
++        const STATE_KEY = 'printabc-catalogs-calc';
++        const STATE_FIELDS = ['Format', 'Binding', 'InnerPageCount', 'InnerPaper', 'HasCover', 'CoverPaper', 'CoverPrint', 'Lamination', 'Quantity'];
++        function saveState() {
++            const state = {};
++            STATE_FIELDS.forEach(name => {
++                const field = form.querySelector(`input[name='${name}']:checked`) ?? form.querySelector(`input[name='${name}']:not([type='radio'])`);
++                if (field)
++                    state[name] = field.value;
++            });
++            try {
++                sessionStorage.setItem(STATE_KEY, JSON.stringify(state));
++            } catch (e) {
++                //storage is blocked (private mode, settings): the page works, it just does not remember
++            }
++        }
++        function restoreState() {
++            let state = null;
++            try {
++                state = JSON.parse(sessionStorage.getItem(STATE_KEY));
++            } catch (e) {
++                state = null; //blocked storage or broken JSON: start from the defaults
++            }
++            if (!state || typeof state != 'object')
++                return;
++            STATE_FIELDS.forEach(name => {
++                const value = state[name];
++                if (typeof value != 'string')
++                    return;
++                const radio = form.querySelector(`input[type='radio'][name='${name}'][value='${CSS.escape(value)}']`);
++                const input = form.querySelector(`input[name='${name}']:not([type='radio'])`);
++                if (radio)
++                    radio.checked = true; //a value that is not in the list is ignored, the default stays
++                else if (input)
++                    input.value = value;
++            });
++        }
++        //after updatePageLimits() (registered above), so a page count changed by the calculator is saved too
++        form.addEventListener('input', saveState);
++        form.addEventListener('change', saveState);
++
++        function init() {
++            restoreState();
++            updatePageLimits(true); //checks the restored values against the limits, without the "changed" note
++            updateUIElements();
++            triggerCalculation();
++        }
++        init();
++        //the page came back from the browser cache ("Back"/"Forward"): read the choice again and recalculate
+         window.addEventListener('pageshow', e => {
+-            if (e.persisted) { triggerCalculation(); }
++            if (e.persisted)
++                init();
+         });
+     </script>
+ }
+\ No newline at end of file
+diff --git a/Pages/Catalogs.cshtml.cs b/Pages/Catalogs.cshtml.cs
+index af88797..9e92fd5 100644
+--- a/Pages/Catalogs.cshtml.cs
++++ b/Pages/Catalogs.cshtml.cs
+@@ -92,7 +92,8 @@ namespace PrintABC.Pages
+             sb.Append(newline);
+             sb.Append($"{L["msg_format"]}: {Format.ToString()}, {L[Binding.ToString().ToLower()]}");
+             sb.Append(newline);
+-            sb.Append($"{L["msg_inner"]}: {InnerPageCount} {L["page"]}, {L["innerpaper_" + InnerPaper]}");
++            //"12 стр., мелованная матовая 130 г" / "12 עמ׳, כרומו מט 130 גרם"; 80 g is offset (tz §6)
++            sb.Append($"{L["msg_inner"]}: {InnerPageCount} {L["page"]}, {PaperName(InnerPaper)}");
+             sb.Append(newline);
+             if (HasCover)
+             {
+@@ -104,7 +105,7 @@ namespace PrintABC.Pages
+                     LaminationType.Matte => $"{L["lamination"]} {L["lamination_matte"].ToString().ToLower()}",
+                     _ => L["no_lamination"]
+                 };
+-                sb.Append($"{L["msg_cover"]}: {L["cover_paper_hint"]} {L["cover_paper_" + CoverPaper]}, {L["print"]} {coverprint}, {lam}");
++                sb.Append($"{L["msg_cover"]}: {PaperName(CoverPaper)}, {L["print"]} {coverprint}, {lam}");
+             }
+             else
+                 sb.Append($"{L["msg_cover"]}: {L["msg_no_cover"]}");
+@@ -115,9 +116,10 @@ namespace PrintABC.Pages
+                 sb.Append(L["msg_ask"]);
+             else
+             {
+-                //"1346.19 ₪" with a dot on both languages (tz §6), in Hebrew wrapped in LRM (%E2%80%8E: the message is URL-encoded by hand)
++                //total incl. VAT in whole shekels, as on the page: "1346 ₪" (decision 11.11.2026);
++                //in Hebrew wrapped in LRM (%E2%80%8E: the message is URL-encoded by hand)
+                 string lrm = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "%E2%80%8E" : "";
+-                string price = response.PriceIncVatIls?.ToString("0.00", CultureInfo.InvariantCulture) ?? "";
++                string price = response.TotalIncVatIls?.ToString("0", CultureInfo.InvariantCulture) ?? "";
+                 sb.Append($"{L["msg_price"]}: {lrm}{price} ₪{lrm} {L["msg_with_vat"]}");
+             }
+             sb.Append(newline);
+@@ -125,5 +127,9 @@ namespace PrintABC.Pages
+             WhatsappMessage = sb.ToString();
+ 
+         }
++
++        //paper as the printer names it: "офсет 80 г", "мелованная матовая 130 г"
++        private string PaperName(int grams) =>
++            grams == 80 ? L["msg_paper_80"] : L["msg_paper_coated", grams];
+     }
+ }
+diff --git a/Pages/Shared/_Header.cshtml b/Pages/Shared/_Header.cshtml
+index bf5203f..d30be42 100644
+--- a/Pages/Shared/_Header.cshtml
++++ b/Pages/Shared/_Header.cshtml
+@@ -53,6 +53,7 @@
+   <nav class="mobile-menu" id="mobile-menu" aria-label="@L["main_navigation"]" hidden>
+     <a href="/stickers">@L["stickers"]</a>
+     <a href="/business-cards">@L["business_cards"]</a>
++    <a href="/catalogs">@L["catalogs"]</a>
+     <a href="/#products">@L["all_products"]</a>
+     <a href="/#how">@L["how_order"]</a>
+     <a href="/#reviews">@L["reviews"]</a>
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 7d45626..c13cd08 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -216,9 +216,6 @@
+   <data name="price_calculator" xml:space="preserve">
+     <value>חישוב מחיר</value>
+   </data>
+-  <data name="price_just_vat" xml:space="preserve">
+-    <value>מתוכו מע״מ (18%)</value>
+-  </data>
+   <data name="price_per_unit" xml:space="preserve">
+     <value>מחיר ליחידה</value>
+   </data>
+@@ -319,7 +316,7 @@
+     <value>אין קובץ מוכן? כתבו לנו — נעזור להכין אותו.</value>
+   </data>
+   <data name="file_address" xml:space="preserve">
+-    <value>איסוף עצמי מרח׳ שטמפפר 5, נתניה — חינם</value>
++    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים.</value>
+   </data>
+   <data name="file_payment" xml:space="preserve">
+     <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
+@@ -370,19 +367,19 @@
+     <value>כולל מע״מ</value>
+   </data>
+   <data name="msg_file_whatsapp" xml:space="preserve">
+-    <value>את קובץ ההדפסה אשלח מיד דרך %0a %F0%9F%93%8E%20← "מסמך" (לא "גלריה").</value>
++    <value>את קובץ ההדפסה אשלח מיד דרך %F0%9F%93%8E ← "מסמך" (לא "גלריה").</value>
+   </data>
+   <data name="special_description" xml:space="preserve">
+     <value>צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</value>
+   </data>
+   <data name="error_pages_step" xml:space="preserve">
+-    <value>מספר העמודים לא מתאים לשלב. בחרו ערך בעזרת החצים.</value>
++    <value>מספר העמודים צריך להיות בקפיצות של {0}. בחרו ערך בעזרת החצים.</value>
+   </data>
+   <data name="error_pages_min" xml:space="preserve">
+-    <value>מספר העמודים קטן מהמינימום לחיבור ולנייר שבחרתם.</value>
++    <value>המינימום לנייר ולחיבור האלה — {0} עמ׳.</value>
+   </data>
+   <data name="error_pages_max" xml:space="preserve">
+-    <value>מספר העמודים גדול מהמקסימום לחיבור ולנייר שבחרתם.</value>
++    <value>המקסימום לנייר ולחיבור האלה — {0} עמ׳.</value>
+   </data>
+   <data name="error_qty_min" xml:space="preserve">
+     <value>כמות מינימלית — 6 יח׳.</value>
+@@ -432,4 +429,40 @@
+   <data name="order_minimum_hint" xml:space="preserve">
+     <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
+   </data>
++  <data name="autofix_max" xml:space="preserve">
++    <value>ל־{0} עם {1} מקסימום {2} עמ׳ — תיקנו {3} ← {4}.</value>
++  </data>
++  <data name="autofix_min" xml:space="preserve">
++    <value>ל־{0} עם {1} מינימום {2} עמ׳ — תיקנו {3} ← {4}.</value>
++  </data>
++  <data name="autofix_step" xml:space="preserve">
++    <value>ל־{0} עם {1} מספר העמודים בקפיצות של {2} — תיקנו {3} ← {4}.</value>
++  </data>
++  <data name="binding_with_staple" xml:space="preserve">
++    <value>סיכות</value>
++  </data>
++  <data name="binding_with_spiral" xml:space="preserve">
++    <value>ספירלה</value>
++  </data>
++  <data name="msg_paper_80" xml:space="preserve">
++    <value>אופסט 80 גרם</value>
++  </data>
++  <data name="msg_paper_coated" xml:space="preserve">
++    <value>כרומו מט {0} גרם</value>
++  </data>
++  <data name="paper_note_80" xml:space="preserve">
++    <value>כמו נייר משרדי, לחוברות פנימיות</value>
++  </data>
++  <data name="paper_note_130" xml:space="preserve">
++    <value>עבה יותר, סטנדרט לקטלוגים ומגזינים</value>
++  </data>
++  <data name="paper_note_170" xml:space="preserve">
++    <value>נייר עבה, לקטלוגים ותפריטים מכובדים</value>
++  </data>
++  <data name="paper_note_250" xml:space="preserve">
++    <value>כמעט קרטון, לחוברות דקות</value>
++  </data>
++  <data name="paper_note_300" xml:space="preserve">
++    <value>קרטון, לספירלה בלבד</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 20d3f77..7221d79 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -216,9 +216,6 @@
+   <data name="price_calculator" xml:space="preserve">
+     <value>Расчёт цены</value>
+   </data>
+-  <data name="price_just_vat" xml:space="preserve">
+-    <value>в т. ч. НДС (18%)</value>
+-  </data>
+   <data name="price_per_unit" xml:space="preserve">
+     <value>Цена за экземпляр</value>
+   </data>
+@@ -319,7 +316,7 @@
+     <value>Нет готового макета? Напишите нам — поможем подготовить.</value>
+   </data>
+   <data name="file_address" xml:space="preserve">
+-    <value>Самовывоз: ул. Штампфер 5, Нетания — бесплатно</value>
++    <value>Только самовывоз: ул. Штампфер 5, Нетания — бесплатно. Доставки нет.</value>
+   </data>
+   <data name="file_payment" xml:space="preserve">
+     <value>Оплата вне сайта: наличные, карта, Bit или перевод</value>
+@@ -370,19 +367,19 @@
+     <value>с НДС</value>
+   </data>
+   <data name="msg_file_whatsapp" xml:space="preserve">
+-    <value>Файл макета пришлю следом через %0a %F0%9F%93%8E%20 → «Документ» (не «Галерея»).</value>
++    <value>Файл макета пришлю следом через %F0%9F%93%8E → «Документ» (не «Галерея»).</value>
+   </data>
+   <data name="special_description" xml:space="preserve">
+     <value>Нужно что-то особенное? Напишите в WhatsApp</value>
+   </data>
+   <data name="error_pages_step" xml:space="preserve">
+-    <value>Такое число страниц не подходит по шагу. Выберите значение стрелками.</value>
++    <value>Число страниц должно быть кратно {0}. Выберите значение стрелками.</value>
+   </data>
+   <data name="error_pages_min" xml:space="preserve">
+-    <value>Страниц меньше минимума для выбранного переплёта и бумаги.</value>
++    <value>Минимум для этой бумаги и переплёта — {0} стр.</value>
+   </data>
+   <data name="error_pages_max" xml:space="preserve">
+-    <value>Страниц больше максимума для выбранного переплёта и бумаги.</value>
++    <value>Максимум для этой бумаги и переплёта — {0} стр.</value>
+   </data>
+   <data name="error_qty_min" xml:space="preserve">
+     <value>Минимальный тираж — 6 шт.</value>
+@@ -432,4 +429,40 @@
+   <data name="order_minimum_hint" xml:space="preserve">
+     <value>Минимальный заказ 118 ₪ с НДС</value>
+   </data>
++  <data name="autofix_max" xml:space="preserve">
++    <value>Для {0} со {1} максимум {2} стр. — исправили {3} → {4}.</value>
++  </data>
++  <data name="autofix_min" xml:space="preserve">
++    <value>Для {0} со {1} минимум {2} стр. — исправили {3} → {4}.</value>
++  </data>
++  <data name="autofix_step" xml:space="preserve">
++    <value>Для {0} со {1} число страниц кратно {2} — исправили {3} → {4}.</value>
++  </data>
++  <data name="binding_with_staple" xml:space="preserve">
++    <value>скобой</value>
++  </data>
++  <data name="binding_with_spiral" xml:space="preserve">
++    <value>спиралью</value>
++  </data>
++  <data name="msg_paper_80" xml:space="preserve">
++    <value>офсет 80 г</value>
++  </data>
++  <data name="msg_paper_coated" xml:space="preserve">
++    <value>мелованная матовая {0} г</value>
++  </data>
++  <data name="paper_note_80" xml:space="preserve">
++    <value>Как офисная, для внутренних брошюр</value>
++  </data>
++  <data name="paper_note_130" xml:space="preserve">
++    <value>Плотнее офисной, стандарт для каталогов и журналов</value>
++  </data>
++  <data name="paper_note_170" xml:space="preserve">
++    <value>Плотная, для солидных каталогов и меню</value>
++  </data>
++  <data name="paper_note_250" xml:space="preserve">
++    <value>Почти картон, для тонких брошюр</value>
++  </data>
++  <data name="paper_note_300" xml:space="preserve">
++    <value>Картон, только для спирали</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Shared/_Header.he.resx b/Resources/Pages/Shared/_Header.he.resx
+index 10a1c13..0890dd5 100644
+--- a/Resources/Pages/Shared/_Header.he.resx
++++ b/Resources/Pages/Shared/_Header.he.resx
+@@ -180,4 +180,7 @@
+   <data name="business-cards" xml:space="preserve">
+     <value>כרטיסי ביקור</value>
+   </data>
++  <data name="catalogs" xml:space="preserve">
++    <value>קטלוגים</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Shared/_Header.ru.resx b/Resources/Pages/Shared/_Header.ru.resx
+index cb811de..2c055d3 100644
+--- a/Resources/Pages/Shared/_Header.ru.resx
++++ b/Resources/Pages/Shared/_Header.ru.resx
+@@ -180,4 +180,7 @@
+   <data name="business-cards" xml:space="preserve">
+     <value>Визитки</value>
+   </data>
++  <data name="catalogs" xml:space="preserve">
++    <value>Каталоги</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Services/CatalogCalculatorService.cs b/Services/CatalogCalculatorService.cs
+index 1e238aa..e97f400 100644
+--- a/Services/CatalogCalculatorService.cs
++++ b/Services/CatalogCalculatorService.cs
+@@ -16,6 +16,7 @@ namespace PrintABC.Services
+         const int PunchSec = 30, SpiralCloseSec = 30, LaborRateIlsPerHour = 200, MinOrderIls = 100, MaxAutoPriceIls = 2000;
+         const int StaplePageStep = 4, SpiralPageStep = 2;
+         const int StapleMinPagesNoCover = 8, StapleMinPagesWithCover = 4, SpiralMinPages = 20;
++        const int CoverPages = 4; //a separate cover is always 4 pages
+ 
+         public record PageLimits(int Step, int Min, int Max);
+         public static PageLimits? GetPageLimits(CatalogBinding binding, int innerPaper, bool hasCover)
+@@ -25,7 +26,9 @@ namespace PrintABC.Services
+             PaperInfo paper = GetPaperInfo(innerPaper);
+             PageLimits limits = binding switch
+             {
+-                CatalogBinding.Staple => new(StaplePageStep, hasCover ? StapleMinPagesWithCover : StapleMinPagesNoCover, paper.StapleMaxPages),
++                //250 g: the staple maximum counts the cover too (12 with cover = 8 block pages + 4 cover pages)
++                CatalogBinding.Staple => new(StaplePageStep, hasCover ? StapleMinPagesWithCover : StapleMinPagesNoCover,
++                    hasCover && paper.StapleMaxIncludesCover ? paper.StapleMaxPages - CoverPages : paper.StapleMaxPages),
+                 CatalogBinding.Spiral => new(SpiralPageStep, SpiralMinPages, paper.SpiralMaxPages),
+                 _ => throw new ArgumentOutOfRangeException(nameof(binding), binding, null)
+             };
+@@ -39,13 +42,14 @@ namespace PrintABC.Services
+                 let limits = GetPageLimits(binding, paper, hasCover)
+                 where limits != null
+                 select new PageLimitsRow(binding.ToString(), paper, hasCover, limits.Step, limits.Min, limits.Max)];
+-        public record PaperInfo(decimal SheetPriceIls, decimal ThicknessMm, int SheetsPerPunch, int StapleMaxPages, int SpiralMaxPages);
++        //StapleMaxPages: block pages without the cover; when StapleMaxIncludesCover is true, the cover (4 pages) is counted in it (tz §2)
++        public record PaperInfo(decimal SheetPriceIls, decimal ThicknessMm, int SheetsPerPunch, int StapleMaxPages, int SpiralMaxPages, bool StapleMaxIncludesCover = false);
+         private static PaperInfo GetPaperInfo(int paper) => paper switch
+         {
+             80 => new(0.091m, 0.1m, 20, 36, 200),
+             130 => new(0.1485m, 0.115m, 17, 36, 150),
+-            170 => new(0.197m, 0.15m, 13, 8, 120),
+-            250 => new(0.29322m, 0.24m, 8, 8, 60),
++            170 => new(0.197m, 0.15m, 13, 24, 120),
++            250 => new(0.29322m, 0.24m, 8, 12, 60, StapleMaxIncludesCover: true),
+             300 => new(0.35216m, 0.29m, 6, 0, 60),
+             _ => throw new ArgumentOutOfRangeException(nameof(paper), paper, "Unsupported paper weight")
+         };
+@@ -147,7 +151,10 @@ namespace PrintABC.Services
+                 return new CatalogQuoteResponse() { Status = ValidationStatus.ManualQuote, ErrorCode = "" };
+             decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
+             decimal priceIncVat = priceExVat + vat;
+-            decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
++            //the client sees the total incl. VAT in whole shekels, to the nearest (.50 up): 1346.19 -> 1346 (decision 11.11.2026)
++            decimal totalIncVat = Math.Round(priceIncVat, 0, MidpointRounding.AwayFromZero);
++            //price per copy = the rounded total / quantity, with agorot: 1346 / 100 = 13.46
++            decimal pricePerCopy = Math.Round(totalIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
+ 
+             return new CatalogQuoteResponse()
+             {
+@@ -155,6 +162,7 @@ namespace PrintABC.Services
+                 PriceExVatIls = priceExVat,
+                 PriceIncVatIls = priceIncVat,
+                 VatIls = vat,
++                TotalIncVatIls = totalIncVat,
+                 UnitPriceIncVatIls = pricePerCopy,
+                 MinApplied = minApplied,
+                 SpiralMm = spiralDiameterMm,
+diff --git a/wwwroot/css/pages.css b/wwwroot/css/pages.css
+index 5fdbded..5d43a6f 100644
+--- a/wwwroot/css/pages.css
++++ b/wwwroot/css/pages.css
+@@ -344,3 +344,13 @@
+   .cat-book[data-fmt="A6"] { width: 92px; height: 130px; }
+   .cat-book__title { font-size: 22px; }
+ }
++/* "For 250 g with staple the maximum is 12 p. — changed 32 → 12." under the page field */
++.cat-autofix { color: var(--c-accent-ink); font-weight: 600; }
++/* Paper of the block: one option per line with a short note under the name */
++.opt-list--stack { flex-direction: column; }
++.opt-list--stack .pill { flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; padding: 8px 16px; border-radius: var(--r-md); }
++.opt-list--stack .pill:has(input:checked) { padding: 7px 15px; }
++.pill__note { font-weight: 400; font-size: var(--fs-hint); line-height: 1.35; color: var(--c-muted); }
++/* a disabled option: only the name is crossed out, the note says why ("only for spiral") */
++.opt-list--stack .pill--disabled { text-decoration: none; }
++.opt-list--stack .pill--disabled > span { text-decoration: line-through; }

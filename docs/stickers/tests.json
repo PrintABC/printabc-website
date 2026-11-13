@@ -1,0 +1,18 @@
+{
+  "product": "stickers",
+  "source": "Claude Doc «Калькулятор наклеек v2», таблица «Контрольные случаи» (rev 50) + Р18 (клиенту целые ₪)",
+  "path": "/stickers",
+  "cases": [
+    {"id":"T01","form":{"Material":"Paper","Shape":"Circle","DiameterCm":"5","Quantity":"500","CutMode":"Normal"},"status":"Ready","ex":240.53,"inc":283.83,"show":284},
+    {"id":"T02","form":{"Material":"Paper","Shape":"Circle","DiameterCm":"20","Quantity":"2","CutMode":"Normal"},"status":"Ready","ex":100.00,"inc":118.00,"show":118},
+    {"id":"T03","form":{"Material":"WhiteFilm","Shape":"Circle","DiameterCm":"5","Quantity":"500","CutMode":"Normal"},"status":"Ready","ex":269.65,"inc":318.19,"show":318},
+    {"id":"T04","form":{"Material":"Paper","Shape":"Rectangle","WidthCm":"1","HeightCm":"1","Quantity":"1000","CutMode":"Normal"},"status":"Ready","ex":150.86,"inc":178.01,"show":178},
+    {"id":"T05","form":{"Material":"TransparentFilm","Shape":"Rectangle","WidthCm":"4","HeightCm":"6","Quantity":"300","CutMode":"Normal"},"status":"Ready","ex":215.13,"inc":253.85,"show":254},
+    {"id":"T06","form":{"Material":"Paper","Shape":"Custom","WidthCm":"5","HeightCm":"3","Quantity":"1000","CutMode":"Normal"},"status":"Ready","ex":403.63,"inc":476.28,"show":476},
+    {"id":"T07","form":{"Material":"WhiteFilm","Shape":"Circle","DiameterCm":"5","Quantity":"500","CutMode":"Separate"},"status":"Ready","ex":296.74,"inc":350.15,"show":350},
+    {"id":"T08","form":{"Material":"Paper","Shape":"Rectangle","WidthCm":"31","HeightCm":"45.8","Quantity":"1","CutMode":"Normal"},"status":"Ready","ex":100.00,"inc":118.00,"show":118},
+    {"id":"T09","form":{"Material":"WhiteFilm","Shape":"Circle","DiameterCm":"3","Quantity":"5000","CutMode":"Normal"},"status":"ManualQuote"},
+    {"id":"T10","form":{"Material":"Paper","Shape":"Circle","DiameterCm":"32","Quantity":"1","CutMode":"Normal"},"status":"ValidationError","codes":["too_big","big","size"]},
+    {"id":"T11","form":{"Material":"Paper","Shape":"Circle","DiameterCm":"5","Quantity":"0","CutMode":"Normal"},"status":"ValidationError","codes":["quantity","qty"]}
+  ]
+}

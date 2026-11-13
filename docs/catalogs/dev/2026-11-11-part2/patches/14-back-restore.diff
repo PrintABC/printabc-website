@@ -1,0 +1,69 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 92e30c1..cfc544e 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -731,11 +731,59 @@
+                 timeout = setTimeout(() => func.apply(this, args), wait);
+             };
+         }
+-        updatePageLimits(true);
+-        triggerCalculation();
+-        updateUIElements();
++        //"Back" in the browser: the client's choice is kept in sessionStorage (this tab only, until it is closed)
++        //and put back into the form, then the price is calculated again (decision 11.11.2026)
++        const STATE_KEY = 'printabc-catalogs-calc';
++        const STATE_FIELDS = ['Format', 'Binding', 'InnerPageCount', 'InnerPaper', 'HasCover', 'CoverPaper', 'CoverPrint', 'Lamination', 'Quantity'];
++        function saveState() {
++            const state = {};
++            STATE_FIELDS.forEach(name => {
++                const field = form.querySelector(`input[name='${name}']:checked`) ?? form.querySelector(`input[name='${name}']:not([type='radio'])`);
++                if (field)
++                    state[name] = field.value;
++            });
++            try {
++                sessionStorage.setItem(STATE_KEY, JSON.stringify(state));
++            } catch (e) {
++                //storage is blocked (private mode, settings): the page works, it just does not remember
++            }
++        }
++        function restoreState() {
++            let state = null;
++            try {
++                state = JSON.parse(sessionStorage.getItem(STATE_KEY));
++            } catch (e) {
++                state = null; //blocked storage or broken JSON: start from the defaults
++            }
++            if (!state || typeof state != 'object')
++                return;
++            STATE_FIELDS.forEach(name => {
++                const value = state[name];
++                if (typeof value != 'string')
++                    return;
++                const radio = form.querySelector(`input[type='radio'][name='${name}'][value='${CSS.escape(value)}']`);
++                const input = form.querySelector(`input[name='${name}']:not([type='radio'])`);
++                if (radio)
++                    radio.checked = true; //a value that is not in the list is ignored, the default stays
++                else if (input)
++                    input.value = value;
++            });
++        }
++        //after updatePageLimits() (registered above), so a page count changed by the calculator is saved too
++        form.addEventListener('input', saveState);
++        form.addEventListener('change', saveState);
++
++        function init() {
++            restoreState();
++            updatePageLimits(true); //checks the restored values against the limits, without the "changed" note
++            updateUIElements();
++            triggerCalculation();
++        }
++        init();
++        //the page came back from the browser cache ("Back"/"Forward"): read the choice again and recalculate
+         window.addEventListener('pageshow', e => {
+-            if (e.persisted) { triggerCalculation(); }
++            if (e.persisted)
++                init();
+         });
+     </script>
+ }
+\ No newline at end of file

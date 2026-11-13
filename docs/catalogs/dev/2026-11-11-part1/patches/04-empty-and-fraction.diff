@@ -1,0 +1,146 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 4357d58..211e223 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -120,6 +120,18 @@
+             <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="@pageLimits.Min" max="@pageLimits.Max" step="@pageLimits.Step" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
+             <p class="field__hint" id="pages-hint" data-pages-hint="" data-template="@L.GetString("pages_hint")">@L["pages_hint", pageLimits.Step, pageLimits.Min, pageLimits.Max]</p>
+             @* errors about the page count stand right under the field, so they are seen on a phone too *@
++            <div class="alert alert--error" data-error="pages_int" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_pages_int"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
+             <div class="alert alert--error" data-error="pages_step" role="alert" hidden="">
+                 <div class="alert__row">
+                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+@@ -253,6 +265,31 @@
+                 </div>
+                 <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
++            <div class="alert alert--error" data-error="qty_int" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_qty_int"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++        </div>
++        @* any other wrong value: the price must never disappear without a word *@
++        <div class="alert alert--error" data-error="generic" role="alert" hidden="">
++            <div class="alert__row">
++                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                    <circle cx="12" cy="12" r="9">
++                    </circle>
++                    <path d="M12 11v6M12 7.5v.5">
++                    </path>
++                </svg>
++                <span>@L["error_generic"]</span>
++            </div>
++            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+         </div>
+         <div class="price-box">
+             <p class="cat-summary">
+@@ -534,7 +571,10 @@
+                 if (response.ok) {
+                     hideAllErrors();
+                     const result = await response.json();
+-                    const targetError = (result.data.errorCode) ? form.querySelector(`[data-error="${result.data.errorCode}"]`) : null;
++                    //an error code without its own message falls back to the general "check the values" message
++                    const targetError = (result.data.errorCode)
++                        ? form.querySelector(`[data-error="${result.data.errorCode}"]`) ?? form.querySelector('[data-error="generic"]')
++                        : null;
+                     if (result.data.status == "manual_quote") {
+                         //no price, but the client can still send the CURRENT parameters and ask for a quote
+                         toggleInvalidPrices(true);
+@@ -543,10 +583,9 @@
+                         setSend(true);
+                     }
+                     else {
+-                        if (targetError || result.data.errorCode == "generic") {
+-                            if (targetError)
+-                                showError(targetError); //unhide the correct error message
+-                            toggleInvalidPrices(true);
++                        if (targetError) {
++                            showError(targetError); //unhide the correct error message
++                            toggleInvalidPrices(false); //an error is not "we will calculate individually": show "—"
+                             //disable "next" button and clear price outputs
+                             setSend(false);
+                             totalOutput.textContent = '—';
+diff --git a/Pages/Catalogs.cshtml.cs b/Pages/Catalogs.cshtml.cs
+index 70f4aeb..d417a6e 100644
+--- a/Pages/Catalogs.cshtml.cs
++++ b/Pages/Catalogs.cshtml.cs
+@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
+ using PrintABC.Data;
+ using PrintABC.Services;
+ using System.ComponentModel.DataAnnotations;
++using System.Globalization;
+ using System.Text;
+ using static PrintABC.Services.CatalogCalculatorService;
+ using static PrintABC.Utils.Helpers;
+@@ -46,9 +47,13 @@ namespace PrintABC.Pages
+             {
+                 var key = ModelState.Where(kv => kv.Value!.Errors.Count > 0)
+                     .Select(kv => kv.Key).FirstOrDefault() ?? "";
++                //what the client typed: an empty field or "5.5" is not a whole number, the property keeps its old value
++                string? typed = ModelState[key]?.AttemptedValue;
++                bool isWholeNumber = int.TryParse(typed, NumberStyles.Integer, CultureInfo.InvariantCulture, out int number);
+                 var code = key switch
+                 {
+-                    "Quantity" => Quantity < MIN_QUANTITY ? "qty_min" : "generic",
++                    nameof(Quantity) => !isWholeNumber ? "qty_int" : number < MIN_QUANTITY ? "qty_min" : "generic",
++                    nameof(InnerPageCount) => "pages_int",
+                     _ => "generic"
+                 };
+                 return new JsonResult(new
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 7a0c10a..a06fe00 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -411,4 +411,13 @@
+   <data name="by_quote" xml:space="preserve">
+     <value>לפי הצעה</value>
+   </data>
++  <data name="error_pages_int" xml:space="preserve">
++    <value>הזינו מספר עמודים שלם, למשל 12.</value>
++  </data>
++  <data name="error_qty_int" xml:space="preserve">
++    <value>הזינו כמות במספר שלם, מ-6 יח׳ ומעלה, למשל 100.</value>
++  </data>
++  <data name="error_generic" xml:space="preserve">
++    <value>בדקו את הערכים בטופס: איתם אי אפשר לחשב מחיר.</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 1b0771d..50678e0 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -411,4 +411,13 @@
+   <data name="by_quote" xml:space="preserve">
+     <value>по запросу</value>
+   </data>
++  <data name="error_pages_int" xml:space="preserve">
++    <value>Введите число страниц целым числом, например 12.</value>
++  </data>
++  <data name="error_qty_int" xml:space="preserve">
++    <value>Введите тираж целым числом, от 6 шт., например 100.</value>
++  </data>
++  <data name="error_generic" xml:space="preserve">
++    <value>Проверьте значения в форме: с ними цену посчитать нельзя.</value>
++  </data>
+ </root>
+\ No newline at end of file

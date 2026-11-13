@@ -1,0 +1,182 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 9241289..4833792 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -5,6 +5,9 @@
+ @{
+     ViewData["Title"] = L["meta_title"];
+     ViewData["MetaDescription"] = L["meta_description"];
++    //mobile bottom bar shows "Total … Order →" for this calculator, header button scrolls to the calculator (tz §4)
++    ViewData["BottomBar"] = "order";
++    ViewData["HeaderCtaHref"] = "#calc-form";
+ 
+     var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+     var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+@@ -67,7 +70,7 @@
+             </div>
+         </div>
+     </div>
+-    <form class="product-layout__side panel panel--raised calc" id="calc-form" aria-labelledby="calc-title" autocomplete="off" novalidate="">
++    <form class="product-layout__side panel panel--raised calc" id="calc-form" aria-labelledby="calc-title" autocomplete="off" novalidate="" data-by-quote="@L["by_quote"]">
+         @Html.AntiForgeryToken()
+         <div class="calc__head">
+             <h2 id="calc-title">@L["price_calculator"]</h2>
+@@ -425,8 +428,31 @@
+                 document.getElementById('calc-next').hidden = true;
+                 document.getElementById('calc-next-off').hidden = false;
+             }
++            updateBar();
+         }
+ 
++        //mobile bottom bar (_BottomBar.cshtml, mode "order"): copies the total and the link of the main button
++        const bar = document.querySelector('.bottom-bar');
++        function updateBar() {
++            if (!bar || !bar.querySelector('[data-bar-total]'))
++                return;
++            const next = document.getElementById('calc-next');
++            const manual = !document.getElementById('invalid_prices').hidden;
++            const hasError = form.querySelector('[data-error]:not([hidden])') != null;
++            bar.querySelector('[data-bar-total]').textContent = manual && !hasError ? form.dataset.byQuote : totalOutput.textContent;
++            bar.querySelector('[data-bar-ok]').href = next.href;
++            bar.querySelector('[data-bar-ok]').hidden = next.hidden;
++            bar.querySelector('[data-bar-fix]').hidden = !hasError;
++        }
++        //"Fix parameters" scrolls to the error message that is shown
++        bar?.querySelector('[data-bar-fix]')?.addEventListener('click', e => {
++            const error = form.querySelector('[data-error]:not([hidden])');
++            if (error) {
++                e.preventDefault();
++                error.scrollIntoView({ behavior: 'smooth', block: 'center' });
++            }
++        });
++
+         //button text: "Order in WhatsApp" or, when the price is by quote, "Request a quote in WhatsApp"
+         function setCta(manual) {
+             const cta = form.querySelector('[data-cta]');
+@@ -536,6 +562,7 @@
+                 vatOutput.textContent = '—';
+                 unitOutput.textContent = '—';
+             }
++            updateBar();
+         }
+ 
+         function updateUIElements() {
+diff --git a/Pages/Shared/_BottomBar.cshtml b/Pages/Shared/_BottomBar.cshtml
+index 67e06c2..51f632b 100644
+--- a/Pages/Shared/_BottomBar.cshtml
++++ b/Pages/Shared/_BottomBar.cshtml
+@@ -1,2 +1,14 @@
+-﻿<a class="wa-float" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a>
+-<div class="bottom-bar"><a class="btn btn--primary" href="/stickers">@L["calculate_stickers"]</a><a class="btn-icon btn-icon--round btn-icon--whatsapp" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a><a class="btn-icon btn-icon--round btn-icon--muted" href="tel:+@(LANDLINE)" aria-label="@L["call_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></svg></a></div>
+\ No newline at end of file
++﻿@{
++    //ViewData["BottomBar"] is set by the page: "order" = price bar of a calculator page, nothing = default bar (link to stickers)
++    var barMode = ViewData["BottomBar"] as string;
++}
++<a class="wa-float" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a>
++@if (barMode == "order")
++{
++    @* calculator page (catalogs): "Total … Order →", the page script fills the price and the link *@
++    <div class="bottom-bar"><div class="bottom-bar__price"><span class="bottom-bar__label">@L["total"]</span><output class="bottom-bar__total" data-bar-total aria-live="polite">— ₪</output></div><a class="btn btn--primary" data-bar-ok href="https://wa.me/@(PHONE_NUMBER)" hidden>@L["order"] <span aria-hidden="true">@L["order_arrow"]</span></a><a class="btn btn--secondary" data-bar-fix href="#calc-form" hidden>@L["fix_params"]</a><a class="btn-icon btn-icon--round btn-icon--whatsapp" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a></div>
++}
++else
++{
++    <div class="bottom-bar"><a class="btn btn--primary" href="/stickers">@L["calculate_stickers"]</a><a class="btn-icon btn-icon--round btn-icon--whatsapp" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a><a class="btn-icon btn-icon--round btn-icon--muted" href="tel:+@(LANDLINE)" aria-label="@L["call_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></svg></a></div>
++}
+\ No newline at end of file
+diff --git a/Pages/Shared/_Header.cshtml b/Pages/Shared/_Header.cshtml
+index 3ca4a89..bf5203f 100644
+--- a/Pages/Shared/_Header.cshtml
++++ b/Pages/Shared/_Header.cshtml
+@@ -46,7 +46,7 @@
+       {
+           <a class="btn-icon lang-short" href="@targetUrl" lang="he" hreflang="he" aria-label="גרסה בעברית">עב</a>
+       }
+-      <a class="btn btn--primary header-cta" href="/stickers">@L["calc_price"]</a>
++      <a class="btn btn--primary header-cta" href="@(ViewData["HeaderCtaHref"] as string ?? "/stickers")">@L["calc_price"]</a>
+       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="@L["open_mobile_menu_aria"]"><svg class="icon icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="icon icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+     </div>
+   </div>
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 7a6f062..7a0c10a 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -408,4 +408,7 @@
+   <data name="cta_manual" xml:space="preserve">
+     <value>לבקשת הצעת מחיר ב-WhatsApp</value>
+   </data>
++  <data name="by_quote" xml:space="preserve">
++    <value>לפי הצעה</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 622e7bf..1b0771d 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -408,4 +408,7 @@
+   <data name="cta_manual" xml:space="preserve">
+     <value>Запросить расчёт в WhatsApp</value>
+   </data>
++  <data name="by_quote" xml:space="preserve">
++    <value>по запросу</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Shared/_BottomBar.he.resx b/Resources/Pages/Shared/_BottomBar.he.resx
+index 0cf0d78..649cf1c 100644
+--- a/Resources/Pages/Shared/_BottomBar.he.resx
++++ b/Resources/Pages/Shared/_BottomBar.he.resx
+@@ -126,4 +126,16 @@
+   <data name="call_us" xml:space="preserve">
+     <value>התקשרו אלינו</value>
+   </data>
++  <data name="total" xml:space="preserve">
++    <value>סה״כ</value>
++  </data>
++  <data name="order" xml:space="preserve">
++    <value>להזמנה</value>
++  </data>
++  <data name="order_arrow" xml:space="preserve">
++    <value>←</value>
++  </data>
++  <data name="fix_params" xml:space="preserve">
++    <value>לתיקון הפרמטרים</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Shared/_BottomBar.ru.resx b/Resources/Pages/Shared/_BottomBar.ru.resx
+index cf41583..1020677 100644
+--- a/Resources/Pages/Shared/_BottomBar.ru.resx
++++ b/Resources/Pages/Shared/_BottomBar.ru.resx
+@@ -126,4 +126,16 @@
+   <data name="call_us" xml:space="preserve">
+     <value>Позвонить</value>
+   </data>
++  <data name="total" xml:space="preserve">
++    <value>Итого</value>
++  </data>
++  <data name="order" xml:space="preserve">
++    <value>Заказать</value>
++  </data>
++  <data name="order_arrow" xml:space="preserve">
++    <value>→</value>
++  </data>
++  <data name="fix_params" xml:space="preserve">
++    <value>Исправить параметры</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/wwwroot/css/layout.css b/wwwroot/css/layout.css
+index 8cc5bd5..24bce14 100644
+--- a/wwwroot/css/layout.css
++++ b/wwwroot/css/layout.css
+@@ -134,6 +134,8 @@
+   }
+   /* keep last content visible above the fixed bar */
+   body.has-bottom-bar { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom)); }
++  /* anchors and focused fields are not hidden under the fixed bar (tz §4) */
++  html { scroll-padding-bottom: calc(var(--bar-h) + 16px); }
+ }
+ 
+ @media (max-width: 1099.98px) {
