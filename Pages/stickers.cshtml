@@ -108,8 +108,7 @@
         <!--errors-->
         <div class="price-box">
             <div class="price-box__row price-box__row--total"><span>@L["total_inc_vat"]</span><output class="price-box__total" id="calc-total" aria-live="polite">@Model.response?.PriceIncVatIls₪</output></div>
-            <div class="price-box__row"><span>@L["price_just_vat"]</span><output id="calc-vat">@Model.response?.VatIls</output></div>
-            <div class="price-box__row"><span>@L["price_per_unit"]</span><output id="calc-unit">@Model.response?.UnitPriceExVatIls</output></div>
+            <div class="price-box__row"><span>@L["price_per_unit"]</span><output id="calc-unit">@Model.response?.UnitPriceIncVatIls</output></div>
             <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
         </div>
 
@@ -157,7 +156,6 @@
     <script>
         const form = document.getElementById('calc-form');
         const totalOutput = document.getElementById('calc-total');
-        const vatOutput = document.getElementById('calc-vat');
         const unitOutput = document.getElementById('calc-unit');
 
         const shapeRadios = form.querySelectorAll('input[name="Shape"]');
@@ -229,7 +227,6 @@
                         //disable "next" button and clear price outputs
                         setSend(false);
                         totalOutput.textContent = '—';
-                        vatOutput.textContent = '—';
                         unitOutput.textContent = '—';
                     }
                     else {
@@ -237,15 +234,20 @@
                         document.getElementById('calc-next').href = result.wpmessage;
                         setSend(true);
                         totalOutput.textContent = result.data.priceIncVatIls + '₪';
-                        vatOutput.textContent = result.data.vatIls;
-                        unitOutput.textContent = result.data.unitPriceExVatIls;
+                        unitOutput.textContent = result.data.unitPriceIncVatIls; // Р17: с НДС
                     }
+                }
+                else {
+                    // ответ сервера с ошибкой (например 500): не оставлять старую цену и ссылку заказа
+                    setSend(false);
+                    totalOutput.textContent = '—';
+                    unitOutput.textContent = '—';
                 }
             }
             catch (error) {
+                if (error.name === 'AbortError') return; // запрос отменён новым вводом
                 setSend(false);
                 totalOutput.textContent = '—';
-                vatOutput.textContent = '—';
                 unitOutput.textContent = '—';
             }
         }
