@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="binding_label" xml:space="preserve">
+    <value>חיבור</value>
+  </data>
+  <data name="binding_spiral" xml:space="preserve">
+    <value>ספירלה</value>
+  </data>
+  <data name="binding_staple" xml:space="preserve">
+    <value>סיכות</value>
+  </data>
+  <data name="catalogs_description" xml:space="preserve">
+    <value>A4, A5, A6 · סיכות או ספירלה · מ-6 יח׳ · המחירים כוללים מע״מ</value>
+  </data>
+  <data name="catalogs_header" xml:space="preserve">
+    <value>קטלוגים ומגזינים</value>
+  </data>
+  <data name="cover" xml:space="preserve">
+    <value>כריכה</value>
+  </data>
+  <data name="cover_paper_250" xml:space="preserve">
+    <value>250 גרם</value>
+  </data>
+  <data name="cover_paper_300" xml:space="preserve">
+    <value>300 גרם</value>
+  </data>
+  <data name="cover_paper_hint" xml:space="preserve">
+    <value>כרומו מט</value>
+  </data>
+  <data name="cover_paper_label" xml:space="preserve">
+    <value>נייר כריכה</value>
+  </data>
+  <data name="cover_print_40" xml:space="preserve">
+    <value>4+0 (מבחוץ בלבד)</value>
+  </data>
+  <data name="cover_print_44" xml:space="preserve">
+    <value>4+4 (משני הצדדים)</value>
+  </data>
+  <data name="cover_print_label" xml:space="preserve">
+    <value>הדפסת כריכה</value>
+  </data>
+  <data name="has_cover_hint" xml:space="preserve">
+    <value>בלי כריכה נפרדת — העמוד הראשון והאחרון של הפנים משמשים ככריכה.</value>
+  </data>
+  <data name="innerpaper_80" xml:space="preserve">
+    <value>80 גרם (אופסט)</value>
+  </data>
+  <data name="innerpaper_130" xml:space="preserve">
+    <value>130 גרם</value>
+  </data>
+  <data name="innerpaper_170" xml:space="preserve">
+    <value>170 גרם</value>
+  </data>
+  <data name="innerpaper_250" xml:space="preserve">
+    <value>250 גרם</value>
+  </data>
+  <data name="innerpaper_300" xml:space="preserve">
+    <value>300 גרם</value>
+  </data>
+  <data name="innerpaper_label" xml:space="preserve">
+    <value>נייר פנים</value>
+  </data>
+  <data name="inner_pages_label" xml:space="preserve">
+    <value>עמודי פנים (בלי הכריכה)</value>
+  </data>
+  <data name="lamination" xml:space="preserve">
+    <value>למינציה</value>
+  </data>
+  <data name="lamination_gloss" xml:space="preserve">
+    <value>מבריקה</value>
+  </data>
+  <data name="lamination_hint" xml:space="preserve">
+    <value>מבחוץ בלבד, אותו מחיר למט ולמבריק.</value>
+  </data>
+  <data name="lamination_label" xml:space="preserve">
+    <value>למינציה לכריכה</value>
+  </data>
+  <data name="lamination_matte" xml:space="preserve">
+    <value>מט</value>
+  </data>
+  <data name="lamination_none" xml:space="preserve">
+    <value>ללא</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>A4, A5, A6 · סיכות או ספירלה · מ-6 יח׳ · המחירים כוללים מע״מ</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>קטלוגים ומגזינים — דפוס איי.בי.סי</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>כן</value>
+  </data>
+  <data name="page" xml:space="preserve">
+    <value>עמ׳</value>
+  </data>
+  <data name="paper_hint" xml:space="preserve">
+    <value>הדפסה בצבע משני הצדדים (4+4). 130–300 גרם — כרומו מט.</value>
+  </data>
+  <data name="price_calculator" xml:space="preserve">
+    <value>חישוב מחיר</value>
+  </data>
+  <data name="price_just_vat" xml:space="preserve">
+    <value>מתוכו מע״מ (18%)</value>
+  </data>
+  <data name="price_per_unit" xml:space="preserve">
+    <value>מחיר ליחידה</value>
+  </data>
+  <data name="quantity_hint" xml:space="preserve">
+    <value>מ-6 יח׳. הזמנה מעל 2,360 ₪ — הצעת מחיר אישית.</value>
+  </data>
+  <data name="quantity_label" xml:space="preserve">
+    <value>כמות (יח׳)</value>
+  </data>
+  <data name="separate_cover_label" xml:space="preserve">
+    <value>כריכה נפרדת</value>
+  </data>
+  <data name="size_A4" xml:space="preserve">
+    <value>21×29.7</value>
+  </data>
+  <data name="size_A5" xml:space="preserve">
+    <value>14.8×21</value>
+  </data>
+  <data name="size_A6" xml:space="preserve">
+    <value>10.5×14.8</value>
+  </data>
+  <data name="size_label" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="total_inc_vat" xml:space="preserve">
+    <value>סה״כ כולל מע״מ</value>
+  </data>
+  <data name="unit" xml:space="preserve">
+    <value>יח׳</value>
+  </data>
+  <data name="unit_cm" xml:space="preserve">
+    <value>ס״מ</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>לא</value>
+  </data>
+  <data name="your_order" xml:space="preserve">
+    <value>ההזמנה שלכם</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>«להזמנה ב-WhatsApp»</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>עד 7 ימי עבודה</value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>שאלה? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>דרישות לקובץ</value>
+  </data>
+  <data name="payment_pickup" xml:space="preserve">
+    <value>איסוף ותשלום</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>מה קורה אחרי ההזמנה</value>
+  </data>
+  <data name="pick_calculate" xml:space="preserve">
+    <value>בוחרים ומחשבים</value>
+  </data>
+  <data name="send_file" xml:space="preserve">
+    <value>שולחים ב-WhatsApp</value>
+  </data>
+  <data name="send_file_description" xml:space="preserve">
+    <value>ההודעה עם פרטי ההזמנה מוכנה. את הקובץ שולחים באותה שיחה כ"מסמך".</value>
+  </data>
+  <data name="pick_calculate_description" xml:space="preserve">
+    <value>בוחרים מוצר ופרמטרים ורואים מחיר כולל מע״מ.</value>
+  </data>
+  <data name="approve_sample" xml:space="preserve">
+    <value>מאשרים הדפסת ניסיון</value>
+  </data>
+  <data name="approve_sample_description" xml:space="preserve">
+    <value>נשלח צילום או וידאו ב-WhatsApp. מדפיסים אחרי האישור.</value>
+  </data>
+  <data name="collect_order" xml:space="preserve">
+    <value>אוספים מבית הדפוס</value>
+  </data>
+  <data name="collect_order_description" xml:space="preserve">
+    <value>ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</value>
+  </data>
+  <data name="file_type_description" xml:space="preserve">
+    <value>קובץ PDF אחד מרובה עמודים, לפי הסדר; הכריכה — בקובץ PDF נפרד</value>
+  </data>
+  <data name="page_size_description" xml:space="preserve">
+    <value>גודל עמוד = הפורמט + 2 מ״מ גלישה מכל צד</value>
+  </data>
+  <data name="file_resolution_description" xml:space="preserve">
+    <value>רזולוציה 300 dpi, אזור בטוח 3 מ״מ מקו החיתוך</value>
+  </data>
+  <data name="spiral_gap_description" xml:space="preserve">
+    <value>בספירלה — עוד 8 מ״מ מהשדרה בלי טקסט</value>
+  </data>
+  <data name="file_not_ready_help" xml:space="preserve">
+    <value>אין קובץ מוכן? כתבו לנו — נעזור להכין אותו.</value>
+  </data>
+  <data name="file_address" xml:space="preserve">
+    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים</value>
+  </data>
+  <data name="file_payment" xml:space="preserve">
+    <value>תשלום מחוץ לאתר: מזומן, אשראי, Bit או העברה בנקאית</value>
+  </data>
+  <data name="file_min_order" xml:space="preserve">
+    <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
+  </data>
+  <data name="unit_mm" xml:space="preserve">
+    <value>מ״מ</value>
+  </data>
+  <data name="file_ready_in" xml:space="preserve">
+    <value>מוכן תוך עד 7 ימי עבודה</value>
+  </data>
+  <data name="msg_hello" xml:space="preserve">
+    <value>שלום! אני רוצה להזמין קטלוג.</value>
+  </data>
+  <data name="staple" xml:space="preserve">
+    <value>סיכות</value>
+  </data>
+  <data name="spiral" xml:space="preserve">
+    <value>ספירלה</value>
+  </data>
+  <data name="msg_format" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="msg_inner" xml:space="preserve">
+    <value>פנים</value>
+  </data>
+  <data name="msg_cover" xml:space="preserve">
+    <value>כריכה</value>
+  </data>
+  <data name="msg_no_cover" xml:space="preserve">
+    <value>ללא כריכה נפרדת</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>הדפסה</value>
+  </data>
+  <data name="no_lamination" xml:space="preserve">
+    <value>ללא למינציה</value>
+  </data>
+  <data name="msg_quantity" xml:space="preserve">
+    <value>כמות</value>
+  </data>
+  <data name="msg_price" xml:space="preserve">
+    <value>מחיר</value>
+  </data>
+  <data name="msg_with_vat" xml:space="preserve">
+    <value>כולל מע״מ</value>
+  </data>
+  <data name="msg_file_whatsapp" xml:space="preserve">
+    <value>את קובץ ההדפסה אשלח מיד דרך %0a %F0%9F%93%8E%20← "מסמך" (לא "גלריה").</value>
+  </data>
+  <data name="special_description" xml:space="preserve">
+    <value>צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="error_pages_step" xml:space="preserve">
+    <value>מספר העמודים לא מתאים לשלב. בחרו ערך בעזרת החצים.</value>
+  </data>
+  <data name="error_pages_min" xml:space="preserve">
+    <value>מספר העמודים קטן מהמינימום לחיבור ולנייר שבחרתם.</value>
+  </data>
+  <data name="error_pages_max" xml:space="preserve">
+    <value>מספר העמודים גדול מהמקסימום לחיבור ולנייר שבחרתם.</value>
+  </data>
+  <data name="error_qty_min" xml:space="preserve">
+    <value>כמות מינימלית — 6 יח׳.</value>
+  </data>
+  <data name="error_too_thick" xml:space="preserve">
+    <value>החוברת עבה מדי לספירלה. הקטינו את מספר העמודים או בחרו נייר דק יותר.</value>
+  </data>
+  <data name="msg_ask" xml:space="preserve">
+    <value>אבקש הצעת מחיר</value>
+  </data>
+  <data name="manual_title" xml:space="preserve">
+    <value>נחשב לכם אישית</value>
+  </data>
+  <data name="manual_text" xml:space="preserve">
+    <value>שלחו לנו את הפרמטרים ב-WhatsApp — נחזור עם מחיר.</value>
+  </data>
+  <data name="pages_hint" xml:space="preserve">
+    <value>בקפיצות של {0} עמ׳, מ־{1} עד {2} עמ׳</value>
+  </data>
+  <data name="error_bad_paper" xml:space="preserve">
+    <value>הנייר הזה לא מתאים לחיבור שבחרתם. בסיכות בחרו נייר עד 250 גרם.</value>
+  </data>
+  <data name="paper_note_80" xml:space="preserve">
+    <value>כמו נייר משרדי, לחוברות פנימיות</value>
+  </data>
+  <data name="paper_note_130" xml:space="preserve">
+    <value>עבה יותר, סטנדרט לקטלוגים ומגזינים</value>
+  </data>
+  <data name="paper_note_170" xml:space="preserve">
+    <value>נייר עבה, לקטלוגים ותפריטים מכובדים</value>
+  </data>
+  <data name="paper_note_250" xml:space="preserve">
+    <value>כמעט קרטון, לחוברות דקות</value>
+  </data>
+  <data name="paper_note_300" xml:space="preserve">
+    <value>קרטון, לספירלה בלבד</value>
+  </data>
+  <data name="error_pages_int" xml:space="preserve">
+    <value>הזינו מספר עמודים שלם, למשל 12.</value>
+  </data>
+  <data name="error_qty_int" xml:space="preserve">
+    <value>הזינו כמות במספר שלם, מ-6 יח׳ ומעלה, למשל 100.</value>
+  </data>
+  <data name="error_generic" xml:space="preserve">
+    <value>בדקו את הערכים בטופס</value>
+  </data>
+  <data name="preview_title" xml:space="preserve">
+    <value>קטלוג</value>
+  </data>
+</root>

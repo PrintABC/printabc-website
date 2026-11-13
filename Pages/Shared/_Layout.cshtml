@@ -1,0 +1,36 @@
+﻿@using System.Globalization
+
+@{
+    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+    var dir = isRtl ? "rtl" : "ltr";
+}
+
+<!DOCTYPE html>
+<html lang="@currentCulture" dir="@dir">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewData["Title"]?? "PrintABC")</title>
+    <meta name="description" content="@(ViewData["MetaDescription"] ?? "PrintABC")" />
+    <link rel="stylesheet" href="~/PrintABC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tokens.css">
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/components.css">
+    <link rel="stylesheet" href="~/css/layout.css">
+    <link rel="stylesheet" href="~/css/pages.css">
+    <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true" />
+</head>
+<body class="has-bottom-bar">
+    <a class="skip-link" href="#main">@L["skip_link"]</a>
+    <partial name="_Header" />
+    <main id="main">
+        <partial name="_Breadcrumbs" />
+        @RenderBody()
+    </main>
+    <partial name="_Footer" />
+    <partial name="_BottomBar" model="@ViewData["BottomBar"]" />
+    <script src="~/js/main.js" defer></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

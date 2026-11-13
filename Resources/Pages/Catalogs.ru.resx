@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="binding_label" xml:space="preserve">
+    <value>Переплёт</value>
+  </data>
+  <data name="binding_spiral" xml:space="preserve">
+    <value>Спираль</value>
+  </data>
+  <data name="binding_staple" xml:space="preserve">
+    <value>Скоба</value>
+  </data>
+  <data name="catalogs_description" xml:space="preserve">
+    <value>A4, A5, A6 · скоба или спираль · от 6 шт. · цены с НДС</value>
+  </data>
+  <data name="catalogs_header" xml:space="preserve">
+    <value>Каталоги и журналы</value>
+  </data>
+  <data name="cover" xml:space="preserve">
+    <value>обложка</value>
+  </data>
+  <data name="cover_paper_250" xml:space="preserve">
+    <value>250 г</value>
+  </data>
+  <data name="cover_paper_300" xml:space="preserve">
+    <value>300 г</value>
+  </data>
+  <data name="cover_paper_hint" xml:space="preserve">
+    <value>Мелованная матовая</value>
+  </data>
+  <data name="cover_paper_label" xml:space="preserve">
+    <value>Бумага обложки</value>
+  </data>
+  <data name="cover_print_40" xml:space="preserve">
+    <value>4+0 (только снаружи)</value>
+  </data>
+  <data name="cover_print_44" xml:space="preserve">
+    <value>4+4 (с двух сторон)</value>
+  </data>
+  <data name="cover_print_label" xml:space="preserve">
+    <value>Печать обложки</value>
+  </data>
+  <data name="has_cover_hint" xml:space="preserve">
+    <value>Без отдельной обложки обложкой служат первая и последняя страницы блока.</value>
+  </data>
+  <data name="innerpaper_80" xml:space="preserve">
+    <value>80 г офсет</value>
+  </data>
+  <data name="innerpaper_130" xml:space="preserve">
+    <value>130 г</value>
+  </data>
+  <data name="innerpaper_170" xml:space="preserve">
+    <value>170 г</value>
+  </data>
+  <data name="innerpaper_250" xml:space="preserve">
+    <value>250 г</value>
+  </data>
+  <data name="innerpaper_300" xml:space="preserve">
+    <value>300 г</value>
+  </data>
+  <data name="innerpaper_label" xml:space="preserve">
+    <value>Бумага блока</value>
+  </data>
+  <data name="inner_pages_label" xml:space="preserve">
+    <value>Страниц в блоке (без обложки)</value>
+  </data>
+  <data name="lamination" xml:space="preserve">
+    <value>ламинация</value>
+  </data>
+  <data name="lamination_gloss" xml:space="preserve">
+    <value>Глянцевая</value>
+  </data>
+  <data name="lamination_hint" xml:space="preserve">
+    <value>Только снаружи, цена одна для матовой и глянцевой.</value>
+  </data>
+  <data name="lamination_label" xml:space="preserve">
+    <value>Ламинация обложки</value>
+  </data>
+  <data name="lamination_matte" xml:space="preserve">
+    <value>Матовая</value>
+  </data>
+  <data name="lamination_none" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>A4, A5, A6 · скоба или спираль · от 6 шт. · цены с НДС</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>Каталоги и журналы — PrintABC</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="page" xml:space="preserve">
+    <value>стр.</value>
+  </data>
+  <data name="paper_hint" xml:space="preserve">
+    <value>Блок печатается в цвете с двух сторон (4+4). 130–300 г — мелованная матовая.</value>
+  </data>
+  <data name="price_calculator" xml:space="preserve">
+    <value>Расчёт цены</value>
+  </data>
+  <data name="price_just_vat" xml:space="preserve">
+    <value>в т. ч. НДС (18%)</value>
+  </data>
+  <data name="price_per_unit" xml:space="preserve">
+    <value>Цена за экземпляр</value>
+  </data>
+  <data name="quantity_hint" xml:space="preserve">
+    <value>От 6 шт. Заказ дороже 2 360 ₪ — рассчитаем индивидуально.</value>
+  </data>
+  <data name="quantity_label" xml:space="preserve">
+    <value>Количество (шт.)</value>
+  </data>
+  <data name="separate_cover_label" xml:space="preserve">
+    <value>Отдельная обложка</value>
+  </data>
+  <data name="size_A4" xml:space="preserve">
+    <value>21×29.7</value>
+  </data>
+  <data name="size_A5" xml:space="preserve">
+    <value>14.8×21</value>
+  </data>
+  <data name="size_A6" xml:space="preserve">
+    <value>10.5×14.8</value>
+  </data>
+  <data name="size_label" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="total_inc_vat" xml:space="preserve">
+    <value>Итого с НДС</value>
+  </data>
+  <data name="unit" xml:space="preserve">
+    <value>шт.</value>
+  </data>
+  <data name="unit_cm" xml:space="preserve">
+    <value>см</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="your_order" xml:space="preserve">
+    <value>Ваш заказ</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>«Заказать в WhatsApp»</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>Готовность</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>до 7 рабочих дней</value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>Вопрос? Напишите в WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>Требования к макету</value>
+  </data>
+  <data name="payment_pickup" xml:space="preserve">
+    <value>Получение и оплата</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>Что происходит после заказа</value>
+  </data>
+  <data name="pick_calculate" xml:space="preserve">
+    <value>Выбираете и считаете</value>
+  </data>
+  <data name="send_file" xml:space="preserve">
+    <value>Пишете в WhatsApp</value>
+  </data>
+  <data name="send_file_description" xml:space="preserve">
+    <value>Сообщение с параметрами заказа уже готово. Файл отправляете в том же чате как «Документ».</value>
+  </data>
+  <data name="pick_calculate_description" xml:space="preserve">
+    <value>Выбираете параметры и сразу видите цену с НДС.</value>
+  </data>
+  <data name="approve_sample" xml:space="preserve">
+    <value>Утверждаете пробу</value>
+  </data>
+  <data name="approve_sample_description" xml:space="preserve">
+    <value>Пришлём фото или видео пробной печати в WhatsApp. Печатаем после вашего «да».</value>
+  </data>
+  <data name="collect_order" xml:space="preserve">
+    <value>Забираете в типографии</value>
+  </data>
+  <data name="collect_order_description" xml:space="preserve">
+    <value>Заказ готов — бесплатный самовывоз: ул. Штампфер 5, Нетания.</value>
+  </data>
+  <data name="file_type_description" xml:space="preserve">
+    <value>Один многостраничный PDF, страницы по порядку; обложка — отдельным PDF</value>
+  </data>
+  <data name="page_size_description" xml:space="preserve">
+    <value>Размер страницы = формат + вылеты 2 мм с каждой стороны</value>
+  </data>
+  <data name="file_resolution_description" xml:space="preserve">
+    <value>300 dpi, безопасная зона 3 мм от реза</value>
+  </data>
+  <data name="spiral_gap_description" xml:space="preserve">
+    <value>Для спирали — ещё 8 мм от корешка без текста</value>
+  </data>
+  <data name="file_not_ready_help" xml:space="preserve">
+    <value>Нет готового макета? Напишите нам — поможем подготовить.</value>
+  </data>
+  <data name="file_address" xml:space="preserve">
+    <value>Только самовывоз: ул. Штампфер 5, Нетания — бесплатно. Доставки нет.</value>
+  </data>
+  <data name="file_payment" xml:space="preserve">
+    <value>Оплата вне сайта: наличные, карта, Bit или перевод</value>
+  </data>
+  <data name="file_min_order" xml:space="preserve">
+    <value>Минимальный заказ — 118 ₪ с НДС</value>
+  </data>
+  <data name="unit_mm" xml:space="preserve">
+    <value>мм</value>
+  </data>
+  <data name="file_ready_in" xml:space="preserve">
+    <value>Готово — до 7 рабочих дней</value>
+  </data>
+  <data name="msg_hello" xml:space="preserve">
+    <value>Здравствуйте! Хочу заказать каталог.</value>
+  </data>
+  <data name="staple" xml:space="preserve">
+    <value>скоба</value>
+  </data>
+  <data name="spiral" xml:space="preserve">
+    <value>спираль</value>
+  </data>
+  <data name="msg_format" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="msg_inner" xml:space="preserve">
+    <value>Блок</value>
+  </data>
+  <data name="msg_cover" xml:space="preserve">
+    <value>Обложка</value>
+  </data>
+  <data name="msg_no_cover" xml:space="preserve">
+    <value>без отдельной обложки</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>печать</value>
+  </data>
+  <data name="no_lamination" xml:space="preserve">
+    <value>без ламинации</value>
+  </data>
+  <data name="msg_quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="msg_price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="msg_with_vat" xml:space="preserve">
+    <value>с НДС</value>
+  </data>
+  <data name="msg_file_whatsapp" xml:space="preserve">
+    <value>Файл макета пришлю следом через %0a %F0%9F%93%8E%20 → «Документ» (не «Галерея»).</value>
+  </data>
+  <data name="special_description" xml:space="preserve">
+    <value>Нужно что-то особенное? Напишите в WhatsApp</value>
+  </data>
+  <data name="error_pages_step" xml:space="preserve">
+    <value>Такое число страниц не подходит по шагу. Выберите значение стрелками.</value>
+  </data>
+  <data name="error_pages_min" xml:space="preserve">
+    <value>Страниц меньше минимума для выбранного переплёта и бумаги.</value>
+  </data>
+  <data name="error_pages_max" xml:space="preserve">
+    <value>Страниц больше максимума для выбранного переплёта и бумаги.</value>
+  </data>
+  <data name="error_qty_min" xml:space="preserve">
+    <value>Минимальный тираж — 6 шт.</value>
+  </data>
+  <data name="error_too_thick" xml:space="preserve">
+    <value>Слишком толстый блок для спирали. Уменьшите число страниц или выберите бумагу тоньше.</value>
+  </data>
+  <data name="msg_ask" xml:space="preserve">
+    <value>Прошу рассчитать цену</value>
+  </data>
+  <data name="manual_title" xml:space="preserve">
+    <value>Рассчитаем индивидуально</value>
+  </data>
+  <data name="manual_text" xml:space="preserve">
+    <value>Отправьте параметры в WhatsApp — пришлём цену.</value>
+  </data>
+  <data name="pages_hint" xml:space="preserve">
+    <value>Шаг {0} стр., от {1} до {2} стр.</value>
+  </data>
+  <data name="error_bad_paper" xml:space="preserve">
+    <value>Эта бумага не подходит для выбранного переплёта. Для скобы выберите блок до 250 г.</value>
+  </data>
+  <data name="paper_note_80" xml:space="preserve">
+    <value>Как офисная, для внутренних брошюр</value>
+  </data>
+  <data name="paper_note_130" xml:space="preserve">
+    <value>Плотнее офисной, стандарт для каталогов и журналов</value>
+  </data>
+  <data name="paper_note_170" xml:space="preserve">
+    <value>Плотная, для солидных каталогов и меню</value>
+  </data>
+  <data name="paper_note_250" xml:space="preserve">
+    <value>Почти картон, для тонких брошюр</value>
+  </data>
+  <data name="paper_note_300" xml:space="preserve">
+    <value>Картон, только для спирали</value>
+  </data>
+  <data name="error_pages_int" xml:space="preserve">
+    <value>Введите число страниц целым числом, например 12.</value>
+  </data>
+  <data name="error_qty_int" xml:space="preserve">
+    <value>Введите тираж целым числом, от 6 шт., например 100.</value>
+  </data>
+  <data name="error_generic" xml:space="preserve">
+    <value>Проверьте значения в форме.</value>
+  </data>
+  <data name="preview_title" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
+</root>
