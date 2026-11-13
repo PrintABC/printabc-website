@@ -1,0 +1,383 @@
+{
+ "product": "catalogs",
+ "source": "catalogs/tz-catalogs.md v0.9.3 §10 (T12/T13 требуют тестовый конфиг — только локально, здесь не гоняются). defaults = поля, которые браузер отправляет всегда (FormData всей формы)",
+ "path": "/catalogs",
+ "cases": [
+  {
+   "id": "T01",
+   "form": {
+    "Format": "A5",
+    "Binding": "Staple",
+    "InnerPageCount": "8",
+    "InnerPaper": "130",
+    "HasCover": "false",
+    "Quantity": "20"
+   },
+   "status": "Ready",
+   "ex": 100.65,
+   "show": 119
+  },
+  {
+   "id": "T02",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "12",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "250",
+    "CoverPrint": "44",
+    "Lamination": "None",
+    "Quantity": "100"
+   },
+   "status": "Ready",
+   "ex": 1140.84,
+   "show": 1346
+  },
+  {
+   "id": "T03",
+   "form": {
+    "Format": "A4",
+    "Binding": "Spiral",
+    "InnerPageCount": "60",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "300",
+    "CoverPrint": "40",
+    "Lamination": "Matte",
+    "Quantity": "20"
+   },
+   "status": "Ready",
+   "ex": 1423.0,
+   "show": 1679
+  },
+  {
+   "id": "T04",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "8",
+    "InnerPaper": "80",
+    "HasCover": "false",
+    "Quantity": "6"
+   },
+   "status": "Ready",
+   "ex": 100.0,
+   "show": 118
+  },
+  {
+   "id": "T05",
+   "form": {
+    "Format": "A5",
+    "Binding": "Staple",
+    "InnerPageCount": "4",
+    "InnerPaper": "170",
+    "HasCover": "true",
+    "CoverPaper": "300",
+    "CoverPrint": "40",
+    "Lamination": "Matte",
+    "Quantity": "50"
+   },
+   "status": "Ready",
+   "ex": 295.01,
+   "show": 348
+  },
+  {
+   "id": "T06",
+   "form": {
+    "Format": "A6",
+    "Binding": "Staple",
+    "InnerPageCount": "16",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "250",
+    "CoverPrint": "44",
+    "Lamination": "Matte",
+    "Quantity": "200"
+   },
+   "status": "Ready",
+   "ex": 1093.05,
+   "show": 1290
+  },
+  {
+   "id": "T07",
+   "form": {
+    "Format": "A4",
+    "Binding": "Spiral",
+    "InnerPageCount": "200",
+    "InnerPaper": "80",
+    "HasCover": "true",
+    "CoverPaper": "300",
+    "CoverPrint": "40",
+    "Lamination": "Matte",
+    "Quantity": "10"
+   },
+   "status": "Ready",
+   "ex": 1550.52,
+   "show": 1830
+  },
+  {
+   "id": "T08",
+   "form": {
+    "Format": "A5",
+    "Binding": "Spiral",
+    "InnerPageCount": "20",
+    "InnerPaper": "250",
+    "HasCover": "true",
+    "CoverPaper": "300",
+    "CoverPrint": "44",
+    "Lamination": "None",
+    "Quantity": "30"
+   },
+   "status": "Ready",
+   "ex": 1328.08,
+   "show": 1567
+  },
+  {
+   "id": "T09",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "36",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "300",
+    "CoverPrint": "40",
+    "Lamination": "Matte",
+    "Quantity": "150"
+   },
+   "status": "ManualQuote"
+  },
+  {
+   "id": "T10",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "12",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "250",
+    "CoverPrint": "44",
+    "Lamination": "None",
+    "Quantity": "78"
+   },
+   "status": "Ready",
+   "ex": 988.72,
+   "show": 1167
+  },
+  {
+   "id": "T11",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "12",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "250",
+    "CoverPrint": "44",
+    "Lamination": "None",
+    "Quantity": "79"
+   },
+   "status": "Ready",
+   "ex": 901.26,
+   "show": 1063
+  },
+  {
+   "id": "V01",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "10",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "250",
+    "CoverPrint": "44",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "pages_step"
+   ]
+  },
+  {
+   "id": "V02",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "4",
+    "InnerPaper": "130",
+    "HasCover": "false",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "pages_min"
+   ]
+  },
+  {
+   "id": "V03",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "40",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "250",
+    "CoverPrint": "44",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "pages_max"
+   ]
+  },
+  {
+   "id": "V04",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "28",
+    "InnerPaper": "170",
+    "HasCover": "true",
+    "CoverPaper": "250",
+    "CoverPrint": "44",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "pages_max"
+   ]
+  },
+  {
+   "id": "V05",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "8",
+    "InnerPaper": "300",
+    "HasCover": "false",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_paper"
+   ]
+  },
+  {
+   "id": "V06",
+   "form": {
+    "Format": "A4",
+    "Binding": "Spiral",
+    "InnerPageCount": "18",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "300",
+    "CoverPrint": "40",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "pages_min"
+   ]
+  },
+  {
+   "id": "V07",
+   "form": {
+    "Format": "A4",
+    "Binding": "Spiral",
+    "InnerPageCount": "21",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "300",
+    "CoverPrint": "40",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "pages_step"
+   ]
+  },
+  {
+   "id": "V08",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "8",
+    "InnerPaper": "130",
+    "HasCover": "false",
+    "Quantity": "5"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_min"
+   ]
+  },
+  {
+   "id": "V09",
+   "form": {
+    "Format": "A3",
+    "Binding": "Staple",
+    "InnerPageCount": "8",
+    "InnerPaper": "130",
+    "HasCover": "false",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_format"
+   ]
+  },
+  {
+   "id": "V11",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "8",
+    "InnerPaper": "150",
+    "HasCover": "false",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_paper"
+   ]
+  },
+  {
+   "id": "V12",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "8",
+    "InnerPaper": "130",
+    "HasCover": "true",
+    "CoverPaper": "130",
+    "CoverPrint": "44",
+    "Quantity": "20"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_cover"
+   ]
+  },
+  {
+   "id": "V15",
+   "form": {
+    "Format": "A4",
+    "Binding": "Staple",
+    "InnerPageCount": "8",
+    "InnerPaper": "130",
+    "HasCover": "false",
+    "Quantity": "100001"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_max"
+   ]
+  }
+ ],
+ "defaults": {
+  "CoverPaper": "250",
+  "CoverPrint": "44",
+  "Lamination": "None"
+ }
+}

@@ -1,0 +1,147 @@
+diff --git a/Data/CatalogQuoteResponse.cs b/Data/CatalogQuoteResponse.cs
+index b09ec1d..31c6a4a 100644
+--- a/Data/CatalogQuoteResponse.cs
++++ b/Data/CatalogQuoteResponse.cs
+@@ -9,6 +9,8 @@ namespace PrintABC.Data
+         public decimal? PriceExVatIls { get; set; }
+         public decimal? VatIls { get; set; }
+         public decimal? PriceIncVatIls { get; set; }
++        //what the page and the WhatsApp message show: PriceIncVatIls rounded to whole shekels (1346.19 -> 1346)
++        public decimal? TotalIncVatIls { get; set; }
+         public decimal? UnitPriceIncVatIls { get; set; }
+         public bool MinApplied { get; set; }
+         public decimal? SpiralMm { get; set; }
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 7b091d4..f56d59b 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -307,10 +307,6 @@
+                     <span>@L["total_inc_vat"]</span>
+                     <output class="price-box__total" id="calc-total" aria-live="polite">— ₪</output>
+                 </div>
+-                <div class="price-box__row">
+-                    <span>@L["price_just_vat"]</span>
+-                    <output id="calc-vat">—</output>
+-                </div>
+                 <div class="price-box__row">
+                     <span>@L["price_per_unit"]</span>
+                     <output id="calc-unit">—</output>
+@@ -438,7 +434,6 @@
+     <script>
+         const form = document.getElementById('calc-form');
+         const totalOutput = document.getElementById('calc-total');
+-        const vatOutput = document.getElementById('calc-vat');
+         const unitOutput = document.getElementById('calc-unit');
+         const pageLimitsTable = @Json.Serialize(GetPageLimitsTable());
+         const pagesInput = document.getElementById('calc-pages');
+@@ -447,11 +442,12 @@
+         const errorAlerts = form.querySelectorAll('.alert--error');
+         const minNote = form.querySelector('[data-min-note]');
+ 
+-        //price as in tz §4/§6: two decimals, a space and ₪ ("1346.19 ₪", "13.50 ₪");
++        //price as in tz §4/§6: a space and ₪; the total in whole shekels ("1346 ₪", the server already rounded it),
++        //the price per copy with two decimals ("13.46 ₪");
+         //on the Hebrew page it is wrapped in LRM marks so that the number and ₪ are not mirrored
+         const lrm = document.documentElement.dir == 'rtl' ? '\u200E' : '';
+-        function money(value) {
+-            return lrm + Number(value).toFixed(2) + ' ₪' + lrm;
++        function money(value, decimals = 2) {
++            return lrm + Number(value).toFixed(decimals) + ' ₪' + lrm;
+         }
+ 
+         const qtyInput = document.getElementById('calc-qty');
+@@ -604,7 +600,6 @@
+                             setSend(false);
+                             totalOutput.textContent = '— ₪';
+                             minNote.hidden = true;
+-                            vatOutput.textContent = '—';
+                             unitOutput.textContent = '—';
+                         }
+                         else {
+@@ -613,8 +608,7 @@
+                             setCta(false);
+                             document.getElementById('calc-next').href = result.wpmessage;
+                             setSend(true);
+-                            totalOutput.textContent = money(result.data.priceIncVatIls);
+-                            vatOutput.textContent = money(result.data.vatIls);
++                            totalOutput.textContent = money(result.data.totalIncVatIls, 0); //whole shekels, no separate VAT line
+                             unitOutput.textContent = money(result.data.unitPriceIncVatIls);
+                             minNote.hidden = !result.data.minApplied; //"minimum order 118 ₪ incl. VAT"
+                         }
+@@ -625,7 +619,6 @@
+                 setSend(false);
+                 totalOutput.textContent = '— ₪';
+                 minNote.hidden = true;
+-                vatOutput.textContent = '—';
+                 unitOutput.textContent = '—';
+             }
+             updateBar();
+diff --git a/Pages/Catalogs.cshtml.cs b/Pages/Catalogs.cshtml.cs
+index af88797..8fbd367 100644
+--- a/Pages/Catalogs.cshtml.cs
++++ b/Pages/Catalogs.cshtml.cs
+@@ -115,9 +115,10 @@ namespace PrintABC.Pages
+                 sb.Append(L["msg_ask"]);
+             else
+             {
+-                //"1346.19 ₪" with a dot on both languages (tz §6), in Hebrew wrapped in LRM (%E2%80%8E: the message is URL-encoded by hand)
++                //total incl. VAT in whole shekels, as on the page: "1346 ₪" (decision 11.11.2026);
++                //in Hebrew wrapped in LRM (%E2%80%8E: the message is URL-encoded by hand)
+                 string lrm = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "%E2%80%8E" : "";
+-                string price = response.PriceIncVatIls?.ToString("0.00", CultureInfo.InvariantCulture) ?? "";
++                string price = response.TotalIncVatIls?.ToString("0", CultureInfo.InvariantCulture) ?? "";
+                 sb.Append($"{L["msg_price"]}: {lrm}{price} ₪{lrm} {L["msg_with_vat"]}");
+             }
+             sb.Append(newline);
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 7d45626..8b8023b 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -216,9 +216,6 @@
+   <data name="price_calculator" xml:space="preserve">
+     <value>חישוב מחיר</value>
+   </data>
+-  <data name="price_just_vat" xml:space="preserve">
+-    <value>מתוכו מע״מ (18%)</value>
+-  </data>
+   <data name="price_per_unit" xml:space="preserve">
+     <value>מחיר ליחידה</value>
+   </data>
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 20d3f77..4709a7e 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -216,9 +216,6 @@
+   <data name="price_calculator" xml:space="preserve">
+     <value>Расчёт цены</value>
+   </data>
+-  <data name="price_just_vat" xml:space="preserve">
+-    <value>в т. ч. НДС (18%)</value>
+-  </data>
+   <data name="price_per_unit" xml:space="preserve">
+     <value>Цена за экземпляр</value>
+   </data>
+diff --git a/Services/CatalogCalculatorService.cs b/Services/CatalogCalculatorService.cs
+index 1e238aa..b1cc613 100644
+--- a/Services/CatalogCalculatorService.cs
++++ b/Services/CatalogCalculatorService.cs
+@@ -147,7 +147,10 @@ namespace PrintABC.Services
+                 return new CatalogQuoteResponse() { Status = ValidationStatus.ManualQuote, ErrorCode = "" };
+             decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
+             decimal priceIncVat = priceExVat + vat;
+-            decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
++            //the client sees the total incl. VAT in whole shekels, to the nearest (.50 up): 1346.19 -> 1346 (decision 11.11.2026)
++            decimal totalIncVat = Math.Round(priceIncVat, 0, MidpointRounding.AwayFromZero);
++            //price per copy = the rounded total / quantity, with agorot: 1346 / 100 = 13.46
++            decimal pricePerCopy = Math.Round(totalIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
+ 
+             return new CatalogQuoteResponse()
+             {
+@@ -155,6 +158,7 @@ namespace PrintABC.Services
+                 PriceExVatIls = priceExVat,
+                 PriceIncVatIls = priceIncVat,
+                 VatIls = vat,
++                TotalIncVatIls = totalIncVat,
+                 UnitPriceIncVatIls = pricePerCopy,
+                 MinApplied = minApplied,
+                 SpiralMm = spiralDiameterMm,

@@ -1,0 +1,126 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index fe94e81..3f60ed9 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -26,14 +26,14 @@
+ <div class="container product-layout">
+     <div class="product-layout__main is-sticky">
+         <div class="cat-preview">
+-            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="@L["preview_alt"]: @Model.Format, @bindingText, @Model.InnerPageCount @L["page"]">
++            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="@L["preview_alt"]: @Model.Format, @bindingText, @Model.InnerPageCount @L["page"]" data-text-alt="@L["preview_alt"]" data-text-page="@L["page"]" data-text-cover="@L["cover"]" data-text-no-cover="@L["no_cover_short"]">
+                 <span class="cat-preview__cmyk" aria-hidden="true">
+                     <span></span>
+                     <span></span>
+                     <span></span>
+                     <span></span>
+                 </span>
+-                <div class="cat-book" data-fmt="A4" data-binding="staple">
++                <div class="cat-book" data-fmt="@Model.Format" data-binding="@Model.Binding.ToString().ToLower()">
+                     <span class="cat-book__page cat-book__page--2" aria-hidden="true">
+                     </span>
+                     <span class="cat-book__page cat-book__page--1" aria-hidden="true">
+@@ -644,8 +644,43 @@
+             summary.textContent = parts.join(' · ');
+         }
+ 
++        //booklet preview: its size follows the format (pages.css .cat-book[data-fmt]), staples or spiral,
++        //a gloss stripe for glossy lamination, the line on the cover and the chips under it
++        function updatePreview() {
++            const preview = document.getElementById('cat-preview');
++            const text = preview.dataset;
++            const book = preview.querySelector('.cat-book');
++            const checked = name => form.querySelector(`input[name='${name}']:checked`);
++            const label = name => checked(name).nextElementSibling.textContent;
++
++            const format = checked('Format').value;
++            const hasCover = checked('HasCover').value == 'true';
++            const pages = parseInt(pagesInput.value);
++            const pagesText = isNaN(pages) ? '—' : pages;
++
++            book.dataset.fmt = format;
++            book.dataset.binding = checked('Binding').value.toLowerCase(); //"Staple" -> "staple", as in pages.css
++            book.classList.toggle('cat-book--gloss', hasCover && checked('Lamination').value == 'Gloss');
++            //the cover line counts all pages: block + 4 pages of a separate cover
++            preview.querySelector('[data-cover-sub]').textContent = format + ' · ' + (isNaN(pages) ? '—' : pages + (hasCover ? 4 : 0)) + ' ' + text.textPage;
++            preview.setAttribute('aria-label', text.textAlt + ': ' + format + ', ' + label('Binding') + ', ' + pagesText + ' ' + text.textPage);
++
++            const chips = [
++                format,
++                label('Binding'),
++                pagesText + ' ' + text.textPage + ' · ' + label('InnerPaper'),
++                hasCover ? text.textCover + ' ' + label('CoverPaper') : text.textNoCover
++            ];
++            document.querySelector('[data-chips]').replaceChildren(...chips.map(chip => {
++                const span = document.createElement('span');
++                span.textContent = chip;
++                return span;
++            }));
++        }
++
+         function updateUIElements() {
+             updateSummary();
++            updatePreview();
+ 
+             if (document.querySelector("input[name='HasCover']:checked").value != 'true') {
+                 document.getElementById("cat-cover-opts").setAttribute("hidden", true);
+diff --git a/wwwroot/css/pages.css b/wwwroot/css/pages.css
+index 76262f4..d678807 100644
+--- a/wwwroot/css/pages.css
++++ b/wwwroot/css/pages.css
+@@ -290,3 +290,56 @@
+ 
+ /* Flex children must be allowed to shrink below their content (wide table scrolls inside its wrapper) */
+ .product-layout > *, .order-layout__main, .order-layout__side { min-width: 0; }
++
++/* ---------- Catalogs & magazines (Catalogs.cshtml), copied from the mockup design/mockup/assets/css/pages.css ---------- */
++.cat-cover-opts { display: flex; flex-direction: column; gap: 22px; }
++.cat-cover-opts[hidden] { display: none; }
++.cat-summary { margin: 0 0 6px; color: var(--c-muted); font-size: var(--fs-small); }
++.cat-summary strong { color: var(--c-ink); }
++.cat-preview { display: flex; flex-direction: column; gap: 14px; }
++.cat-preview__stage { position: relative; height: clamp(380px, 36vw, 480px); border-radius: var(--r-xl); background: var(--c-surface); display: flex; align-items: center; justify-content: center; overflow: hidden; }
++.cat-preview__cmyk { position: absolute; top: 18px; inset-inline-end: 18px; display: flex; gap: 4px; }
++.cat-preview__cmyk span { width: 14px; height: 6px; }
++.cat-preview__cmyk span:nth-child(1), .cat-book__mark span:nth-child(1), .cat-book__band span:nth-child(2) { background: var(--c-cyan); }
++.cat-preview__cmyk span:nth-child(2), .cat-book__mark span:nth-child(2) { background: var(--c-accent); }
++.cat-preview__cmyk span:nth-child(3), .cat-book__mark span:nth-child(3), .cat-book__band span:nth-child(3) { background: var(--c-yellow); }
++.cat-preview__cmyk span:nth-child(4), .cat-book__mark span:nth-child(4), .cat-book__band span:nth-child(4) { background: var(--c-ink); }
++.cat-preview__chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
++.cat-preview__chips span { padding: 6px 14px; border-radius: var(--r-pill); background: var(--c-surface); font-weight: 600; font-size: 0.9375rem; }
++
++/* Book mock-up: size follows the format (A4 230×325, A5 172×243, A6 128×181) */
++.cat-book { position: relative; width: 230px; height: 325px; }
++.cat-book[data-fmt="A5"] { width: 172px; height: 243px; }
++.cat-book[data-fmt="A6"] { width: 128px; height: 181px; }
++.cat-book__page { position: absolute; background: var(--c-white); border: 1px solid var(--c-line); border-radius: 3px; }
++.cat-book__page--2 { top: 10px; bottom: -10px; inset-inline-start: 10px; inset-inline-end: -12px; }
++.cat-book__page--1 { top: 5px; bottom: -5px; inset-inline-start: 5px; inset-inline-end: -6px; }
++.cat-book__cover { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; overflow: hidden; background: var(--c-white); border-radius: 3px; box-shadow: var(--shadow-float); }
++.cat-book__top { flex-grow: 1; display: flex; flex-direction: column; gap: 6px; padding: 22px 20px 0 28px; }
++[dir="rtl"] .cat-book__top { padding: 22px 28px 0 20px; }
++.cat-book__mark { display: grid; grid-template-columns: repeat(2, 10px); gap: 3px; }
++.cat-book__mark span { width: 10px; height: 10px; }
++.cat-book__title { margin-top: 8px; font-family: var(--font-head); font-weight: 800; font-size: 30px; line-height: 1.05; }
++.cat-book__sub { font-size: 13px; color: var(--c-muted); }
++.cat-book__band { height: 36%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--c-accent); }
++.cat-book__gloss { display: none; position: absolute; top: 0; bottom: 0; inset-inline-end: 18%; width: 22%; background: var(--c-white); opacity: .35; transform: skewX(-12deg); }
++.cat-book--gloss .cat-book__gloss { display: block; }
++.cat-book[data-fmt="A6"] .cat-book__top { padding: 14px 12px 0 18px; }
++[dir="rtl"] .cat-book[data-fmt="A6"] .cat-book__top { padding: 14px 18px 0 12px; }
++.cat-book[data-fmt="A6"] .cat-book__title { font-size: 18px; }
++.cat-book__staple { display: none; position: absolute; z-index: 3; inset-inline-start: 4px; width: 3px; height: 22px; border-radius: 1px; background: var(--c-border); }
++.cat-book__staple--top { top: 24%; }
++.cat-book__staple--bottom { bottom: 24%; }
++.cat-book[data-binding="staple"] .cat-book__staple { display: block; }
++/* Spiral: rings drawn with a repeating gradient, one every 24 px */
++.cat-book__spiral { display: none; position: absolute; z-index: 3; top: 10px; bottom: 10px; inset-inline-start: -9px; width: 22px;
++  background: repeating-linear-gradient(to bottom, transparent 0 8px, var(--c-border) 8px 9px, var(--c-white) 9px 14px, var(--c-border) 14px 15px, transparent 15px 24px); }
++.cat-book[data-binding="spiral"] .cat-book__spiral { display: block; }
++
++@media (max-width: 767.98px) {
++  .cat-preview__stage { height: 300px; }
++  .cat-book { width: 166px; height: 234px; }
++  .cat-book[data-fmt="A5"] { width: 124px; height: 175px; }
++  .cat-book[data-fmt="A6"] { width: 92px; height: 130px; }
++  .cat-book__title { font-size: 22px; }
++}

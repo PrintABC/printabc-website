@@ -1,0 +1,129 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index f56d59b..6528b1d 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -123,6 +123,8 @@
+             }
+             <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="@pageLimits.Min" max="@pageLimits.Max" step="@pageLimits.Step" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
+             <p class="field__hint" id="pages-hint" data-pages-hint="" data-template="@L.GetString("pages_hint")">@L["pages_hint", pageLimits.Step, pageLimits.Min, pageLimits.Max]</p>
++            @* the calculator changed the page count itself (other paper, binding or cover): what and why, filled by updatePageLimits() *@
++            <p class="field__hint cat-autofix" data-autofix="" role="status" hidden="" data-text-max="@L.GetString("autofix_max")" data-text-min="@L.GetString("autofix_min")" data-text-step="@L.GetString("autofix_step")" data-text-staple="@L["binding_with_staple"]" data-text-spiral="@L["binding_with_spiral"]"></p>
+             @* errors about the page count stand right under the field, so they are seen on a phone too *@
+             <div class="alert alert--error" data-error="pages_int" role="alert" hidden="">
+                 <div class="alert__row">
+@@ -515,7 +517,23 @@
+             cta.textContent = manual ? cta.dataset.textManual : cta.dataset.textOrder;
+         }
+ 
+-        function updatePageLimits() {
++        //"For 250 g with staple the maximum is 12 p. — changed 32 → 12." under the page field
++        const autofix = form.querySelector('[data-autofix]');
++        function showAutofix(reason, limits, oldPages, newPages) {
++            const text = autofix.dataset;
++            const paper = form.querySelector("input[name='InnerPaper']:checked").nextElementSibling.textContent;
++            const binding = limits.binding == 'Staple' ? text.textStaple : text.textSpiral;
++            const number = { max: limits.max, min: limits.min, step: limits.step }[reason];
++            const template = { max: text.textMax, min: text.textMin, step: text.textStep }[reason];
++            autofix.textContent = template.replace('{0}', paper).replace('{1}', binding).replace('{2}', number)
++                .replace('{3}', oldPages).replace('{4}', newPages);
++            autofix.hidden = false;
++        }
++        //the client types the page count himself: the old note is not true any more
++        pagesInput.addEventListener('input', () => autofix.hidden = true);
++
++        //silent = true on page load and on restore from the browser: there the client changed nothing
++        function updatePageLimits(silent = false) {
+             const binding = form.querySelector("input[name='Binding']:checked").value;
+             const hasCover = form.querySelector("input[name='HasCover']:checked").value == 'true';
+ 
+@@ -540,13 +558,20 @@
+                 .replace('{0}', limits.step).replace('{1}', limits.min).replace('{2}', limits.max);
+ 
+             //move the value to the nearest allowed one: down to max, up to min, down to a multiple of the step
+-            let pages = parseInt(pagesInput.value) || limits.min;
++            const oldPages = parseInt(pagesInput.value);
++            let pages = oldPages || limits.min;
+             pages = Math.min(Math.max(pages, limits.min), limits.max);
+             pages = pages - pages % limits.step;
+             if (pages < limits.min)
+                 pages = limits.min;
+             pagesInput.value = pages;
+ 
++            //tell the client what we changed and why (decision 11.11.2026); the price is recalculated by the form 'input' event
++            if (!silent && !isNaN(oldPages) && oldPages != pages)
++                showAutofix(oldPages > limits.max ? 'max' : oldPages < limits.min ? 'min' : 'step', limits, oldPages, pages);
++            else
++                autofix.hidden = true;
++
+             updateUIElements();
+         }
+ 
+@@ -703,7 +728,7 @@
+                 timeout = setTimeout(() => func.apply(this, args), wait);
+             };
+         }
+-        updatePageLimits();
++        updatePageLimits(true);
+         triggerCalculation();
+         updateUIElements();
+         window.addEventListener('pageshow', e => {
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 8b8023b..0b182ef 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -429,4 +429,19 @@
+   <data name="order_minimum_hint" xml:space="preserve">
+     <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
+   </data>
++  <data name="autofix_max" xml:space="preserve">
++    <value>ל־{0} עם {1} מקסימום {2} עמ׳ — תיקנו {3} ← {4}.</value>
++  </data>
++  <data name="autofix_min" xml:space="preserve">
++    <value>ל־{0} עם {1} מינימום {2} עמ׳ — תיקנו {3} ← {4}.</value>
++  </data>
++  <data name="autofix_step" xml:space="preserve">
++    <value>ל־{0} עם {1} מספר העמודים בקפיצות של {2} — תיקנו {3} ← {4}.</value>
++  </data>
++  <data name="binding_with_staple" xml:space="preserve">
++    <value>סיכות</value>
++  </data>
++  <data name="binding_with_spiral" xml:space="preserve">
++    <value>ספירלה</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 4709a7e..4d0ad61 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -429,4 +429,19 @@
+   <data name="order_minimum_hint" xml:space="preserve">
+     <value>Минимальный заказ 118 ₪ с НДС</value>
+   </data>
++  <data name="autofix_max" xml:space="preserve">
++    <value>Для {0} со {1} максимум {2} стр. — исправили {3} → {4}.</value>
++  </data>
++  <data name="autofix_min" xml:space="preserve">
++    <value>Для {0} со {1} минимум {2} стр. — исправили {3} → {4}.</value>
++  </data>
++  <data name="autofix_step" xml:space="preserve">
++    <value>Для {0} со {1} число страниц кратно {2} — исправили {3} → {4}.</value>
++  </data>
++  <data name="binding_with_staple" xml:space="preserve">
++    <value>скобой</value>
++  </data>
++  <data name="binding_with_spiral" xml:space="preserve">
++    <value>спиралью</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/wwwroot/css/pages.css b/wwwroot/css/pages.css
+index 5fdbded..5a464ab 100644
+--- a/wwwroot/css/pages.css
++++ b/wwwroot/css/pages.css
+@@ -344,3 +344,5 @@
+   .cat-book[data-fmt="A6"] { width: 92px; height: 130px; }
+   .cat-book__title { font-size: 22px; }
+ }
++/* "For 250 g with staple the maximum is 12 p. — changed 32 → 12." under the page field */
++.cat-autofix { color: var(--c-accent-ink); font-weight: 600; }

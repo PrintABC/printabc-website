@@ -1,0 +1,800 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 2cf287e..7b091d4 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -5,10 +5,17 @@
+ @{
+     ViewData["Title"] = L["meta_title"];
+     ViewData["MetaDescription"] = L["meta_description"];
++    //mobile bottom bar shows "Total … Order →" for this calculator, header button scrolls to the calculator (tz §4)
++    ViewData["BottomBar"] = "order";
++    ViewData["HeaderCtaHref"] = "#calc-form";
+ 
+     var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+     var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+     var dir = isRtl ? "rtl" : "ltr";
++
++    //texts of the booklet preview, in the language of the page
++    string bindingText = L[$"binding_{Model.Binding.ToString().ToLower()}"].Value;
++    string coverChip = Model.HasCover ? $"{L["cover"].Value} {L[$"cover_paper_{Model.CoverPaper}"].Value}" : L["no_cover_short"].Value;
+ }
+ 
+ <div class="container page-head">
+@@ -19,14 +26,14 @@
+ <div class="container product-layout">
+     <div class="product-layout__main is-sticky">
+         <div class="cat-preview">
+-            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="תצוגה של החוברת: A4, סיכות, 12 עמ׳">
++            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="@L["preview_alt"]: @Model.Format, @bindingText, @Model.InnerPageCount @L["page"]" data-text-alt="@L["preview_alt"]" data-text-page="@L["page"]" data-text-cover="@L["cover"]" data-text-no-cover="@L["no_cover_short"]">
+                 <span class="cat-preview__cmyk" aria-hidden="true">
+                     <span></span>
+                     <span></span>
+                     <span></span>
+                     <span></span>
+                 </span>
+-                <div class="cat-book" data-fmt="A4" data-binding="staple">
++                <div class="cat-book" data-fmt="@Model.Format" data-binding="@Model.Binding.ToString().ToLower()">
+                     <span class="cat-book__page cat-book__page--2" aria-hidden="true">
+                     </span>
+                     <span class="cat-book__page cat-book__page--1" aria-hidden="true">
+@@ -39,8 +46,8 @@
+                                 <span></span>
+                                 <span></span>
+                             </span>
+-                            <span class="cat-book__title">קטלוג</span>
+-                            <span class="cat-book__sub" data-cover-sub="">A4 · 16 עמ׳</span>
++                            <span class="cat-book__title">@L["preview_title"]</span>
++                            <span class="cat-book__sub" data-cover-sub="">@Model.Format · @(Model.InnerPageCount + (Model.HasCover ? 4 : 0)) @L["page"]</span>
+                         </div>
+                         <div class="cat-book__band">
+                             <span></span>
+@@ -60,14 +67,14 @@
+                 </div>
+             </div>
+             <div class="cat-preview__chips" data-chips="">
+-                <span>A4</span>
+-                <span>סיכות</span>
+-                <span>12 עמ׳ · 130 גרם</span>
+-                <span>כריכה 250 גרם</span>
++                <span>@Model.Format</span>
++                <span>@bindingText</span>
++                <span>@Model.InnerPageCount @L["page"] · @L[$"innerpaper_{Model.InnerPaper}"]</span>
++                <span>@coverChip</span>
+             </div>
+         </div>
+     </div>
+-    <form class="product-layout__side panel panel--raised calc" id="calc-form" aria-labelledby="calc-title" autocomplete="off" novalidate="">
++    <form class="product-layout__side panel panel--raised calc" id="calc-form" aria-labelledby="calc-title" autocomplete="off" novalidate="" data-by-quote="@L["by_quote"]">
+         @Html.AntiForgeryToken()
+         <div class="calc__head">
+             <h2 id="calc-title">@L["price_calculator"]</h2>
+@@ -116,6 +123,79 @@
+             }
+             <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="@pageLimits.Min" max="@pageLimits.Max" step="@pageLimits.Step" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
+             <p class="field__hint" id="pages-hint" data-pages-hint="" data-template="@L.GetString("pages_hint")">@L["pages_hint", pageLimits.Step, pageLimits.Min, pageLimits.Max]</p>
++            @* errors about the page count stand right under the field, so they are seen on a phone too *@
++            <div class="alert alert--error" data-error="pages_int" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_pages_int"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="pages_step" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_pages_step"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="pages_min" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_pages_min"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="pages_max" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_pages_max"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="too_thick" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_too_thick"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="bad_paper" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_bad_paper"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
+         </div>
+         <fieldset class="opt-group" id="g-cover" aria-describedby="g-cover-hint">
+             <legend>@L["separate_cover_label"]</legend>
+@@ -177,69 +257,33 @@
+             <label class="field__label" for="calc-qty">@L["quantity_label"]</label>
+             <input class="field__input field__input--num" id="calc-qty" name="Quantity" type="number" inputmode="numeric" min="6" step="1" value="@Model.Quantity" aria-describedby="q-hint" aria-invalid="false">
+             <p class="field__hint" id="q-hint">@L["quantity_hint"]</p>
+-        </div>
+-        <!--errors-->
+-        <div class="alert alert--error" data-error="pages_step" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_pages_step"]</span>
+-            </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="pages_min" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_pages_min"]</span>
+-            </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="pages_max" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_pages_max"]</span>
+-            </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="qty_min" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_qty_min"]</span>
++            <div class="alert alert--error" data-error="qty_min" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_qty_min"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="too_thick" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_too_thick"]</span>
++            <div class="alert alert--error" data-error="qty_int" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_qty_int"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+         </div>
+-        <div class="alert alert--error" data-error="bad_paper" role="alert" hidden="">
++        @* any other wrong value: the price must never disappear without a word *@
++        <div class="alert alert--error" data-error="generic" role="alert" hidden="">
+             <div class="alert__row">
+                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                     <circle cx="12" cy="12" r="9">
+@@ -247,29 +291,29 @@
+                     <path d="M12 11v6M12 7.5v.5">
+                     </path>
+                 </svg>
+-                <span>@L["error_bad_paper"]</span>
++                <span>@L["error_generic"]</span>
+             </div>
+             <a href="https://wa.me/972508494172">@L["special_description"]</a>
+         </div>
+-        <!--errors-->
+         <div class="price-box">
+             <p class="cat-summary">
+                 <strong>@L["your_order"]</strong>
+                 <br>
+-                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> יח׳</span>
++                @* the text is written by updateSummary() in the script below, words come from data-text-* *@
++                <span data-summary="" data-text-page="@L["page"]" data-text-cover="@L["cover"]" data-text-no-cover="@L["no_cover_short"]" data-text-lamination="@L["lamination"]" data-text-unit="@L["unit"]"></span>
+             </p>
+             <div id="valid_prices" data-priced="">
+                 <div class="price-box__row price-box__row--total">
+                     <span>@L["total_inc_vat"]</span>
+-                    <output class="price-box__total" id="calc-total" aria-live="polite">‎1346.19 ₪‎</output>
++                    <output class="price-box__total" id="calc-total" aria-live="polite">— ₪</output>
+                 </div>
+                 <div class="price-box__row">
+                     <span>@L["price_just_vat"]</span>
+-                    <output id="calc-vat">‎205.35 ₪‎</output>
++                    <output id="calc-vat">—</output>
+                 </div>
+                 <div class="price-box__row">
+                     <span>@L["price_per_unit"]</span>
+-                    <output id="calc-unit">‎13.46 ₪‎</output>
++                    <output id="calc-unit">—</output>
+                 </div>
+                 <p class="field__hint" data-min-note="" hidden="">@L["order_minimum_hint"]</p>
+             </div>
+@@ -286,7 +330,7 @@
+                 <path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6">
+                 </path>
+             </svg>
+-            <span data-cta="">@L["next_load_file"]</span>
++            <span data-cta="" data-text-order="@L["next_load_file"]" data-text-manual="@L["cta_manual"]">@L["next_load_file"]</span>
+         </a>
+         <span class="btn btn--lg" id="calc-next-off" aria-disabled="true" hidden="">@L["next_load_file"]</span>
+         <a class="calc__ask" href="https://wa.me/972508494172">
+@@ -401,9 +445,28 @@
+         const pagesHint = document.getElementById('pages-hint');
+ 
+         const errorAlerts = form.querySelectorAll('.alert--error');
++        const minNote = form.querySelector('[data-min-note]');
++
++        //price as in tz §4/§6: two decimals, a space and ₪ ("1346.19 ₪", "13.50 ₪");
++        //on the Hebrew page it is wrapped in LRM marks so that the number and ₪ are not mirrored
++        const lrm = document.documentElement.dir == 'rtl' ? '\u200E' : '';
++        function money(value) {
++            return lrm + Number(value).toFixed(2) + ' ₪' + lrm;
++        }
++
++        const qtyInput = document.getElementById('calc-qty');
+ 
+         function hideAllErrors() {
+             errorAlerts.forEach(alert => alert.hidden = true);
++            pagesInput.setAttribute('aria-invalid', 'false');
++            qtyInput.setAttribute('aria-invalid', 'false');
++        }
++
++        //shows the error under its field and paints the field red
++        function showError(alert) {
++            alert.hidden = false;
++            const input = alert.closest('.field')?.querySelector('input');
++            input?.setAttribute('aria-invalid', 'true');
+         }
+ 
+         function toggleInvalidPrices(state) {
+@@ -425,6 +488,35 @@
+                 document.getElementById('calc-next').hidden = true;
+                 document.getElementById('calc-next-off').hidden = false;
+             }
++            updateBar();
++        }
++
++        //mobile bottom bar (_BottomBar.cshtml, mode "order"): copies the total and the link of the main button
++        const bar = document.querySelector('.bottom-bar');
++        function updateBar() {
++            if (!bar || !bar.querySelector('[data-bar-total]'))
++                return;
++            const next = document.getElementById('calc-next');
++            const manual = !document.getElementById('invalid_prices').hidden;
++            const hasError = form.querySelector('[data-error]:not([hidden])') != null;
++            bar.querySelector('[data-bar-total]').textContent = manual && !hasError ? form.dataset.byQuote : totalOutput.textContent;
++            bar.querySelector('[data-bar-ok]').href = next.href;
++            bar.querySelector('[data-bar-ok]').hidden = next.hidden;
++            bar.querySelector('[data-bar-fix]').hidden = !hasError;
++        }
++        //"Fix parameters" scrolls to the error message that is shown
++        bar?.querySelector('[data-bar-fix]')?.addEventListener('click', e => {
++            const error = form.querySelector('[data-error]:not([hidden])');
++            if (error) {
++                e.preventDefault();
++                error.scrollIntoView({ behavior: 'smooth', block: 'center' });
++            }
++        });
++
++        //button text: "Order in WhatsApp" or, when the price is by quote, "Request a quote in WhatsApp"
++        function setCta(manual) {
++            const cta = form.querySelector('[data-cta]');
++            cta.textContent = manual ? cta.dataset.textManual : cta.dataset.textOrder;
+         }
+ 
+         function updatePageLimits() {
+@@ -435,6 +527,7 @@
+             form.querySelectorAll("input[name='InnerPaper']").forEach(radio => {
+                 const allowed = pageLimitsTable.some(r => r.binding == binding && r.paper == radio.value);
+                 radio.disabled = !allowed;
++                radio.closest('label').classList.toggle('pill--disabled', !allowed); //grey, dashed and crossed out (pages.css)
+                 if (!allowed && radio.checked)
+                     form.querySelector("input[name='InnerPaper'][value='250']").checked = true;
+             });
+@@ -470,6 +563,8 @@
+         setSend(false);
+         const recalc = debounce(triggerCalculation, 300);
+         form.addEventListener('input', updateUIElements);
++        //until the new answer arrives the old link must not be clicked: it holds the previous parameters and price
++        form.addEventListener('input', () => setSend(false));
+         form.addEventListener('input', recalc);
+ 
+         let controller;
+@@ -490,59 +585,114 @@
+                 if (response.ok) {
+                     hideAllErrors();
+                     const result = await response.json();
+-                    const targetError = (result.data.errorCode) ? form.querySelector(`[data-error="${result.data.errorCode}"]`) : null;
++                    //an error code without its own message falls back to the general "check the values" message
++                    const targetError = (result.data.errorCode)
++                        ? form.querySelector(`[data-error="${result.data.errorCode}"]`) ?? form.querySelector('[data-error="generic"]')
++                        : null;
+                     if (result.data.status == "manual_quote") {
++                        //no price, but the client can still send the CURRENT parameters and ask for a quote
+                         toggleInvalidPrices(true);
++                        setCta(true);
++                        document.getElementById('calc-next').href = result.wpmessage;
++                        setSend(true);
+                     }
+                     else {
+-                        if (targetError || result.data.errorCode == "generic") {
+-                            if (targetError)
+-                                targetError.hidden = false; //unhide the correct error message
+-                            toggleInvalidPrices(true);
++                        if (targetError) {
++                            showError(targetError); //unhide the correct error message
++                            toggleInvalidPrices(false); //an error is not "we will calculate individually": show "—"
+                             //disable "next" button and clear price outputs
+                             setSend(false);
+-                            totalOutput.textContent = '—';
++                            totalOutput.textContent = '— ₪';
++                            minNote.hidden = true;
+                             vatOutput.textContent = '—';
+                             unitOutput.textContent = '—';
+                         }
+                         else {
+                             //valid results, no errors
+                             toggleInvalidPrices(false);
++                            setCta(false);
+                             document.getElementById('calc-next').href = result.wpmessage;
+                             setSend(true);
+-                            totalOutput.textContent = result.data.priceIncVatIls + '₪';
+-                            vatOutput.textContent = result.data.vatIls;
+-                            unitOutput.textContent = result.data.unitPriceIncVatIls;
++                            totalOutput.textContent = money(result.data.priceIncVatIls);
++                            vatOutput.textContent = money(result.data.vatIls);
++                            unitOutput.textContent = money(result.data.unitPriceIncVatIls);
++                            minNote.hidden = !result.data.minApplied; //"minimum order 118 ₪ incl. VAT"
+                         }
+                     }
+                 }
+             }
+             catch (error) {
+                 setSend(false);
+-                totalOutput.textContent = '—';
++                totalOutput.textContent = '— ₪';
++                minNote.hidden = true;
+                 vatOutput.textContent = '—';
+                 unitOutput.textContent = '—';
+             }
++            updateBar();
+         }
+ 
+-        function updateUIElements() {
+-            document.getElementById("format_summary").innerText = document.querySelector("input[name='Format']:checked").value;
+-            document.getElementById("binding_summary").innerText = document.querySelector("input[name='Binding']:checked+span").textContent;
+-            document.getElementById("inner_page_summary").innerText = document.querySelector("input[name='InnerPageCount']").value;
+-            document.getElementById("inner_paper_summary").innerText = document.querySelector("input[name='InnerPaper']:checked+span").textContent;
+-            document.getElementById("cover_paper_summary").innerText = document.querySelector("input[name='CoverPaper']:checked+span").textContent;
+-            let coverprint = document.querySelector("input[name='CoverPrint']:checked").value
+-            document.getElementById("cover_print_summary").innerText = coverprint.slice(0, 1) + "+" + coverprint.slice(1);
+-
+-            if (document.querySelector("input[name='Lamination']:checked").value == "None") {
+-                document.getElementById("lamination_section").setAttribute("hidden", true);
+-            }
+-            else {
+-                document.getElementById("lamination_section").removeAttribute("hidden");
+-                document.getElementById("lamination_summary").innerText = document.querySelector("input[name='Lamination']:checked+span").textContent;
++        //"Your order": A4 · Staple · 12 p. · 130 g · cover 250 g 4+4 · lamination matte · 100 pcs
++        //without a separate cover there is no cover paper, print or lamination, only "no separate cover"
++        function updateSummary() {
++            const summary = document.querySelector('[data-summary]');
++            const text = summary.dataset;
++            const checked = name => form.querySelector(`input[name='${name}']:checked`);
++            const label = name => checked(name).nextElementSibling.textContent;
++
++            const parts = [
++                checked('Format').value,
++                label('Binding'),
++                (pagesInput.value || '—') + ' ' + text.textPage + ' · ' + label('InnerPaper')
++            ];
++            if (checked('HasCover').value == 'true') {
++                const print = checked('CoverPrint').value == '44' ? '4+4' : '4+0';
++                parts.push(text.textCover + ' ' + label('CoverPaper') + ' ' + print);
++                if (checked('Lamination').value != 'None')
++                    parts.push(text.textLamination + ' ' + label('Lamination').toLowerCase());
+             }
++            else
++                parts.push(text.textNoCover);
++            parts.push((document.getElementById('calc-qty').value || '—') + ' ' + text.textUnit);
++            summary.textContent = parts.join(' · ');
++        }
+ 
+-            document.getElementById("quantity_summary").innerText = document.querySelector("input[name='Quantity']").value;
++        //booklet preview: its size follows the format (pages.css .cat-book[data-fmt]), staples or spiral,
++        //a gloss stripe for glossy lamination, the line on the cover and the chips under it
++        function updatePreview() {
++            const preview = document.getElementById('cat-preview');
++            const text = preview.dataset;
++            const book = preview.querySelector('.cat-book');
++            const checked = name => form.querySelector(`input[name='${name}']:checked`);
++            const label = name => checked(name).nextElementSibling.textContent;
++
++            const format = checked('Format').value;
++            const hasCover = checked('HasCover').value == 'true';
++            const pages = parseInt(pagesInput.value);
++            const pagesText = isNaN(pages) ? '—' : pages;
++
++            book.dataset.fmt = format;
++            book.dataset.binding = checked('Binding').value.toLowerCase(); //"Staple" -> "staple", as in pages.css
++            book.classList.toggle('cat-book--gloss', hasCover && checked('Lamination').value == 'Gloss');
++            //the cover line counts all pages: block + 4 pages of a separate cover
++            preview.querySelector('[data-cover-sub]').textContent = format + ' · ' + (isNaN(pages) ? '—' : pages + (hasCover ? 4 : 0)) + ' ' + text.textPage;
++            preview.setAttribute('aria-label', text.textAlt + ': ' + format + ', ' + label('Binding') + ', ' + pagesText + ' ' + text.textPage);
++
++            const chips = [
++                format,
++                label('Binding'),
++                pagesText + ' ' + text.textPage + ' · ' + label('InnerPaper'),
++                hasCover ? text.textCover + ' ' + label('CoverPaper') : text.textNoCover
++            ];
++            document.querySelector('[data-chips]').replaceChildren(...chips.map(chip => {
++                const span = document.createElement('span');
++                span.textContent = chip;
++                return span;
++            }));
++        }
++
++        function updateUIElements() {
++            updateSummary();
++            updatePreview();
+ 
+             if (document.querySelector("input[name='HasCover']:checked").value != 'true') {
+                 document.getElementById("cat-cover-opts").setAttribute("hidden", true);
+diff --git a/Pages/Catalogs.cshtml.cs b/Pages/Catalogs.cshtml.cs
+index 70f4aeb..af88797 100644
+--- a/Pages/Catalogs.cshtml.cs
++++ b/Pages/Catalogs.cshtml.cs
+@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
+ using PrintABC.Data;
+ using PrintABC.Services;
+ using System.ComponentModel.DataAnnotations;
++using System.Globalization;
+ using System.Text;
+ using static PrintABC.Services.CatalogCalculatorService;
+ using static PrintABC.Utils.Helpers;
+@@ -46,9 +47,13 @@ namespace PrintABC.Pages
+             {
+                 var key = ModelState.Where(kv => kv.Value!.Errors.Count > 0)
+                     .Select(kv => kv.Key).FirstOrDefault() ?? "";
++                //what the client typed: an empty field or "5.5" is not a whole number, the property keeps its old value
++                string? typed = ModelState[key]?.AttemptedValue;
++                bool isWholeNumber = int.TryParse(typed, NumberStyles.Integer, CultureInfo.InvariantCulture, out int number);
+                 var code = key switch
+                 {
+-                    "Quantity" => Quantity < MIN_QUANTITY ? "qty_min" : "generic",
++                    nameof(Quantity) => !isWholeNumber ? "qty_int" : number < MIN_QUANTITY ? "qty_min" : "generic",
++                    nameof(InnerPageCount) => "pages_int",
+                     _ => "generic"
+                 };
+                 return new JsonResult(new
+@@ -109,7 +114,12 @@ namespace PrintABC.Pages
+             if (response!.Status == ValidationStatus.ManualQuote)
+                 sb.Append(L["msg_ask"]);
+             else
+-                sb.Append($"{L["msg_price"]}: {response.PriceIncVatIls}₪ {L["msg_with_vat"]}");
++            {
++                //"1346.19 ₪" with a dot on both languages (tz §6), in Hebrew wrapped in LRM (%E2%80%8E: the message is URL-encoded by hand)
++                string lrm = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "%E2%80%8E" : "";
++                string price = response.PriceIncVatIls?.ToString("0.00", CultureInfo.InvariantCulture) ?? "";
++                sb.Append($"{L["msg_price"]}: {lrm}{price} ₪{lrm} {L["msg_with_vat"]}");
++            }
+             sb.Append(newline);
+             sb.Append(L["msg_file_whatsapp"]);
+             WhatsappMessage = sb.ToString();
+diff --git a/Pages/Shared/_BottomBar.cshtml b/Pages/Shared/_BottomBar.cshtml
+index 67e06c2..557d088 100644
+--- a/Pages/Shared/_BottomBar.cshtml
++++ b/Pages/Shared/_BottomBar.cshtml
+@@ -1,2 +1,14 @@
+-﻿<a class="wa-float" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a>
+-<div class="bottom-bar"><a class="btn btn--primary" href="/stickers">@L["calculate_stickers"]</a><a class="btn-icon btn-icon--round btn-icon--whatsapp" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a><a class="btn-icon btn-icon--round btn-icon--muted" href="tel:+@(LANDLINE)" aria-label="@L["call_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></svg></a></div>
+\ No newline at end of file
++﻿@{
++    //ViewData["BottomBar"] is set by the page: "order" = price bar of a calculator page, nothing = default bar (link to stickers)
++    var barMode = ViewData["BottomBar"] as string;
++}
++<a class="wa-float" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a>
++@if (barMode == "order")
++{
++    @* calculator page (catalogs): "Total … Order →", the page script fills the price and the link *@
++    <div class="bottom-bar"><div class="bottom-bar__price"><span class="bottom-bar__label">@L["total"]</span><output class="bottom-bar__total" data-bar-total aria-live="polite">— ₪</output></div><a class="btn btn--primary" data-bar-ok href="https://wa.me/@(PHONE_NUMBER)" hidden>@L["order"] <span aria-hidden="true">@L["order_arrow"]</span></a><a class="btn btn--secondary" data-bar-fix href="#calc-form" hidden>@L["fix_params"]</a><a class="btn-icon btn-icon--round btn-icon--whatsapp" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a></div>
++}
++else
++{
++    <div class="bottom-bar"><a class="btn btn--primary" href="/stickers">@L["calculate_stickers"]</a><a class="btn-icon btn-icon--round btn-icon--whatsapp" href="https://wa.me/@(PHONE_NUMBER)" aria-label="@L["write_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z" /><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6" /></svg></a><a class="btn-icon btn-icon--round btn-icon--muted" href="tel:+@(LANDLINE)" aria-label="@L["call_us"]"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></svg></a></div>
++}
+\ No newline at end of file
+diff --git a/Pages/Shared/_Header.cshtml b/Pages/Shared/_Header.cshtml
+index 3ca4a89..bf5203f 100644
+--- a/Pages/Shared/_Header.cshtml
++++ b/Pages/Shared/_Header.cshtml
+@@ -46,7 +46,7 @@
+       {
+           <a class="btn-icon lang-short" href="@targetUrl" lang="he" hreflang="he" aria-label="גרסה בעברית">עב</a>
+       }
+-      <a class="btn btn--primary header-cta" href="/stickers">@L["calc_price"]</a>
++      <a class="btn btn--primary header-cta" href="@(ViewData["HeaderCtaHref"] as string ?? "/stickers")">@L["calc_price"]</a>
+       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="@L["open_mobile_menu_aria"]"><svg class="icon icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="icon icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+     </div>
+   </div>
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 0f0adca..7d45626 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -259,7 +259,7 @@
+     <value>ההזמנה שלכם</value>
+   </data>
+   <data name="next_load_file" xml:space="preserve">
+-    <value>«להזמנה ב-WhatsApp»</value>
++    <value>להזמנה ב-WhatsApp</value>
+   </data>
+   <data name="price_ready" xml:space="preserve">
+     <value>מוכן</value>
+@@ -405,4 +405,31 @@
+   <data name="error_bad_paper" xml:space="preserve">
+     <value>הנייר הזה לא מתאים לחיבור שבחרתם. בסיכות בחרו נייר עד 250 גרם.</value>
+   </data>
++  <data name="cta_manual" xml:space="preserve">
++    <value>לבקשת הצעת מחיר ב-WhatsApp</value>
++  </data>
++  <data name="by_quote" xml:space="preserve">
++    <value>לפי הצעה</value>
++  </data>
++  <data name="error_pages_int" xml:space="preserve">
++    <value>הזינו מספר עמודים שלם, למשל 12.</value>
++  </data>
++  <data name="error_qty_int" xml:space="preserve">
++    <value>הזינו כמות במספר שלם, מ-6 יח׳ ומעלה, למשל 100.</value>
++  </data>
++  <data name="error_generic" xml:space="preserve">
++    <value>בדקו את הערכים בטופס: איתם אי אפשר לחשב מחיר.</value>
++  </data>
++  <data name="preview_title" xml:space="preserve">
++    <value>קטלוג</value>
++  </data>
++  <data name="preview_alt" xml:space="preserve">
++    <value>תצוגה של החוברת</value>
++  </data>
++  <data name="no_cover_short" xml:space="preserve">
++    <value>בלי כריכה נפרדת</value>
++  </data>
++  <data name="order_minimum_hint" xml:space="preserve">
++    <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 8205545..20d3f77 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -259,7 +259,7 @@
+     <value>Ваш заказ</value>
+   </data>
+   <data name="next_load_file" xml:space="preserve">
+-    <value>«Заказать в WhatsApp»</value>
++    <value>Заказать в WhatsApp</value>
+   </data>
+   <data name="price_ready" xml:space="preserve">
+     <value>Готовность</value>
+@@ -405,4 +405,31 @@
+   <data name="error_bad_paper" xml:space="preserve">
+     <value>Эта бумага не подходит для выбранного переплёта. Для скобы выберите блок до 250 г.</value>
+   </data>
++  <data name="cta_manual" xml:space="preserve">
++    <value>Запросить расчёт в WhatsApp</value>
++  </data>
++  <data name="by_quote" xml:space="preserve">
++    <value>по запросу</value>
++  </data>
++  <data name="error_pages_int" xml:space="preserve">
++    <value>Введите число страниц целым числом, например 12.</value>
++  </data>
++  <data name="error_qty_int" xml:space="preserve">
++    <value>Введите тираж целым числом, от 6 шт., например 100.</value>
++  </data>
++  <data name="error_generic" xml:space="preserve">
++    <value>Проверьте значения в форме: с ними цену посчитать нельзя.</value>
++  </data>
++  <data name="preview_title" xml:space="preserve">
++    <value>Каталог</value>
++  </data>
++  <data name="preview_alt" xml:space="preserve">
++    <value>Предпросмотр брошюры</value>
++  </data>
++  <data name="no_cover_short" xml:space="preserve">
++    <value>без отдельной обложки</value>
++  </data>
++  <data name="order_minimum_hint" xml:space="preserve">
++    <value>Минимальный заказ 118 ₪ с НДС</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Shared/_BottomBar.he.resx b/Resources/Pages/Shared/_BottomBar.he.resx
+index 0cf0d78..649cf1c 100644
+--- a/Resources/Pages/Shared/_BottomBar.he.resx
++++ b/Resources/Pages/Shared/_BottomBar.he.resx
+@@ -126,4 +126,16 @@
+   <data name="call_us" xml:space="preserve">
+     <value>התקשרו אלינו</value>
+   </data>
++  <data name="total" xml:space="preserve">
++    <value>סה״כ</value>
++  </data>
++  <data name="order" xml:space="preserve">
++    <value>להזמנה</value>
++  </data>
++  <data name="order_arrow" xml:space="preserve">
++    <value>←</value>
++  </data>
++  <data name="fix_params" xml:space="preserve">
++    <value>לתיקון הפרמטרים</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Shared/_BottomBar.ru.resx b/Resources/Pages/Shared/_BottomBar.ru.resx
+index cf41583..1020677 100644
+--- a/Resources/Pages/Shared/_BottomBar.ru.resx
++++ b/Resources/Pages/Shared/_BottomBar.ru.resx
+@@ -126,4 +126,16 @@
+   <data name="call_us" xml:space="preserve">
+     <value>Позвонить</value>
+   </data>
++  <data name="total" xml:space="preserve">
++    <value>Итого</value>
++  </data>
++  <data name="order" xml:space="preserve">
++    <value>Заказать</value>
++  </data>
++  <data name="order_arrow" xml:space="preserve">
++    <value>→</value>
++  </data>
++  <data name="fix_params" xml:space="preserve">
++    <value>Исправить параметры</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/wwwroot/css/layout.css b/wwwroot/css/layout.css
+index 8cc5bd5..24bce14 100644
+--- a/wwwroot/css/layout.css
++++ b/wwwroot/css/layout.css
+@@ -134,6 +134,8 @@
+   }
+   /* keep last content visible above the fixed bar */
+   body.has-bottom-bar { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom)); }
++  /* anchors and focused fields are not hidden under the fixed bar (tz §4) */
++  html { scroll-padding-bottom: calc(var(--bar-h) + 16px); }
+ }
+ 
+ @media (max-width: 1099.98px) {
+diff --git a/wwwroot/css/pages.css b/wwwroot/css/pages.css
+index 76262f4..5fdbded 100644
+--- a/wwwroot/css/pages.css
++++ b/wwwroot/css/pages.css
+@@ -290,3 +290,57 @@
+ 
+ /* Flex children must be allowed to shrink below their content (wide table scrolls inside its wrapper) */
+ .product-layout > *, .order-layout__main, .order-layout__side { min-width: 0; }
++
++/* ---------- Catalogs & magazines (Catalogs.cshtml), copied from the mockup design/mockup/assets/css/pages.css ---------- */
++.pill--disabled { background: var(--c-surface); color: var(--c-border); border-style: dashed; text-decoration: line-through; cursor: not-allowed; }
++.cat-cover-opts { display: flex; flex-direction: column; gap: 22px; }
++.cat-cover-opts[hidden] { display: none; }
++.cat-summary { margin: 0 0 6px; color: var(--c-muted); font-size: var(--fs-small); }
++.cat-summary strong { color: var(--c-ink); }
++.cat-preview { display: flex; flex-direction: column; gap: 14px; }
++.cat-preview__stage { position: relative; height: clamp(380px, 36vw, 480px); border-radius: var(--r-xl); background: var(--c-surface); display: flex; align-items: center; justify-content: center; overflow: hidden; }
++.cat-preview__cmyk { position: absolute; top: 18px; inset-inline-end: 18px; display: flex; gap: 4px; }
++.cat-preview__cmyk span { width: 14px; height: 6px; }
++.cat-preview__cmyk span:nth-child(1), .cat-book__mark span:nth-child(1), .cat-book__band span:nth-child(2) { background: var(--c-cyan); }
++.cat-preview__cmyk span:nth-child(2), .cat-book__mark span:nth-child(2) { background: var(--c-accent); }
++.cat-preview__cmyk span:nth-child(3), .cat-book__mark span:nth-child(3), .cat-book__band span:nth-child(3) { background: var(--c-yellow); }
++.cat-preview__cmyk span:nth-child(4), .cat-book__mark span:nth-child(4), .cat-book__band span:nth-child(4) { background: var(--c-ink); }
++.cat-preview__chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
++.cat-preview__chips span { padding: 6px 14px; border-radius: var(--r-pill); background: var(--c-surface); font-weight: 600; font-size: 0.9375rem; }
++
++/* Book mock-up: size follows the format (A4 230×325, A5 172×243, A6 128×181) */
++.cat-book { position: relative; width: 230px; height: 325px; }
++.cat-book[data-fmt="A5"] { width: 172px; height: 243px; }
++.cat-book[data-fmt="A6"] { width: 128px; height: 181px; }
++.cat-book__page { position: absolute; background: var(--c-white); border: 1px solid var(--c-line); border-radius: 3px; }
++.cat-book__page--2 { top: 10px; bottom: -10px; inset-inline-start: 10px; inset-inline-end: -12px; }
++.cat-book__page--1 { top: 5px; bottom: -5px; inset-inline-start: 5px; inset-inline-end: -6px; }
++.cat-book__cover { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; overflow: hidden; background: var(--c-white); border-radius: 3px; box-shadow: var(--shadow-float); }
++.cat-book__top { flex-grow: 1; display: flex; flex-direction: column; gap: 6px; padding: 22px 20px 0 28px; }
++[dir="rtl"] .cat-book__top { padding: 22px 28px 0 20px; }
++.cat-book__mark { display: grid; grid-template-columns: repeat(2, 10px); gap: 3px; }
++.cat-book__mark span { width: 10px; height: 10px; }
++.cat-book__title { margin-top: 8px; font-family: var(--font-head); font-weight: 800; font-size: 30px; line-height: 1.05; }
++.cat-book__sub { font-size: 13px; color: var(--c-muted); }
++.cat-book__band { height: 36%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--c-accent); }
++.cat-book__gloss { display: none; position: absolute; top: 0; bottom: 0; inset-inline-end: 18%; width: 22%; background: var(--c-white); opacity: .35; transform: skewX(-12deg); }
++.cat-book--gloss .cat-book__gloss { display: block; }
++.cat-book[data-fmt="A6"] .cat-book__top { padding: 14px 12px 0 18px; }
++[dir="rtl"] .cat-book[data-fmt="A6"] .cat-book__top { padding: 14px 18px 0 12px; }
++.cat-book[data-fmt="A6"] .cat-book__title { font-size: 18px; }
++.cat-book__staple { display: none; position: absolute; z-index: 3; inset-inline-start: 4px; width: 3px; height: 22px; border-radius: 1px; background: var(--c-border); }
++.cat-book__staple--top { top: 24%; }
++.cat-book__staple--bottom { bottom: 24%; }
++.cat-book[data-binding="staple"] .cat-book__staple { display: block; }
++/* Spiral: rings drawn with a repeating gradient, one every 24 px */
++.cat-book__spiral { display: none; position: absolute; z-index: 3; top: 10px; bottom: 10px; inset-inline-start: -9px; width: 22px;
++  background: repeating-linear-gradient(to bottom, transparent 0 8px, var(--c-border) 8px 9px, var(--c-white) 9px 14px, var(--c-border) 14px 15px, transparent 15px 24px); }
++.cat-book[data-binding="spiral"] .cat-book__spiral { display: block; }
++
++@media (max-width: 767.98px) {
++  .cat-preview__stage { height: 300px; }
++  .cat-book { width: 166px; height: 234px; }
++  .cat-book[data-fmt="A5"] { width: 124px; height: 175px; }
++  .cat-book[data-fmt="A6"] { width: 92px; height: 130px; }
++  .cat-book__title { font-size: 22px; }
++}

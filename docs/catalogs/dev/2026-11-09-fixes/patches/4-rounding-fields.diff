@@ -1,0 +1,44 @@
+diff --git a/Data/CatalogQuoteResponse.cs b/Data/CatalogQuoteResponse.cs
+index 3802510..e4c9026 100644
+--- a/Data/CatalogQuoteResponse.cs
++++ b/Data/CatalogQuoteResponse.cs
+@@ -10,6 +10,8 @@ namespace PrintABC.Data
+         public decimal? VatIls { get; set; }
+         public decimal? PriceIncVatIls { get; set; }
+         public decimal? UnitPriceIncVatIls { get; set; }
++        public bool MinApplied { get; set; }
++        public decimal? SpiralMm { get; set; }
+ 
+         public static CatalogQuoteResponse Error(string errorCode) => new() { Status = ValidationStatus.ValidationError, ErrorCode = errorCode };
+ 
+diff --git a/Services/CatalogCalculatorService.cs b/Services/CatalogCalculatorService.cs
+index b7e1766..84ea83a 100644
+--- a/Services/CatalogCalculatorService.cs
++++ b/Services/CatalogCalculatorService.cs
+@@ -191,14 +191,14 @@ namespace PrintABC.Services
+             decimal costWithWaste = productionCost * (1 + WasteRate);
+ 
+             decimal markup = costWithWaste < MarkupThresholdIls ? MarkupLow : MarkupHigh;
+-            decimal calculatedPrice = Math.Round(costWithWaste * markup, 2);
++            decimal calculatedPrice = Math.Round(costWithWaste * markup, 2, MidpointRounding.AwayFromZero);
+             bool minApplied = calculatedPrice < MinOrderIls;
+             decimal priceExVat = minApplied ? MinOrderIls : calculatedPrice;
+             if (priceExVat > MaxAutoPriceIls)
+                 return new CatalogQuoteResponse() { Status = ValidationStatus.ManualQuote, ErrorCode = "" };
+-            decimal vat = Math.Round(priceExVat * VatRate, 2);
++            decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
+             decimal priceIncVat = priceExVat + vat;
+-            decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2);
++            decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
+ 
+             return new CatalogQuoteResponse()
+             {
+@@ -207,6 +207,8 @@ namespace PrintABC.Services
+                 PriceIncVatIls = priceIncVat,
+                 VatIls = vat,
+                 UnitPriceIncVatIls = pricePerCopy,
++                MinApplied = minApplied,
++                SpiralMm = spiralDiameterMm,   // для скобы null (ТЗ §5)
+                 Status = ValidationStatus.Ready
+             };
+         }

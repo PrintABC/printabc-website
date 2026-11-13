@@ -1,0 +1,115 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 3f60ed9..bad867e 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -305,15 +305,15 @@
+             <div id="valid_prices" data-priced="">
+                 <div class="price-box__row price-box__row--total">
+                     <span>@L["total_inc_vat"]</span>
+-                    <output class="price-box__total" id="calc-total" aria-live="polite">‎1346.19 ₪‎</output>
++                    <output class="price-box__total" id="calc-total" aria-live="polite">— ₪</output>
+                 </div>
+                 <div class="price-box__row">
+                     <span>@L["price_just_vat"]</span>
+-                    <output id="calc-vat">‎205.35 ₪‎</output>
++                    <output id="calc-vat">—</output>
+                 </div>
+                 <div class="price-box__row">
+                     <span>@L["price_per_unit"]</span>
+-                    <output id="calc-unit">‎13.46 ₪‎</output>
++                    <output id="calc-unit">—</output>
+                 </div>
+                 <p class="field__hint" data-min-note="" hidden="">@L["order_minimum_hint"]</p>
+             </div>
+@@ -445,6 +445,14 @@
+         const pagesHint = document.getElementById('pages-hint');
+ 
+         const errorAlerts = form.querySelectorAll('.alert--error');
++        const minNote = form.querySelector('[data-min-note]');
++
++        //price as in tz §4/§6: two decimals, a space and ₪ ("1346.19 ₪", "13.50 ₪");
++        //on the Hebrew page it is wrapped in LRM marks so that the number and ₪ are not mirrored
++        const lrm = document.documentElement.dir == 'rtl' ? '\u200E' : '';
++        function money(value) {
++            return lrm + Number(value).toFixed(2) + ' ₪' + lrm;
++        }
+ 
+         const qtyInput = document.getElementById('calc-qty');
+ 
+@@ -593,7 +601,8 @@
+                             toggleInvalidPrices(false); //an error is not "we will calculate individually": show "—"
+                             //disable "next" button and clear price outputs
+                             setSend(false);
+-                            totalOutput.textContent = '—';
++                            totalOutput.textContent = '— ₪';
++                            minNote.hidden = true;
+                             vatOutput.textContent = '—';
+                             unitOutput.textContent = '—';
+                         }
+@@ -603,16 +612,18 @@
+                             setCta(false);
+                             document.getElementById('calc-next').href = result.wpmessage;
+                             setSend(true);
+-                            totalOutput.textContent = result.data.priceIncVatIls + '₪';
+-                            vatOutput.textContent = result.data.vatIls;
+-                            unitOutput.textContent = result.data.unitPriceIncVatIls;
++                            totalOutput.textContent = money(result.data.priceIncVatIls);
++                            vatOutput.textContent = money(result.data.vatIls);
++                            unitOutput.textContent = money(result.data.unitPriceIncVatIls);
++                            minNote.hidden = !result.data.minApplied; //"minimum order 118 ₪ incl. VAT"
+                         }
+                     }
+                 }
+             }
+             catch (error) {
+                 setSend(false);
+-                totalOutput.textContent = '—';
++                totalOutput.textContent = '— ₪';
++                minNote.hidden = true;
+                 vatOutput.textContent = '—';
+                 unitOutput.textContent = '—';
+             }
+diff --git a/Pages/Catalogs.cshtml.cs b/Pages/Catalogs.cshtml.cs
+index d417a6e..af88797 100644
+--- a/Pages/Catalogs.cshtml.cs
++++ b/Pages/Catalogs.cshtml.cs
+@@ -114,7 +114,12 @@ namespace PrintABC.Pages
+             if (response!.Status == ValidationStatus.ManualQuote)
+                 sb.Append(L["msg_ask"]);
+             else
+-                sb.Append($"{L["msg_price"]}: {response.PriceIncVatIls}₪ {L["msg_with_vat"]}");
++            {
++                //"1346.19 ₪" with a dot on both languages (tz §6), in Hebrew wrapped in LRM (%E2%80%8E: the message is URL-encoded by hand)
++                string lrm = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "%E2%80%8E" : "";
++                string price = response.PriceIncVatIls?.ToString("0.00", CultureInfo.InvariantCulture) ?? "";
++                sb.Append($"{L["msg_price"]}: {lrm}{price} ₪{lrm} {L["msg_with_vat"]}");
++            }
+             sb.Append(newline);
+             sb.Append(L["msg_file_whatsapp"]);
+             WhatsappMessage = sb.ToString();
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 7742817..7d45626 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -429,4 +429,7 @@
+   <data name="no_cover_short" xml:space="preserve">
+     <value>בלי כריכה נפרדת</value>
+   </data>
++  <data name="order_minimum_hint" xml:space="preserve">
++    <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index fa02f41..20d3f77 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -429,4 +429,7 @@
+   <data name="no_cover_short" xml:space="preserve">
+     <value>без отдельной обложки</value>
+   </data>
++  <data name="order_minimum_hint" xml:space="preserve">
++    <value>Минимальный заказ 118 ₪ с НДС</value>
++  </data>
+ </root>
+\ No newline at end of file
