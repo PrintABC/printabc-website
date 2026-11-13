@@ -435,4 +435,7 @@
   <data name="no_cover_short" xml:space="preserve">
     <value>בלי כריכה נפרדת</value>
   </data>
+  <data name="order_minimum_hint" xml:space="preserve">
+    <value>מינימום הזמנה — 118 ₪ כולל מע״מ</value>
+  </data>
 </root>

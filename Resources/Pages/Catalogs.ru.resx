@@ -435,4 +435,7 @@
   <data name="no_cover_short" xml:space="preserve">
     <value>без отдельной обложки</value>
   </data>
+  <data name="order_minimum_hint" xml:space="preserve">
+    <value>Минимальный заказ 118 ₪ с НДС</value>
+  </data>
 </root>

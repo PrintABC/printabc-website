@@ -307,16 +307,13 @@
                         </svg>
                         <span>@L["error_generic"]</span>
                     </div>
-                    <a href="https://wa.me/972508494172">@L["special_description"]</a>
+                    <a href="https://wa.me/@(PHONE_NUMBER)">@L["special_description"]</a>
                 </div>
                 <div class="price-box__row price-box__row--total">
                     <span>@L["total_inc_vat"]</span>
                     <output class="price-box__total" id="calc-total" aria-live="polite">‎1346.19 ₪‎</output>
                 </div>
-                <div class="price-box__row">
-                    <span>@L["price_just_vat"]</span>
-                    <output id="calc-vat">‎205.35 ₪‎</output>
-                </div>
+
                 <div class="price-box__row">
                     <span>@L["price_per_unit"]</span>
                     <output id="calc-unit">‎13.46 ₪‎</output>
@@ -558,9 +555,13 @@
                         setSend(true);
                     }
                     else {
-                        if (targetError || result.data.errorCode == "generic") {
-                            if (targetError)
-                                showError(targetError);
+                        const isError = result.data.status == "validation_error";
+                        const targetError = isError
+                            ? (form.querySelector(`[data-error="${result.data.errorCode}"]`) ?? form.querySelector('[data-error="generic"]'))
+                            : null;
+                        if (isError) {
+                            toggleInvalidPrices(false);
+                            showError(targetError);
                             //disable "next" button and clear price outputs
                             setSend(false);
                             totalOutput.textContent = '—';
@@ -582,7 +583,7 @@
             catch (error) {
                 setSend(false);
                 totalOutput.textContent = '—';
-                vatOutput.textContent = '—';
+                                        vatOu    tput.textContent = '—';
                 unitOutput.textContent = '—';
             }
         }
@@ -616,8 +617,6 @@
             document.getElementById("cover_section").hidden = !hasCover;
             document.getElementById("no_cover_section").hidden = hasCover;
         }
-
-
         function debounce(func, wait) {
             let timeout;
             return function (...args) {
