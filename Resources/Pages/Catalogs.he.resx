@@ -420,4 +420,16 @@
   <data name="paper_note_300" xml:space="preserve">
     <value>קרטון, לספירלה בלבד</value>
   </data>
+  <data name="error_pages_int" xml:space="preserve">
+    <value>הזינו מספר עמודים שלם, למשל 12.</value>
+  </data>
+  <data name="error_qty_int" xml:space="preserve">
+    <value>הזינו כמות במספר שלם, מ-6 יח׳ ומעלה, למשל 100.</value>
+  </data>
+  <data name="error_generic" xml:space="preserve">
+    <value>בדקו את הערכים בטופס</value>
+  </data>
+  <data name="preview_title" xml:space="preserve">
+    <value>קטלוג</value>
+  </data>
 </root>

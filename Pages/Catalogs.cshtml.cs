@@ -46,11 +46,20 @@ namespace PrintABC.Pages
             {
                 var key = ModelState.Where(kv => kv.Value!.Errors.Count > 0)
                     .Select(kv => kv.Key).FirstOrDefault() ?? "";
-                var code = key switch
+                string code = "generic";
+                if (key == "Quantity")
                 {
-                    "Quantity" => Quantity < MIN_QUANTITY ? "qty_min" : "generic",
-                    _ => "generic"
-                };
+                    if (string.IsNullOrWhiteSpace(ModelState[key]?.AttemptedValue))
+                        code = "qty_int";
+                    else if (Quantity < MIN_QUANTITY)
+                        code = "qty_min";
+                }
+                else if (key == "InnerPageCount")
+                {
+                    if (string.IsNullOrWhiteSpace(ModelState[key]?.AttemptedValue))
+                        code = "pages_int";
+                }
+
                 return new JsonResult(new
                 {
                     success = false,

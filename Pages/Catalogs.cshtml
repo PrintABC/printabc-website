@@ -19,7 +19,7 @@
 <div class="container product-layout">
     <div class="product-layout__main is-sticky">
         <div class="cat-preview">
-            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="תצוגה של החוברת: A4, סיכות, 12 עמ׳">
+            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="">
                 <span class="cat-preview__cmyk" aria-hidden="true">
                     <span></span>
                     <span></span>
@@ -39,8 +39,8 @@
                                 <span></span>
                                 <span></span>
                             </span>
-                            <span class="cat-book__title">קטלוג</span>
-                            <span class="cat-book__sub" data-cover-sub="">A4 · 16 עמ׳</span>
+                            <span class="cat-book__title">@L["preview_title"]</span>
+                            <span class="cat-book__sub" data-cover-sub=""></span>
                         </div>
                         <div class="cat-book__band">
                             <span></span>
@@ -60,10 +60,6 @@
                 </div>
             </div>
             <div class="cat-preview__chips" data-chips="">
-                <span>A4</span>
-                <span>סיכות</span>
-                <span>12 עמ׳ · 130 גרם</span>
-                <span>כריכה 250 גרם</span>
             </div>
         </div>
     </div>
@@ -117,6 +113,80 @@
             }
             <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="@pageLimits.Min" max="@pageLimits.Max" step="@pageLimits.Step" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
             <p class="field__hint" id="pages-hint" data-pages-hint="" data-template="@L.GetString("pages_hint")">@L["pages_hint", pageLimits.Step, pageLimits.Min, pageLimits.Max]</p>
+            <!--errors-->
+            <div class="alert alert--error" data-error="pages_step" role="alert" hidden="">
+                <div class="alert__row">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9">
+                        </circle>
+                        <path d="M12 11v6M12 7.5v.5">
+                        </path>
+                    </svg>
+                    <span>@L["error_pages_step"]</span>
+                </div>
+                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+            </div>
+            <div class="alert alert--error" data-error="pages_min" role="alert" hidden="">
+                <div class="alert__row">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9">
+                        </circle>
+                        <path d="M12 11v6M12 7.5v.5">
+                        </path>
+                    </svg>
+                    <span>@L["error_pages_min"]</span>
+                </div>
+                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+            </div>
+            <div class="alert alert--error" data-error="pages_max" role="alert" hidden="">
+                <div class="alert__row">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9">
+                        </circle>
+                        <path d="M12 11v6M12 7.5v.5">
+                        </path>
+                    </svg>
+                    <span data-limit="max" data-limit-template="@L.GetString("error_pages_max")">@L["error_pages_max", pageLimits.Max]</span>
+                </div>
+                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+            </div>
+            <div class="alert alert--error" data-error="too_thick" role="alert" hidden="">
+                <div class="alert__row">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9">
+                        </circle>
+                        <path d="M12 11v6M12 7.5v.5">
+                        </path>
+                    </svg>
+                    <span>@L["error_too_thick"]</span>
+                </div>
+                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+            </div>
+            <div class="alert alert--error" data-error="bad_paper" role="alert" hidden="">
+                <div class="alert__row">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9">
+                        </circle>
+                        <path d="M12 11v6M12 7.5v.5">
+                        </path>
+                    </svg>
+                    <span>@L["error_bad_paper"]</span>
+                </div>
+                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+            </div>
+            <div class="alert alert--error" data-error="pages_int" role="alert" hidden="">
+                <div class="alert__row">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9">
+                        </circle>
+                        <path d="M12 11v6M12 7.5v.5">
+                        </path>
+                    </svg>
+                    <span>@L["error_pages_int"]</span>
+                </div>
+                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+            </div>
+            <!--errors-->
         </div>
         <fieldset class="opt-group" id="g-cover" aria-describedby="g-cover-hint">
             <legend>@L["separate_cover_label"]</legend>
@@ -178,86 +248,53 @@
             <label class="field__label" for="calc-qty">@L["quantity_label"]</label>
             <input class="field__input field__input--num" id="calc-qty" name="Quantity" type="number" inputmode="numeric" min="6" step="1" value="@Model.Quantity" aria-describedby="q-hint" aria-invalid="false">
             <p class="field__hint" id="q-hint">@L["quantity_hint"]</p>
-        </div>
-        <!--errors-->
-        <div class="alert alert--error" data-error="pages_step" role="alert" hidden="">
-            <div class="alert__row">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                    <circle cx="12" cy="12" r="9">
-                    </circle>
-                    <path d="M12 11v6M12 7.5v.5">
-                    </path>
-                </svg>
-                <span>@L["error_pages_step"]</span>
+            <div class="alert alert--error" data-error="qty_min" role="alert" hidden="">
+                <div class="alert__row">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9">
+                        </circle>
+                        <path d="M12 11v6M12 7.5v.5">
+                        </path>
+                    </svg>
+                    <span>@L["error_qty_min"]</span>
+                </div>
+                <a href="https://wa.me/972508494172">@L["special_description"]</a>
             </div>
-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
-        </div>
-        <div class="alert alert--error" data-error="pages_min" role="alert" hidden="">
-            <div class="alert__row">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                    <circle cx="12" cy="12" r="9">
-                    </circle>
-                    <path d="M12 11v6M12 7.5v.5">
-                    </path>
-                </svg>
-                <span>@L["error_pages_min"]</span>
+            <div class="alert alert--error" data-error="qty_int" role="alert" hidden="">
+                <div class="alert__row">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9">
+                        </circle>
+                        <path d="M12 11v6M12 7.5v.5">
+                        </path>
+                    </svg>
+                    <span>@L["error_qty_int"]</span>
+                </div>
+                <a href="https://wa.me/972508494172">@L["special_description"]</a>
             </div>
-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
         </div>
-        <div class="alert alert--error" data-error="pages_max" role="alert" hidden="">
-            <div class="alert__row">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                    <circle cx="12" cy="12" r="9">
-                    </circle>
-                    <path d="M12 11v6M12 7.5v.5">
-                    </path>
-                </svg>
-                <span data-limit="max" data-limit-template="@L.GetString("error_pages_max")">@L["error_pages_max", pageLimits.Max]</span>
-            </div>
-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
-        </div>
-        <div class="alert alert--error" data-error="qty_min" role="alert" hidden="">
-            <div class="alert__row">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                    <circle cx="12" cy="12" r="9">
-                    </circle>
-                    <path d="M12 11v6M12 7.5v.5">
-                    </path>
-                </svg>
-                <span>@L["error_qty_min"]</span>
-            </div>
-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
-        </div>
-        <div class="alert alert--error" data-error="too_thick" role="alert" hidden="">
-            <div class="alert__row">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                    <circle cx="12" cy="12" r="9">
-                    </circle>
-                    <path d="M12 11v6M12 7.5v.5">
-                    </path>
-                </svg>
-                <span>@L["error_too_thick"]</span>
-            </div>
-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
-        </div>
-        <div class="alert alert--error" data-error="bad_paper" role="alert" hidden="">
-            <div class="alert__row">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                    <circle cx="12" cy="12" r="9">
-                    </circle>
-                    <path d="M12 11v6M12 7.5v.5">
-                    </path>
-                </svg>
-                <span>@L["error_bad_paper"]</span>
-            </div>
-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
-        </div>
-        <!--errors-->
+
         <div class="price-box">
             <p class="cat-summary">
                 <strong>@L["your_order"]</strong>
                 <br>
-                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> @L["unit"]</span>
+                <span data-summary="">
+                    <span id="format_summary">@Model.Format</span> ·
+                    <span id="binding_summary">@Model.Binding</span> ·
+                    <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] ·
+                    <span id="inner_paper_summary">@Model.InnerPaper</span> ·
+                    <span id="cover_section">
+                        @L["cover"]
+                        <span id="cover_paper_summary">@Model.CoverPaper</span>
+                        <span id="cover_print_summary">@Model.CoverPrint</span>
+                        <span id="lamination_section" hidden="@(Model.Lamination == LaminationType.None)">
+                            @L["lamination"]
+                            <span id="lamination_summary"></span>
+                        </span> ·
+                    </span>
+                    <span id="no_cover_section" hidden> · @L["no_cover_short"]</span>
+                    <span id="quantity_summary">@Model.Quantity</span> @L["unit"]
+                </span>
             </p>
             <div id="valid_prices" data-priced="">
                 <div class="price-box__row price-box__row--total">
@@ -400,11 +437,17 @@
         const pageLimitsTable = @Json.Serialize(GetPageLimitsTable());
         const pagesInput = document.getElementById('calc-pages');
         const pagesHint = document.getElementById('pages-hint');
+        const catalogQuantity = document.getElementById('calc-qty');
 
         const errorAlerts = form.querySelectorAll('.alert--error');
 
         function hideAllErrors() {
-            errorAlerts.forEach(alert => alert.hidden = true);
+            errorAlerts.forEach(alert => {
+                alert.hidden = true;
+                alert.setAttribute('aria-invalid', 'false');
+            });
+            pagesInput.setAttribute('aria-invalid', 'false');
+            catalogQuantity.setAttribute('aria-invalid', 'false');
         }
 
         function toggleInvalidPrices(state) {
@@ -428,6 +471,12 @@
             }
         }
 
+        function showError(alert) {
+            alert.hidden = false;
+            const input = alert.closest('.field')?.querySelector('input');
+            input?.setAttribute('aria-invalid', 'true');
+        }
+
         function updatePageLimits() {
             const binding = form.querySelector("input[name='Binding']:checked").value;
             const hasCover = form.querySelector("input[name='HasCover']:checked").value == 'true';
@@ -439,8 +488,6 @@
                 if (!allowed && radio.checked)
                     form.querySelector("input[name='InnerPaper'][value='250']").checked = true;
             });
-
-            
 
             const paper = form.querySelector("input[name='InnerPaper']:checked").value;
             const limits = pageLimitsTable.find(r => r.binding == binding && r.paper == paper && r.hasCover == hasCover);
@@ -500,7 +547,7 @@
                     else {
                         if (targetError || result.data.errorCode == "generic") {
                             if (targetError)
-                                targetError.hidden = false; //unhide the correct error message
+                                showError(targetError);
                             toggleInvalidPrices(true);
                             //disable "next" button and clear price outputs
                             setSend(false);
@@ -553,6 +600,9 @@
             else
                 document.getElementById("cat-cover-opts").removeAttribute("hidden");
 
+            const hasCover = document.querySelector("input[name='HasCover']:checked").value == 'true';
+            document.getElementById("cover_section").hidden = !hasCover;
+            document.getElementById("no_cover_section").hidden = hasCover;
         }
 
 

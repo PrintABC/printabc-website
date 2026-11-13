@@ -420,4 +420,16 @@
   <data name="paper_note_300" xml:space="preserve">
     <value>Картон, только для спирали</value>
   </data>
+  <data name="error_pages_int" xml:space="preserve">
+    <value>Введите число страниц целым числом, например 12.</value>
+  </data>
+  <data name="error_qty_int" xml:space="preserve">
+    <value>Введите тираж целым числом, от 6 шт., например 100.</value>
+  </data>
+  <data name="error_generic" xml:space="preserve">
+    <value>Проверьте значения в форме.</value>
+  </data>
+  <data name="preview_title" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
 </root>
