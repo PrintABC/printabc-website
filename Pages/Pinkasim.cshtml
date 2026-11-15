@@ -17,10 +17,8 @@
 
     // LRM (U+200E) — невидимый символ «слева направо». В иврите им обрамляем «240 ₪»,
     // чтобы число и знак ₪ не поменялись местами внутри текста справа налево (ТЗ §5).
-    // RLM (U+200F) — то же «справа налево», ставим после «A5» в сводке на иврите.
     // В русском оба не нужны — пустая строка.
     var lrm = isRtl ? "‎" : "";
-    var rlm = isRtl ? "‏" : "";
 }
 
 <div class="container page-head">
@@ -144,8 +142,12 @@
     <section class="product-layout__side product-layout__side--narrow panel panel--raised summary-panel is-sticky" aria-labelledby="sum-h">
         <h2 id="sum-h">@L["your_order"]</h2>
         <div class="price-box">
-            @* data-summary — сюда скрипт пишет «A5 · 3 листа · 4 книжки по 50 комплектов». *@
-            <p class="cat-summary" data-summary>@L["kind_a5"]@rlm · 3 @L["copies"] · @L.GetString("qty_line", L["books_4"].Value).Value</p>
+            @*
+                data-summary — сюда скрипт пишет строку заказа по шаблону summary_line из resx:
+                ru «A5 · 3 листа · 4 книжки по 50 комплектов», he «4 פנקסים בגודל A5, מקור + 2 עותקים, 50 סטים בפנקס».
+                Ниже — то же для выбора по умолчанию, чтобы строка была видна ещё до запуска скрипта.
+            *@
+            <p class="cat-summary" data-summary>@(L["summary_line"].Value.Replace("{qty}", L["books_4"].Value).Replace("{kind}", L["sum_kind_a5"].Value).Replace("{copies}", L["sum_copies_3"].Value))</p>
             <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="pk-total" aria-live="polite">@(lrm)240 ₪@(lrm)</output></div>
             <p class="field__hint">@L["inc_vat"]</p>
             <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
@@ -210,8 +212,6 @@
                 kind_six: @Json.Serialize(L["kind_six"].Value),
                 kind_msg_a5: @Json.Serialize(L["wa_kind_a5"].Value),
                 kind_msg_six: @Json.Serialize(L["wa_kind_six"].Value),
-                copies_3: @Json.Serialize("3 " + L["copies"].Value),
-                copies_2: @Json.Serialize("2 " + L["copies"].Value),
                 copies_msg_3: @Json.Serialize(L["wa_copies_3"].Value),
                 copies_msg_2: @Json.Serialize(L["wa_copies_2"].Value),
                 qty_line: @Json.Serialize(L["qty_line"].Value),     // «{0} по 50 комплектов»
@@ -223,7 +223,11 @@
                 msg_start: @Json.Serialize(L["msg_start"].Value),   // «Начальный номер: »
                 msg_file: @Json.Serialize(L["msg_file"].Value),
                 lrm: @Json.Serialize(lrm),                          // в иврите невидимый LRM, в русском ""
-                rlm: @Json.Serialize(rlm)
+                summary_line: @Json.Serialize(L["summary_line"].Value), // шаблон строки «Ваш заказ»
+                sum_kind_a5: @Json.Serialize(L["sum_kind_a5"].Value),
+                sum_kind_six: @Json.Serialize(L["sum_kind_six"].Value),
+                sum_copies_3: @Json.Serialize(L["sum_copies_3"].Value),
+                sum_copies_2: @Json.Serialize(L["sum_copies_2"].Value)
             };
             // Общий адрес WhatsApp из Utils/Helpers.cs, к нему дописываем закодированный текст.
             const whatsappUrl = @Json.Serialize(WHATSAPP_URL);
@@ -298,7 +302,11 @@
                 // 4.4. Тексты. t.lrm не даёт числу и ₪ поменяться местами в иврите.
                 const money = ok ? t.lrm + price + ' ₪' + t.lrm : '— ₪';
                 const qtyText = fill(t.qty_line, books); // «4 книжки по 50 комплектов»
-                summary.textContent = t['kind_' + sel.kind] + t.rlm + ' · ' + t['copies_' + sel.copies] + ' · ' + qtyText;
+                // Строка «Ваш заказ» по шаблону: в иврите другой порядок слов, поэтому не склеиваем куски в коде.
+                summary.textContent = t.summary_line
+                    .replace('{qty}', books)
+                    .replace('{kind}', t['sum_kind_' + sel.kind])
+                    .replace('{copies}', t['sum_copies_' + sel.copies]);
                 total.textContent = money;
 
                 // 4.5. Сообщение WhatsApp (ТЗ §5). Строки соединяем '\n', всё сообщение кодируем

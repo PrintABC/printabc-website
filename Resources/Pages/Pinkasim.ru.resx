@@ -309,4 +309,20 @@
   <data name="books_20" xml:space="preserve">
     <value>20 книжек</value>
   </data>
+  <data name="summary_line" xml:space="preserve">
+    <value>{kind} · {copies} · {qty} по 50 комплектов</value>
+    <comment>Строка «Ваш заказ». {qty} = books_N, {kind} = sum_kind_*, {copies} = sum_copies_*. Порядок слов у языков разный, поэтому шаблон целиком.</comment>
+  </data>
+  <data name="sum_kind_a5" xml:space="preserve">
+    <value>A5</value>
+  </data>
+  <data name="sum_kind_six" xml:space="preserve">
+    <value>Шестёрки</value>
+  </data>
+  <data name="sum_copies_3" xml:space="preserve">
+    <value>3 листа</value>
+  </data>
+  <data name="sum_copies_2" xml:space="preserve">
+    <value>2 листа</value>
+  </data>
 </root>

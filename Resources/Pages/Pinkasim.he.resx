@@ -304,4 +304,20 @@
   <data name="books_20" xml:space="preserve">
     <value>20 פנקסים</value>
   </data>
+  <data name="summary_line" xml:space="preserve">
+    <value>{qty} בגודל {kind}, {copies}, 50 סטים בפנקס</value>
+    <comment>Формат владельца 15.11: «2 פנקסים בגודל A5, מקור + 2 עותקים, 50 סטים בפנקס»</comment>
+  </data>
+  <data name="sum_kind_a5" xml:space="preserve">
+    <value>A5</value>
+  </data>
+  <data name="sum_kind_six" xml:space="preserve">
+    <value>שישיות (6 בדף A4)</value>
+  </data>
+  <data name="sum_copies_3" xml:space="preserve">
+    <value>מקור + 2 עותקים</value>
+  </data>
+  <data name="sum_copies_2" xml:space="preserve">
+    <value>מקור + עותק</value>
+  </data>
 </root>
