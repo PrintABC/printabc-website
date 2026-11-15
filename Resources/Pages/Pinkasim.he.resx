@@ -315,7 +315,7 @@
     <comment>Формат владельца 15.11</comment>
   </data>
   <data name="summary_six" xml:space="preserve">
-    <value>{n} שישיות פנקסים בגודל א4, {copies}, 50 סטים בפנקס</value>
-    <comment>Формат владельца 15.11: «2 שישיות פנקסים בגודל א4»</comment>
+    <value>{n} שישיות פנקסים בגודל אי4, {copies}, 50 סטים בפנקס</value>
+    <comment>Формат владельца 15.11: «2 שישיות פנקסים בגודל אי4»</comment>
   </data>
 </root>
