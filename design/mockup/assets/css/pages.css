@@ -345,3 +345,14 @@
   .cat-book[data-fmt="A6"] { width: 92px; height: 130px; }
   .cat-book__title { font-size: 22px; }
 }
+
+/* ---- Accounting books (pinkasim) ---- */
+.pk-hero { width: 100%; height: clamp(180px, 22vw, 300px); object-fit: cover; border-radius: 14px; }
+.pk-kind { padding: 10px 18px; border-radius: var(--r-md); }
+.pk-kind > span { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: start; }
+.pk-kind small { font-size: var(--fs-hint); color: var(--c-muted); font-weight: 400; }
+.pk-table { min-width: 360px; }
+.pk-table th[scope="col"] { width: 40%; }
+.pk-table th[scope="col"]:first-child { width: 20%; }
+.btn[aria-disabled] { opacity: .5; pointer-events: none; }
+@media (max-width: 767px) { #pk-calc .summary-panel { order: -1; } }
