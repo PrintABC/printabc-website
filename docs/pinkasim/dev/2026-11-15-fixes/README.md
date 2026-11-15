@@ -67,8 +67,8 @@ const href = whatsappUrl + encodeURIComponent(msg);  // '\n' сам станет
 
 | | ru | he |
 |---|---|---|
-| `summary_line` | `{kind} · {copies} · {qty} по 50 комплектов` | `{qty} בגודל {kind}, {copies}, 50 סטים בפנקס` |
-| `sum_kind_a5` / `sum_kind_six` | A5 / Шестёрки | אי5 / שישיות (6 בדף A4) |
+| `summary_a5` | `A5 · {copies} · {qty} по 50 комплектов` | `{qty} בגודל אי5, {copies}, 50 סטים בפנקס` |
+| `summary_six` | `Шестёрки · {copies} · {qty} по 50 комплектов` | `{n} שישיות פנקסים בגודל א4, {copies}, 50 סטים בפנקס` |
 | `sum_copies_3` / `sum_copies_2` | 3 листа / 2 листа | מקור + 2 עותקים / מקור + עותק |
 
 `{qty}` — это `books_N`. Скрипт просто делает три `.replace(...)`, склеивать куски в коде не нужно.

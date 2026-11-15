@@ -143,11 +143,11 @@
         <h2 id="sum-h">@L["your_order"]</h2>
         <div class="price-box">
             @*
-                data-summary — сюда скрипт пишет строку заказа по шаблону summary_line из resx:
+                data-summary — сюда скрипт пишет строку заказа по шаблону summary_a5 / summary_six из resx:
                 ru «A5 · 3 листа · 4 книжки по 50 комплектов», he «4 פנקסים בגודל אי5, מקור + 2 עותקים, 50 סטים בפנקס».
                 Ниже — то же для выбора по умолчанию, чтобы строка была видна ещё до запуска скрипта.
             *@
-            <p class="cat-summary" data-summary>@(L["summary_line"].Value.Replace("{qty}", L["books_4"].Value).Replace("{kind}", L["sum_kind_a5"].Value).Replace("{copies}", L["sum_copies_3"].Value))</p>
+            <p class="cat-summary" data-summary>@(L["summary_a5"].Value.Replace("{qty}", L["books_4"].Value).Replace("{n}", "4").Replace("{copies}", L["sum_copies_3"].Value))</p>
             <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="pk-total" aria-live="polite">@(lrm)240 ₪@(lrm)</output></div>
             <p class="field__hint">@L["inc_vat"]</p>
             <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
@@ -223,9 +223,9 @@
                 msg_start: @Json.Serialize(L["msg_start"].Value),   // «Начальный номер: »
                 msg_file: @Json.Serialize(L["msg_file"].Value),
                 lrm: @Json.Serialize(lrm),                          // в иврите невидимый LRM, в русском ""
-                summary_line: @Json.Serialize(L["summary_line"].Value), // шаблон строки «Ваш заказ»
-                sum_kind_a5: @Json.Serialize(L["sum_kind_a5"].Value),
-                sum_kind_six: @Json.Serialize(L["sum_kind_six"].Value),
+                // Шаблоны строки «Ваш заказ» — у каждого вида свой, порядок слов задаёт владелец
+                summary_a5: @Json.Serialize(L["summary_a5"].Value),
+                summary_six: @Json.Serialize(L["summary_six"].Value),
                 sum_copies_3: @Json.Serialize(L["sum_copies_3"].Value),
                 sum_copies_2: @Json.Serialize(L["sum_copies_2"].Value)
             };
@@ -303,9 +303,11 @@
                 const money = ok ? t.lrm + price + ' ₪' + t.lrm : '— ₪';
                 const qtyText = fill(t.qty_line, books); // «4 книжки по 50 комплектов»
                 // Строка «Ваш заказ» по шаблону: в иврите другой порядок слов, поэтому не склеиваем куски в коде.
-                summary.textContent = t.summary_line
+                // У каждого вида свой шаблон: summary_a5 или summary_six.
+                // {qty} — «4 книжки» (data-books), {n} — просто число, {copies} — «מקור + 2 עותקים».
+                summary.textContent = t['summary_' + sel.kind]
                     .replace('{qty}', books)
-                    .replace('{kind}', t['sum_kind_' + sel.kind])
+                    .replace('{n}', sel.q)
                     .replace('{copies}', t['sum_copies_' + sel.copies]);
                 total.textContent = money;
 
