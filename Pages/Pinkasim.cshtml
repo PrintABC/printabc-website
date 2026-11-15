@@ -186,7 +186,8 @@
         const tables = document.querySelectorAll(".pk-table");
         const priceButtons = document.querySelectorAll(".pk-table .price-btn");
         const kindName = document.getElementById("pk-kind-name");
-        const summaryLine = @Json.Serialize(L["summary_line"]);
+        const summaryLine_a5 = @Json.Serialize(L["summary_line_a5"]);
+        const summaryLine_sixes = @Json.Serialize(L["summary_line_sixes"]);
         const sumKind = { a5: @Json.Serialize(L["sum_kind_a5"]), six: @Json.Serialize(L["sum_kind_six"]) };
         const sumCopies = { "3": @Json.Serialize(L["sum_copies_3"]), "2": @Json.Serialize(L["sum_copies_2"]) };
         const sumText = document.getElementById("pk-sum-text");
@@ -267,10 +268,12 @@
         }
 
         function updateSummary(sel) {
-            sumText.textContent = summaryLine.value
+            const template = sel.kind == "a5" ? summaryLine_a5.value : summaryLine_sixes.value;
+            sumText.textContent = template
+                .replace("{n}", sel.qty)
                 .replace("{qty}", getQtyText(sel.qty))
-                .replace("{kind}", sumKind[sel.kind].value)
                 .replace("{copies}", sumCopies[sel.copies].value);
+            
         }
 
         function updateWhatsappLink(sel) {

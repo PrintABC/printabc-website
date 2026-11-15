@@ -197,8 +197,8 @@
   <data name="copies" xml:space="preserve">
     <value>עותקים</value>
   </data>
-  <data name="summary_line" xml:space="preserve">
-    <value>{qty} בגודל {kind}, {copies}, 50 סטים בפנקס</value>
+  <data name="summary_line_a5" xml:space="preserve">
+    <value>{qty} בגודל A5, {copies}, 50 סטים בפנקס</value>
   </data>
   <data name="total" xml:space="preserve">
     <value>סה״כ</value>
@@ -283,5 +283,8 @@
   </data>
   <data name="sum_copies_2" xml:space="preserve">
     <value>מקור + עותק</value>
+  </data>
+  <data name="summary_line_sixes" xml:space="preserve">
+    <value>{n} שישיות פנקסים בגודל (6 בדף A4), {copies}, 50 סטים בפנקס</value>
   </data>
 </root>

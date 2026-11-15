@@ -197,7 +197,7 @@
   <data name="copies" xml:space="preserve">
     <value>листа</value>
   </data>
-  <data name="summary_line" xml:space="preserve">
+  <data name="summary_line_a5" xml:space="preserve">
     <value>{kind} · {copies} · {qty} по 50 комплектов</value>
   </data>
   <data name="total" xml:space="preserve">
@@ -283,5 +283,8 @@
   </data>
   <data name="sum_copies_2" xml:space="preserve">
     <value>2 листа</value>
+  </data>
+  <data name="summary_line_sixes" xml:space="preserve">
+    <value>{kind} · {copies} · {qty} по 50 комплектов</value>
   </data>
 </root>
