@@ -9,7 +9,7 @@
 | `stickers/` | Наклейки: ссылка на ТЗ калькулятора, `tests.json` |
 | `business-cards/` | Визитки: `tz.md`, варианты текста WhatsApp |
 | `catalogs/` | Каталоги и журналы: `tz.md`, `tests.json`, `dev/` — задания с готовыми патчами |
-| `pinkasim/` | Бухгалтерские книжки: `tz.md` (черновик) |
+| `pinkasim/` | Бухгалтерские книжки: `tz.md` (v1.0), `tests.json` |
 | `whatsapp-order/` | Общий модуль «Заказать в WhatsApp»: `tz.md` (v2.2) |
 | `tests/` | `price_tests.py` — проверка цен сайта против ТЗ |
 | `reviews/` | Отчёты проверок: `<дата>-<страница>-<вид>.md` |
