@@ -1,7 +1,7 @@
 /* PrintABC — accounting books (pinkasim) price table (design reference).
-   Prices and rules = docs/pinkasim/tz.md §2 (appsettings "Pinkasim").
-   In production the table is rendered by the server from config and the price comes from
-   POST /pinkasim?handler=Calculate; the browser only shows it and never sends a sum. */
+   Prices and rules = docs/pinkasim/tz.md v1.1 §2.
+   As on business cards, the price is calculated in the browser (owner decision 15.11):
+   the total is the data-price of the selected cell; there is no server calculation. */
 (function () {
   'use strict';
   var root = document.getElementById('pk-calc');
