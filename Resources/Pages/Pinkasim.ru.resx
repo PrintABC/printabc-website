@@ -159,14 +159,6 @@
   <data name="what_included" xml:space="preserve">
     <value>Что входит</value>
   </data>
-  <data name="whatsapp_template" xml:space="preserve">
-    <value>Здравствуйте! Хочу заказать бухгалтерские книжки.%0a
-Вид: {kind}%0a
-Листов в комплекте: {copies}%0a
-Количество: {qty} по 50 комплектов%0a
-Цена: {price} ₪ с НДС%0a
-Файл макета пришлю следом через %0📎 → «Документ» (не «Галерея»).</value>
-  </data>
   <data name="wa_kind_a5" xml:space="preserve">
     <value>A5</value>
   </data>
@@ -179,26 +171,11 @@
   <data name="wa_copies_2" xml:space="preserve">
     <value>2 (белый, жёлтый)</value>
   </data>
-  <data name="wa_qty_one" xml:space="preserve">
-    <value>{n} книжка</value>
-  </data>
-  <data name="wa_qty_few" xml:space="preserve">
-    <value>{n} книжки</value>
-  </data>
-  <data name="wa_qty_many" xml:space="preserve">
-    <value>{n} книжек</value>
-  </data>
-  <data name="wa_qty_other" xml:space="preserve">
-    <value>{n} книжки</value>
-  </data>
   <data name="your_order" xml:space="preserve">
     <value>Ваш заказ</value>
   </data>
   <data name="copies" xml:space="preserve">
     <value>листа</value>
-  </data>
-  <data name="set_50" xml:space="preserve">
-    <value>Книжек, 50 комплектов в книжке</value>
   </data>
   <data name="total" xml:space="preserve">
     <value>Итого</value>
@@ -271,5 +248,58 @@
   </data>
   <data name="after_4" xml:space="preserve">
     <value>Забираете в типографии</value>
+  </data>
+  <data name="col_qty" xml:space="preserve">
+    <value>Книжек</value>
+  </data>
+  <data name="kind_a5" xml:space="preserve">
+    <value>A5</value>
+    <comment>Короткое название вида: заголовок таблицы и «Ваш заказ»</comment>
+  </data>
+  <data name="kind_six" xml:space="preserve">
+    <value>Шестёрки</value>
+  </data>
+  <data name="books_one" xml:space="preserve">
+    <value>{0} книжка</value>
+    <comment>{0} = число книжек. Используется в PinkasimModel.BooksText (склонение).</comment>
+  </data>
+  <data name="books_few" xml:space="preserve">
+    <value>{0} книжки</value>
+    <comment>{0} = число книжек. Используется в PinkasimModel.BooksText (склонение).</comment>
+  </data>
+  <data name="books_many" xml:space="preserve">
+    <value>{0} книжек</value>
+    <comment>{0} = число книжек. Используется в PinkasimModel.BooksText (склонение).</comment>
+  </data>
+  <data name="qty_line" xml:space="preserve">
+    <value>{0} по 50 комплектов</value>
+    <comment>{0} = «4 книжки». Строка в «Ваш заказ» и в WhatsApp</comment>
+  </data>
+  <data name="msg_hello" xml:space="preserve">
+    <value>Здравствуйте! Хочу заказать бухгалтерские книжки.</value>
+    <comment>Строки сообщения WhatsApp (ТЗ §5). Без %0a: переводы строк и кодирование делает pinkasim.js</comment>
+  </data>
+  <data name="msg_kind" xml:space="preserve">
+    <value>Вид: {0}</value>
+  </data>
+  <data name="msg_copies" xml:space="preserve">
+    <value>Листов в комплекте: {0}</value>
+  </data>
+  <data name="msg_qty" xml:space="preserve">
+    <value>Количество: {0}</value>
+  </data>
+  <data name="msg_price" xml:space="preserve">
+    <value>Цена: {0} с НДС</value>
+  </data>
+  <data name="msg_start" xml:space="preserve">
+    <value>Начальный номер: </value>
+    <comment>Пробел в конце нужен: клиент дописывает номер сам</comment>
+  </data>
+  <data name="msg_file" xml:space="preserve">
+    <value>Файл макета пришлю следом через 📎 → «Документ» (не «Галерея»). Если макета нет, пришлю логотип и реквизиты.</value>
+  </data>
+  <data name="error_not_found" xml:space="preserve">
+    <value>Не удалось рассчитать цену. Выберите вариант в таблице или напишите нам в WhatsApp.</value>
+    <comment>ТЗ §4</comment>
   </data>
 </root>

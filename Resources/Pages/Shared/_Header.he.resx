@@ -183,4 +183,7 @@
   <data name="catalogs" xml:space="preserve">
     <value>קטלוגים</value>
   </data>
+  <data name="pinkasim" xml:space="preserve">
+    <value>פנקסים</value>
+  </data>
 </root>

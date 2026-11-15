@@ -183,4 +183,7 @@
   <data name="catalogs" xml:space="preserve">
     <value>Каталоги</value>
   </data>
+  <data name="pinkasim" xml:space="preserve">
+    <value>Бухгалтерские книжки</value>
+  </data>
 </root>

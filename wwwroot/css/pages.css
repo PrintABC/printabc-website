@@ -331,4 +331,5 @@
 .pk-table th[scope="col"] { width: 40%; }
 .pk-table th[scope="col"]:first-child { width: 20%; }
 .btn[aria-disabled] { opacity: .5; pointer-events: none; }
-@media (max-width: 767px) { #pk-calc .summary-panel { order: -1; } }
+/* Телефон: блок «Ваш заказ» над таблицей (ТЗ §3). Граница 767.98px — как во всём сайте (CLAUDE.md §1.6). */
+@media (max-width: 767.98px) { #pk-calc .summary-panel { order: -1; } }

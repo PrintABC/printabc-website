@@ -134,6 +134,8 @@
   }
   /* keep last content visible above the fixed bar */
   body.has-bottom-bar { padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom)); }
+  /* при переходе по Tab и по якорю браузер прокручивает так, чтобы элемент не прятался под панелью */
+  html:has(body.has-bottom-bar) { scroll-padding-bottom: calc(var(--bar-h) + 16px); }
 }
 
 @media (max-width: 1099.98px) {
