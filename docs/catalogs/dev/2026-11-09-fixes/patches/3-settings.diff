@@ -1,0 +1,345 @@
+diff --git a/Program.cs b/Program.cs
+index 5739362..3e0b9ca 100644
+--- a/Program.cs
++++ b/Program.cs
+@@ -48,6 +48,10 @@ namespace PrintABC
+             .AddDataAnnotationsLocalization();
+ 
+             builder.Services.AddSingleton<StickerCalculatorService>();
++            builder.Services.AddOptions<CatalogSettings>()
++                .Bind(builder.Configuration.GetSection("Catalogs"))
++                .Validate(s => s.IsComplete(), "appsettings.json: секция Catalogs неполная")
++                .ValidateOnStart();
+             builder.Services.AddSingleton<CatalogCalculatorService>();
+ 
+             builder.Services.Configure<RequestLocalizationOptions>(options =>
+diff --git a/Services/CatalogCalculatorService.cs b/Services/CatalogCalculatorService.cs
+index 84ea83a..d69ca10 100644
+--- a/Services/CatalogCalculatorService.cs
++++ b/Services/CatalogCalculatorService.cs
+@@ -1,4 +1,5 @@
+ ﻿using PrintABC.Data;
++using Microsoft.Extensions.Options;
+ using System.Globalization;
+ using static PrintABC.Services.CatalogCalculatorService;
+ using static PrintABC.Utils.Helpers;
+@@ -25,32 +26,23 @@ namespace PrintABC.Services
+         public enum CatalogSize { A4, A5, A6, }
+         public enum CatalogBinding { Staple, Spiral }
+         public enum LaminationType { None, Matte, Gloss }
+-        const decimal ClickColorIls = 0.13325m, UsdRateIls = 3.3m, StaplesPerCopyIls = 0.5m;
+-        const decimal MarkupThresholdIls = 200, MarkupLow = 5, MarkupHigh = 4.5m;
+-        const decimal LaminationUsdPerM2 = 0.37m, SheetAreaM2 = 0.16104m, WasteRate = 0.1m, VatRate = 0.18m;
+-        const int PunchSec = 30, SpiralCloseSec = 30, LaborRateIlsPerHour = 200, MinOrderIls = 100, MaxAutoPriceIls = 2000;
++        // все числа формулы — из appsettings.json, секция "Catalogs" (ТЗ §3.1)
++        private readonly CatalogSettings S;
++        public CatalogCalculatorService(IOptions<CatalogSettings> options) => S = options.Value;
+ 
+-        public record PaperInfo(decimal SheetPriceIls, decimal ThicknessMm, int SheetsPerPunch, int StapleMaxPages, int SpiralMaxPages);
+-        private static PaperInfo GetPaperInfo(int paper) => paper switch
+-        {
+-            80 => new(0.091m, 0.1m, 20, 36, 200),
+-            130 => new(0.1485m, 0.115m, 17, 36, 150),
+-            170 => new(0.197m, 0.15m, 13, 8, 120),
+-            250 => new(0.29322m, 0.24m, 8, 8, 60),
+-            300 => new(0.35216m, 0.29m, 6, 0, 60),
+-            _ => throw new ArgumentOutOfRangeException(nameof(paper), paper, "Unsupported paper weight")
+-        };
++        private CatalogPaperSettings GetPaperInfo(int paper) =>
++            S.Papers.TryGetValue(paper, out var p) ? p : throw new ArgumentOutOfRangeException(nameof(paper), paper, "Unsupported paper weight");
+ 
+         public static int[] GetInnerPaperSizes() => [80, 130, 170, 250, 300];
+         public static int[] GetCoverPaperSizes() => [250, 300];
+         public static string[] GetCoverPrints() => ["40", "44"];
+-        public const int MinQuantity = 6, MaxQuantity = 100_000;
++        public const int MinQuantity = 6; // ТЗ §1; MaxQuantity — в конфиге
+ 
+         // ТЗ §2: шаг и минимум страниц блока
+         public static int GetPagesStep(CatalogBinding binding) => binding == CatalogBinding.Staple ? 4 : 2;
+         public static int GetPagesMin(CatalogBinding binding, bool hasCover) =>
+             binding == CatalogBinding.Spiral ? 20 : (hasCover ? 4 : 8);
+-        public static int GetPagesMax(CatalogBinding binding, int innerPaper) =>
++        public int GetPagesMax(CatalogBinding binding, int innerPaper) =>
+             binding == CatalogBinding.Staple ? GetPaperInfo(innerPaper).StapleMaxPages : GetPaperInfo(innerPaper).SpiralMaxPages;
+ 
+         private static bool TryParseInt(string? s, out int value) =>
+@@ -112,40 +104,24 @@ namespace PrintABC.Services
+ 
+             // 10-11. тираж
+             if (quantity < MinQuantity) return "qty_min";
+-            if (quantity > MaxQuantity) return "qty_max";
++            if (quantity > S.MaxQuantity) return "qty_max";
+ 
+             request = new CatalogQuoteRequest(format, binding, pages, innerPaper, hasCover, coverPaper, coverPrint, lamination, quantity);
+             return null;
+         }
+ 
+-        public record CatalogSizeInfo(int PagesPerSheet, int CoversPerSheet, decimal SpiralLengthFactor);
+-        private static CatalogSizeInfo GetSizeInfo(CatalogSize size) => size switch
+-        {
+-            CatalogSize.A4 => new(4, 1, 1m),
+-            CatalogSize.A5 => new(8, 2, 0.71m),
+-            CatalogSize.A6 => new(16, 4, 0.5m),
+-            _ => throw new ArgumentOutOfRangeException(nameof(size), size, null)
+-        };
+-
+-        public record Spiral(string Name, decimal DiameterMm, int MaxThicknessMm, decimal PriceA4Ils);
+-        public static readonly Spiral[] Spirals = [
+-            new (Name: "3/8", DiameterMm: 9.5m, MaxThicknessMm: 7, PriceA4Ils: 0.8m),
+-            new (Name: "7/16", DiameterMm:11, MaxThicknessMm:9, PriceA4Ils:0.92m),
+-            new (Name: "9/16", DiameterMm:14, MaxThicknessMm:12, PriceA4Ils:1.1m),
+-            new (Name: "5/8", DiameterMm:16, MaxThicknessMm:14, PriceA4Ils:1.25m),
+-            ];
+ 
+ 
+         public CatalogQuoteResponse Calculate(CatalogQuoteRequest req)
+         {
+             // вход уже проверен в ValidateInput
+             int sheetsPerCopy = req.Pages / 2;
+-            PaperInfo innerPaper = GetPaperInfo(req.InnerPaper);
+-            PaperInfo? coverPaper = req.HasCover ? GetPaperInfo(req.CoverPaper) : null; // без обложки бумагу обложки не трогаем
+-            CatalogSizeInfo format = GetSizeInfo(req.Format);
++            var innerPaper = GetPaperInfo(req.InnerPaper);
++            CatalogPaperSettings? coverPaper = req.HasCover ? GetPaperInfo(req.CoverPaper) : null; // без обложки бумагу обложки не трогаем
++            var format = S.Formats[req.Format];
+             int innerSheetsTotal = CeilDiv(req.Quantity * req.Pages, format.PagesPerSheet);
+ 
+-            decimal innerCost = innerSheetsTotal * (innerPaper.SheetPriceIls + 2 * ClickColorIls);
++            decimal innerCost = innerSheetsTotal * (innerPaper.SheetPriceIls + 2 * S.ClickColorIls);
+ 
+             int coverSheetsTotal = req.HasCover ? CeilDiv(req.Quantity, format.CoversPerSheet) : 0;
+ 
+@@ -153,13 +129,13 @@ namespace PrintABC.Services
+             if (req.HasCover)
+             {
+                 int coverPrintedSides = req.CoverPrint == "44" ? 2 : 1;
+-                coverCost = coverSheetsTotal * (coverPaper!.SheetPriceIls + coverPrintedSides * ClickColorIls);
++                coverCost = coverSheetsTotal * (coverPaper!.SheetPriceIls + coverPrintedSides * S.ClickColorIls);
+             }
+ 
+             decimal laminationCost = 0;
+             if (req.HasCover && req.Lamination != LaminationType.None)
+             {
+-                decimal laminationPerSheet = LaminationUsdPerM2 * UsdRateIls * SheetAreaM2;
++                decimal laminationPerSheet = S.LaminationUsdPerM2 * S.UsdRateIls * S.SheetAreaM2;
+                 laminationCost = coverSheetsTotal * laminationPerSheet;
+             }
+ 
+@@ -171,32 +147,32 @@ namespace PrintABC.Services
+ 
+             if (req.Binding == CatalogBinding.Staple)
+             {
+-                bindingMaterialsCost = req.Quantity * StaplesPerCopyIls;
++                bindingMaterialsCost = req.Quantity * S.StaplesPerCopyIls;
+             }
+             else
+             {
+-                var spiral = Spirals.OrderBy(s => s.MaxThicknessMm).FirstOrDefault(s => copyThicknessMm <= s.MaxThicknessMm);
++                var spiral = S.Spirals.OrderBy(s => s.MaxThicknessMm).FirstOrDefault(s => copyThicknessMm <= s.MaxThicknessMm);
+                 if (spiral == null)
+                     return CatalogQuoteResponse.Error("too_thick");
+                 spiralDiameterMm = spiral.DiameterMm;
+                 bindingMaterialsCost = req.Quantity * spiral.PriceA4Ils * format.SpiralLengthFactor;
+                 int punchesPerCopy = CeilDiv(sheetsPerCopy, innerPaper.SheetsPerPunch)
+                             + (req.HasCover ? CeilDiv(2, coverPaper!.SheetsPerPunch) : 0);
+-                decimal secondsPerCopy = punchesPerCopy * PunchSec + SpiralCloseSec;
+-                laborCost = req.Quantity * secondsPerCopy * LaborRateIlsPerHour / 3600m;
++                decimal secondsPerCopy = punchesPerCopy * S.PunchSec + S.SpiralCloseSec;
++                laborCost = req.Quantity * secondsPerCopy * S.LaborRateIlsPerHour / 3600m;
+             }
+ 
+             decimal productionCost = innerCost + coverCost + laminationCost + bindingMaterialsCost + laborCost;
+ 
+-            decimal costWithWaste = productionCost * (1 + WasteRate);
++            decimal costWithWaste = productionCost * (1 + S.WasteRate);
+ 
+-            decimal markup = costWithWaste < MarkupThresholdIls ? MarkupLow : MarkupHigh;
++            decimal markup = costWithWaste < S.MarkupThresholdIls ? S.MarkupLow : S.MarkupHigh;
+             decimal calculatedPrice = Math.Round(costWithWaste * markup, 2, MidpointRounding.AwayFromZero);
+-            bool minApplied = calculatedPrice < MinOrderIls;
+-            decimal priceExVat = minApplied ? MinOrderIls : calculatedPrice;
+-            if (priceExVat > MaxAutoPriceIls)
++            bool minApplied = calculatedPrice < S.MinOrderIls;
++            decimal priceExVat = minApplied ? S.MinOrderIls : calculatedPrice;
++            if (priceExVat > S.MaxAutoPriceIls)
+                 return new CatalogQuoteResponse() { Status = ValidationStatus.ManualQuote, ErrorCode = "" };
+-            decimal vat = Math.Round(priceExVat * VatRate, 2, MidpointRounding.AwayFromZero);
++            decimal vat = Math.Round(priceExVat * S.VatRate, 2, MidpointRounding.AwayFromZero);
+             decimal priceIncVat = priceExVat + vat;
+             decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
+ 
+diff --git a/Services/CatalogSettings.cs b/Services/CatalogSettings.cs
+new file mode 100644
+index 0000000..485b105
+--- /dev/null
++++ b/Services/CatalogSettings.cs
+@@ -0,0 +1,58 @@
++using static PrintABC.Services.CatalogCalculatorService;
++
++namespace PrintABC.Services
++{
++    // Секция "Catalogs" в appsettings.json (ТЗ §3.1). Имена свойств = ключи из ТЗ.
++    public class CatalogSettings
++    {
++        public Dictionary<int, CatalogPaperSettings> Papers { get; set; } = new();          // ключ = граммы
++        public Dictionary<CatalogSize, CatalogFormatSettings> Formats { get; set; } = new(); // ключ = A4/A5/A6
++        public List<CatalogSpiralSettings> Spirals { get; set; } = new();
++        public decimal ClickColorIls { get; set; }
++        public decimal LaminationUsdPerM2 { get; set; }
++        public decimal UsdRateIls { get; set; }
++        public decimal SheetAreaM2 { get; set; }
++        public decimal StaplesPerCopyIls { get; set; }
++        public int PunchSec { get; set; }
++        public int SpiralCloseSec { get; set; }
++        public decimal LaborRateIlsPerHour { get; set; }
++        public decimal WasteRate { get; set; }
++        public decimal MarkupThresholdIls { get; set; }
++        public decimal MarkupLow { get; set; }
++        public decimal MarkupHigh { get; set; }
++        public decimal MinOrderIls { get; set; }
++        public decimal MaxAutoPriceIls { get; set; }
++        public int MaxQuantity { get; set; }
++        public decimal VatRate { get; set; }
++
++        // Проверка при старте: для каждой бумаги и формата из списка продукта есть строка в конфиге
++        public bool IsComplete() =>
++            GetInnerPaperSizes().Concat(GetCoverPaperSizes()).All(Papers.ContainsKey)
++            && Enum.GetValues<CatalogSize>().All(Formats.ContainsKey)
++            && Spirals.Count > 0 && MaxQuantity > 0;
++    }
++
++    public class CatalogPaperSettings
++    {
++        public decimal SheetPriceIls { get; set; }
++        public decimal ThicknessMm { get; set; }
++        public int SheetsPerPunch { get; set; }
++        public int StapleMaxPages { get; set; }   // 0 = нельзя
++        public int SpiralMaxPages { get; set; }   // 0 = нельзя
++    }
++
++    public class CatalogFormatSettings
++    {
++        public int PagesPerSheet { get; set; }
++        public int CoversPerSheet { get; set; }
++        public decimal SpiralLengthFactor { get; set; }
++    }
++
++    public class CatalogSpiralSettings
++    {
++        public string Name { get; set; } = "";
++        public decimal DiameterMm { get; set; }
++        public decimal MaxThicknessMm { get; set; }
++        public decimal PriceA4Ils { get; set; }
++    }
++}
+diff --git a/appsettings.json b/appsettings.json
+index 10f68b8..bb3a037 100644
+--- a/appsettings.json
++++ b/appsettings.json
+@@ -5,5 +5,103 @@
+       "Microsoft.AspNetCore": "Warning"
+     }
+   },
+-  "AllowedHosts": "*"
+-}
++  "AllowedHosts": "*",
++  "Catalogs": {
++    "Papers": {
++      "80": {
++        "SheetPriceIls": 0.091,
++        "ThicknessMm": 0.1,
++        "SheetsPerPunch": 20,
++        "StapleMaxPages": 36,
++        "SpiralMaxPages": 200
++      },
++      "130": {
++        "SheetPriceIls": 0.1485,
++        "ThicknessMm": 0.115,
++        "SheetsPerPunch": 17,
++        "StapleMaxPages": 36,
++        "SpiralMaxPages": 150
++      },
++      "170": {
++        "SheetPriceIls": 0.197,
++        "ThicknessMm": 0.15,
++        "SheetsPerPunch": 13,
++        "StapleMaxPages": 8,
++        "SpiralMaxPages": 120
++      },
++      "250": {
++        "SheetPriceIls": 0.29322,
++        "ThicknessMm": 0.24,
++        "SheetsPerPunch": 8,
++        "StapleMaxPages": 8,
++        "SpiralMaxPages": 60
++      },
++      "300": {
++        "SheetPriceIls": 0.35216,
++        "ThicknessMm": 0.29,
++        "SheetsPerPunch": 6,
++        "StapleMaxPages": 0,
++        "SpiralMaxPages": 60
++      }
++    },
++    "Formats": {
++      "A4": {
++        "PagesPerSheet": 4,
++        "CoversPerSheet": 1,
++        "SpiralLengthFactor": 1
++      },
++      "A5": {
++        "PagesPerSheet": 8,
++        "CoversPerSheet": 2,
++        "SpiralLengthFactor": 0.71
++      },
++      "A6": {
++        "PagesPerSheet": 16,
++        "CoversPerSheet": 4,
++        "SpiralLengthFactor": 0.5
++      }
++    },
++    "Spirals": [
++      {
++        "Name": "3/8",
++        "DiameterMm": 9.5,
++        "MaxThicknessMm": 7,
++        "PriceA4Ils": 0.8
++      },
++      {
++        "Name": "7/16",
++        "DiameterMm": 11,
++        "MaxThicknessMm": 9,
++        "PriceA4Ils": 0.92
++      },
++      {
++        "Name": "9/16",
++        "DiameterMm": 14,
++        "MaxThicknessMm": 12,
++        "PriceA4Ils": 1.1
++      },
++      {
++        "Name": "5/8",
++        "DiameterMm": 16,
++        "MaxThicknessMm": 14,
++        "PriceA4Ils": 1.25
++      }
++    ],
++    "ClickColorIls": 0.13325,
++    "LaminationUsdPerM2": 0.37,
++    "UsdRateIls": 3.3,
++    "SheetAreaM2": 0.16104,
++    "StaplesPerCopyIls": 0.5,
++    "PunchSec": 30,
++    "SpiralCloseSec": 30,
++    "LaborRateIlsPerHour": 200,
++    "WasteRate": 0.1,
++    "MarkupThresholdIls": 200,
++    "MarkupLow": 5,
++    "MarkupHigh": 4.5,
++    "MinOrderIls": 100,
++    "MaxAutoPriceIls": 2000,
++    "MaxQuantity": 100000,
++    "VatRate": 0.18
++  }
++}
+\ No newline at end of file

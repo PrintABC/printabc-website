@@ -1,0 +1,199 @@
+diff --git a/PrintABC.Tests/CatalogCalculatorServiceTests.cs b/PrintABC.Tests/CatalogCalculatorServiceTests.cs
+new file mode 100644
+index 0000000..f96bdf3
+--- /dev/null
++++ b/PrintABC.Tests/CatalogCalculatorServiceTests.cs
+@@ -0,0 +1,133 @@
++using Microsoft.Extensions.Configuration;
++using Microsoft.Extensions.Options;
++using PrintABC.Services;
++using static PrintABC.Utils.Helpers;
++
++namespace PrintABC.Tests;
++
++// Тесты ТЗ §10. Настройки берутся из настоящего appsettings.json (секция Catalogs).
++public class CatalogCalculatorServiceTests
++{
++    private static CatalogSettings LoadSettings() =>
++        new ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
++            .GetSection("Catalogs").Get<CatalogSettings>()!;
++
++    private static CatalogCalculatorService Svc(Action<CatalogSettings>? change = null)
++    {
++        var s = LoadSettings();
++        change?.Invoke(s);
++        return new CatalogCalculatorService(Options.Create(s));
++    }
++
++    // Форма так, как её шлёт браузер. hasCover=false -> поля обложки не передаём.
++    private static CatalogFormInput Input(string format, string binding, string pages, string paper, string qty,
++        string? coverPaper = null, string? coverPrint = null, string? lamination = null) => new()
++    {
++        Format = format, Binding = binding, InnerPageCount = pages, InnerPaper = paper, Quantity = qty,
++        HasCover = coverPaper == null ? "false" : "true",
++        CoverPaper = coverPaper, CoverPrint = coverPrint, Lamination = lamination,
++    };
++
++    private static (string? error, PrintABC.Data.CatalogQuoteResponse? resp) Run(CatalogCalculatorService svc, CatalogFormInput input)
++    {
++        var error = svc.ValidateInput(input, out var req);
++        return error != null ? (error, null) : (null, svc.Calculate(req!));
++    }
++
++    public static TheoryData<string, CatalogFormInput, decimal, decimal> Prices => new()
++    {
++        { "T01", Input("A5", "Staple", "8", "130", "20"), 100.65m, 118.77m },
++        { "T02", Input("A4", "Staple", "12", "130", "100", "250", "44", "None"), 1140.84m, 1346.19m },
++        { "T03", Input("A4", "Spiral", "60", "130", "20", "300", "40", "Matte"), 1423.00m, 1679.14m },
++        { "T04", Input("A4", "Staple", "8", "80", "6"), 100.00m, 118.00m },
++        { "T05", Input("A5", "Staple", "4", "170", "50", "300", "40", "Gloss"), 295.01m, 348.11m },
++        { "T06", Input("A6", "Staple", "16", "130", "200", "250", "44", "Matte"), 1093.05m, 1289.80m },
++        { "T07", Input("A4", "Spiral", "200", "80", "10", "300", "40", "Matte"), 1550.52m, 1829.61m },
++        { "T08", Input("A5", "Spiral", "20", "250", "30", "300", "44", "None"), 1328.08m, 1567.13m },
++        { "T10", Input("A4", "Staple", "12", "130", "78", "250", "44", "None"), 988.72m, 1166.69m },
++        { "T11", Input("A4", "Staple", "12", "130", "79", "250", "44", "None"), 901.26m, 1063.49m },
++    };
++
++    [Theory, MemberData(nameof(Prices))]
++    public void T_prices(string id, CatalogFormInput input, decimal exVat, decimal incVat)
++    {
++        var (error, r) = Run(Svc(), input);
++        Assert.Null(error);
++        Assert.Equal(ValidationStatus.Ready, r!.Status);
++        Assert.Equal(exVat, r.PriceExVatIls);
++        Assert.Equal(incVat, r.PriceIncVatIls);
++        Assert.Equal(id == "T04", r.MinApplied);
++    }
++
++    [Fact]
++    public void T09_manual_quote() =>
++        Assert.Equal(ValidationStatus.ManualQuote,
++            Run(Svc(), Input("A4", "Staple", "36", "130", "150", "300", "40", "Matte")).resp!.Status);
++
++    [Fact]
++    public void T12_too_thick()
++    {
++        // ТЗ: «все MaxThickness = 1 мм». Но T = 20/2 × 0,10 = 1,00 мм, а правило §3.2 п.7 «T ≤ Max» —
++        // ровно 1 мм ещё влезает. Чтобы получить too_thick, берём 0,9 мм (вопрос автору ТЗ).
++        var svc = Svc(s => s.Spirals.ForEach(sp => sp.MaxThicknessMm = 0.9m));
++        var (_, r) = Run(svc, Input("A4", "Spiral", "20", "80", "10"));
++        Assert.Equal("too_thick", r!.ErrorCode);
++    }
++
++    [Fact]
++    public void T13_min_equals_ceiling()
++    {
++        var svc = Svc(s => s.MinOrderIls = 2000);
++        var (_, r) = Run(svc, Input("A5", "Staple", "8", "130", "20"));
++        Assert.Equal(ValidationStatus.Ready, r!.Status);
++        Assert.Equal(2000.00m, r.PriceExVatIls);
++        Assert.Equal(2360.00m, r.PriceIncVatIls);
++        Assert.True(r.MinApplied);
++    }
++
++    public static TheoryData<string, CatalogFormInput, string> Errors => new()
++    {
++        { "V01", Input("A4", "Staple", "10", "130", "100", "250", "44", "None"), "pages_step" },
++        { "V02", Input("A4", "Staple", "4", "130", "100"), "pages_min" },
++        { "V03", Input("A4", "Staple", "40", "130", "100", "250", "44", "None"), "pages_max" },
++        { "V04", Input("A4", "Staple", "12", "170", "100", "250", "44", "None"), "pages_max" },
++        { "V05", Input("A4", "Staple", "8", "300", "100"), "bad_paper" },
++        { "V06", Input("A4", "Spiral", "18", "130", "100"), "pages_min" },
++        { "V07", Input("A4", "Spiral", "21", "130", "100"), "pages_step" },
++        { "V08", Input("A4", "Staple", "12", "130", "5", "250", "44", "None"), "qty_min" },
++        { "V09", Input("A3", "Staple", "12", "130", "100"), "bad_format" },
++        { "V09-num", Input("1", "Staple", "12", "130", "100"), "bad_format" },
++        { "V10", Input("A4", "glue", "12", "130", "100"), "bad_binding" },
++        { "V11-150", Input("A4", "Staple", "12", "150", "100", "250", "44", "None"), "bad_paper" },
++        { "V11-300", Input("A4", "Staple", "8", "300", "100", "250", "44", "None"), "bad_paper" },
++        { "V12-paper", Input("A4", "Staple", "12", "130", "100", "130", "44", "None"), "bad_cover" },
++        { "V12-print", Input("A4", "Staple", "12", "130", "100", "250", "1+0", "None"), "bad_cover" },
++        { "V13", Input("A4", "Staple", "12", "130", "100", "250", "44", "silk"), "bad_lamination" },
++        { "V14-0", Input("A4", "Staple", "12", "130", "0"), "qty_min" },
++        { "V14-neg", Input("A4", "Staple", "12", "130", "-1"), "qty_min" },
++        { "V14-frac", Input("A4", "Staple", "12", "130", "6.5"), "bad_request" },
++        { "V14-abc", Input("A4", "Staple", "12", "130", "abc"), "bad_request" },
++        { "V14-null", Input("A4", "Staple", "12", "130", null!), "bad_request" },
++        { "V14-nopages", Input("A4", "Staple", null!, "130", "100"), "bad_request" },
++        { "V14-pages-frac", Input("A4", "Staple", "12.5", "130", "100"), "bad_request" },
++        { "V15-pages", Input("A4", "Spiral", "62", "300", "10"), "pages_max" },
++        { "V15-qty", Input("A4", "Staple", "12", "130", "100001", "250", "44", "None"), "qty_max" },
++    };
++
++    [Theory, MemberData(nameof(Errors))]
++    public void V_errors(string id, CatalogFormInput input, string expected)
++    {
++        _ = id;
++        Assert.Equal(expected, Svc().ValidateInput(input, out _));
++    }
++
++    [Fact]
++    public void V13_lamination_ignored_without_cover()
++    {
++        var input = Input("A4", "Staple", "12", "130", "100");
++        input.Lamination = "silk"; input.CoverPaper = "999"; input.CoverPrint = "x";
++        var (error, r) = Run(Svc(), input);
++        Assert.Null(error);
++        Assert.Equal(ValidationStatus.Ready, r!.Status);
++    }
++}
+diff --git a/PrintABC.Tests/PrintABC.Tests.csproj b/PrintABC.Tests/PrintABC.Tests.csproj
+new file mode 100644
+index 0000000..84f7762
+--- /dev/null
++++ b/PrintABC.Tests/PrintABC.Tests.csproj
+@@ -0,0 +1,26 @@
++<Project Sdk="Microsoft.NET.Sdk">
++
++  <PropertyGroup>
++    <TargetFramework>net10.0</TargetFramework>
++    <ImplicitUsings>enable</ImplicitUsings>
++    <Nullable>enable</Nullable>
++    <IsPackable>false</IsPackable>
++  </PropertyGroup>
++
++  <ItemGroup>
++    <PackageReference Include="coverlet.collector" Version="6.0.4" />
++    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
++    <PackageReference Include="xunit" Version="2.9.3" />
++    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
++  </ItemGroup>
++
++  <ItemGroup>
++    <ProjectReference Include="..\PrintABC.csproj" />
++    <None Include="..\appsettings.json" Link="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
++  </ItemGroup>
++
++  <ItemGroup>
++    <Using Include="Xunit" />
++  </ItemGroup>
++
++</Project>
+\ No newline at end of file
+diff --git a/PrintABC.csproj b/PrintABC.csproj
+index e9191e6..bd2df65 100644
+--- a/PrintABC.csproj
++++ b/PrintABC.csproj
+@@ -9,6 +9,13 @@
+     <DockerfileContext>.</DockerfileContext>
+   </PropertyGroup>
+ 
++  <ItemGroup>
++    <!-- папка тестов лежит внутри проекта сайта: не компилировать её в сайт -->
++    <Compile Remove="PrintABC.Tests\**" />
++    <Content Remove="PrintABC.Tests\**" />
++    <None Remove="PrintABC.Tests\**" />
++  </ItemGroup>
++
+   <ItemGroup>
+     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.24.2-preview.1" />
+   </ItemGroup>
+diff --git a/PrintABC.slnx b/PrintABC.slnx
+index c863e63..62a066c 100644
+--- a/PrintABC.slnx
++++ b/PrintABC.slnx
+@@ -1,3 +1,4 @@
+ <Solution>
+   <Project Path="PrintABC.csproj" />
++  <Project Path="PrintABC.Tests/PrintABC.Tests.csproj" />
+ </Solution>

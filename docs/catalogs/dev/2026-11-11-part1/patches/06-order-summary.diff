@@ -1,0 +1,64 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 212582a..fe94e81 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -299,7 +299,8 @@
+             <p class="cat-summary">
+                 <strong>@L["your_order"]</strong>
+                 <br>
+-                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> @L["unit"]</span>
++                @* the text is written by updateSummary() in the script below, words come from data-text-* *@
++                <span data-summary="" data-text-page="@L["page"]" data-text-cover="@L["cover"]" data-text-no-cover="@L["no_cover_short"]" data-text-lamination="@L["lamination"]" data-text-unit="@L["unit"]"></span>
+             </p>
+             <div id="valid_prices" data-priced="">
+                 <div class="price-box__row price-box__row--total">
+@@ -618,24 +619,33 @@
+             updateBar();
+         }
+ 
+-        function updateUIElements() {
+-            document.getElementById("format_summary").innerText = document.querySelector("input[name='Format']:checked").value;
+-            document.getElementById("binding_summary").innerText = document.querySelector("input[name='Binding']:checked+span").textContent;
+-            document.getElementById("inner_page_summary").innerText = document.querySelector("input[name='InnerPageCount']").value;
+-            document.getElementById("inner_paper_summary").innerText = document.querySelector("input[name='InnerPaper']:checked+span").textContent;
+-            document.getElementById("cover_paper_summary").innerText = document.querySelector("input[name='CoverPaper']:checked+span").textContent;
+-            let coverprint = document.querySelector("input[name='CoverPrint']:checked").value
+-            document.getElementById("cover_print_summary").innerText = coverprint.slice(0, 1) + "+" + coverprint.slice(1);
+-
+-            if (document.querySelector("input[name='Lamination']:checked").value == "None") {
+-                document.getElementById("lamination_section").setAttribute("hidden", true);
+-            }
+-            else {
+-                document.getElementById("lamination_section").removeAttribute("hidden");
+-                document.getElementById("lamination_summary").innerText = document.querySelector("input[name='Lamination']:checked+span").textContent;
++        //"Your order": A4 · Staple · 12 p. · 130 g · cover 250 g 4+4 · lamination matte · 100 pcs
++        //without a separate cover there is no cover paper, print or lamination, only "no separate cover"
++        function updateSummary() {
++            const summary = document.querySelector('[data-summary]');
++            const text = summary.dataset;
++            const checked = name => form.querySelector(`input[name='${name}']:checked`);
++            const label = name => checked(name).nextElementSibling.textContent;
++
++            const parts = [
++                checked('Format').value,
++                label('Binding'),
++                (pagesInput.value || '—') + ' ' + text.textPage + ' · ' + label('InnerPaper')
++            ];
++            if (checked('HasCover').value == 'true') {
++                const print = checked('CoverPrint').value == '44' ? '4+4' : '4+0';
++                parts.push(text.textCover + ' ' + label('CoverPaper') + ' ' + print);
++                if (checked('Lamination').value != 'None')
++                    parts.push(text.textLamination + ' ' + label('Lamination').toLowerCase());
+             }
++            else
++                parts.push(text.textNoCover);
++            parts.push((document.getElementById('calc-qty').value || '—') + ' ' + text.textUnit);
++            summary.textContent = parts.join(' · ');
++        }
+ 
+-            document.getElementById("quantity_summary").innerText = document.querySelector("input[name='Quantity']").value;
++        function updateUIElements() {
++            updateSummary();
+ 
+             if (document.querySelector("input[name='HasCover']:checked").value != 'true') {
+                 document.getElementById("cat-cover-opts").setAttribute("hidden", true);
