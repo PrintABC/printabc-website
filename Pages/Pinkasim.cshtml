@@ -1,0 +1,303 @@
+﻿@page "/Pinkasim"
+@using System.Globalization
+@model PrintABC.Pages.PinkasimModel
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+
+    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+    var dir = isRtl ? "rtl" : "ltr";
+}
+
+
+<div class="container page-head">
+    <h1>@L["pinkasim_header"]</h1>
+    <p>@L["pinkasim_description"]</p>
+</div>
+
+<div class="container product-layout" id="pk-calc">
+    <div class="product-layout__main product-layout__main--wide">
+        <img class="pk-hero" src="~/img/receipt-books.jpg" alt="@L["pinkasim_img_alt"]" decoding="async">
+        <fieldset class="opt-group pk-kinds">
+            <legend>@L["pinkasim_type"]</legend>
+            <div class="opt-list">
+                <label class="pill pk-kind">
+                    <input autocomplete="off" type="radio" name="kind" value="a5" checked>
+                    <span><strong>A5 </strong><small>@L["type_a5"]</small></span>
+                </label>
+                <label class="pill pk-kind">
+                    <input autocomplete="off" type="radio" name="kind" value="six">
+                    <span><strong>@L["tab_sixes"] </strong><small>@L["type_sixes"]</small></span>
+                </label>
+            </div>
+        </fieldset>
+        <section class="section__stack section__stack--tight" aria-labelledby="tbl-h">
+            <div class="section-head"><h2 id="tbl-h">@L["price_title"] · <span id="pk-kind-name">A5</span></h2><p>@L["select_from_table"]</p></div>
+            <div class="price-table-wrap">
+                <table class="price-table pk-table" data-kind="a5">
+                    <caption class="visually-hidden">@L["price_title"] · A5 — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["pinkasim_header"]</th>
+                            <th scope="col">@L["3_copies"]</th>
+                            <th scope="col">@L["2_copies"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="1">
+                            <th scope="row">1</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="90" aria-pressed="false" aria-label="פנקס אחד · 3 @L["copies"] · 90 ₪">90 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="72" aria-pressed="false" aria-label="פנקס אחד · 2 @L["copies"] · 72 ₪">72 ₪</button></td>
+                        </tr>
+                        <tr data-qty="2">
+                            <th scope="row">2</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="145" aria-pressed="false" aria-label="2 פנקסים · 3 @L["copies"] · 145 ₪">145 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="116" aria-pressed="false" aria-label="2 פנקסים · 2 @L["copies"] · 116 ₪">116 ₪</button></td>
+                        </tr>
+                        <tr data-qty="4" class="is-selected">
+                            <th scope="row">4</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="240" aria-pressed="true" aria-label="4 פנקסים · 3 @L["copies"] · 240 ₪">240 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="192" aria-pressed="false" aria-label="4 פנקסים · 2 @L["copies"] · 192 ₪">192 ₪</button></td>
+                        </tr>
+                        <tr data-qty="10">
+                            <th scope="row">10</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="380" aria-pressed="false" aria-label="10 פנקסים · 3 @L["copies"] · 380 ₪">380 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="304" aria-pressed="false" aria-label="10 פנקסים · 2 @L["copies"] · 304 ₪">304 ₪</button></td>
+                        </tr>
+                        <tr data-qty="20">
+                            <th scope="row">20</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="520" aria-pressed="false" aria-label="20 פנקסים · 3 @L["copies"] · 520 ₪">520 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="416" aria-pressed="false" aria-label="20 פנקסים · 2 @L["copies"] · 416 ₪">416 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table pk-table" data-kind="six" hidden>
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_sixes"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["pinkasim_header"]</th>
+                            <th scope="col">@L["3_copies"]</th>
+                            <th scope="col">@L["2_copies"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="1">
+                            <th scope="row">1</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="145" aria-pressed="false" aria-label="פנקס אחד · 3 @L["copies"] · 145 ₪">145 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="116" aria-pressed="false" aria-label="פנקס אחד · 2 @L["copies"] · 116 ₪">116 ₪</button></td>
+                        </tr>
+                        <tr data-qty="2">
+                            <th scope="row">2</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="240" aria-pressed="false" aria-label="2 פנקסים · 3 @L["copies"] · 240 ₪">240 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="192" aria-pressed="false" aria-label="2 פנקסים · 2 @L["copies"] · 192 ₪">192 ₪</button></td>
+                        </tr>
+                        <tr data-qty="5">
+                            <th scope="row">5</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="420" aria-pressed="false" aria-label="5 פנקסים · 3 @L["copies"] · 420 ₪">420 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="336" aria-pressed="false" aria-label="5 פנקסים · 2 @L["copies"] · 336 ₪">336 ₪</button></td>
+                        </tr>
+                        <tr data-qty="10">
+                            <th scope="row">10</th>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="620" aria-pressed="false" aria-label="10 פנקסים · 3 @L["copies"] · 620 ₪">620 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="496" aria-pressed="false" aria-label="10 פנקסים · 2 @L["copies"] · 496 ₪">496 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="info-card" aria-labelledby="incl-h">
+            <h2 id="incl-h">@L["what_included"]</h2><ul class="check-list">
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_1"]</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_2"]</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_3"]</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_4"] </span></li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_5"]</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_6"]</span></li>
+        </ul>
+    </section>
+</div>
+<section class="product-layout__side product-layout__side--narrow panel panel--raised summary-panel is-sticky" aria-labelledby="sum-h">
+    <h2 id="sum-h">@L["your_order"]</h2>
+    <div class="price-box">
+        <p class="cat-summary">
+            <strong>
+                <span id="pk-sum-kind"><span data-kind="a5">A5</span><span data-kind="six" hidden>@L["tab_sixes"]</span></span> ·
+                <span id="pk-sum-copies"><span data-copies="3">3 @L["copies"]</span><span data-copies="2" hidden>2 @L["copies"]</span></span> ·
+                <span id="pk-sum-qty">4</span> @L["set_50"]
+            </strong>
+        </p>
+        <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="pk-total" aria-live="polite">240 ₪</output></div>
+        <p class="field__hint">@L["inc_vat"]</p>
+        <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
+    </div>
+    <a class="btn btn--whatsapp btn--lg" id="pk-next" href="#" target="_blank" rel="noopener noreferrer"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg><span>@L["next_load_file"]</span></a>
+    <a class="calc__ask" href="https://wa.me/@(PHONE_NUMBER)"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg>@L["question_write_us"]</a>
+</section>
+</div>
+
+<section class="section--surface">
+    <div class="container info-cards">
+        <div class="info-card">
+            <h2>@L["file_requirements"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_1"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_2"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_3"]</span></li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h2>@L["pickup_payment"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["pickup"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["pay"]</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="after-h">
+    <div class="container section__stack">
+        <div class="section-head"><h2 id="after-h">@L["after_order"]</h2></div>
+        <ol class="steps">
+            <li class="step"><span class="step__num" aria-hidden="true">01</span><h3>@L["after_1"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">02</span><h3>@L["after_2"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">03</span><h3>@L["after_3"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">04</span><h3>@L["after_4"]</h3></li>
+        </ol>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        const messageTemplate = @Json.Serialize(L["whatsapp_template"]);
+        const kindTexts = {
+            a5: @Json.Serialize(L["wa_kind_a5"]),
+            six: @Json.Serialize(L["wa_kind_six"]),
+        };
+        const copiesTexts = {
+            "3": @Json.Serialize(L["wa_copies_3"]),
+            "2": @Json.Serialize(L["wa_copies_2"]),
+        };
+        const qtyTexts = {
+            one: @Json.Serialize(L["wa_qty_one"]),
+            few: @Json.Serialize(L["wa_qty_few"]),
+            many: @Json.Serialize(L["wa_qty_many"]),
+            other: @Json.Serialize(L["wa_qty_other"]),
+        };
+
+        const pluralRules = new Intl.PluralRules(@Json.Serialize(currentCulture));
+        const whatsappUrl = @Json.Serialize(WHATSAPP_URL);
+        const kindRadios = document.querySelectorAll('#pk-calc input[name="kind"]');
+        const tables = document.querySelectorAll(".pk-table");
+        const priceButtons = document.querySelectorAll(".pk-table .price-btn");
+        const kindName = document.getElementById("pk-kind-name");
+        const sumKinds = document.querySelectorAll("#pk-sum-kind [data-kind]");
+        const sumCopies = document.querySelectorAll("#pk-sum-copies [data-copies]");
+        const sumQty = document.getElementById("pk-sum-qty");
+        const totalPrice = document.getElementById("pk-total");
+        const whatsappButton = document.getElementById("pk-next");
+
+        let activeTable = getTable(getCheckedKind());
+
+        priceButtons.forEach(x => {
+            x.addEventListener('click', (e) => {
+                selectButton(e.currentTarget);
+                updateDisplayPrice();
+            });
+        });
+
+        kindRadios.forEach(x => {
+            x.addEventListener('change', (e) => {
+                if (e.target.checked)
+                    switchKind(e.target.value);
+            });
+        });
+
+        function getCheckedKind() {
+            const checked = document.querySelector('#pk-calc input[name="kind"]:checked');
+            return checked ? checked.value : kindRadios[0].value;
+        }
+        function getTable(kind) {
+            return document.querySelector(`.pk-table[data-kind="${kind}"]`);
+        }
+        function getSelectedButton(table) {
+            return table.querySelector('.price-btn[aria-pressed="true"]');
+        }
+
+        function selectButton(btn) {
+            const table = btn.closest(".pk-table");
+            table.querySelectorAll(".price-btn").forEach(x => x.setAttribute("aria-pressed", "false"));
+            table.querySelectorAll("tbody tr").forEach(x => x.classList.remove("is-selected"));
+            btn.setAttribute("aria-pressed", "true");
+            btn.closest("tr").classList.add("is-selected");
+        }
+
+        function switchKind(kind) {
+            const prevBtn = getSelectedButton(activeTable);
+            const prevQty = prevBtn ? Number(prevBtn.closest("tr").dataset.qty) : 0;
+            const copies = prevBtn ? prevBtn.dataset.copies : "3";
+
+            tables.forEach(t => t.hidden = t.dataset.kind !== kind);
+            activeTable = getTable(kind);
+
+            const rows = Array.from(activeTable.querySelectorAll("tbody tr"));
+            const row = rows.filter(r => Number(r.dataset.qty) <= prevQty).pop() || rows[0];
+            selectButton(row.querySelector(`.price-btn[data-copies="${copies}"]`));
+
+            const radio = document.querySelector(`#pk-calc input[name="kind"][value="${kind}"]`);
+            kindName.textContent = radio.closest("label").querySelector("strong").textContent;
+
+            updateDisplayPrice();
+        }
+
+        function getSelection() {
+            let btn = getSelectedButton(activeTable);
+            if (!btn) {
+                btn = activeTable.querySelector(".price-btn");
+                selectButton(btn);
+            }
+            return {
+                kind: activeTable.dataset.kind,
+                copies: btn.dataset.copies,
+                qty: Number(btn.closest("tr").dataset.qty),
+                price: Number(btn.dataset.price)
+            };
+        }
+
+        function getQtyText(n) {
+            const t = qtyTexts[pluralRules.select(n)];
+            const text = (t && !t.isResourceNotFound) ? t : qtyTexts.other;
+            return text.value.replaceAll("{n}", n);
+        }
+
+        function updateSummary(sel) {
+            sumKinds.forEach(x => x.hidden = x.dataset.kind !== sel.kind);
+            sumCopies.forEach(x => x.hidden = x.dataset.copies !== sel.copies);
+            sumQty.textContent = sel.qty;
+        }
+
+        function updateWhatsappLink(sel) {
+            let template = messageTemplate.value;
+            const data = {
+                kind: kindTexts[sel.kind].value,
+                copies: copiesTexts[sel.copies].value,
+                qty: getQtyText(sel.qty),
+                price: sel.price,
+            };
+            for (const [key, value] of Object.entries(data)) {
+                template = template.replaceAll(`{${key}}`, value);
+            }
+            whatsappButton.href = whatsappUrl + template;
+        }
+
+        function updateDisplayPrice() {
+            const sel = getSelection();
+            totalPrice.textContent = "" + sel.price + " ₪";
+            updateSummary(sel);
+            updateWhatsappLink(sel);
+        }
+
+        switchKind(getCheckedKind());
+    </script>
+}

@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="2_copies" xml:space="preserve">
+    <value>2 עותקים: לבן, צהוב</value>
+  </data>
+  <data name="3_copies" xml:space="preserve">
+    <value>3 עותקים: לבן, ורוד, צהוב</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>פנקסי קבלות וחשבוניות ממוספרים על נייר כימי, 50 סטים. A5 או 6 בדף A4. החל מ-72 ₪ כולל מע״מ, עד 3 ימי עבודה.</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>הדפסת פנקסים בנתניה — דפוס ABC</value>
+  </data>
+  <data name="pinkasim_description" xml:space="preserve">
+    <value>קבלות, חשבוניות, הזמנות עבודה · נייר כימי · מספור · מחירים כולל מע״מ</value>
+  </data>
+  <data name="pinkasim_header" xml:space="preserve">
+    <value>פנקסים</value>
+  </data>
+  <data name="pinkasim_img_alt" xml:space="preserve">
+    <value>פנקס קבלות עם העתקים לבן, ורוד וצהוב</value>
+  </data>
+  <data name="pinkasim_type" xml:space="preserve">
+    <value>סוג הפנקס</value>
+  </data>
+  <data name="price_title" xml:space="preserve">
+    <value>מחירון</value>
+  </data>
+  <data name="select_from_table" xml:space="preserve">
+    <value>בחרו אפשרות בטבלה · המחיר לכל ההזמנה</value>
+  </data>
+  <data name="tab_sixes" xml:space="preserve">
+    <value>שישיות (6 בדף A4)</value>
+  </data>
+  <data name="type_a5" xml:space="preserve">
+    <value>טופס 14.8×21 ס״מ</value>
+  </data>
+  <data name="type_sixes" xml:space="preserve">
+    <value>טופס 10.5×9.9 ס״מ</value>
+  </data>
+  <data name="what_included" xml:space="preserve">
+    <value>מה כלול</value>
+  </data>
+  <data name="whatsapp_template" xml:space="preserve">
+    <value>שלום! אני רוצה להזמין פנקסים.%0a
+סוג: {kind}%0a
+עותקים בסט: {copies}%0a
+כמות: {qty}, 50 סטים בכל פנקס%0a
+מחיר: {price} ₪ כולל מע״מ%0a
+את קובץ ההדפסה אשלח מיד דרך %0📎 ← "מסמך" (לא "גלריה"). .</value>
+  </data>
+  <data name="wa_kind_a5" xml:space="preserve">
+    <value>A5</value>
+  </data>
+  <data name="wa_kind_six" xml:space="preserve">
+    <value>שישיות (6 בדף A4, טופס 10.5×9.9 ס״מ)</value>
+  </data>
+  <data name="wa_copies_3" xml:space="preserve">
+    <value>3 (לבן, ורוד, צהוב)</value>
+  </data>
+  <data name="wa_copies_2" xml:space="preserve">
+    <value>2 (לבן, צהוב)</value>
+  </data>
+  <data name="wa_qty_one" xml:space="preserve">
+    <value>פנקס אחד</value>
+  </data>
+  <data name="wa_qty_few" xml:space="preserve">
+    <value>{n} פנקסים</value>
+  </data>
+  <data name="wa_qty_many" xml:space="preserve">
+    <value>{n} פנקסים</value>
+  </data>
+  <data name="wa_qty_other" xml:space="preserve">
+    <value>{n} פנקסים</value>
+  </data>
+  <data name="your_order" xml:space="preserve">
+    <value>ההזמנה שלכם</value>
+  </data>
+  <data name="copies" xml:space="preserve">
+    <value>עותקים</value>
+  </data>
+  <data name="set_50" xml:space="preserve">
+    <value>פנקסים, 50 סטים בכל פנקס</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>סה״כ</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>זמן הכנה</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>עד 3 ימי עבודה</value>
+  </data>
+  <data name="inc_vat" xml:space="preserve">
+    <value>כולל מע״מ</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>להזמנה ב-WhatsApp</value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>שאלה? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="incl_1" xml:space="preserve">
+    <value>50 סטים בכל פנקס</value>
+  </data>
+  <data name="incl_2" xml:space="preserve">
+    <value>נייר כימי, מקור לבן</value>
+  </data>
+  <data name="incl_3" xml:space="preserve">
+    <value>מספור וניקוב לתלישה</value>
+  </data>
+  <data name="incl_4" xml:space="preserve">
+    <value>סיכות וכריכת קרטון</value>
+  </data>
+  <data name="incl_5" xml:space="preserve">
+    <value>הדפסה בשחור-לבן</value>
+  </data>
+  <data name="incl_6" xml:space="preserve">
+    <value>את המספר ההתחלתי תציינו ב-WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>דרישות לקובץ</value>
+  </data>
+  <data name="pickup_payment" xml:space="preserve">
+    <value>איסוף ותשלום</value>
+  </data>
+  <data name="file_1" xml:space="preserve">
+    <value>PDF, PNG או JPEG עד 100MB, ‏300 dpi, בגודל הטופס, שחור-לבן</value>
+  </data>
+  <data name="file_2" xml:space="preserve">
+    <value>את המקום למספור ולניקוב נתאים בעצמנו</value>
+  </data>
+  <data name="file_3" xml:space="preserve">
+    <value>אין קובץ? שלחו לוגו ופרטי העסק, נעצב בחינם</value>
+  </data>
+  <data name="pickup" xml:space="preserve">
+    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים.</value>
+  </data>
+  <data name="pay" xml:space="preserve">
+    <value>תשלום באיסוף: מזומן, אשראי, Bit או העברה בנקאית</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>מה קורה אחרי ההזמנה</value>
+  </data>
+  <data name="after_1" xml:space="preserve">
+    <value>בוחרים סוג וכמות</value>
+  </data>
+  <data name="after_2" xml:space="preserve">
+    <value>כותבים ב-WhatsApp: קובץ או לוגו ופרטים, ומספר התחלתי</value>
+  </data>
+  <data name="after_3" xml:space="preserve">
+    <value>מדפיסים תוך עד 3 ימי עבודה</value>
+  </data>
+  <data name="after_4" xml:space="preserve">
+    <value>אוספים מבית הדפוס</value>
+  </data>
+</root>

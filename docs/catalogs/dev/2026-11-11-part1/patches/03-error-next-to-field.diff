@@ -1,0 +1,194 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 4833792..4357d58 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -119,6 +119,67 @@
+             }
+             <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="@pageLimits.Min" max="@pageLimits.Max" step="@pageLimits.Step" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
+             <p class="field__hint" id="pages-hint" data-pages-hint="" data-template="@L.GetString("pages_hint")">@L["pages_hint", pageLimits.Step, pageLimits.Min, pageLimits.Max]</p>
++            @* errors about the page count stand right under the field, so they are seen on a phone too *@
++            <div class="alert alert--error" data-error="pages_step" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_pages_step"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="pages_min" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_pages_min"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="pages_max" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_pages_max"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="too_thick" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_too_thick"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
++            <div class="alert alert--error" data-error="bad_paper" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_bad_paper"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
++            </div>
+         </div>
+         <fieldset class="opt-group" id="g-cover" aria-describedby="g-cover-hint">
+             <legend>@L["separate_cover_label"]</legend>
+@@ -180,81 +241,19 @@
+             <label class="field__label" for="calc-qty">@L["quantity_label"]</label>
+             <input class="field__input field__input--num" id="calc-qty" name="Quantity" type="number" inputmode="numeric" min="6" step="1" value="@Model.Quantity" aria-describedby="q-hint" aria-invalid="false">
+             <p class="field__hint" id="q-hint">@L["quantity_hint"]</p>
+-        </div>
+-        <!--errors-->
+-        <div class="alert alert--error" data-error="pages_step" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_pages_step"]</span>
+-            </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="pages_min" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_pages_min"]</span>
+-            </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="pages_max" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_pages_max"]</span>
+-            </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="qty_min" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_qty_min"]</span>
+-            </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="too_thick" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_too_thick"]</span>
+-            </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+-        </div>
+-        <div class="alert alert--error" data-error="bad_paper" role="alert" hidden="">
+-            <div class="alert__row">
+-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+-                    <circle cx="12" cy="12" r="9">
+-                    </circle>
+-                    <path d="M12 11v6M12 7.5v.5">
+-                    </path>
+-                </svg>
+-                <span>@L["error_bad_paper"]</span>
++            <div class="alert alert--error" data-error="qty_min" role="alert" hidden="">
++                <div class="alert__row">
++                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                        <circle cx="12" cy="12" r="9">
++                        </circle>
++                        <path d="M12 11v6M12 7.5v.5">
++                        </path>
++                    </svg>
++                    <span>@L["error_qty_min"]</span>
++                </div>
++                <a href="https://wa.me/972508494172">@L["special_description"]</a>
+             </div>
+-            <a href="https://wa.me/972508494172">@L["special_description"]</a>
+         </div>
+-        <!--errors-->
+         <div class="price-box">
+             <p class="cat-summary">
+                 <strong>@L["your_order"]</strong>
+@@ -405,8 +404,19 @@
+ 
+         const errorAlerts = form.querySelectorAll('.alert--error');
+ 
++        const qtyInput = document.getElementById('calc-qty');
++
+         function hideAllErrors() {
+             errorAlerts.forEach(alert => alert.hidden = true);
++            pagesInput.setAttribute('aria-invalid', 'false');
++            qtyInput.setAttribute('aria-invalid', 'false');
++        }
++
++        //shows the error under its field and paints the field red
++        function showError(alert) {
++            alert.hidden = false;
++            const input = alert.closest('.field')?.querySelector('input');
++            input?.setAttribute('aria-invalid', 'true');
+         }
+ 
+         function toggleInvalidPrices(state) {
+@@ -535,7 +545,7 @@
+                     else {
+                         if (targetError || result.data.errorCode == "generic") {
+                             if (targetError)
+-                                targetError.hidden = false; //unhide the correct error message
++                                showError(targetError); //unhide the correct error message
+                             toggleInvalidPrices(true);
+                             //disable "next" button and clear price outputs
+                             setSend(false);

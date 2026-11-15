@@ -1,0 +1,285 @@
+{
+ "product": "pinkasim",
+ "source": "docs/pinkasim/tz.md v1.0 §7",
+ "path": "/pinkasim",
+ "cases": [
+  {
+   "id": "T01",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "1"
+   },
+   "status": "Ready",
+   "show": 90
+  },
+  {
+   "id": "T02",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "10"
+   },
+   "status": "Ready",
+   "show": 380
+  },
+  {
+   "id": "T03",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "20"
+   },
+   "status": "Ready",
+   "show": 520
+  },
+  {
+   "id": "T04",
+   "form": {
+    "Type": "A5",
+    "Copies": "2",
+    "Quantity": "1"
+   },
+   "status": "Ready",
+   "show": 72
+  },
+  {
+   "id": "T05",
+   "form": {
+    "Type": "A5",
+    "Copies": "2",
+    "Quantity": "10"
+   },
+   "status": "Ready",
+   "show": 304
+  },
+  {
+   "id": "T06",
+   "form": {
+    "Type": "A5",
+    "Copies": "2",
+    "Quantity": "20"
+   },
+   "status": "Ready",
+   "show": 416
+  },
+  {
+   "id": "T07",
+   "form": {
+    "Type": "Sixes",
+    "Copies": "3",
+    "Quantity": "1"
+   },
+   "status": "Ready",
+   "show": 145
+  },
+  {
+   "id": "T08",
+   "form": {
+    "Type": "Sixes",
+    "Copies": "3",
+    "Quantity": "10"
+   },
+   "status": "Ready",
+   "show": 620
+  },
+  {
+   "id": "T09",
+   "form": {
+    "Type": "Sixes",
+    "Copies": "2",
+    "Quantity": "5"
+   },
+   "status": "Ready",
+   "show": 336
+  },
+  {
+   "id": "T10",
+   "form": {
+    "Type": "Sixes",
+    "Copies": "2",
+    "Quantity": "2"
+   },
+   "status": "Ready",
+   "show": 192
+  },
+  {
+   "id": "V01",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "3"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_not_allowed"
+   ]
+  },
+  {
+   "id": "V02",
+   "form": {
+    "Type": "Sixes",
+    "Copies": "3",
+    "Quantity": "4"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_not_allowed"
+   ]
+  },
+  {
+   "id": "V03",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "5"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_not_allowed"
+   ]
+  },
+  {
+   "id": "V04a",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "0"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_not_allowed"
+   ]
+  },
+  {
+   "id": "V04b",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "-1"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_not_allowed"
+   ]
+  },
+  {
+   "id": "V05a",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "abc"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_int"
+   ]
+  },
+  {
+   "id": "V05b",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "2.5"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_int"
+   ]
+  },
+  {
+   "id": "V05c",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": ""
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_int"
+   ]
+  },
+  {
+   "id": "V06a",
+   "form": {
+    "Type": "A4",
+    "Copies": "3",
+    "Quantity": "1"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_type"
+   ]
+  },
+  {
+   "id": "V06b",
+   "form": {
+    "Copies": "3",
+    "Quantity": "1"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_type"
+   ]
+  },
+  {
+   "id": "V07a",
+   "form": {
+    "Type": "A5",
+    "Copies": "4",
+    "Quantity": "1"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_copies"
+   ]
+  },
+  {
+   "id": "V07b",
+   "form": {
+    "Type": "A5",
+    "Copies": "1",
+    "Quantity": "1"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_copies"
+   ]
+  },
+  {
+   "id": "V07c",
+   "form": {
+    "Type": "A5",
+    "Quantity": "1"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "bad_copies"
+   ]
+  },
+  {
+   "id": "V08",
+   "form": {
+    "Type": "A4",
+    "Copies": "3",
+    "Quantity": "abc"
+   },
+   "status": "ValidationError",
+   "codes": [
+    "qty_int"
+   ]
+  },
+  {
+   "id": "V09",
+   "form": {
+    "Type": "A5",
+    "Copies": "3",
+    "Quantity": "4",
+    "priceIncVatIls": "1",
+    "Extra": "x"
+   },
+   "status": "Ready",
+   "show": 240
+  }
+ ]
+}

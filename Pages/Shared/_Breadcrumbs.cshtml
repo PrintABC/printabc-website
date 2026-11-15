@@ -1,0 +1,20 @@
+﻿
+@{
+    var rawPath = Context.Request.Path.Value?.ToLower() ?? "/";
+    var cleanPath = rawPath.StartsWith("/ru") ? rawPath.Substring(3) : rawPath;
+    cleanPath = cleanPath.TrimStart('/').ToLower();
+    // List<string> pages = cleanPath.Split('/').ToList();
+
+}
+@*Breadcrumbs only on non homepage pages *@
+@if (cleanPath.Length > 2)
+{
+    <div class="container page-head">
+    <nav class="breadcrumbs" aria-label="@L["aria"]">
+        <ol>
+            <li><a href="/">@L["home"]</a></li>
+            <li aria-current="page">@L[cleanPath]</li>
+        </ol>
+    </nav>
+</div>
+}

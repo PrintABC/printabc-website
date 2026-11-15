@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="all_products" xml:space="preserve">
+    <value>Вся продукция</value>
+  </data>
+  <data name="calc_stickers" xml:space="preserve">
+    <value>Рассчитать цену наклеек</value>
+  </data>
+  <data name="hero_header" xml:space="preserve">
+    <value>Наклейки любой формы — цена сразу онлайн</value>
+  </data>
+  <data name="hero_lead" xml:space="preserve">
+    <value>Выберите материал, форму, размер и тираж — цена с НДС сразу. Заказ на сайте 24/7.</value>
+  </data>
+  <data name="proof" xml:space="preserve">
+    <value>Перед печатью — фото или видео пробного оттиска на ваше утверждение</value>
+  </data>
+  <data name="ready_in" xml:space="preserve">
+    <value>Готово от 1 рабочего дня</value>
+  </data>
+  <data name="since" xml:space="preserve">
+    <value>С 2001 года</value>
+  </data>
+  <data name="since_text" xml:space="preserve">
+    <value>Семейная типография в Нетании · с 2001 года</value>
+  </data>
+  <data name="stickers_image_hero" xml:space="preserve">
+    <value>Наклейки разных форм и цветов на листе</value>
+  </data>
+  <data name="rus_heb" xml:space="preserve">
+    <value>Иврит и Русский</value>
+  </data>
+  <data name="talk_whatsapp" xml:space="preserve">
+    <value>Общаемся на удобном вам языке — по телефону, в WhatsApp и по почте.</value>
+  </data>
+  <data name="ready_depends" xml:space="preserve">
+    <value>Срок зависит от продукта и тиража.</value>
+  </data>
+  <data name="collect_print" xml:space="preserve">
+    <value>Самовывоз из типографии</value>
+  </data>
+  <data name="collect_address" xml:space="preserve">
+    <value>Бесплатно, ул. Штампфер 5, Нетания — в часы работы.</value>
+  </data>
+  <data name="order_site" xml:space="preserve">
+    <value>Заказ на сайте 24/7</value>
+  </data>
+  <data name="order_description" xml:space="preserve">
+    <value>Рассчитать, загрузить макет и отправить — даже вне рабочих часов.</value>
+  </data>
+  <data name="our_products" xml:space="preserve">
+    <value>Наша продукция</value>
+  </data>
+  <data name="minimum_price_incl" xml:space="preserve">
+    <value>Цены с НДС · минимальный заказ 118 ₪</value>
+  </data>
+  <data name="stickers" xml:space="preserve">
+    <value>Наклейки</value>
+  </data>
+  <data name="stickers_description" xml:space="preserve">
+    <value>Бумажные или пластиковые — круглые, прямоугольные, фигурные.</value>
+  </data>
+  <data name="price_calculator_badge" xml:space="preserve">
+    <value>Калькулятор цены</value>
+  </data>
+  <data name="more_details" xml:space="preserve">
+    <value>Подробнее и цена </value>
+  </data>
+  <data name="price_table_badge" xml:space="preserve">
+    <value>Таблица цен</value>
+  </data>
+  <data name="business_cards" xml:space="preserve">
+    <value>Визитки</value>
+  </data>
+  <data name="business_cards_description" xml:space="preserve">
+    <value>Односторонние и двусторонние, ламинация, скруглённые углы.</value>
+  </data>
+  <data name="print_events" xml:space="preserve">
+    <value>Брендинг и печать для мероприятий</value>
+  </data>
+  <data name="print_events_description" xml:space="preserve">
+    <value>Приглашения, открытки и меню для свадеб, бар/бат-мицв и любых событий.</value>
+  </data>
+  <data name="pinkasim_description" xml:space="preserve">
+    <value>Книжки квитанций, счетов и заказ-нарядов с нумерацией.</value>
+  </data>
+  <data name="pinkasim" xml:space="preserve">
+    <value>Бухгалтерские книжки</value>
+  </data>
+  <data name="envelopes" xml:space="preserve">
+    <value>Конверты</value>
+  </data>
+  <data name="envelopes_description" xml:space="preserve">
+    <value>Фирменные конверты с логотипом и адресом, любых размеров.</value>
+  </data>
+  <data name="catalogs" xml:space="preserve">
+    <value>Каталоги</value>
+  </data>
+  <data name="catalogs_description" xml:space="preserve">
+    <value>Каталоги и брошюры — цена сразу в калькуляторе.</value>
+  </data>
+  <data name="rollups" xml:space="preserve">
+    <value>Ролл-апы</value>
+  </data>
+  <data name="rollups_description" xml:space="preserve">
+    <value>Ролл-ап со стендом — для выставок, магазинов и мероприятий.</value>
+  </data>
+  <data name="banners" xml:space="preserve">
+    <value>Баннеры</value>
+  </data>
+  <data name="banners_description" xml:space="preserve">
+    <value>Широкоформатные баннеры — цена сразу в калькуляторе.</value>
+  </data>
+  <data name="how_to_order" xml:space="preserve">
+    <value>Как заказать</value>
+  </data>
+  <data name="approve_sample" xml:space="preserve">
+    <value>Утверждаете пробу</value>
+  </data>
+  <data name="approve_sample_description" xml:space="preserve">
+    <value>Пришлём фото или видео в WhatsApp. Печатаем после одобрения.</value>
+  </data>
+  <data name="collect_order" xml:space="preserve">
+    <value>Забираете в типографии</value>
+  </data>
+  <data name="collect_order_description" xml:space="preserve">
+    <value>Заказ готов — бесплатно забираете на ул. Штампфер 5, Нетания.</value>
+  </data>
+  <data name="pick_calculate" xml:space="preserve">
+    <value>Выбираете и считаете</value>
+  </data>
+  <data name="pick_calculate_description" xml:space="preserve">
+    <value>Продукт и параметры — цена с НДС сразу.</value>
+  </data>
+  <data name="send_file" xml:space="preserve">
+    <value>Загружаете макет</value>
+  </data>
+  <data name="send_file_description" xml:space="preserve">
+    <value>PDF, PNG или JPEG до 100 МБ. Подтверждение придёт на e-mail.</value>
+  </data>
+  <data name="pay_line" xml:space="preserve">
+    <value>Оплата вне сайта: наличные, карта, Bit или банковский перевод.</value>
+  </data>
+  <data name="what_clients_say" xml:space="preserve">
+    <value>Что говорят клиенты</value>
+  </data>
+  <data name="reviews_count" xml:space="preserve">
+    <value>13 отзывов в Google</value>
+  </data>
+  <data name="all_google_reviews" xml:space="preserve">
+    <value>Все отзывы в Google </value>
+  </data>
+  <data name="review_1_text" xml:space="preserve">
+    <value>«Спасибо большое, отличный сервис на очень высоком уровне.»</value>
+  </data>
+  <data name="review_1_author" xml:space="preserve">
+    <value>Artem Y · Google</value>
+  </data>
+  <data name="review_2_text" xml:space="preserve">
+    <value>«Прекрасный сервис, потрясающее качество!»</value>
+  </data>
+  <data name="review_2_author" xml:space="preserve">
+    <value>Oren Grinfeld · Google</value>
+  </data>
+  <data name="review_3_text" xml:space="preserve">
+    <value>«Отличный и быстрый сервис, горячо рекомендую.»</value>
+  </data>
+  <data name="review_3_author" xml:space="preserve">
+    <value>Мири Хорам · Google</value>
+  </data>
+  <data name="reviews_translated_note" xml:space="preserve">
+    <value>Отзывы переведены с иврита.</value>
+  </data>
+  <data name="about_photo_alt" xml:space="preserve">
+    <value>Семья PrintABC в типографии в Нетании</value>
+  </data>
+  <data name="about_photo_caption" xml:space="preserve">
+    <value>Это мы — PrintABC</value>
+  </data>
+  <data name="since_badge_small" xml:space="preserve">
+    <value>с</value>
+  </data>
+  <data name="about_eyebrow" xml:space="preserve">
+    <value>Кто мы</value>
+  </data>
+  <data name="about_header" xml:space="preserve">
+    <value>Семейная типография с 2001 года</value>
+  </data>
+  <data name="about_text_1" xml:space="preserve">
+    <value>PrintABC — семейная типография в Нетании. С 2001 года печатаем для частных предпринимателей, бизнеса и частных клиентов — и лично знаем тех, кто у нас заказывает.</value>
+  </data>
+  <data name="checklist_1" xml:space="preserve">
+    <value>Печатаем сами — в своей типографии в Нетании</value>
+  </data>
+  <data name="checklist_2" xml:space="preserve">
+    <value>Проверяем каждый файл перед печатью</value>
+  </data>
+  <data name="checklist_3" xml:space="preserve">
+    <value>Общаемся напрямую — на иврите или по-русски</value>
+  </data>
+  <data name="contact_header" xml:space="preserve">
+    <value>Как нас найти</value>
+  </data>
+  <data name="address_label" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="address_value" xml:space="preserve">
+    <value>ул. Штампфер 5, Нетания</value>
+  </data>
+  <data name="waze_nav" xml:space="preserve">
+    <value>Маршрут в Waze </value>
+  </data>
+  <data name="hours_label" xml:space="preserve">
+    <value>Часы работы</value>
+  </data>
+  <data name="hours_value" xml:space="preserve">
+    <value>Вс–Чт  </value>
+  </data>
+  <data name="hours_sub" xml:space="preserve">
+    <value>Заказ на сайте — круглосуточно</value>
+  </data>
+  <data name="phone_label" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="whatsapp_label" xml:space="preserve">
+    <value>WhatsApp</value>
+  </data>
+  <data name="email_label" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="map_caption" xml:space="preserve">
+    <value>Карта Google: ул. Штампфер 5, Нетания</value>
+  </data>
+  <data name="logo_text" xml:space="preserve">
+    <value>PrintABC</value>
+  </data>
+  <data name="footer_subtitle" xml:space="preserve">
+    <value>Семейная типография в Нетании</value>
+  </data>
+  <data name="footer_since" xml:space="preserve">
+    <value>С 2001 года</value>
+  </data>
+  <data name="footer_products_heading" xml:space="preserve">
+    <value>Продукция</value>
+  </data>
+  <data name="footer_info_heading" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="footer_contact_heading" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="footer_info_about" xml:space="preserve">
+    <value>О компании</value>
+  </data>
+  <data name="footer_info_file_req" xml:space="preserve">
+    <value>Требования к макетам</value>
+  </data>
+  <data name="footer_info_order_terms" xml:space="preserve">
+    <value>Условия заказа</value>
+  </data>
+  <data name="footer_info_terms" xml:space="preserve">
+    <value>Условия использования</value>
+  </data>
+  <data name="footer_info_privacy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="footer_info_accessibility" xml:space="preserve">
+    <value>Заявление о доступности</value>
+  </data>
+  <data name="copyright" xml:space="preserve">
+    <value>PrintABC. Все права защищены.</value>
+  </data>
+  <data name="wa_aria" xml:space="preserve">
+    <value>Написать в WhatsApp</value>
+  </data>
+  <data name="call_aria" xml:space="preserve">
+    <value>Позвонить</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>PrintABC — наклейки и печать в Нетании</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>Выберите материал, форму, размер и тираж — цена с НДС сразу. Заказ на сайте 24/7.</value>
+  </data>
+</root>

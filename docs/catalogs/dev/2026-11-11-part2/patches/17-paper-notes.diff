@@ -1,0 +1,87 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index cfc544e..aedc913 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -105,12 +105,15 @@
+         </fieldset>
+         <fieldset class="opt-group" id="g-paper" aria-describedby="g-paper-hint">
+             <legend>@L["innerpaper_label"]</legend>
+-            <div class="opt-list">
++            @* one option per line, a short note under its name (decision 11.11.2026);
++               the name stays the first <span> after the input: the script reads it for the summary and the preview *@
++            <div class="opt-list opt-list--stack">
+                 @foreach (int item in GetInnerPaperSizes())
+                 {
+                     <label class="pill">
+                         <input type="radio" name="InnerPaper" value="@item" checked="@(Model.InnerPaper == item)">
+                         <span>@L[$"innerpaper_{item}"]</span>
++                        <small class="pill__note">@L[$"paper_note_{item}"]</small>
+                     </label>
+                 }
+             </div>
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 62ba902..0fd9a27 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -450,4 +450,19 @@
+   <data name="msg_paper_coated" xml:space="preserve">
+     <value>כרומו מט {0} גרם</value>
+   </data>
++  <data name="paper_note_80" xml:space="preserve">
++    <value>כמו נייר משרדי, לחוברות פנימיות</value>
++  </data>
++  <data name="paper_note_130" xml:space="preserve">
++    <value>עבה יותר, סטנדרט לקטלוגים ומגזינים</value>
++  </data>
++  <data name="paper_note_170" xml:space="preserve">
++    <value>נייר עבה, לקטלוגים ותפריטים מכובדים</value>
++  </data>
++  <data name="paper_note_250" xml:space="preserve">
++    <value>כמעט קרטון, לחוברות דקות</value>
++  </data>
++  <data name="paper_note_300" xml:space="preserve">
++    <value>קרטון, לספירלה בלבד</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 7724a39..99a10eb 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -450,4 +450,19 @@
+   <data name="msg_paper_coated" xml:space="preserve">
+     <value>мелованная матовая {0} г</value>
+   </data>
++  <data name="paper_note_80" xml:space="preserve">
++    <value>Как офисная, для внутренних брошюр</value>
++  </data>
++  <data name="paper_note_130" xml:space="preserve">
++    <value>Плотнее офисной, стандарт для каталогов и журналов</value>
++  </data>
++  <data name="paper_note_170" xml:space="preserve">
++    <value>Плотная, для солидных каталогов и меню</value>
++  </data>
++  <data name="paper_note_250" xml:space="preserve">
++    <value>Почти картон, для тонких брошюр</value>
++  </data>
++  <data name="paper_note_300" xml:space="preserve">
++    <value>Картон, только для спирали</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/wwwroot/css/pages.css b/wwwroot/css/pages.css
+index 5a464ab..5d43a6f 100644
+--- a/wwwroot/css/pages.css
++++ b/wwwroot/css/pages.css
+@@ -346,3 +346,11 @@
+ }
+ /* "For 250 g with staple the maximum is 12 p. — changed 32 → 12." under the page field */
+ .cat-autofix { color: var(--c-accent-ink); font-weight: 600; }
++/* Paper of the block: one option per line with a short note under the name */
++.opt-list--stack { flex-direction: column; }
++.opt-list--stack .pill { flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; padding: 8px 16px; border-radius: var(--r-md); }
++.opt-list--stack .pill:has(input:checked) { padding: 7px 15px; }
++.pill__note { font-weight: 400; font-size: var(--fs-hint); line-height: 1.35; color: var(--c-muted); }
++/* a disabled option: only the name is crossed out, the note says why ("only for spiral") */
++.opt-list--stack .pill--disabled { text-decoration: none; }
++.opt-list--stack .pill--disabled > span { text-decoration: line-through; }

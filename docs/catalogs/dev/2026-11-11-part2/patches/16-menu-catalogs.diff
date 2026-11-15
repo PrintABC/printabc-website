@@ -1,0 +1,38 @@
+diff --git a/Pages/Shared/_Header.cshtml b/Pages/Shared/_Header.cshtml
+index bf5203f..d30be42 100644
+--- a/Pages/Shared/_Header.cshtml
++++ b/Pages/Shared/_Header.cshtml
+@@ -53,6 +53,7 @@
+   <nav class="mobile-menu" id="mobile-menu" aria-label="@L["main_navigation"]" hidden>
+     <a href="/stickers">@L["stickers"]</a>
+     <a href="/business-cards">@L["business_cards"]</a>
++    <a href="/catalogs">@L["catalogs"]</a>
+     <a href="/#products">@L["all_products"]</a>
+     <a href="/#how">@L["how_order"]</a>
+     <a href="/#reviews">@L["reviews"]</a>
+diff --git a/Resources/Pages/Shared/_Header.he.resx b/Resources/Pages/Shared/_Header.he.resx
+index 10a1c13..0890dd5 100644
+--- a/Resources/Pages/Shared/_Header.he.resx
++++ b/Resources/Pages/Shared/_Header.he.resx
+@@ -180,4 +180,7 @@
+   <data name="business-cards" xml:space="preserve">
+     <value>כרטיסי ביקור</value>
+   </data>
++  <data name="catalogs" xml:space="preserve">
++    <value>קטלוגים</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Shared/_Header.ru.resx b/Resources/Pages/Shared/_Header.ru.resx
+index cb811de..2c055d3 100644
+--- a/Resources/Pages/Shared/_Header.ru.resx
++++ b/Resources/Pages/Shared/_Header.ru.resx
+@@ -180,4 +180,7 @@
+   <data name="business-cards" xml:space="preserve">
+     <value>Визитки</value>
+   </data>
++  <data name="catalogs" xml:space="preserve">
++    <value>Каталоги</value>
++  </data>
+ </root>
+\ No newline at end of file
