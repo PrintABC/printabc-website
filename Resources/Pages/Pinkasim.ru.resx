@@ -259,18 +259,6 @@
   <data name="kind_six" xml:space="preserve">
     <value>Шестёрки</value>
   </data>
-  <data name="books_one" xml:space="preserve">
-    <value>{0} книжка</value>
-    <comment>{0} = число книжек. Используется в PinkasimModel.BooksText (склонение).</comment>
-  </data>
-  <data name="books_few" xml:space="preserve">
-    <value>{0} книжки</value>
-    <comment>{0} = число книжек. Используется в PinkasimModel.BooksText (склонение).</comment>
-  </data>
-  <data name="books_many" xml:space="preserve">
-    <value>{0} книжек</value>
-    <comment>{0} = число книжек. Используется в PinkasimModel.BooksText (склонение).</comment>
-  </data>
   <data name="qty_line" xml:space="preserve">
     <value>{0} по 50 комплектов</value>
     <comment>{0} = «4 книжки». Строка в «Ваш заказ» и в WhatsApp</comment>
@@ -301,5 +289,24 @@
   <data name="error_not_found" xml:space="preserve">
     <value>Не удалось рассчитать цену. Выберите вариант в таблице или напишите нам в WhatsApp.</value>
     <comment>ТЗ §4</comment>
+  </data>
+  <data name="books_1" xml:space="preserve">
+    <value>1 книжка</value>
+    <comment>Количество книжек уже склонённое. Одна строка на каждое количество из таблицы — склонять в коде не нужно.</comment>
+  </data>
+  <data name="books_2" xml:space="preserve">
+    <value>2 книжки</value>
+  </data>
+  <data name="books_4" xml:space="preserve">
+    <value>4 книжки</value>
+  </data>
+  <data name="books_5" xml:space="preserve">
+    <value>5 книжек</value>
+  </data>
+  <data name="books_10" xml:space="preserve">
+    <value>10 книжек</value>
+  </data>
+  <data name="books_20" xml:space="preserve">
+    <value>20 книжек</value>
   </data>
 </root>

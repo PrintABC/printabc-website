@@ -258,18 +258,6 @@
   <data name="kind_six" xml:space="preserve">
     <value>שישיות</value>
   </data>
-  <data name="books_one" xml:space="preserve">
-    <value>פנקס אחד</value>
-    <comment>Без числа — так говорят на иврите</comment>
-  </data>
-  <data name="books_few" xml:space="preserve">
-    <value>{0} פנקסים</value>
-    <comment>{0} = число книжек. Используется в PinkasimModel.BooksText (склонение).</comment>
-  </data>
-  <data name="books_many" xml:space="preserve">
-    <value>{0} פנקסים</value>
-    <comment>{0} = число книжек. Используется в PinkasimModel.BooksText (склонение).</comment>
-  </data>
   <data name="qty_line" xml:space="preserve">
     <value>{0}, 50 סטים בכל פנקס</value>
   </data>
@@ -296,5 +284,24 @@
   </data>
   <data name="error_not_found" xml:space="preserve">
     <value>לא הצלחנו לחשב מחיר. בחרו אפשרות בטבלה או כתבו לנו ב-WhatsApp.</value>
+  </data>
+  <data name="books_1" xml:space="preserve">
+    <value>פנקס אחד</value>
+    <comment>Количество книжек уже склонённое. Одна строка на каждое количество из таблицы — склонять в коде не нужно.</comment>
+  </data>
+  <data name="books_2" xml:space="preserve">
+    <value>2 פנקסים</value>
+  </data>
+  <data name="books_4" xml:space="preserve">
+    <value>4 פנקסים</value>
+  </data>
+  <data name="books_5" xml:space="preserve">
+    <value>5 פנקסים</value>
+  </data>
+  <data name="books_10" xml:space="preserve">
+    <value>10 פנקסים</value>
+  </data>
+  <data name="books_20" xml:space="preserve">
+    <value>20 פנקסים</value>
   </data>
 </root>
