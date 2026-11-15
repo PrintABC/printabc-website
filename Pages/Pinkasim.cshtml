@@ -120,13 +120,7 @@
 <section class="product-layout__side product-layout__side--narrow panel panel--raised summary-panel is-sticky" aria-labelledby="sum-h">
     <h2 id="sum-h">@L["your_order"]</h2>
     <div class="price-box">
-        <p class="cat-summary">
-            <strong>
-                <span id="pk-sum-kind"><span data-kind="a5">A5</span><span data-kind="six" hidden>@L["tab_sixes"]</span></span> ·
-                <span id="pk-sum-copies"><span data-copies="3">3 @L["copies"]</span><span data-copies="2" hidden>2 @L["copies"]</span></span> ·
-                <span id="pk-sum-qty">4</span> @L["set_50"]
-            </strong>
-        </p>
+        <p class="cat-summary"><strong id="pk-sum-text"></strong></p>
         <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="pk-total" aria-live="polite">240 ₪</output></div>
         <p class="field__hint">@L["inc_vat"]</p>
         <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
@@ -192,9 +186,10 @@
         const tables = document.querySelectorAll(".pk-table");
         const priceButtons = document.querySelectorAll(".pk-table .price-btn");
         const kindName = document.getElementById("pk-kind-name");
-        const sumKinds = document.querySelectorAll("#pk-sum-kind [data-kind]");
-        const sumCopies = document.querySelectorAll("#pk-sum-copies [data-copies]");
-        const sumQty = document.getElementById("pk-sum-qty");
+        const summaryLine = @Json.Serialize(L["summary_line"]);
+        const sumKind = { a5: @Json.Serialize(L["sum_kind_a5"]), six: @Json.Serialize(L["sum_kind_six"]) };
+        const sumCopies = { "3": @Json.Serialize(L["sum_copies_3"]), "2": @Json.Serialize(L["sum_copies_2"]) };
+        const sumText = document.getElementById("pk-sum-text");
         const totalPrice = document.getElementById("pk-total");
         const whatsappButton = document.getElementById("pk-next");
 
@@ -272,9 +267,10 @@
         }
 
         function updateSummary(sel) {
-            sumKinds.forEach(x => x.hidden = x.dataset.kind !== sel.kind);
-            sumCopies.forEach(x => x.hidden = x.dataset.copies !== sel.copies);
-            sumQty.textContent = sel.qty;
+            sumText.textContent = summaryLine.value
+                .replace("{qty}", getQtyText(sel.qty))
+                .replace("{kind}", sumKind[sel.kind].value)
+                .replace("{copies}", sumCopies[sel.copies].value);
         }
 
         function updateWhatsappLink(sel) {

@@ -197,8 +197,8 @@
   <data name="copies" xml:space="preserve">
     <value>עותקים</value>
   </data>
-  <data name="set_50" xml:space="preserve">
-    <value>פנקסים, 50 סטים בכל פנקס</value>
+  <data name="summary_line" xml:space="preserve">
+    <value>{qty} בגודל {kind}, {copies}, 50 סטים בפנקס</value>
   </data>
   <data name="total" xml:space="preserve">
     <value>סה״כ</value>
@@ -271,5 +271,17 @@
   </data>
   <data name="after_4" xml:space="preserve">
     <value>אוספים מבית הדפוס</value>
+  </data>
+  <data name="sum_kind_a5" xml:space="preserve">
+    <value>אי5</value>
+  </data>
+  <data name="sum_kind_six" xml:space="preserve">
+    <value>שישיות (6 בדף A4)</value>
+  </data>
+  <data name="sum_copies_3" xml:space="preserve">
+    <value>מקור + 2 עותקים</value>
+  </data>
+  <data name="sum_copies_2" xml:space="preserve">
+    <value>מקור + עותק</value>
   </data>
 </root>

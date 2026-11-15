@@ -197,8 +197,8 @@
   <data name="copies" xml:space="preserve">
     <value>листа</value>
   </data>
-  <data name="set_50" xml:space="preserve">
-    <value>Книжек, 50 комплектов в книжке</value>
+  <data name="summary_line" xml:space="preserve">
+    <value>{kind} · {copies} · {qty} по 50 комплектов</value>
   </data>
   <data name="total" xml:space="preserve">
     <value>Итого</value>
@@ -271,5 +271,17 @@
   </data>
   <data name="after_4" xml:space="preserve">
     <value>Забираете в типографии</value>
+  </data>
+  <data name="sum_kind_a5" xml:space="preserve">
+    <value>A5</value>
+  </data>
+  <data name="sum_kind_six" xml:space="preserve">
+    <value>Шестёрки</value>
+  </data>
+  <data name="sum_copies_3" xml:space="preserve">
+    <value>3 листа</value>
+  </data>
+  <data name="sum_copies_2" xml:space="preserve">
+    <value>2 листа</value>
   </data>
 </root>
