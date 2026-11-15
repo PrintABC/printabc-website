@@ -157,7 +157,6 @@
         roundInc.style.display = "none";
         oneside.style.display = "none";
 
-
         priceButtons.forEach(x => {
             x.addEventListener('click', (e) => {
                 resetButtons();
@@ -183,14 +182,14 @@
                 lamMatteAdd.checked = false;
             updateAdditionalLabels();
             calculateTotalPrice();
-            
+
         });
         lamMatteAdd.addEventListener('change', (e) => {
             if (e.target.checked)
                 lamGlossAdd.checked = false;
             updateAdditionalLabels();
             calculateTotalPrice();
-            
+
         });
 
         function resetButtons() {

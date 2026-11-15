@@ -129,6 +129,9 @@
   <data name="home" xml:space="preserve">
     <value>Главная</value>
   </data>
+  <data name="pinkasim" xml:space="preserve">
+    <value>Бухгалтерские книжки</value>
+  </data>
   <data name="stickers" xml:space="preserve">
     <value>Наклейки на заказ</value>
   </data>
