@@ -287,4 +287,7 @@
   <data name="summary_line_sixes" xml:space="preserve">
     <value>{kind} · {copies} · {qty} по 50 комплектов</value>
   </data>
+  <data name="summary_line_sixes_one" xml:space="preserve">
+    <value />
+  </data>
 </root>

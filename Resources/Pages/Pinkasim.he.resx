@@ -287,4 +287,7 @@
   <data name="summary_line_sixes" xml:space="preserve">
     <value>{n} שישיות פנקסים בגודל (6 בדף A4), {copies}, 50 סטים בפנקס</value>
   </data>
+  <data name="summary_line_sixes_one" xml:space="preserve">
+    <value>פנקס שישיות אחד בגודל (6 בדף A4), {copies}, 50 סטים בפנקס</value>
+  </data>
 </root>
