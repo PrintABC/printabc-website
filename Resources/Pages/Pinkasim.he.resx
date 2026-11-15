@@ -309,7 +309,8 @@
     <comment>Формат владельца 15.11: «2 פנקסים בגודל A5, מקור + 2 עותקים, 50 סטים בפנקס»</comment>
   </data>
   <data name="sum_kind_a5" xml:space="preserve">
-    <value>A5</value>
+    <value>אי5</value>
+    <comment>Так пишет владелец (15.11): «בגודל אי5», не латинская A5</comment>
   </data>
   <data name="sum_kind_six" xml:space="preserve">
     <value>שישיות (6 בדף A4)</value>

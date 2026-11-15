@@ -144,7 +144,7 @@
         <div class="price-box">
             @*
                 data-summary — сюда скрипт пишет строку заказа по шаблону summary_line из resx:
-                ru «A5 · 3 листа · 4 книжки по 50 комплектов», he «4 פנקסים בגודל A5, מקור + 2 עותקים, 50 סטים בפנקס».
+                ru «A5 · 3 листа · 4 книжки по 50 комплектов», he «4 פנקסים בגודל אי5, מקור + 2 עותקים, 50 סטים בפנקס».
                 Ниже — то же для выбора по умолчанию, чтобы строка была видна ещё до запуска скрипта.
             *@
             <p class="cat-summary" data-summary>@(L["summary_line"].Value.Replace("{qty}", L["books_4"].Value).Replace("{kind}", L["sum_kind_a5"].Value).Replace("{copies}", L["sum_copies_3"].Value))</p>
