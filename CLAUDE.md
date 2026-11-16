@@ -49,6 +49,8 @@
    макет — `design/mockup/{he,ru}/catalogs.html`. Демо-расчёт из `catalogs.js` в продукт не переносить: цену считает сервер.
    Бухгалтерские книжки (`/pinkasim`): цены, коды ошибок, тексты и тесты — в `docs/pinkasim/tz.md`;
    макет — `design/mockup/{he,ru}/pinkasim.html`, строки `pk_*`. Цена считается в браузере, как у визиток (решение владельца 15.11, ТЗ v1.1): цены в `data-price` таблицы, итог и ссылку WhatsApp собирает `pinkasim.js`; серверного расчёта нет.
+   Конверты (`/envelopes`): цены, тексты, текст WhatsApp и тесты — в `docs/envelopes/tz.md`;
+   макет — `design/mockup/{he,ru}/envelopes.html`, строки `env_*`. Цена в браузере (`data-price` таблицы), JS inline в `Pages/Envelopes.cshtml`, `EnvelopesModel` пустой, ссылка — общая `WHATSAPP_URL` (api.whatsapp.com).
 4. Файл заказа: PDF/PNG/JPEG по сигнатуре, ≤ 100 МБ, хранится вне `wwwroot`, имя = номер заказа + GUID.
 5. Секреты — только из переменных окружения / user-secrets. Никаких паролей и ключей в репозитории.
 6. Антиспам: rate limiting на `/api/orders`, honeypot, antiforgery.
