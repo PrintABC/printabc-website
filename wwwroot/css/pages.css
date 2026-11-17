@@ -332,3 +332,36 @@
 .pk-table th[scope="col"]:first-child { width: 20%; }
 .btn[aria-disabled] { opacity: .5; pointer-events: none; }
 @media (max-width: 767px) { #pk-calc .summary-panel { order: -1; } }
+
+
+/* ---- Envelopes ---- */
+.env-hero {
+    width: 100%;
+    height: clamp(180px, 22vw, 300px);
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.env-size {
+    padding: 10px 18px;
+    border-radius: var(--r-md);
+    min-height: 56px;
+}
+
+.env-table {
+    min-width: 320px;
+}
+
+    .env-table th[scope="col"] {
+        width: 40%;
+    }
+
+        .env-table th[scope="col"]:first-child {
+            width: 20%;
+        }
+
+@media (max-width: 767px) {
+    #env-calc .summary-panel {
+        order: -1;
+    }
+}

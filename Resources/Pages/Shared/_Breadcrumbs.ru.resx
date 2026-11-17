@@ -126,6 +126,9 @@
   <data name="catalogs" xml:space="preserve">
     <value>Каталоги и журналы</value>
   </data>
+  <data name="envelopes" xml:space="preserve">
+    <value>Конверты</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>Главная</value>
   </data>
