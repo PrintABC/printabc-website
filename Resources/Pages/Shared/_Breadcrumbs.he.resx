@@ -126,6 +126,9 @@
   <data name="catalogs" xml:space="preserve">
     <value>קטלוגים ומגזינים</value>
   </data>
+  <data name="envelopes" xml:space="preserve">
+    <value>מעטפות</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>דף הבית</value>
   </data>
