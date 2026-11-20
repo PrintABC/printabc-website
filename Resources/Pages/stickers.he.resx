@@ -214,7 +214,7 @@
     <value>מתוכו מע״מ (18%)</value>
   </data>
   <data name="price_per_unit" xml:space="preserve">
-    <value>מחיר ליחידה</value>
+    <value>מחיר ליחידה כולל מע״מ</value>
   </data>
   <data name="price_ready" xml:space="preserve">
     <value>מוכן</value>

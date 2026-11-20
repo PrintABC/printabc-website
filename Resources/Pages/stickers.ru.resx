@@ -214,7 +214,7 @@
     <value>в т. ч. НДС (18%)</value>
   </data>
   <data name="price_per_unit" xml:space="preserve">
-    <value>Цена за штуку</value>
+    <value>Цена за штуку с НДС</value>
   </data>
   <data name="price_ready" xml:space="preserve">
     <value>Готовность</value>
