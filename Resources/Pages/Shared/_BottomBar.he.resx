@@ -126,4 +126,10 @@
   <data name="call_us" xml:space="preserve">
     <value>התקשרו אלינו</value>
   </data>
+  <data name="total" xml:space="preserve">
+    <value>סה״כ</value>
+  </data>
+  <data name="order" xml:space="preserve">
+    <value>להזמנה</value>
+  </data>
 </root>
