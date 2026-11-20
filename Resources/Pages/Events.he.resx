@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="meta_title" xml:space="preserve">
+    <value>הדפסת הזמנות וגלויות לאירועים בנתניה — דפוס ABC</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>הזמנות וגלויות 10×15, 12×18, 15×15, 21×10 ס״מ על כרומו מט 250/300 גר׳, צד אחד או דו-צדדי, החל מ-50 יח׳, עד 3 ימי עבודה.</value>
+  </data>
+  <data name="events_header" xml:space="preserve">
+    <value>הדפסה לאירועים</value>
+  </data>
+  <data name="events_description" xml:space="preserve">
+    <value>הזמנות וגלויות · 4 גדלים · 250 או 300 גר׳ · החל מ-50 יח׳ · מחירים כולל מע״מ</value>
+  </data>
+  <data name="events_img_alt" xml:space="preserve">
+    <value>הזמנות וגלויות שהודפסו בדפוס ABC</value>
+  </data>
+  <data name="size_title" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="tab_1" xml:space="preserve">
+    <value>10×15 ס״מ</value>
+  </data>
+  <data name="tab_2" xml:space="preserve">
+    <value>12×18 ס״מ</value>
+  </data>
+  <data name="tab_3" xml:space="preserve">
+    <value>15×15 ס״מ</value>
+  </data>
+  <data name="tab_4" xml:space="preserve">
+    <value>21×10 ס״מ</value>
+  </data>
+  <data name="paper_title" xml:space="preserve">
+    <value>נייר</value>
+  </data>
+  <data name="paper_250" xml:space="preserve">
+    <value>250 גר׳</value>
+  </data>
+  <data name="paper_300" xml:space="preserve">
+    <value>300 גר׳</value>
+  </data>
+  <data name="paper_sub" xml:space="preserve">
+    <value>כרומו מט</value>
+  </data>
+  <data name="price_title" xml:space="preserve">
+    <value>מחירון</value>
+  </data>
+  <data name="select_from_table" xml:space="preserve">
+    <value>בחרו אפשרות בטבלה · המחיר לכל הכמות</value>
+  </data>
+  <data name="col_qty" xml:space="preserve">
+    <value>כמות</value>
+  </data>
+  <data name="col_1" xml:space="preserve">
+    <value>צד אחד</value>
+  </data>
+  <data name="col_2" xml:space="preserve">
+    <value>דו-צדדי</value>
+  </data>
+  <data name="units" xml:space="preserve">
+    <value>יח׳</value>
+  </data>
+  <data name="what_included" xml:space="preserve">
+    <value>מה כלול</value>
+  </data>
+  <data name="incl_1" xml:space="preserve">
+    <value>הדפסה צבעונית על כרומו מט 250 או 300 גר׳</value>
+  </data>
+  <data name="incl_2" xml:space="preserve">
+    <value>הדפסה בצד אחד או דו-צדדית</value>
+  </data>
+  <data name="incl_3" xml:space="preserve">
+    <value>הדפסה לפי הקובץ המוכן שלכם</value>
+  </data>
+  <data name="incl_4" xml:space="preserve">
+    <value>ניירות אחרים (פנינה, שמנת, לא מצופה) — בפנייה ב-WhatsApp</value>
+  </data>
+  <data name="incl_5" xml:space="preserve">
+    <value>מומלץ להדפיס דוגמה: הצבע על הנייר עשוי להיות שונה מהמסך. כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="your_order" xml:space="preserve">
+    <value>ההזמנה שלכם</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>סה״כ</value>
+  </data>
+  <data name="inc_vat" xml:space="preserve">
+    <value>כולל מע״מ</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>זמן הכנה</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>עד 3 ימי עבודה</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>להזמנה ב-WhatsApp</value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>שאלה? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>דרישות לקובץ</value>
+  </data>
+  <data name="file_1" xml:space="preserve">
+    <value>PDF או JPG, ‏300 dpi, ‏CMYK</value>
+  </data>
+  <data name="file_2" xml:space="preserve">
+    <value>תוספת חיתוך 2 מ״מ מכל צד</value>
+  </data>
+  <data name="file_3" xml:space="preserve">
+    <value>טקסטים במרחק 3–5 מ״מ לפחות מהקצה</value>
+  </data>
+  <data name="file_4" xml:space="preserve">
+    <value>הדפסה דו-צדדית: שני עמודים ב-PDF אחד או שני קבצים</value>
+  </data>
+  <data name="file_5" xml:space="preserve">
+    <value>אין קובץ מוכן? איננו מעצבים — אפשר לשאול אותנו ב-WhatsApp</value>
+  </data>
+  <data name="pickup_payment" xml:space="preserve">
+    <value>איסוף ותשלום</value>
+  </data>
+  <data name="pickup" xml:space="preserve">
+    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים.</value>
+  </data>
+  <data name="pay" xml:space="preserve">
+    <value>תשלום באיסוף: מזומן, אשראי, Bit או העברה בנקאית</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>מה קורה אחרי ההזמנה</value>
+  </data>
+  <data name="after_1" xml:space="preserve">
+    <value>בוחרים גודל, נייר, צדדים וכמות</value>
+  </data>
+  <data name="after_2" xml:space="preserve">
+    <value>כותבים ב-WhatsApp ושולחים קובץ</value>
+  </data>
+  <data name="after_3" xml:space="preserve">
+    <value>מדפיסים תוך עד 3 ימי עבודה</value>
+  </data>
+  <data name="after_4" xml:space="preserve">
+    <value>אוספים מבית הדפוס</value>
+  </data>
+  <data name="whatsapp_template" xml:space="preserve">
+    <value>שלום! אני רוצה להזמין הדפסת הזמנות/גלויות.%0a
+גודל: {size}%0a
+נייר: כרומו מט {paper} גר׳%0a
+הדפסה: {sides}%0a
+כמות: {qty} יח׳%0a
+מחיר: {price} ₪ כולל מע״מ%0a
+את קובץ ההדפסה אשלח מיד דרך %0a📎 ← "מסמך" (לא "גלריה").</value>
+  </data>
+  <data name="wa_sides_1" xml:space="preserve">
+    <value>צד אחד</value>
+  </data>
+  <data name="wa_sides_2" xml:space="preserve">
+    <value>דו-צדדית</value>
+  </data>
+  <data name="summary_line" xml:space="preserve">
+    <value>{qty} הזמנות {size}, {paper} גר׳, {sides}</value>
+  </data>
+  <data name="sum_sides_1" xml:space="preserve">
+    <value>צד אחד</value>
+  </data>
+  <data name="sum_sides_2" xml:space="preserve">
+    <value>דו-צדדי</value>
+  </data>
+</root>

@@ -129,6 +129,9 @@
   <data name="envelopes" xml:space="preserve">
     <value>מעטפות</value>
   </data>
+  <data name="events" xml:space="preserve">
+    <value>הדפסה לאירועים</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>דף הבית</value>
   </data>

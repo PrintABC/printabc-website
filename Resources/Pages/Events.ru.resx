@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="meta_title" xml:space="preserve">
+    <value>Печать приглашений и открыток в Нетании — PrintABC</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>Приглашения и открытки 10×15, 12×18, 15×15, 21×10 см на хромо-мат 250/300 г, 1 или 2 стороны, от 50 шт., до 3 рабочих дней.</value>
+  </data>
+  <data name="events_header" xml:space="preserve">
+    <value>Печать для мероприятий</value>
+  </data>
+  <data name="events_description" xml:space="preserve">
+    <value>Приглашения и открытки · 4 размера · 250 или 300 г · от 50 шт. · цены с НДС</value>
+  </data>
+  <data name="events_img_alt" xml:space="preserve">
+    <value>Приглашения и открытки, напечатанные в PrintABC</value>
+  </data>
+  <data name="size_title" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="tab_1" xml:space="preserve">
+    <value>10 × 15 см</value>
+  </data>
+  <data name="tab_2" xml:space="preserve">
+    <value>12 × 18 см</value>
+  </data>
+  <data name="tab_3" xml:space="preserve">
+    <value>15 × 15 см</value>
+  </data>
+  <data name="tab_4" xml:space="preserve">
+    <value>21 × 10 см</value>
+  </data>
+  <data name="paper_title" xml:space="preserve">
+    <value>Бумага</value>
+  </data>
+  <data name="paper_250" xml:space="preserve">
+    <value>250 г</value>
+  </data>
+  <data name="paper_300" xml:space="preserve">
+    <value>300 г</value>
+  </data>
+  <data name="paper_sub" xml:space="preserve">
+    <value>хромо-мат</value>
+  </data>
+  <data name="price_title" xml:space="preserve">
+    <value>Прайс</value>
+  </data>
+  <data name="select_from_table" xml:space="preserve">
+    <value>Выберите вариант в таблице · цена за весь тираж</value>
+  </data>
+  <data name="col_qty" xml:space="preserve">
+    <value>Тираж, шт.</value>
+  </data>
+  <data name="col_1" xml:space="preserve">
+    <value>1 сторона</value>
+  </data>
+  <data name="col_2" xml:space="preserve">
+    <value>2 стороны</value>
+  </data>
+  <data name="units" xml:space="preserve">
+    <value>шт.</value>
+  </data>
+  <data name="what_included" xml:space="preserve">
+    <value>Что входит</value>
+  </data>
+  <data name="incl_1" xml:space="preserve">
+    <value>Цветная печать на хромо-мат 250 или 300 г</value>
+  </data>
+  <data name="incl_2" xml:space="preserve">
+    <value>Печать с одной или двух сторон</value>
+  </data>
+  <data name="incl_3" xml:space="preserve">
+    <value>Печать по вашему готовому файлу</value>
+  </data>
+  <data name="incl_4" xml:space="preserve">
+    <value>Другие бумаги (перламутровая, кремовая, немелованная) — по запросу в WhatsApp</value>
+  </data>
+  <data name="incl_5" xml:space="preserve">
+    <value>Рекомендуем пробник: цвет на бумаге может отличаться от экрана. Напишите в WhatsApp</value>
+  </data>
+  <data name="your_order" xml:space="preserve">
+    <value>Ваш заказ</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="inc_vat" xml:space="preserve">
+    <value>вкл. НДС</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>Срок</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>до 3 рабочих дней</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>Заказать в WhatsApp</value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>Вопрос? Напишите в WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>Требования к файлу</value>
+  </data>
+  <data name="file_1" xml:space="preserve">
+    <value>PDF или JPG, 300 dpi, CMYK</value>
+  </data>
+  <data name="file_2" xml:space="preserve">
+    <value>Вылеты 2 мм с каждой стороны</value>
+  </data>
+  <data name="file_3" xml:space="preserve">
+    <value>Тексты не ближе 3–5 мм к краю</value>
+  </data>
+  <data name="file_4" xml:space="preserve">
+    <value>Двусторонняя печать: две страницы в одном PDF или два файла</value>
+  </data>
+  <data name="file_5" xml:space="preserve">
+    <value>Нет готового файла? Дизайн мы не делаем — вопрос можно задать в WhatsApp</value>
+  </data>
+  <data name="pickup_payment" xml:space="preserve">
+    <value>Получение и оплата</value>
+  </data>
+  <data name="pickup" xml:space="preserve">
+    <value>Только самовывоз: ул. Штампфер 5, Нетания — бесплатно. Доставки нет.</value>
+  </data>
+  <data name="pay" xml:space="preserve">
+    <value>Оплата при получении: наличные, карта, Bit или перевод</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>Что происходит после заказа</value>
+  </data>
+  <data name="after_1" xml:space="preserve">
+    <value>Выбираете размер, бумагу, стороны и тираж</value>
+  </data>
+  <data name="after_2" xml:space="preserve">
+    <value>Пишете в WhatsApp и присылаете файл</value>
+  </data>
+  <data name="after_3" xml:space="preserve">
+    <value>Печатаем до 3 рабочих дней</value>
+  </data>
+  <data name="after_4" xml:space="preserve">
+    <value>Забираете в типографии</value>
+  </data>
+  <data name="whatsapp_template" xml:space="preserve">
+    <value>Здравствуйте! Хочу заказать печать приглашений/открыток.%0a
+Размер: {size}%0a
+Бумага: хромо-мат {paper} г%0a
+Печать: {sides}%0a
+Тираж: {qty} шт.%0a
+Цена: {price} ₪ с НДС%0a
+Файл для печати пришлю следом через %0a📎 → «Документ» (не «Галерея»).</value>
+  </data>
+  <data name="wa_sides_1" xml:space="preserve">
+    <value>с одной стороны</value>
+  </data>
+  <data name="wa_sides_2" xml:space="preserve">
+    <value>с двух сторон</value>
+  </data>
+  <data name="summary_line" xml:space="preserve">
+    <value>{size} · {paper} г · {sides} · {qty} шт.</value>
+  </data>
+  <data name="sum_sides_1" xml:space="preserve">
+    <value>1 сторона</value>
+  </data>
+  <data name="sum_sides_2" xml:space="preserve">
+    <value>2 стороны</value>
+  </data>
+</root>
