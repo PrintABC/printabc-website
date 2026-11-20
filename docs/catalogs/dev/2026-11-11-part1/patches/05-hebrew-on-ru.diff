@@ -1,0 +1,97 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 211e223..212582a 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -12,6 +12,10 @@
+     var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+     var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+     var dir = isRtl ? "rtl" : "ltr";
++
++    //texts of the booklet preview, in the language of the page
++    string bindingText = L[$"binding_{Model.Binding.ToString().ToLower()}"].Value;
++    string coverChip = Model.HasCover ? $"{L["cover"].Value} {L[$"cover_paper_{Model.CoverPaper}"].Value}" : L["no_cover_short"].Value;
+ }
+ 
+ <div class="container page-head">
+@@ -22,7 +26,7 @@
+ <div class="container product-layout">
+     <div class="product-layout__main is-sticky">
+         <div class="cat-preview">
+-            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="תצוגה של החוברת: A4, סיכות, 12 עמ׳">
++            <div class="cat-preview__stage" role="img" id="cat-preview" aria-label="@L["preview_alt"]: @Model.Format, @bindingText, @Model.InnerPageCount @L["page"]">
+                 <span class="cat-preview__cmyk" aria-hidden="true">
+                     <span></span>
+                     <span></span>
+@@ -42,8 +46,8 @@
+                                 <span></span>
+                                 <span></span>
+                             </span>
+-                            <span class="cat-book__title">קטלוג</span>
+-                            <span class="cat-book__sub" data-cover-sub="">A4 · 16 עמ׳</span>
++                            <span class="cat-book__title">@L["preview_title"]</span>
++                            <span class="cat-book__sub" data-cover-sub="">@Model.Format · @(Model.InnerPageCount + (Model.HasCover ? 4 : 0)) @L["page"]</span>
+                         </div>
+                         <div class="cat-book__band">
+                             <span></span>
+@@ -63,10 +67,10 @@
+                 </div>
+             </div>
+             <div class="cat-preview__chips" data-chips="">
+-                <span>A4</span>
+-                <span>סיכות</span>
+-                <span>12 עמ׳ · 130 גרם</span>
+-                <span>כריכה 250 גרם</span>
++                <span>@Model.Format</span>
++                <span>@bindingText</span>
++                <span>@Model.InnerPageCount @L["page"] · @L[$"innerpaper_{Model.InnerPaper}"]</span>
++                <span>@coverChip</span>
+             </div>
+         </div>
+     </div>
+@@ -295,7 +299,7 @@
+             <p class="cat-summary">
+                 <strong>@L["your_order"]</strong>
+                 <br>
+-                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> יח׳</span>
++                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> @L["unit"]</span>
+             </p>
+             <div id="valid_prices" data-priced="">
+                 <div class="price-box__row price-box__row--total">
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index a06fe00..7742817 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -420,4 +420,13 @@
+   <data name="error_generic" xml:space="preserve">
+     <value>בדקו את הערכים בטופס: איתם אי אפשר לחשב מחיר.</value>
+   </data>
++  <data name="preview_title" xml:space="preserve">
++    <value>קטלוג</value>
++  </data>
++  <data name="preview_alt" xml:space="preserve">
++    <value>תצוגה של החוברת</value>
++  </data>
++  <data name="no_cover_short" xml:space="preserve">
++    <value>בלי כריכה נפרדת</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 50678e0..fa02f41 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -420,4 +420,13 @@
+   <data name="error_generic" xml:space="preserve">
+     <value>Проверьте значения в форме: с ними цену посчитать нельзя.</value>
+   </data>
++  <data name="preview_title" xml:space="preserve">
++    <value>Каталог</value>
++  </data>
++  <data name="preview_alt" xml:space="preserve">
++    <value>Предпросмотр брошюры</value>
++  </data>
++  <data name="no_cover_short" xml:space="preserve">
++    <value>без отдельной обложки</value>
++  </data>
+ </root>
+\ No newline at end of file

@@ -1,0 +1,223 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 700f847..c43af88 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -111,8 +111,11 @@
+         </fieldset>
+         <div class="field">
+             <label class="field__label" for="calc-pages">@L["inner_pages_label"]</label>
+-            <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="4" max="36" step="4" value="12" aria-describedby="pages-hint" aria-invalid="false">
+-            <p class="field__hint" id="pages-hint" data-pages-hint="">?</p>
++            @{
++                var pageLimits = GetPageLimits(Model.Binding, Model.InnerPaper, Model.HasCover)!;
++            }
++            <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="@pageLimits.Min" max="@pageLimits.Max" step="@pageLimits.Step" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
++            <p class="field__hint" id="pages-hint" data-pages-hint="" data-template="@L.GetString("pages_hint")">@L["pages_hint", pageLimits.Step, pageLimits.Min, pageLimits.Max]</p>
+         </div>
+         <fieldset class="opt-group" id="g-cover" aria-describedby="g-cover-hint">
+             <legend>@L["separate_cover_label"]</legend>
+@@ -176,6 +179,18 @@
+             <p class="field__hint" id="q-hint">@L["quantity_hint"]</p>
+         </div>
+         <!--errors-->
++        <div class="alert alert--error" data-error="bad_paper" role="alert" hidden="">
++            <div class="alert__row">
++                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                    <circle cx="12" cy="12" r="9">
++                    </circle>
++                    <path d="M12 11v6M12 7.5v.5">
++                    </path>
++                </svg>
++                <span>@L["error_bad_paper"]</span>
++            </div>
++            <a href="https://wa.me/972508494172">@L["special_description"]</a>
++        </div>
+         <div class="alert alert--error" data-error="pages_step" role="alert" hidden="">
+             <div class="alert__row">
+                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+@@ -409,6 +424,51 @@
+             }
+         }
+ 
++        //page limits from CatalogCalculatorService.GetPageLimitsTable(), the server checks them again
++        const pageLimitsTable = @Json.Serialize(GetPageLimitsTable());
++        const pagesInput = document.getElementById('calc-pages');
++        const pagesHint = document.getElementById('pages-hint');
++
++        function updatePageLimits() {
++            const binding = form.querySelector("input[name='Binding']:checked").value;
++            const hasCover = form.querySelector("input[name='HasCover']:checked").value == 'true';
++
++            //paper that is not allowed for this binding (300 g for staple) is disabled, 250 g is picked instead
++            form.querySelectorAll("input[name='InnerPaper']").forEach(radio => {
++                const allowed = pageLimitsTable.some(r => r.binding == binding && r.paper == radio.value);
++                radio.disabled = !allowed;
++                if (!allowed && radio.checked)
++                    form.querySelector("input[name='InnerPaper'][value='250']").checked = true;
++            });
++
++            const paper = form.querySelector("input[name='InnerPaper']:checked").value;
++            const limits = pageLimitsTable.find(r => r.binding == binding && r.paper == paper && r.hasCover == hasCover);
++            if (!limits)
++                return;
++
++            pagesInput.min = limits.min;
++            pagesInput.max = limits.max;
++            pagesInput.step = limits.step;
++            pagesHint.textContent = pagesHint.dataset.template
++                .replace('{0}', limits.step).replace('{1}', limits.min).replace('{2}', limits.max);
++
++            //move the value to the nearest allowed one: down to max, up to min, down to a multiple of the step
++            let pages = parseInt(pagesInput.value) || limits.min;
++            pages = Math.min(Math.max(pages, limits.min), limits.max);
++            pages = pages - pages % limits.step;
++            if (pages < limits.min)
++                pages = limits.min;
++            pagesInput.value = pages;
++
++            updateUIElements();
++        }
++
++        //only on change of binding, paper or cover: while the client types the page count we do not move the value
++        form.addEventListener('change', e => {
++            if (['Binding', 'InnerPaper', 'HasCover'].includes(e.target.name))
++                updatePageLimits();
++        });
++
+         setSend(false);
+         const recalc = debounce(triggerCalculation, 300);
+         form.addEventListener('input', updateUIElements);
+@@ -502,6 +562,7 @@
+                 timeout = setTimeout(() => func.apply(this, args), wait);
+             };
+         }
++        updatePageLimits();
+         triggerCalculation();
+         updateUIElements();
+         window.addEventListener('pageshow', e => {
+diff --git a/Pages/Catalogs.cshtml.cs b/Pages/Catalogs.cshtml.cs
+index 5fc4375..6b756aa 100644
+--- a/Pages/Catalogs.cshtml.cs
++++ b/Pages/Catalogs.cshtml.cs
+@@ -24,11 +24,12 @@ namespace PrintABC.Pages
+             L = factory.Create("Pages.catalogs", this.GetType().Assembly.GetName().Name!);
+         }
+ 
+-        const int MIN_INNER_PAGE_COUNT = 4, MAX_INNER_PAGE_COUNT = 36, MIN_QUANTITY = 6, MAX_QUANTITY = 1_000_000;
++        const int MIN_QUANTITY = 6, MAX_QUANTITY = 1_000_000;
+ 
+         [BindProperty] public CatalogSize Format { get; set; } = CatalogSize.A4;
+         [BindProperty] public CatalogBinding Binding { get; set; } = CatalogBinding.Staple;
+-        [BindProperty, Range(MIN_INNER_PAGE_COUNT, MAX_INNER_PAGE_COUNT, ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public int InnerPageCount { get; set; } = 12;
++        //page limits depend on binding, paper and cover, they are checked in CatalogCalculatorService.ValidatePages
++        [BindProperty] public int InnerPageCount { get; set; } = 12;
+         [BindProperty] public int InnerPaper { get; set; } = 130;
+         [BindProperty] public bool HasCover { get; set; } = true;
+         [BindProperty] public int CoverPaper { get; set; } = 250;
+@@ -49,7 +50,6 @@ namespace PrintABC.Pages
+                 var code = key switch
+                 {
+                     "Quantity" => Quantity < MIN_QUANTITY ? "qty_min" : "generic",
+-                    "InnerPageCount" => InnerPageCount < MIN_INNER_PAGE_COUNT ? "pages_min" : "pages_max",
+                     _ => "generic"
+                 };
+                 return new JsonResult(new
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 0e96613..0f0adca 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -399,4 +399,10 @@
+   <data name="manual_text" xml:space="preserve">
+     <value>שלחו לנו את הפרמטרים ב-WhatsApp — נחזור עם מחיר.</value>
+   </data>
++  <data name="pages_hint" xml:space="preserve">
++    <value>בקפיצות של {0} עמ׳, מ־{1} עד {2} עמ׳</value>
++  </data>
++  <data name="error_bad_paper" xml:space="preserve">
++    <value>הנייר הזה לא מתאים לחיבור שבחרתם. בסיכות בחרו נייר עד 250 גרם.</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 9dfb1f1..8205545 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -399,4 +399,10 @@
+   <data name="manual_text" xml:space="preserve">
+     <value>Отправьте параметры в WhatsApp — пришлём цену.</value>
+   </data>
++  <data name="pages_hint" xml:space="preserve">
++    <value>Шаг {0} стр., от {1} до {2} стр.</value>
++  </data>
++  <data name="error_bad_paper" xml:space="preserve">
++    <value>Эта бумага не подходит для выбранного переплёта. Для скобы выберите блок до 250 г.</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Services/CatalogCalculatorService.cs b/Services/CatalogCalculatorService.cs
+index d45ebaa..e217247 100644
+--- a/Services/CatalogCalculatorService.cs
++++ b/Services/CatalogCalculatorService.cs
+@@ -28,6 +28,50 @@ namespace PrintABC.Services
+ 
+         public static int[] GetInnerPaperSizes() => [80, 130, 170, 250, 300];
+ 
++        //page limits for the inner block (TZ §2). Max pages come from PaperInfo, 0 = paper not allowed for this binding
++        const int StaplePageStep = 4, SpiralPageStep = 2;
++        const int StapleMinPagesNoCover = 8, StapleMinPagesWithCover = 4, SpiralMinPages = 20;
++
++        public record PageLimits(int Step, int Min, int Max);
++        public static PageLimits? GetPageLimits(CatalogBinding binding, int innerPaper, bool hasCover)
++        {
++            if (!GetInnerPaperSizes().Contains(innerPaper))
++                return null;
++            PaperInfo paper = GetPaperInfo(innerPaper);
++            PageLimits limits = binding switch
++            {
++                CatalogBinding.Staple => new(StaplePageStep, hasCover ? StapleMinPagesWithCover : StapleMinPagesNoCover, paper.StapleMaxPages),
++                CatalogBinding.Spiral => new(SpiralPageStep, SpiralMinPages, paper.SpiralMaxPages),
++                _ => throw new ArgumentOutOfRangeException(nameof(binding), binding, null)
++            };
++            return limits.Max == 0 ? null : limits;
++        }
++
++        //all combinations for the page script, so the browser uses the same numbers as the server
++        public record PageLimitsRow(string Binding, int Paper, bool HasCover, int Step, int Min, int Max);
++        public static PageLimitsRow[] GetPageLimitsTable() =>
++            [.. from binding in Enum.GetValues<CatalogBinding>()
++                from paper in GetInnerPaperSizes()
++                from hasCover in new[] { true, false }
++                let limits = GetPageLimits(binding, paper, hasCover)
++                where limits != null
++                select new PageLimitsRow(binding.ToString(), paper, hasCover, limits.Step, limits.Min, limits.Max)];
++
++        //order of checks as in TZ §5: bad_paper -> pages_step -> pages_min -> pages_max
++        public static string? ValidatePages(CatalogQuoteRequest req)
++        {
++            PageLimits? limits = GetPageLimits(req.Binding, req.InnerPaper, req.HasCover);
++            if (limits == null)
++                return "bad_paper";
++            if (req.Pages % limits.Step != 0)
++                return "pages_step";
++            if (req.Pages < limits.Min)
++                return "pages_min";
++            if (req.Pages > limits.Max)
++                return "pages_max";
++            return null;
++        }
++
+         public record CatalogSizeInfo(int PagesPerSheet, int CoversPerSheet, decimal SpiralLengthFactor);
+         private static CatalogSizeInfo GetSizeInfo(CatalogSize size) => size switch
+         {
+@@ -48,8 +92,9 @@ namespace PrintABC.Services
+ 
+         public CatalogQuoteResponse Calculate(CatalogQuoteRequest req)
+         {
+-            if (req.Pages % 4 != 0)
+-                return CatalogQuoteResponse.Error("pages_step");
++            string? pagesError = ValidatePages(req);
++            if (pagesError != null)
++                return CatalogQuoteResponse.Error(pagesError);
+ 
+             int sheetsPerCopy = req.Pages / 2;
+             PaperInfo innerPaper = GetPaperInfo(req.InnerPaper);

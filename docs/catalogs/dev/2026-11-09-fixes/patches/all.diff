@@ -1,0 +1,1339 @@
+diff --git a/Data/CatalogQuoteResponse.cs b/Data/CatalogQuoteResponse.cs
+index 3802510..e4c9026 100644
+--- a/Data/CatalogQuoteResponse.cs
++++ b/Data/CatalogQuoteResponse.cs
+@@ -10,6 +10,8 @@ namespace PrintABC.Data
+         public decimal? VatIls { get; set; }
+         public decimal? PriceIncVatIls { get; set; }
+         public decimal? UnitPriceIncVatIls { get; set; }
++        public bool MinApplied { get; set; }
++        public decimal? SpiralMm { get; set; }
+ 
+         public static CatalogQuoteResponse Error(string errorCode) => new() { Status = ValidationStatus.ValidationError, ErrorCode = errorCode };
+ 
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index 382476d..facb2d7 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -67,7 +67,10 @@
+             </div>
+         </div>
+     </div>
+-    <form class="product-layout__side panel panel--raised calc" id="calc-form" aria-labelledby="calc-title" autocomplete="off" novalidate="">
++    <form class="product-layout__side panel panel--raised calc" id="calc-form" aria-labelledby="calc-title" autocomplete="off" novalidate=""
++          data-limits="@Model.PageLimitsJson"
++          data-hint="@L.GetString("pages_hint")" data-bind-staple="@L["binding_staple"]" data-bind-spiral="@L["binding_spiral"]"
++          data-cta-order="@L["next_load_file"]" data-cta-ask="@L["cta_ask"]">
+         @Html.AntiForgeryToken()
+         <div class="calc__head">
+             <h2 id="calc-title">@L["price_calculator"]</h2>
+@@ -111,8 +114,8 @@
+         </fieldset>
+         <div class="field">
+             <label class="field__label" for="calc-pages">@L["inner_pages_label"]</label>
+-            <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="4" max="36" step="4" value="12" aria-describedby="pages-hint" aria-invalid="false">
+-            <p class="field__hint" id="pages-hint" data-pages-hint="">?</p>
++            <input class="field__input field__input--num" id="calc-pages" name="InnerPageCount" type="number" inputmode="numeric" min="4" max="36" step="4" value="@Model.InnerPageCount" aria-describedby="pages-hint" aria-invalid="false">
++            <p class="field__hint" id="pages-hint" data-pages-hint=""></p>
+         </div>
+         <fieldset class="opt-group" id="g-cover" aria-describedby="g-cover-hint">
+             <legend>@L["separate_cover_label"]</legend>
+@@ -147,11 +150,11 @@
+                 <legend>@L["cover_print_label"]</legend>
+                 <div class="opt-list">
+                     <label class="pill">
+-                        <input type="radio" name="CoverPrint" value="40">
++                        <input type="radio" name="CoverPrint" value="40" checked="@(Model.CoverPrint == "40")">
+                         <span>@L["cover_print_40"]</span>
+                     </label>
+                     <label class="pill">
+-                        <input type="radio" name="CoverPrint" value="44" checked="">
++                        <input type="radio" name="CoverPrint" value="44" checked="@(Model.CoverPrint == "44")">
+                         <span>@L["cover_print_44"]</span>
+                     </label>
+                 </div>
+@@ -236,12 +239,36 @@
+             </div>
+             <a href="https://wa.me/972508494172">@L["special_description"]</a>
+         </div>
++        <div class="alert alert--error" data-error="qty_max" role="alert" hidden="">
++            <div class="alert__row">
++                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                    <circle cx="12" cy="12" r="9">
++                    </circle>
++                    <path d="M12 11v6M12 7.5v.5">
++                    </path>
++                </svg>
++                <span>@L["error_qty_max"]</span>
++            </div>
++            <a href="https://wa.me/972508494172">@L["special_description"]</a>
++        </div>
++        <div class="alert alert--error" data-error="generic" role="alert" hidden="">
++            <div class="alert__row">
++                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
++                    <circle cx="12" cy="12" r="9">
++                    </circle>
++                    <path d="M12 11v6M12 7.5v.5">
++                    </path>
++                </svg>
++                <span>@L["error_generic"]</span>
++            </div>
++            <a href="https://wa.me/972508494172">@L["special_description"]</a>
++        </div>
+         <!--errors-->
+         <div class="price-box">
+             <p class="cat-summary">
+                 <strong>@L["your_order"]</strong>
+                 <br>
+-                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> יח׳</span>
++                <span data-summary=""><span id="format_summary">@Model.Format</span> · <span id="binding_summary">@Model.Binding</span> · <span id="inner_page_summary">@Model.InnerPageCount</span> @L["page"] · <span id="inner_paper_summary">@Model.InnerPaper</span> · @L["cover"] <span id="cover_paper_summary">@Model.CoverPaper</span> <span id="cover_print_summary">@Model.CoverPrint</span><span id="lamination_section"> @L["lamination"] <span id="lamination_summary"></span></span> · <span id="quantity_summary">@Model.Quantity</span> @L["unit"]</span>
+             </p>
+             <div id="valid_prices" data-priced="">
+                 <div class="price-box__row price-box__row--total">
+@@ -259,8 +286,8 @@
+                 <p class="field__hint" data-min-note="" hidden="">@L["order_minimum_hint"]</p>
+             </div>
+             <div id="invalid_prices" data-manual="" hidden="" aria-live="polite">
+-                <p class="price-box__total">נחשב לכם אישית</p>
+-                <p class="field__hint">שלחו לנו את הפרמטרים ב-WhatsApp — נחזור עם מחיר.</p>
++                <p class="price-box__total">@L["manual_title"]</p>
++                <p class="field__hint">@L["manual_text"]</p>
+             </div>
+             <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
+         </div>
+@@ -376,136 +403,5 @@
+ </section>
+ 
+ @section Scripts {
+-    <script>
+-        const form = document.getElementById('calc-form');
+-        const totalOutput = document.getElementById('calc-total');
+-        const vatOutput = document.getElementById('calc-vat');
+-        const unitOutput = document.getElementById('calc-unit');
+-
+-        const errorAlerts = form.querySelectorAll('.alert--error');
+-
+-        function hideAllErrors() {
+-            errorAlerts.forEach(alert => alert.hidden = true);
+-        }
+-
+-        function toggleInvalidPrices(state) {
+-            if (state) {//invalid prices
+-                document.getElementById("invalid_prices").removeAttribute("hidden");
+-                document.getElementById("valid_prices").setAttribute("hidden", "hidden");
+-            }
+-            else {//valid prices
+-                document.getElementById("valid_prices").removeAttribute("hidden");
+-                document.getElementById("invalid_prices").setAttribute("hidden", "hidden");
+-            }
+-        }
+-
+-        function setSend(enabled) {
+-            if (enabled) {
+-                document.getElementById('calc-next').hidden = false;
+-                document.getElementById('calc-next-off').hidden = true;
+-            } else {
+-                document.getElementById('calc-next').hidden = true;
+-                document.getElementById('calc-next-off').hidden = false;
+-            }
+-        }
+-
+-        setSend(false);
+-        const recalc = debounce(triggerCalculation, 300);
+-        form.addEventListener('input', updateUIElements);
+-        form.addEventListener('input', recalc);
+-
+-        let controller;
+-
+-        async function triggerCalculation() {
+-            controller?.abort();
+-            controller = new AbortController();
+-            try {
+-                const response = await fetch('?handler=Calculate', {
+-                    method: 'POST',
+-                    headers: {
+-                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+-                    },
+-                    body: new FormData(form),
+-                    signal: controller.signal
+-                });
+-
+-                if (response.ok) {
+-                    hideAllErrors();
+-                    const result = await response.json();
+-                    const targetError = (result.data.errorCode) ? form.querySelector(`[data-error="${result.data.errorCode}"]`) : null;
+-                    if (result.data.status == "manual_quote") {
+-                        toggleInvalidPrices(true);
+-                    }
+-                    else {
+-                        if (targetError || result.data.errorCode == "generic") {
+-                            if (targetError)
+-                                targetError.hidden = false; //unhide the correct error message
+-                            toggleInvalidPrices(true);
+-                            //disable "next" button and clear price outputs
+-                            setSend(false);
+-                            totalOutput.textContent = '—';
+-                            vatOutput.textContent = '—';
+-                            unitOutput.textContent = '—';
+-                        }
+-                        else {
+-                            //valid results, no errors
+-                            toggleInvalidPrices(false);
+-                            document.getElementById('calc-next').href = result.wpmessage;
+-                            setSend(true);
+-                            totalOutput.textContent = result.data.priceIncVatIls + '₪';
+-                            vatOutput.textContent = result.data.vatIls;
+-                            unitOutput.textContent = result.data.unitPriceIncVatIls;
+-                        }
+-                    }
+-                }
+-            }
+-            catch (error) {
+-                setSend(false);
+-                totalOutput.textContent = '—';
+-                vatOutput.textContent = '—';
+-                unitOutput.textContent = '—';
+-            }
+-        }
+-
+-        function updateUIElements() {
+-            document.getElementById("format_summary").innerText = document.querySelector("input[name='Format']:checked").value;
+-            document.getElementById("binding_summary").innerText = document.querySelector("input[name='Binding']:checked+span").textContent;
+-            document.getElementById("inner_page_summary").innerText = document.querySelector("input[name='InnerPageCount']").value;
+-            document.getElementById("inner_paper_summary").innerText = document.querySelector("input[name='InnerPaper']:checked+span").textContent;
+-            document.getElementById("cover_paper_summary").innerText = document.querySelector("input[name='CoverPaper']:checked+span").textContent;
+-            let coverprint = document.querySelector("input[name='CoverPrint']:checked").value
+-            document.getElementById("cover_print_summary").innerText = coverprint.slice(0, 1) + "+" + coverprint.slice(1);
+-
+-            if (document.querySelector("input[name='Lamination']:checked").value == "None") {
+-                document.getElementById("lamination_section").setAttribute("hidden", true);
+-            }
+-            else {
+-                document.getElementById("lamination_section").removeAttribute("hidden");
+-                document.getElementById("lamination_summary").innerText = document.querySelector("input[name='Lamination']:checked+span").textContent;
+-            }
+-
+-            document.getElementById("quantity_summary").innerText = document.querySelector("input[name='Quantity']").value;
+-
+-            if (document.querySelector("input[name='HasCover']:checked").value != 'true') {
+-                document.getElementById("cat-cover-opts").setAttribute("hidden", true);
+-            }
+-            else
+-                document.getElementById("cat-cover-opts").removeAttribute("hidden");
+-
+-        }
+-
+-
+-        function debounce(func, wait) {
+-            let timeout;
+-            return function (...args) {
+-                clearTimeout(timeout);
+-                timeout = setTimeout(() => func.apply(this, args), wait);
+-            };
+-        }
+-        triggerCalculation();
+-        updateUIElements();
+-        window.addEventListener('pageshow', e => {
+-            if (e.persisted) { triggerCalculation(); }
+-        });
+-    </script>
+-}
+\ No newline at end of file
++    <script src="~/js/catalogs.js" asp-append-version="true"></script>
++}
+diff --git a/Pages/Catalogs.cshtml.cs b/Pages/Catalogs.cshtml.cs
+index 77e9ab3..58099a8 100644
+--- a/Pages/Catalogs.cshtml.cs
++++ b/Pages/Catalogs.cshtml.cs
+@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
+ using Microsoft.Extensions.Localization;
+ using PrintABC.Data;
+ using PrintABC.Services;
+-using System.ComponentModel.DataAnnotations;
++using System.Globalization;
+ using System.Text;
++using System.Text.Json;
+ using static PrintABC.Services.CatalogCalculatorService;
+ using static PrintABC.Utils.Helpers;
+ 
+@@ -24,66 +25,67 @@ namespace PrintABC.Pages
+             L = factory.Create("Pages.catalogs", this.GetType().Assembly.GetName().Name!);
+         }
+ 
+-        const int MIN_INNER_PAGE_COUNT = 4, MAX_INNER_PAGE_COUNT = 36, MIN_QUANTITY = 6, MAX_QUANTITY = 1_000_000;
++        // Значения по умолчанию для страницы и данные для сообщения. Из формы НЕ привязываются:
++        // форма приходит строками в CatalogFormInput и проверяется в сервисе (ТЗ §5).
++        public CatalogSize Format { get; set; } = CatalogSize.A4;
++        public CatalogBinding Binding { get; set; } = CatalogBinding.Staple;
++        public int InnerPageCount { get; set; } = 12;
++        public int InnerPaper { get; set; } = 130;
++        public bool HasCover { get; set; } = true;
++        public int CoverPaper { get; set; } = 250;
++        public string CoverPrint { get; set; } = "44";
++        public LaminationType Lamination { get; set; } = LaminationType.None;
++        public int Quantity { get; set; } = 100;
+ 
+-        [BindProperty] public CatalogSize Format { get; set; } = CatalogSize.A4;
+-        [BindProperty] public CatalogBinding Binding { get; set; } = CatalogBinding.Staple;
+-        [BindProperty, Range(MIN_INNER_PAGE_COUNT, MAX_INNER_PAGE_COUNT, ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public int InnerPageCount { get; set; } = 12;
+-        [BindProperty] public int InnerPaper { get; set; } = 130;
+-        [BindProperty] public bool HasCover { get; set; } = true;
+-        [BindProperty] public int CoverPaper { get; set; } = 250;
+-        [BindProperty] public string CoverPrint { get; set; } = "44";
+-        [BindProperty] public LaminationType Lamination { get; set; } = LaminationType.None;
+-        [BindProperty, Range(MIN_QUANTITY, MAX_QUANTITY, ConvertValueInInvariantCulture = true, ParseLimitsInInvariantCulture = true)] public int Quantity { get; set; } = 100;
+ 
++        // Пределы страниц для JS (ТЗ §2): шаг, минимум с обложкой / без, максимум по бумаге блока (0 = нельзя)
++        public string PageLimitsJson => JsonSerializer.Serialize(
++            Enum.GetValues<CatalogBinding>().ToDictionary(
++                b => b.ToString(),
++                b => new
++                {
++                    step = GetPagesStep(b),
++                    minCover = GetPagesMin(b, true),
++                    minNoCover = GetPagesMin(b, false),
++                    max = GetInnerPaperSizes().ToDictionary(g => g.ToString(), g => catalogCalculatorService.GetPagesMax(b, g))
++                }));
+ 
+         public CatalogQuoteResponse? response;
+ 
+         public string WhatsappMessage { get; set; } = "";
+-        public IActionResult OnPostCalculate()
++        public IActionResult OnPostCalculate(CatalogFormInput input)
+         {
+-            if (!ModelState.IsValid)
+-            {
+-                var key = ModelState.Where(kv => kv.Value!.Errors.Count > 0)
+-                    .Select(kv => kv.Key).FirstOrDefault() ?? "";
+-                var code = key switch
+-                {
+-                    "Quantity" => Quantity < MIN_QUANTITY ? "qty_min" : "generic",
+-                    "InnerPageCount" => InnerPageCount < MIN_INNER_PAGE_COUNT ? "pages_min" : "pages_max",
+-                    _ => "generic"
+-                };
+-                return new JsonResult(new
+-                {
+-                    success = false,
+-                    data = new CatalogQuoteResponse { Status = ValidationStatus.ValidationError, ErrorCode = code }
+-                });
+-            }
++            string? errorCode = catalogCalculatorService.ValidateInput(input, out CatalogQuoteRequest? quoteRequest);
++            if (errorCode != null)
++                return new JsonResult(new { success = false, data = CatalogQuoteResponse.Error(errorCode) });
+ 
+-            var quoteRequest = BuildQuoteRequest();
+-            response = catalogCalculatorService.Calculate(quoteRequest);
+-            CreateMessage();
+-            return new JsonResult(new { success = response.Status != ValidationStatus.ValidationError, data = response, wpmessage = WHATSAPP_URL + WhatsappMessage });
++            CopyFromRequest(quoteRequest!);
++            response = catalogCalculatorService.Calculate(quoteRequest!);
++            if (response.Status == ValidationStatus.ValidationError) // too_thick: без сообщения WhatsApp
++                return new JsonResult(new { success = false, data = response });
+ 
++            CreateMessage();
++            return new JsonResult(new { success = true, data = response, wpmessage = WHATSAPP_URL + WhatsappMessage });
+         }
+ 
+-        private CatalogQuoteRequest BuildQuoteRequest()
++        // проверенные значения -> свойства, из которых CreateMessage собирает текст
++        private void CopyFromRequest(CatalogQuoteRequest r)
+         {
+-            return new CatalogQuoteRequest(
+-                Format,
+-                Binding,
+-                InnerPageCount,
+-                InnerPaper,
+-                HasCover,
+-                CoverPaper,
+-                CoverPrint,
+-                Lamination,
+-                Quantity);
++            Format = r.Format;
++            Binding = r.Binding;
++            InnerPageCount = r.Pages;
++            InnerPaper = r.InnerPaper;
++            HasCover = r.HasCover;
++            CoverPaper = r.CoverPaper;
++            CoverPrint = r.CoverPrint;
++            Lamination = r.Lamination;
++            Quantity = r.Quantity;
+         }
+ 
+         public void CreateMessage()
+         {
+             var sb = new StringBuilder();
+-            string newline = "%0a";
++            string newline = "\n";   // кодируем всё сообщение один раз в конце
+             sb.Append(L["msg_hello"]);
+             sb.Append(newline);
+             sb.Append($"{L["msg_format"]}: {Format.ToString()}, {L[Binding.ToString().ToLower()]}");
+@@ -92,7 +94,7 @@ namespace PrintABC.Pages
+             sb.Append(newline);
+             if (HasCover)
+             {
+-                string coverprint = (CoverPrint == "44") ? "4%2B4" : "4%2B0";
++                string coverprint = (CoverPrint == "44") ? "4+4" : "4+0";
+                 string lam = Lamination switch
+                 {
+                     LaminationType.None => L["no_lamination"],
+@@ -107,10 +109,19 @@ namespace PrintABC.Pages
+             sb.Append(newline);
+             sb.Append($"{L["msg_quantity"]}: {Quantity} {L["unit"]}");
+             sb.Append(newline);
+-            sb.Append($"{L["msg_price"]}: {response.PriceIncVatIls}₪ {L["msg_with_vat"]}");
++            if (response!.Status == ValidationStatus.ManualQuote)
++                sb.Append(L["msg_ask"]);                     // «Прошу рассчитать цену» / «אבקש הצעת מחיר»
++            else
++            {
++                // «1346.19 ₪» (ТЗ §6); в иврите число в LRM, чтобы не переворачивалось
++                string price = $"{response.PriceIncVatIls!.Value.ToString("0.00", CultureInfo.InvariantCulture)} ₪";
++                if (CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft)
++                    price = "\u200E" + price + "\u200E";
++                sb.Append($"{L["msg_price"]}: {price} {L["msg_with_vat"]}");
++            }
+             sb.Append(newline);
+             sb.Append(L["msg_file_whatsapp"]);
+-            WhatsappMessage = sb.ToString();
++            WhatsappMessage = Uri.EscapeDataString(sb.ToString());
+ 
+         }
+     }
+diff --git a/PrintABC.Tests/CatalogCalculatorServiceTests.cs b/PrintABC.Tests/CatalogCalculatorServiceTests.cs
+new file mode 100644
+index 0000000..f96bdf3
+--- /dev/null
++++ b/PrintABC.Tests/CatalogCalculatorServiceTests.cs
+@@ -0,0 +1,133 @@
++using Microsoft.Extensions.Configuration;
++using Microsoft.Extensions.Options;
++using PrintABC.Services;
++using static PrintABC.Utils.Helpers;
++
++namespace PrintABC.Tests;
++
++// Тесты ТЗ §10. Настройки берутся из настоящего appsettings.json (секция Catalogs).
++public class CatalogCalculatorServiceTests
++{
++    private static CatalogSettings LoadSettings() =>
++        new ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
++            .GetSection("Catalogs").Get<CatalogSettings>()!;
++
++    private static CatalogCalculatorService Svc(Action<CatalogSettings>? change = null)
++    {
++        var s = LoadSettings();
++        change?.Invoke(s);
++        return new CatalogCalculatorService(Options.Create(s));
++    }
++
++    // Форма так, как её шлёт браузер. hasCover=false -> поля обложки не передаём.
++    private static CatalogFormInput Input(string format, string binding, string pages, string paper, string qty,
++        string? coverPaper = null, string? coverPrint = null, string? lamination = null) => new()
++    {
++        Format = format, Binding = binding, InnerPageCount = pages, InnerPaper = paper, Quantity = qty,
++        HasCover = coverPaper == null ? "false" : "true",
++        CoverPaper = coverPaper, CoverPrint = coverPrint, Lamination = lamination,
++    };
++
++    private static (string? error, PrintABC.Data.CatalogQuoteResponse? resp) Run(CatalogCalculatorService svc, CatalogFormInput input)
++    {
++        var error = svc.ValidateInput(input, out var req);
++        return error != null ? (error, null) : (null, svc.Calculate(req!));
++    }
++
++    public static TheoryData<string, CatalogFormInput, decimal, decimal> Prices => new()
++    {
++        { "T01", Input("A5", "Staple", "8", "130", "20"), 100.65m, 118.77m },
++        { "T02", Input("A4", "Staple", "12", "130", "100", "250", "44", "None"), 1140.84m, 1346.19m },
++        { "T03", Input("A4", "Spiral", "60", "130", "20", "300", "40", "Matte"), 1423.00m, 1679.14m },
++        { "T04", Input("A4", "Staple", "8", "80", "6"), 100.00m, 118.00m },
++        { "T05", Input("A5", "Staple", "4", "170", "50", "300", "40", "Gloss"), 295.01m, 348.11m },
++        { "T06", Input("A6", "Staple", "16", "130", "200", "250", "44", "Matte"), 1093.05m, 1289.80m },
++        { "T07", Input("A4", "Spiral", "200", "80", "10", "300", "40", "Matte"), 1550.52m, 1829.61m },
++        { "T08", Input("A5", "Spiral", "20", "250", "30", "300", "44", "None"), 1328.08m, 1567.13m },
++        { "T10", Input("A4", "Staple", "12", "130", "78", "250", "44", "None"), 988.72m, 1166.69m },
++        { "T11", Input("A4", "Staple", "12", "130", "79", "250", "44", "None"), 901.26m, 1063.49m },
++    };
++
++    [Theory, MemberData(nameof(Prices))]
++    public void T_prices(string id, CatalogFormInput input, decimal exVat, decimal incVat)
++    {
++        var (error, r) = Run(Svc(), input);
++        Assert.Null(error);
++        Assert.Equal(ValidationStatus.Ready, r!.Status);
++        Assert.Equal(exVat, r.PriceExVatIls);
++        Assert.Equal(incVat, r.PriceIncVatIls);
++        Assert.Equal(id == "T04", r.MinApplied);
++    }
++
++    [Fact]
++    public void T09_manual_quote() =>
++        Assert.Equal(ValidationStatus.ManualQuote,
++            Run(Svc(), Input("A4", "Staple", "36", "130", "150", "300", "40", "Matte")).resp!.Status);
++
++    [Fact]
++    public void T12_too_thick()
++    {
++        // ТЗ: «все MaxThickness = 1 мм». Но T = 20/2 × 0,10 = 1,00 мм, а правило §3.2 п.7 «T ≤ Max» —
++        // ровно 1 мм ещё влезает. Чтобы получить too_thick, берём 0,9 мм (вопрос автору ТЗ).
++        var svc = Svc(s => s.Spirals.ForEach(sp => sp.MaxThicknessMm = 0.9m));
++        var (_, r) = Run(svc, Input("A4", "Spiral", "20", "80", "10"));
++        Assert.Equal("too_thick", r!.ErrorCode);
++    }
++
++    [Fact]
++    public void T13_min_equals_ceiling()
++    {
++        var svc = Svc(s => s.MinOrderIls = 2000);
++        var (_, r) = Run(svc, Input("A5", "Staple", "8", "130", "20"));
++        Assert.Equal(ValidationStatus.Ready, r!.Status);
++        Assert.Equal(2000.00m, r.PriceExVatIls);
++        Assert.Equal(2360.00m, r.PriceIncVatIls);
++        Assert.True(r.MinApplied);
++    }
++
++    public static TheoryData<string, CatalogFormInput, string> Errors => new()
++    {
++        { "V01", Input("A4", "Staple", "10", "130", "100", "250", "44", "None"), "pages_step" },
++        { "V02", Input("A4", "Staple", "4", "130", "100"), "pages_min" },
++        { "V03", Input("A4", "Staple", "40", "130", "100", "250", "44", "None"), "pages_max" },
++        { "V04", Input("A4", "Staple", "12", "170", "100", "250", "44", "None"), "pages_max" },
++        { "V05", Input("A4", "Staple", "8", "300", "100"), "bad_paper" },
++        { "V06", Input("A4", "Spiral", "18", "130", "100"), "pages_min" },
++        { "V07", Input("A4", "Spiral", "21", "130", "100"), "pages_step" },
++        { "V08", Input("A4", "Staple", "12", "130", "5", "250", "44", "None"), "qty_min" },
++        { "V09", Input("A3", "Staple", "12", "130", "100"), "bad_format" },
++        { "V09-num", Input("1", "Staple", "12", "130", "100"), "bad_format" },
++        { "V10", Input("A4", "glue", "12", "130", "100"), "bad_binding" },
++        { "V11-150", Input("A4", "Staple", "12", "150", "100", "250", "44", "None"), "bad_paper" },
++        { "V11-300", Input("A4", "Staple", "8", "300", "100", "250", "44", "None"), "bad_paper" },
++        { "V12-paper", Input("A4", "Staple", "12", "130", "100", "130", "44", "None"), "bad_cover" },
++        { "V12-print", Input("A4", "Staple", "12", "130", "100", "250", "1+0", "None"), "bad_cover" },
++        { "V13", Input("A4", "Staple", "12", "130", "100", "250", "44", "silk"), "bad_lamination" },
++        { "V14-0", Input("A4", "Staple", "12", "130", "0"), "qty_min" },
++        { "V14-neg", Input("A4", "Staple", "12", "130", "-1"), "qty_min" },
++        { "V14-frac", Input("A4", "Staple", "12", "130", "6.5"), "bad_request" },
++        { "V14-abc", Input("A4", "Staple", "12", "130", "abc"), "bad_request" },
++        { "V14-null", Input("A4", "Staple", "12", "130", null!), "bad_request" },
++        { "V14-nopages", Input("A4", "Staple", null!, "130", "100"), "bad_request" },
++        { "V14-pages-frac", Input("A4", "Staple", "12.5", "130", "100"), "bad_request" },
++        { "V15-pages", Input("A4", "Spiral", "62", "300", "10"), "pages_max" },
++        { "V15-qty", Input("A4", "Staple", "12", "130", "100001", "250", "44", "None"), "qty_max" },
++    };
++
++    [Theory, MemberData(nameof(Errors))]
++    public void V_errors(string id, CatalogFormInput input, string expected)
++    {
++        _ = id;
++        Assert.Equal(expected, Svc().ValidateInput(input, out _));
++    }
++
++    [Fact]
++    public void V13_lamination_ignored_without_cover()
++    {
++        var input = Input("A4", "Staple", "12", "130", "100");
++        input.Lamination = "silk"; input.CoverPaper = "999"; input.CoverPrint = "x";
++        var (error, r) = Run(Svc(), input);
++        Assert.Null(error);
++        Assert.Equal(ValidationStatus.Ready, r!.Status);
++    }
++}
+diff --git a/PrintABC.Tests/PrintABC.Tests.csproj b/PrintABC.Tests/PrintABC.Tests.csproj
+new file mode 100644
+index 0000000..84f7762
+--- /dev/null
++++ b/PrintABC.Tests/PrintABC.Tests.csproj
+@@ -0,0 +1,26 @@
++<Project Sdk="Microsoft.NET.Sdk">
++
++  <PropertyGroup>
++    <TargetFramework>net10.0</TargetFramework>
++    <ImplicitUsings>enable</ImplicitUsings>
++    <Nullable>enable</Nullable>
++    <IsPackable>false</IsPackable>
++  </PropertyGroup>
++
++  <ItemGroup>
++    <PackageReference Include="coverlet.collector" Version="6.0.4" />
++    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
++    <PackageReference Include="xunit" Version="2.9.3" />
++    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
++  </ItemGroup>
++
++  <ItemGroup>
++    <ProjectReference Include="..\PrintABC.csproj" />
++    <None Include="..\appsettings.json" Link="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
++  </ItemGroup>
++
++  <ItemGroup>
++    <Using Include="Xunit" />
++  </ItemGroup>
++
++</Project>
+\ No newline at end of file
+diff --git a/PrintABC.csproj b/PrintABC.csproj
+index e9191e6..bd2df65 100644
+--- a/PrintABC.csproj
++++ b/PrintABC.csproj
+@@ -9,6 +9,13 @@
+     <DockerfileContext>.</DockerfileContext>
+   </PropertyGroup>
+ 
++  <ItemGroup>
++    <!-- папка тестов лежит внутри проекта сайта: не компилировать её в сайт -->
++    <Compile Remove="PrintABC.Tests\**" />
++    <Content Remove="PrintABC.Tests\**" />
++    <None Remove="PrintABC.Tests\**" />
++  </ItemGroup>
++
+   <ItemGroup>
+     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.24.2-preview.1" />
+   </ItemGroup>
+diff --git a/PrintABC.slnx b/PrintABC.slnx
+index c863e63..62a066c 100644
+--- a/PrintABC.slnx
++++ b/PrintABC.slnx
+@@ -1,3 +1,4 @@
+ <Solution>
+   <Project Path="PrintABC.csproj" />
++  <Project Path="PrintABC.Tests/PrintABC.Tests.csproj" />
+ </Solution>
+diff --git a/Program.cs b/Program.cs
+index 5739362..3e0b9ca 100644
+--- a/Program.cs
++++ b/Program.cs
+@@ -48,6 +48,10 @@ namespace PrintABC
+             .AddDataAnnotationsLocalization();
+ 
+             builder.Services.AddSingleton<StickerCalculatorService>();
++            builder.Services.AddOptions<CatalogSettings>()
++                .Bind(builder.Configuration.GetSection("Catalogs"))
++                .Validate(s => s.IsComplete(), "appsettings.json: секция Catalogs неполная")
++                .ValidateOnStart();
+             builder.Services.AddSingleton<CatalogCalculatorService>();
+ 
+             builder.Services.Configure<RequestLocalizationOptions>(options =>
+diff --git a/Resources/Pages/Catalogs.he.resx b/Resources/Pages/Catalogs.he.resx
+index 6940b0b..b35eaad 100644
+--- a/Resources/Pages/Catalogs.he.resx
++++ b/Resources/Pages/Catalogs.he.resx
+@@ -370,7 +370,7 @@
+     <value>כולל מע״מ</value>
+   </data>
+   <data name="msg_file_whatsapp" xml:space="preserve">
+-    <value>את קובץ ההדפסה אשלח מיד דרך %0a %F0%9F%93%8E%20← "מסמך" (לא "גלריה").</value>
++    <value>את קובץ ההדפסה אשלח מיד דרך 📎 ← "מסמך" (לא "גלריה").</value>
+   </data>
+   <data name="special_description" xml:space="preserve">
+     <value>צריכים משהו מיוחד? כתבו לנו ב-WhatsApp</value>
+@@ -390,4 +390,28 @@
+   <data name="error_too_thick" xml:space="preserve">
+     <value>החוברת עבה מדי לספירלה. הקטינו את מספר העמודים או בחרו נייר דק יותר.</value>
+   </data>
++  <data name="cta_ask" xml:space="preserve">
++    <value>לבקשת הצעת מחיר ב-WhatsApp</value>
++  </data>
++  <data name="msg_ask" xml:space="preserve">
++    <value>אבקש הצעת מחיר</value>
++  </data>
++  <data name="manual_title" xml:space="preserve">
++    <value>נחשב לכם אישית</value>
++  </data>
++  <data name="manual_text" xml:space="preserve">
++    <value>שלחו לנו את הפרמטרים ב-WhatsApp — נחזור עם מחיר.</value>
++  </data>
++  <data name="order_minimum_hint" xml:space="preserve">
++    <value>הזמנת מינימום 118 ₪ כולל מע״מ</value>
++  </data>
++  <data name="error_qty_max" xml:space="preserve">
++    <value>הכמות גדולה מ-100,000 יח׳. כתבו לנו — נחשב לכם אישית.</value>
++  </data>
++  <data name="error_generic" xml:space="preserve">
++    <value>לא הצלחנו לחשב מחיר. בדקו את הפרמטרים או כתבו לנו.</value>
++  </data>
++  <data name="pages_hint" xml:space="preserve">
++    <value>{0}, {1} גרם: {2}–{3} עמ׳, בכפולות של {4}</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Resources/Pages/Catalogs.ru.resx b/Resources/Pages/Catalogs.ru.resx
+index 5c62e13..0815f7f 100644
+--- a/Resources/Pages/Catalogs.ru.resx
++++ b/Resources/Pages/Catalogs.ru.resx
+@@ -370,7 +370,7 @@
+     <value>с НДС</value>
+   </data>
+   <data name="msg_file_whatsapp" xml:space="preserve">
+-    <value>Файл макета пришлю следом через %0a %F0%9F%93%8E%20 → «Документ» (не «Галерея»).</value>
++    <value>Файл макета пришлю следом через 📎 → «Документ» (не «Галерея»).</value>
+   </data>
+   <data name="special_description" xml:space="preserve">
+     <value>Нужно что-то особенное? Напишите в WhatsApp</value>
+@@ -390,4 +390,28 @@
+   <data name="error_too_thick" xml:space="preserve">
+     <value>Слишком толстый блок для спирали. Уменьшите число страниц или выберите бумагу тоньше.</value>
+   </data>
++  <data name="cta_ask" xml:space="preserve">
++    <value>Запросить расчёт в WhatsApp</value>
++  </data>
++  <data name="msg_ask" xml:space="preserve">
++    <value>Прошу рассчитать цену</value>
++  </data>
++  <data name="manual_title" xml:space="preserve">
++    <value>Рассчитаем индивидуально</value>
++  </data>
++  <data name="manual_text" xml:space="preserve">
++    <value>Отправьте параметры в WhatsApp — вернёмся с ценой.</value>
++  </data>
++  <data name="order_minimum_hint" xml:space="preserve">
++    <value>Минимальный заказ 118 ₪ с НДС</value>
++  </data>
++  <data name="error_qty_max" xml:space="preserve">
++    <value>Тираж больше 100 000 шт. Напишите нам — рассчитаем индивидуально.</value>
++  </data>
++  <data name="error_generic" xml:space="preserve">
++    <value>Не удалось посчитать цену. Проверьте параметры или напишите нам.</value>
++  </data>
++  <data name="pages_hint" xml:space="preserve">
++    <value>{0}, {1} г: от {2} до {3} стр., кратно {4}</value>
++  </data>
+ </root>
+\ No newline at end of file
+diff --git a/Services/CatalogCalculatorService.cs b/Services/CatalogCalculatorService.cs
+index fde0df7..d69ca10 100644
+--- a/Services/CatalogCalculatorService.cs
++++ b/Services/CatalogCalculatorService.cs
+@@ -1,63 +1,127 @@
+ ﻿using PrintABC.Data;
++using Microsoft.Extensions.Options;
++using System.Globalization;
+ using static PrintABC.Services.CatalogCalculatorService;
+ using static PrintABC.Utils.Helpers;
+ 
+ namespace PrintABC.Services
+ {
++    // Сырые значения формы: всё строки, чтобы самим решать, какая ошибка (bad_request, bad_format, ...)
++    public class CatalogFormInput
++    {
++        public string? Format { get; set; }
++        public string? Binding { get; set; }
++        public string? InnerPageCount { get; set; }
++        public string? InnerPaper { get; set; }
++        public string? HasCover { get; set; }
++        public string? CoverPaper { get; set; }
++        public string? CoverPrint { get; set; }
++        public string? Lamination { get; set; }
++        public string? Quantity { get; set; }
++    }
++
+     public record CatalogQuoteRequest(CatalogSize Format, CatalogBinding Binding, int Pages, int InnerPaper, bool HasCover, int CoverPaper, string CoverPrint, LaminationType Lamination, int Quantity);
+     public class CatalogCalculatorService
+     {
+         public enum CatalogSize { A4, A5, A6, }
+         public enum CatalogBinding { Staple, Spiral }
+         public enum LaminationType { None, Matte, Gloss }
+-        const decimal ClickColorIls = 0.13325m, UsdRateIls = 3.3m, StaplesPerCopyIls = 0.5m;
+-        const decimal MarkupThresholdIls = 200, MarkupLow = 5, MarkupHigh = 4.5m;
+-        const decimal LaminationUsdPerM2 = 0.37m, SheetAreaM2 = 0.16104m, WasteRate = 0.1m, VatRate = 0.18m;
+-        const int PunchSec = 30, SpiralCloseSec = 30, LaborRateIlsPerHour = 200, MinOrderIls = 100, MaxAutoPriceIls = 2000;
++        // все числа формулы — из appsettings.json, секция "Catalogs" (ТЗ §3.1)
++        private readonly CatalogSettings S;
++        public CatalogCalculatorService(IOptions<CatalogSettings> options) => S = options.Value;
+ 
+-        public record PaperInfo(decimal SheetPriceIls, decimal ThicknessMm, int SheetsPerPunch, int StapleMaxPages, int SpiralMaxPages);
+-        private static PaperInfo GetPaperInfo(int paper) => paper switch
+-        {
+-            80 => new(0.091m, 0.1m, 20, 36, 200),
+-            130 => new(0.1485m, 0.115m, 17, 36, 150),
+-            170 => new(0.197m, 0.15m, 13, 8, 120),
+-            250 => new(0.29322m, 0.24m, 8, 8, 60),
+-            300 => new(0.35216m, 0.29m, 6, 0, 60),
+-            _ => throw new ArgumentOutOfRangeException(nameof(paper), paper, "Unsupported paper weight")
+-        };
++        private CatalogPaperSettings GetPaperInfo(int paper) =>
++            S.Papers.TryGetValue(paper, out var p) ? p : throw new ArgumentOutOfRangeException(nameof(paper), paper, "Unsupported paper weight");
+ 
+         public static int[] GetInnerPaperSizes() => [80, 130, 170, 250, 300];
++        public static int[] GetCoverPaperSizes() => [250, 300];
++        public static string[] GetCoverPrints() => ["40", "44"];
++        public const int MinQuantity = 6; // ТЗ §1; MaxQuantity — в конфиге
++
++        // ТЗ §2: шаг и минимум страниц блока
++        public static int GetPagesStep(CatalogBinding binding) => binding == CatalogBinding.Staple ? 4 : 2;
++        public static int GetPagesMin(CatalogBinding binding, bool hasCover) =>
++            binding == CatalogBinding.Spiral ? 20 : (hasCover ? 4 : 8);
++        public int GetPagesMax(CatalogBinding binding, int innerPaper) =>
++            binding == CatalogBinding.Staple ? GetPaperInfo(innerPaper).StapleMaxPages : GetPaperInfo(innerPaper).SpiralMaxPages;
++
++        private static bool TryParseInt(string? s, out int value) =>
++            int.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out value);
++
++        // принимает только имя из enum (без учёта регистра); "1" или "A3" -> false
++        private static bool TryParseName<T>(string? s, out T value) where T : struct, Enum
++        {
++            value = default;
++            string? name = Enum.GetNames<T>().FirstOrDefault(n => string.Equals(n, s?.Trim(), StringComparison.OrdinalIgnoreCase));
++            return name != null && Enum.TryParse(name, out value);
++        }
+ 
+-        public record CatalogSizeInfo(int PagesPerSheet, int CoversPerSheet, decimal SpiralLengthFactor);
+-        private static CatalogSizeInfo GetSizeInfo(CatalogSize size) => size switch
++        /// <summary>
++        /// Проверки ТЗ §5 строго в этом порядке. Возвращает код первой ошибки или null, если всё верно.
++        /// too_thick проверяется в Calculate (нужна толщина).
++        /// </summary>
++        public string? ValidateInput(CatalogFormInput f, out CatalogQuoteRequest? request)
+         {
+-            CatalogSize.A4 => new(4, 1, 1m),
+-            CatalogSize.A5 => new(8, 2, 0.71m),
+-            CatalogSize.A6 => new(16, 4, 0.5m),
+-            _ => throw new ArgumentOutOfRangeException(nameof(size), size, null)
+-        };
++            request = null;
++
++            // 1. bad_request: поле отсутствует, не число, дробное
++            if (string.IsNullOrWhiteSpace(f.Format) || string.IsNullOrWhiteSpace(f.Binding)
++                || !TryParseInt(f.InnerPageCount, out int pages)
++                || !TryParseInt(f.InnerPaper, out int innerPaper)
++                || !bool.TryParse(f.HasCover, out bool hasCover)
++                || !TryParseInt(f.Quantity, out int quantity))
++                return "bad_request";
++            int coverPaper = 0;
++            if (hasCover && (!TryParseInt(f.CoverPaper, out coverPaper)
++                             || string.IsNullOrWhiteSpace(f.CoverPrint)
++                             || string.IsNullOrWhiteSpace(f.Lamination)))
++                return "bad_request";
++
++            // 2. bad_format, 3. bad_binding
++            if (!TryParseName(f.Format, out CatalogSize format)) return "bad_format";
++            if (!TryParseName(f.Binding, out CatalogBinding binding)) return "bad_binding";
++
++            // 4. bad_paper: не из списка или запрещена для переплёта (300 г при скобе)
++            if (!GetInnerPaperSizes().Contains(innerPaper) || GetPagesMax(binding, innerPaper) == 0)
++                return "bad_paper";
++
++            // 5. bad_cover, 6. bad_lamination — только при обложке
++            string coverPrint = "";
++            LaminationType lamination = LaminationType.None;
++            if (hasCover)
++            {
++                coverPrint = f.CoverPrint!.Trim();
++                if (!GetCoverPaperSizes().Contains(coverPaper) || !GetCoverPrints().Contains(coverPrint))
++                    return "bad_cover";
++                if (!TryParseName(f.Lamination, out lamination))
++                    return "bad_lamination";
++            }
++
++            // 7-9. страницы
++            if (pages % GetPagesStep(binding) != 0) return "pages_step";
++            if (pages < GetPagesMin(binding, hasCover)) return "pages_min";
++            if (pages > GetPagesMax(binding, innerPaper)) return "pages_max";
++
++            // 10-11. тираж
++            if (quantity < MinQuantity) return "qty_min";
++            if (quantity > S.MaxQuantity) return "qty_max";
++
++            request = new CatalogQuoteRequest(format, binding, pages, innerPaper, hasCover, coverPaper, coverPrint, lamination, quantity);
++            return null;
++        }
+ 
+-        public record Spiral(string Name, decimal DiameterMm, int MaxThicknessMm, decimal PriceA4Ils);
+-        public static readonly Spiral[] Spirals = [
+-            new (Name: "3/8", DiameterMm: 9.5m, MaxThicknessMm: 7, PriceA4Ils: 0.8m),
+-            new (Name: "7/16", DiameterMm:11, MaxThicknessMm:9, PriceA4Ils:0.92m),
+-            new (Name: "9/16", DiameterMm:14, MaxThicknessMm:12, PriceA4Ils:1.1m),
+-            new (Name: "5/8", DiameterMm:16, MaxThicknessMm:14, PriceA4Ils:1.25m),
+-            ];
+ 
+ 
+         public CatalogQuoteResponse Calculate(CatalogQuoteRequest req)
+         {
+-            if (req.Pages % 4 != 0)
+-                return CatalogQuoteResponse.Error("pages_step");
+-
++            // вход уже проверен в ValidateInput
+             int sheetsPerCopy = req.Pages / 2;
+-            PaperInfo innerPaper = GetPaperInfo(req.InnerPaper);
+-            PaperInfo coverPaper = GetPaperInfo(req.CoverPaper);
+-            CatalogSizeInfo format = GetSizeInfo(req.Format);
++            var innerPaper = GetPaperInfo(req.InnerPaper);
++            CatalogPaperSettings? coverPaper = req.HasCover ? GetPaperInfo(req.CoverPaper) : null; // без обложки бумагу обложки не трогаем
++            var format = S.Formats[req.Format];
+             int innerSheetsTotal = CeilDiv(req.Quantity * req.Pages, format.PagesPerSheet);
+ 
+-            decimal innerCost = innerSheetsTotal * (innerPaper.SheetPriceIls + 2 * ClickColorIls);
++            decimal innerCost = innerSheetsTotal * (innerPaper.SheetPriceIls + 2 * S.ClickColorIls);
+ 
+             int coverSheetsTotal = req.HasCover ? CeilDiv(req.Quantity, format.CoversPerSheet) : 0;
+ 
+@@ -65,17 +129,17 @@ namespace PrintABC.Services
+             if (req.HasCover)
+             {
+                 int coverPrintedSides = req.CoverPrint == "44" ? 2 : 1;
+-                coverCost = coverSheetsTotal * (coverPaper.SheetPriceIls + coverPrintedSides * ClickColorIls);
++                coverCost = coverSheetsTotal * (coverPaper!.SheetPriceIls + coverPrintedSides * S.ClickColorIls);
+             }
+ 
+             decimal laminationCost = 0;
+             if (req.HasCover && req.Lamination != LaminationType.None)
+             {
+-                decimal laminationPerSheet = LaminationUsdPerM2 * UsdRateIls * SheetAreaM2;
++                decimal laminationPerSheet = S.LaminationUsdPerM2 * S.UsdRateIls * S.SheetAreaM2;
+                 laminationCost = coverSheetsTotal * laminationPerSheet;
+             }
+ 
+-            decimal copyThicknessMm = sheetsPerCopy * innerPaper.ThicknessMm + (req.HasCover ? 2 * coverPaper.ThicknessMm : 0);
++            decimal copyThicknessMm = sheetsPerCopy * innerPaper.ThicknessMm + (req.HasCover ? 2 * coverPaper!.ThicknessMm : 0);
+ 
+             decimal bindingMaterialsCost;
+             decimal laborCost = 0;
+@@ -83,34 +147,34 @@ namespace PrintABC.Services
+ 
+             if (req.Binding == CatalogBinding.Staple)
+             {
+-                bindingMaterialsCost = req.Quantity * StaplesPerCopyIls;
++                bindingMaterialsCost = req.Quantity * S.StaplesPerCopyIls;
+             }
+             else
+             {
+-                var spiral = Spirals.OrderBy(s => s.MaxThicknessMm).FirstOrDefault(s => copyThicknessMm <= s.MaxThicknessMm);
++                var spiral = S.Spirals.OrderBy(s => s.MaxThicknessMm).FirstOrDefault(s => copyThicknessMm <= s.MaxThicknessMm);
+                 if (spiral == null)
+                     return CatalogQuoteResponse.Error("too_thick");
+                 spiralDiameterMm = spiral.DiameterMm;
+                 bindingMaterialsCost = req.Quantity * spiral.PriceA4Ils * format.SpiralLengthFactor;
+                 int punchesPerCopy = CeilDiv(sheetsPerCopy, innerPaper.SheetsPerPunch)
+                             + (req.HasCover ? CeilDiv(2, coverPaper!.SheetsPerPunch) : 0);
+-                decimal secondsPerCopy = punchesPerCopy * PunchSec + SpiralCloseSec;
+-                laborCost = req.Quantity * secondsPerCopy * LaborRateIlsPerHour / 3600m;
++                decimal secondsPerCopy = punchesPerCopy * S.PunchSec + S.SpiralCloseSec;
++                laborCost = req.Quantity * secondsPerCopy * S.LaborRateIlsPerHour / 3600m;
+             }
+ 
+             decimal productionCost = innerCost + coverCost + laminationCost + bindingMaterialsCost + laborCost;
+ 
+-            decimal costWithWaste = productionCost * (1 + WasteRate);
++            decimal costWithWaste = productionCost * (1 + S.WasteRate);
+ 
+-            decimal markup = costWithWaste < MarkupThresholdIls ? MarkupLow : MarkupHigh;
+-            decimal calculatedPrice = Math.Round(costWithWaste * markup, 2);
+-            bool minApplied = calculatedPrice < MinOrderIls;
+-            decimal priceExVat = minApplied ? MinOrderIls : calculatedPrice;
+-            if (priceExVat > MaxAutoPriceIls)
++            decimal markup = costWithWaste < S.MarkupThresholdIls ? S.MarkupLow : S.MarkupHigh;
++            decimal calculatedPrice = Math.Round(costWithWaste * markup, 2, MidpointRounding.AwayFromZero);
++            bool minApplied = calculatedPrice < S.MinOrderIls;
++            decimal priceExVat = minApplied ? S.MinOrderIls : calculatedPrice;
++            if (priceExVat > S.MaxAutoPriceIls)
+                 return new CatalogQuoteResponse() { Status = ValidationStatus.ManualQuote, ErrorCode = "" };
+-            decimal vat = Math.Round(priceExVat * VatRate, 2);
++            decimal vat = Math.Round(priceExVat * S.VatRate, 2, MidpointRounding.AwayFromZero);
+             decimal priceIncVat = priceExVat + vat;
+-            decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2);
++            decimal pricePerCopy = Math.Round(priceIncVat / req.Quantity, 2, MidpointRounding.AwayFromZero);
+ 
+             return new CatalogQuoteResponse()
+             {
+@@ -119,6 +183,8 @@ namespace PrintABC.Services
+                 PriceIncVatIls = priceIncVat,
+                 VatIls = vat,
+                 UnitPriceIncVatIls = pricePerCopy,
++                MinApplied = minApplied,
++                SpiralMm = spiralDiameterMm,   // для скобы null (ТЗ §5)
+                 Status = ValidationStatus.Ready
+             };
+         }
+diff --git a/Services/CatalogSettings.cs b/Services/CatalogSettings.cs
+new file mode 100644
+index 0000000..485b105
+--- /dev/null
++++ b/Services/CatalogSettings.cs
+@@ -0,0 +1,58 @@
++using static PrintABC.Services.CatalogCalculatorService;
++
++namespace PrintABC.Services
++{
++    // Секция "Catalogs" в appsettings.json (ТЗ §3.1). Имена свойств = ключи из ТЗ.
++    public class CatalogSettings
++    {
++        public Dictionary<int, CatalogPaperSettings> Papers { get; set; } = new();          // ключ = граммы
++        public Dictionary<CatalogSize, CatalogFormatSettings> Formats { get; set; } = new(); // ключ = A4/A5/A6
++        public List<CatalogSpiralSettings> Spirals { get; set; } = new();
++        public decimal ClickColorIls { get; set; }
++        public decimal LaminationUsdPerM2 { get; set; }
++        public decimal UsdRateIls { get; set; }
++        public decimal SheetAreaM2 { get; set; }
++        public decimal StaplesPerCopyIls { get; set; }
++        public int PunchSec { get; set; }
++        public int SpiralCloseSec { get; set; }
++        public decimal LaborRateIlsPerHour { get; set; }
++        public decimal WasteRate { get; set; }
++        public decimal MarkupThresholdIls { get; set; }
++        public decimal MarkupLow { get; set; }
++        public decimal MarkupHigh { get; set; }
++        public decimal MinOrderIls { get; set; }
++        public decimal MaxAutoPriceIls { get; set; }
++        public int MaxQuantity { get; set; }
++        public decimal VatRate { get; set; }
++
++        // Проверка при старте: для каждой бумаги и формата из списка продукта есть строка в конфиге
++        public bool IsComplete() =>
++            GetInnerPaperSizes().Concat(GetCoverPaperSizes()).All(Papers.ContainsKey)
++            && Enum.GetValues<CatalogSize>().All(Formats.ContainsKey)
++            && Spirals.Count > 0 && MaxQuantity > 0;
++    }
++
++    public class CatalogPaperSettings
++    {
++        public decimal SheetPriceIls { get; set; }
++        public decimal ThicknessMm { get; set; }
++        public int SheetsPerPunch { get; set; }
++        public int StapleMaxPages { get; set; }   // 0 = нельзя
++        public int SpiralMaxPages { get; set; }   // 0 = нельзя
++    }
++
++    public class CatalogFormatSettings
++    {
++        public int PagesPerSheet { get; set; }
++        public int CoversPerSheet { get; set; }
++        public decimal SpiralLengthFactor { get; set; }
++    }
++
++    public class CatalogSpiralSettings
++    {
++        public string Name { get; set; } = "";
++        public decimal DiameterMm { get; set; }
++        public decimal MaxThicknessMm { get; set; }
++        public decimal PriceA4Ils { get; set; }
++    }
++}
+diff --git a/appsettings.json b/appsettings.json
+index 10f68b8..bb3a037 100644
+--- a/appsettings.json
++++ b/appsettings.json
+@@ -5,5 +5,103 @@
+       "Microsoft.AspNetCore": "Warning"
+     }
+   },
+-  "AllowedHosts": "*"
+-}
++  "AllowedHosts": "*",
++  "Catalogs": {
++    "Papers": {
++      "80": {
++        "SheetPriceIls": 0.091,
++        "ThicknessMm": 0.1,
++        "SheetsPerPunch": 20,
++        "StapleMaxPages": 36,
++        "SpiralMaxPages": 200
++      },
++      "130": {
++        "SheetPriceIls": 0.1485,
++        "ThicknessMm": 0.115,
++        "SheetsPerPunch": 17,
++        "StapleMaxPages": 36,
++        "SpiralMaxPages": 150
++      },
++      "170": {
++        "SheetPriceIls": 0.197,
++        "ThicknessMm": 0.15,
++        "SheetsPerPunch": 13,
++        "StapleMaxPages": 8,
++        "SpiralMaxPages": 120
++      },
++      "250": {
++        "SheetPriceIls": 0.29322,
++        "ThicknessMm": 0.24,
++        "SheetsPerPunch": 8,
++        "StapleMaxPages": 8,
++        "SpiralMaxPages": 60
++      },
++      "300": {
++        "SheetPriceIls": 0.35216,
++        "ThicknessMm": 0.29,
++        "SheetsPerPunch": 6,
++        "StapleMaxPages": 0,
++        "SpiralMaxPages": 60
++      }
++    },
++    "Formats": {
++      "A4": {
++        "PagesPerSheet": 4,
++        "CoversPerSheet": 1,
++        "SpiralLengthFactor": 1
++      },
++      "A5": {
++        "PagesPerSheet": 8,
++        "CoversPerSheet": 2,
++        "SpiralLengthFactor": 0.71
++      },
++      "A6": {
++        "PagesPerSheet": 16,
++        "CoversPerSheet": 4,
++        "SpiralLengthFactor": 0.5
++      }
++    },
++    "Spirals": [
++      {
++        "Name": "3/8",
++        "DiameterMm": 9.5,
++        "MaxThicknessMm": 7,
++        "PriceA4Ils": 0.8
++      },
++      {
++        "Name": "7/16",
++        "DiameterMm": 11,
++        "MaxThicknessMm": 9,
++        "PriceA4Ils": 0.92
++      },
++      {
++        "Name": "9/16",
++        "DiameterMm": 14,
++        "MaxThicknessMm": 12,
++        "PriceA4Ils": 1.1
++      },
++      {
++        "Name": "5/8",
++        "DiameterMm": 16,
++        "MaxThicknessMm": 14,
++        "PriceA4Ils": 1.25
++      }
++    ],
++    "ClickColorIls": 0.13325,
++    "LaminationUsdPerM2": 0.37,
++    "UsdRateIls": 3.3,
++    "SheetAreaM2": 0.16104,
++    "StaplesPerCopyIls": 0.5,
++    "PunchSec": 30,
++    "SpiralCloseSec": 30,
++    "LaborRateIlsPerHour": 200,
++    "WasteRate": 0.1,
++    "MarkupThresholdIls": 200,
++    "MarkupLow": 5,
++    "MarkupHigh": 4.5,
++    "MinOrderIls": 100,
++    "MaxAutoPriceIls": 2000,
++    "MaxQuantity": 100000,
++    "VatRate": 0.18
++  }
++}
+\ No newline at end of file
+diff --git a/wwwroot/css/components.css b/wwwroot/css/components.css
+index 0774f7a..33ccfd6 100644
+--- a/wwwroot/css/components.css
++++ b/wwwroot/css/components.css
+@@ -234,3 +234,4 @@ textarea.field__input { padding: 10px 12px; min-height: 96px; resize: vertical;
+ .price-box__row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; color: var(--c-muted); font-size: var(--fs-small); }
+ .price-box__row--total { color: var(--c-ink); font-weight: 700; font-size: var(--fs-body); }
+ .price-box__total { font-family: var(--font-head); font-weight: 800; font-size: 2.5rem; line-height: 1; white-space: nowrap; }
++.price-box.is-pending { opacity: .5; transition: opacity .15s; }
+diff --git a/wwwroot/js/catalogs.js b/wwwroot/js/catalogs.js
+new file mode 100644
+index 0000000..3b7ebdd
+--- /dev/null
++++ b/wwwroot/js/catalogs.js
+@@ -0,0 +1,205 @@
++// Калькулятор «Каталоги и журналы». Цену считает только сервер (ТЗ §3, §9.1).
++(function () {
++    const form = document.getElementById('calc-form');
++    if (!form) return;
++
++    const totalOutput = document.getElementById('calc-total');
++    const vatOutput = document.getElementById('calc-vat');
++    const unitOutput = document.getElementById('calc-unit');
++    const validBlock = document.getElementById('valid_prices');
++    const manualBlock = document.getElementById('invalid_prices');
++    const minNote = form.querySelector('[data-min-note]');
++    const priceBox = form.querySelector('.price-box');
++    const next = document.getElementById('calc-next');
++    const nextOff = document.getElementById('calc-next-off');
++    const pagesInput = document.getElementById('calc-pages');
++    const pagesHint = form.querySelector('[data-pages-hint]');
++    const coverOpts = document.getElementById('cat-cover-opts');
++    const errorAlerts = form.querySelectorAll('.alert--error');
++    const limits = JSON.parse(form.dataset.limits);
++
++    const checked = name => form.querySelector(`input[name="${name}"]:checked`);
++    // «1346.19 ₪», в иврите число не переворачивается благодаря LRM (ТЗ §4)
++    const money = v => '‎' + Number(v).toFixed(2) + ' ₪‎';
++
++    function hideAllErrors() {
++        errorAlerts.forEach(alert => alert.hidden = true);
++    }
++
++    function setSend(enabled) {
++        next.hidden = !enabled;
++        nextOff.hidden = enabled;
++    }
++
++    function setCta(text) {
++        next.querySelector('[data-cta]').textContent = text;
++        nextOff.textContent = text;
++    }
++
++    function clearPrices() {
++        totalOutput.textContent = '—';
++        vatOutput.textContent = '—';
++        unitOutput.textContent = '—';
++    }
++
++    // mode: 'prices' — блок с ценой (или «—»), 'manual' — «рассчитаем индивидуально»
++    function showBlock(mode) {
++        validBlock.hidden = mode !== 'prices';
++        manualBlock.hidden = mode !== 'manual';
++    }
++
++    function render(result) {
++        hideAllErrors();
++        const data = result && result.data;
++        const status = data && data.status;
++
++        if (status === 'ready') {
++            showBlock('prices');
++            totalOutput.textContent = money(data.priceIncVatIls);
++            vatOutput.textContent = money(data.vatIls);
++            unitOutput.textContent = money(data.unitPriceIncVatIls);
++            minNote.hidden = !data.minApplied;
++            setCta(form.dataset.ctaOrder);
++            next.href = result.wpmessage;
++            setSend(true);
++        }
++        else if (status === 'manual_quote') {
++            // ТЗ §3.2 п.13: без цены, кнопка «Запросить расчёт в WhatsApp» с параметрами
++            showBlock('manual');
++            minNote.hidden = true;
++            setCta(form.dataset.ctaAsk);
++            next.href = result.wpmessage;
++            setSend(true);
++        }
++        else {
++            // ошибка проверки, HTTP 500, не-JSON, нет сети — всё сюда
++            const code = data && data.errorCode;
++            const alert = (code && form.querySelector(`[data-error="${CSS.escape(code)}"]`))
++                || form.querySelector('[data-error="generic"]');
++            alert.hidden = false;
++            showBlock('prices');
++            clearPrices();
++            minNote.hidden = true;
++            setCta(form.dataset.ctaOrder);
++            setSend(false);
++        }
++    }
++
++    let controller;
++    let lastRequest = 0;
++
++    async function triggerCalculation() {
++        controller?.abort();
++        controller = new AbortController();
++        const myRequest = ++lastRequest;
++
++        // пока ждём ответ: цена приглушена, кнопка неактивна (ТЗ §4)
++        priceBox.classList.add('is-pending');
++        setSend(false);
++
++        let result = null;
++        try {
++            const response = await fetch('?handler=Calculate', {
++                method: 'POST',
++                headers: {
++                    'RequestVerificationToken': form.querySelector('input[name="__RequestVerificationToken"]').value
++                },
++                body: new FormData(form),
++                signal: controller.signal
++            });
++            // JSON читаем и при 400 (если сервер начнёт отдавать ошибки с HTTP 400, ТЗ §5)
++            const type = response.headers.get('content-type') || '';
++            if (type.includes('application/json'))
++                result = await response.json();
++        }
++        catch (error) {
++            if (error.name === 'AbortError') return; // уже идёт более новый запрос
++        }
++        if (myRequest !== lastRequest) return;       // старый ответ не перезаписывает новый
++        priceBox.classList.remove('is-pending');
++        render(result);
++    }
++
++    // ТЗ §2: шаг, min, max поля страниц по переплёту, бумаге и обложке
++    function applyPageLimits(fixValue) {
++        const binding = checked('Binding').value;
++        const lim = limits[binding];
++
++        // бумага, запрещённая для переплёта (max = 0), неактивна; если выбрана — переключаем на 250 г
++        form.querySelectorAll('input[name="InnerPaper"]').forEach(r => r.disabled = lim.max[r.value] === 0);
++        if (checked('InnerPaper') === null || checked('InnerPaper').disabled) {
++            form.querySelector('input[name="InnerPaper"][value="250"]').checked = true;
++        }
++
++        const paper = checked('InnerPaper').value;
++        const hasCover = checked('HasCover').value === 'true';
++        const min = hasCover ? lim.minCover : lim.minNoCover;
++        const max = lim.max[paper];
++        const step = lim.step;
++        pagesInput.min = min;
++        pagesInput.max = max;
++        pagesInput.step = step;
++
++        if (fixValue) {
++            const n = parseInt(pagesInput.value, 10);
++            if (!isNaN(n)) {
++                let v = Math.min(Math.max(n, min), max);
++                v = Math.floor(v / step) * step;
++                if (v < min) v = min;
++                if (v !== n) pagesInput.value = v;
++            }
++        }
++
++        const bindingText = binding === 'Staple' ? form.dataset.bindStaple : form.dataset.bindSpiral;
++        pagesHint.textContent = form.dataset.hint
++            .replace('{0}', bindingText).replace('{1}', paper)
++            .replace('{2}', min).replace('{3}', max).replace('{4}', step);
++    }
++
++    function updateUIElements() {
++        document.getElementById("format_summary").innerText = checked('Format').value;
++        document.getElementById("binding_summary").innerText = form.querySelector("input[name='Binding']:checked+span").textContent;
++        document.getElementById("inner_page_summary").innerText = pagesInput.value;
++        document.getElementById("inner_paper_summary").innerText = form.querySelector("input[name='InnerPaper']:checked+span").textContent;
++        document.getElementById("cover_paper_summary").innerText = form.querySelector("input[name='CoverPaper']:checked+span").textContent;
++        const coverprint = checked('CoverPrint').value;
++        document.getElementById("cover_print_summary").innerText = coverprint.slice(0, 1) + "+" + coverprint.slice(1);
++
++        if (checked('Lamination').value == "None") {
++            document.getElementById("lamination_section").hidden = true;
++        }
++        else {
++            document.getElementById("lamination_section").hidden = false;
++            document.getElementById("lamination_summary").innerText = form.querySelector("input[name='Lamination']:checked+span").textContent;
++        }
++
++        document.getElementById("quantity_summary").innerText = document.getElementById('calc-qty').value;
++
++        // без обложки блок скрыт и поля обложки не уходят на сервер (ТЗ §4)
++        const hasCover = checked('HasCover').value === 'true';
++        coverOpts.hidden = !hasCover;
++        coverOpts.querySelectorAll('input').forEach(i => i.disabled = !hasCover);
++    }
++
++    function debounce(func, wait) {
++        let timeout;
++        return function (...args) {
++            clearTimeout(timeout);
++            timeout = setTimeout(() => func.apply(this, args), wait);
++        };
++    }
++
++    const recalc = debounce(triggerCalculation, 300);
++    form.addEventListener('change', e => {
++        if (['Binding', 'InnerPaper', 'HasCover'].includes(e.target.name)) applyPageLimits(true);
++    });
++    form.addEventListener('input', () => { updateUIElements(); recalc(); });
++
++    setSend(false);
++    // и при первой загрузке, и при «Назад» (без проверки persisted, ТЗ §4)
++    window.addEventListener('pageshow', () => {
++        updateUIElements();
++        applyPageLimits(true);
++        triggerCalculation();
++    });
++})();

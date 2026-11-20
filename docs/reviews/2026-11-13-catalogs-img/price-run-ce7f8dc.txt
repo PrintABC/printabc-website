@@ -1,0 +1,54 @@
+
+## catalogs — https://printabctest-cdc4bde8bjbkc5dd.swedencentral-01.azurewebsites.net
+Источник: catalogs/tz-catalogs.md v0.9.3 §10 (T12/T13 требуют тестовый конфиг — только локально, здесь не гоняются). defaults = поля, которые браузер отправляет всегда (FormData всей формы)
+
+| Тест | Язык | Итог | Получено |
+|---|---|---|---|
+| T01 | he | OK | ready · с НДС 119 · без НДС 100.65 |
+| T01 | ru | OK | ready · с НДС 119 · без НДС 100.65 |
+| T02 | he | OK | ready · с НДС 1346 · без НДС 1140.84 |
+| T02 | ru | OK | ready · с НДС 1346 · без НДС 1140.84 |
+| T03 | he | OK | ready · с НДС 1679 · без НДС 1423.0 |
+| T03 | ru | OK | ready · с НДС 1679 · без НДС 1423.0 |
+| T04 | he | OK | ready · с НДС 118 · без НДС 100 |
+| T04 | ru | OK | ready · с НДС 118 · без НДС 100 |
+| T05 | he | OK | ready · с НДС 348 · без НДС 295.01 |
+| T05 | ru | OK | ready · с НДС 348 · без НДС 295.01 |
+| T06 | he | OK | ready · с НДС 1290 · без НДС 1093.05 |
+| T06 | ru | OK | ready · с НДС 1290 · без НДС 1093.05 |
+| T07 | he | OK | ready · с НДС 1830 · без НДС 1550.52 |
+| T07 | ru | OK | ready · с НДС 1830 · без НДС 1550.52 |
+| T08 | he | OK | ready · с НДС 1567 · без НДС 1328.08 |
+| T08 | ru | OK | ready · с НДС 1567 · без НДС 1328.08 |
+| T09 | he | OK | manual_quote |
+| T09 | ru | OK | manual_quote |
+| T10 | he | OK | ready · с НДС 1167 · без НДС 988.72 |
+| T10 | ru | OK | ready · с НДС 1167 · без НДС 988.72 |
+| T11 | he | OK | ready · с НДС 1063 · без НДС 901.26 |
+| T11 | ru | OK | ready · с НДС 1063 · без НДС 901.26 |
+| V01 | he | OK | validation_error pages_step |
+| V01 | ru | OK | validation_error pages_step |
+| V02 | he | OK | validation_error pages_min |
+| V02 | ru | OK | validation_error pages_min |
+| V03 | he | OK | validation_error pages_max |
+| V03 | ru | OK | validation_error pages_max |
+| V04 | he | OK | validation_error pages_max |
+| V04 | ru | OK | validation_error pages_max |
+| V05 | he | OK | validation_error bad_paper |
+| V05 | ru | OK | validation_error bad_paper |
+| V06 | he | OK | validation_error pages_min |
+| V06 | ru | OK | validation_error pages_min |
+| V07 | he | OK | validation_error pages_step |
+| V07 | ru | OK | validation_error pages_step |
+| V08 | he | OK | validation_error qty_min |
+| V08 | ru | OK | validation_error qty_min |
+| V09 | he | FAIL | validation_error generic (ждали код bad_format) |
+| V09 | ru | FAIL | validation_error generic (ждали код bad_format) |
+| V11 | he | OK | validation_error bad_paper |
+| V11 | ru | OK | validation_error bad_paper |
+| V12 | he | FAIL | ready · с НДС 227 · без НДС 191.95 |
+| V12 | ru | FAIL | ready · с НДС 227 · без НДС 191.95 |
+| V15 | he | FAIL | manual_quote |
+| V15 | ru | FAIL | manual_quote |
+
+Итого FAIL: 6

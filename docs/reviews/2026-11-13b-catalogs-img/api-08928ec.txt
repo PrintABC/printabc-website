@@ -1,0 +1,44 @@
+coverPaper999_noCover  200 {"success":true,"data":{"status":"ready","errorCode":"","priceExVatIls":959.75,"vatIls":172.76,"priceIncVatIls":1133,"unitPriceIncVatIls":11.33,"minApplied":false,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u0026text=\u0417\
+coverPaper999_cover    500 
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error</title>
+    <meta name="description" content="PrintABC" />
+    <link rel="st
+coverPaper150_noCover  200 {"success":true,"data":{"status":"ready","errorCode":"","priceExVatIls":959.75,"vatIls":172.76,"priceIncVatIls":1133,"unitPriceIncVatIls":11.33,"minApplied":false,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u0026text=\u0417\
+coverPrintXX           200 {"success":true,"data":{"status":"ready","errorCode":"","priceExVatIls":1074.88,"vatIls":193.48,"priceIncVatIls":1268,"unitPriceIncVatIls":12.68,"minApplied":false,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u0026text=\u0417
+coverPrint10           200 {"success":true,"data":{"status":"ready","errorCode":"","priceExVatIls":1074.88,"vatIls":193.48,"priceIncVatIls":1268,"unitPriceIncVatIls":12.68,"minApplied":false,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u0026text=\u0417
+cover130               200 {"success":true,"data":{"status":"ready","errorCode":"","priceExVatIls":1069.20,"vatIls":192.46,"priceIncVatIls":1262,"unitPriceIncVatIls":12.62,"minApplied":false,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u0026text=\u0417
+cover150_cover         500 
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error</title>
+    <meta name="description" content="PrintABC" />
+    <link rel="st
+lamX_noCover           200 {"success":false,"data":{"status":"validation_error","errorCode":"bad_lamination","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+qtyAbc                 200 {"success":false,"data":{"status":"validation_error","errorCode":"qty_int","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+qtyEmpty               200 {"success":false,"data":{"status":"validation_error","errorCode":"qty_int","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+qty100000              200 {"success":true,"data":{"status":"manual_quote","errorCode":"","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u0026text=\u041
+pages12_5              200 {"success":false,"data":{"status":"validation_error","errorCode":"pages_int","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+innerPaper999          200 {"success":false,"data":{"status":"validation_error","errorCode":"bad_paper","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u
+qtyMinus1              200 {"success":false,"data":{"status":"validation_error","errorCode":"qty_min","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+qty5_5                 200 {"success":false,"data":{"status":"validation_error","errorCode":"qty_int","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+qtyComma               200 {"success":false,"data":{"status":"validation_error","errorCode":"qty_int","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+pages7_5               200 {"success":false,"data":{"status":"validation_error","errorCode":"pages_int","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+pagesEmpty             200 {"success":false,"data":{"status":"validation_error","errorCode":"pages_int","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+qty100001              200 {"success":false,"data":{"status":"validation_error","errorCode":"qty_max","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+qty1000001             200 {"success":false,"data":{"status":"validation_error","errorCode":"qty_max","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+fmtA3                  200 {"success":false,"data":{"status":"validation_error","errorCode":"bad_format","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+bindX                  200 {"success":false,"data":{"status":"validation_error","errorCode":"bad_binding","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+lamX                   200 {"success":false,"data":{"status":"validation_error","errorCode":"bad_lamination","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+pages7_qty3            200 {"success":false,"data":{"status":"validation_error","errorCode":"qty_min","priceExVatIls":null,"vatIls":null,"priceIncVatIls":null,"unitPriceIncVatIls":null,"minApplied":false,"spiralMm":null}}
+qty6_minApplied        200 {"success":true,"data":{"status":"ready","errorCode":"","priceExVatIls":100,"vatIls":18.00,"priceIncVatIls":118,"unitPriceIncVatIls":19.67,"minApplied":true,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u0026text=\u0417\u0434\
+qty100_perUnit         200 {"success":true,"data":{"status":"ready","errorCode":"","priceExVatIls":1140.84,"vatIls":205.35,"priceIncVatIls":1346,"unitPriceIncVatIls":13.46,"minApplied":false,"spiralMm":null},"wpmessage":"https://api.whatsapp.com/send/?phone=972508494172\u0026text=\u0417
