@@ -1,6 +1,6 @@
 /* PrintABC — events printing (invitations & postcards) price table (design reference).
-   Prices and rules = docs/events/tz.md v0.9 §2–§5. PRICES ARE NOT SET YET (v0.9):
-   cells have data-price="" and show "—"; fill data-price in the markup in v1.0, the script does not change.
+   Prices and rules = docs/events/tz.md v1.0 §2–§5. Prices live in data-price of the table cells;
+   an empty data-price shows "—" and disables the order button.
    The price is calculated in the browser (as on envelopes and pinkasim):
    the total is the data-price of the selected cell; there is no server calculation.
    In the product this script goes INLINE into Pages/Events.cshtml (@section Scripts),
