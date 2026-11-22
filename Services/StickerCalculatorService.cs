@@ -31,7 +31,7 @@ namespace PrintABC.Services
         private const decimal UsableHeight = SheetHeight - MarginTop - MarginBottom; //458mmm
         private const int SpareSheets = 3;
         private const decimal CropReadSecPerSheet = 15m;
-        private const decimal EffectiveCutSpeedMmSec = 40.6m;
+        private const decimal EffectiveCutSpeedMmSec = 28m;
         private const decimal ContourStartStopSec = 0m;
         private const decimal CutHourlyRateIls = 200m;
         private const decimal PreparationMinutes = 15m;
