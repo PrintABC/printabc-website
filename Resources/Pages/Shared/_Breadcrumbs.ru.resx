@@ -138,6 +138,9 @@
   <data name="pinkasim" xml:space="preserve">
     <value>Бухгалтерские книжки</value>
   </data>
+  <data name="rollup" xml:space="preserve">
+    <value>Ролл-апы</value>
+  </data>
   <data name="stickers" xml:space="preserve">
     <value>Наклейки на заказ</value>
   </data>

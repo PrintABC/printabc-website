@@ -138,6 +138,9 @@
   <data name="pinkasim" xml:space="preserve">
     <value>פנקסים</value>
   </data>
+  <data name="rollup" xml:space="preserve">
+    <value>רול-אפים</value>
+  </data>
   <data name="stickers" xml:space="preserve">
     <value>מדבקות בהזמנה אישית</value>
   </data>
