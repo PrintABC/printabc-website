@@ -188,3 +188,19 @@ html.a11y-contrast {
 address {
     font-style: normal;
 }
+
+/* ---- Roll-up stands ---- */
+.ru-hero { width: 100%; height: clamp(220px, 28vw, 380px); object-fit: cover; border-radius: 14px; }
+.ru-qtys .opt-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ru-qty { flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; min-height: 96px; padding: 12px 14px; border-radius: var(--r-md); }
+.pill.ru-qty:has(input:checked) { padding: 11px 13px; }
+.ru-qty__name { font-weight: 700; }
+.ru-qty__total { font-size: 1.25rem; font-weight: 800; }
+.ru-qty__unit { font-size: 15px; color: var(--c-muted); font-weight: 400; }
+
+@media (max-width: 767.98px) {
+  #ru-calc .product-layout__main { display: contents; }
+  #ru-calc .summary-panel { order: 1; flex-basis: 100%; }
+  #ru-calc .ru-incl { order: 2; }
+  #ru-calc .ru-hero, #ru-calc .ru-qtys, #ru-calc .ru-more { flex-basis: 100%; }
+}
