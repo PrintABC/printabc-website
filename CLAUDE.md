@@ -55,6 +55,8 @@
    макет — `design/mockup/{he,ru}/events.html`, строки `ev_*`. Механика как у конвертов: вкладки размера, переключатель бумаги 250/300 г, таблица тираж × 1/2 стороны, цена в `data-price`, JS inline в `Pages/Events.cshtml`, `EventsModel` пустой, ссылка — общая `WHATSAPP_URL`.
    Ролл-апы (`/rollup`, стенд 85×200 + печать + сумка): решения, цены, тексты, текст WhatsApp и тесты — в `docs/rollup/tz.md` (v1.0.1);
    макет — `design/mockup/{he,ru}/rollup.html`, строки `rl_*`. Три радиокнопки 1/2/3 шт., итог в `data-price`, JS inline в `Pages/Rollup.cshtml`, `RollupModel` пустой, ссылка — общая `WHATSAPP_URL`.
+   Баннеры (`/banners`, he «שמשונית», PVC своего размера): решения, ставки, формула, тексты, текст WhatsApp и тесты — в `docs/banners/tz.md` (v1.0.1);
+   макет — `design/mockup/{he,ru}/banners.html`, строки `bn_*`. Ширина × высота в см + люверсы да/нет + количество 1–10, ставки в `data-*`, расчёт целыми числами в браузере, JS inline в `Pages/Banners.cshtml`, `BannersModel` пустой, ссылка — общая `WHATSAPP_URL`.
 4. Файл заказа: PDF/PNG/JPEG по сигнатуре, ≤ 100 МБ, хранится вне `wwwroot`, имя = номер заказа + GUID.
 5. Секреты — только из переменных окружения / user-secrets. Никаких паролей и ключей в репозитории.
 6. Антиспам: rate limiting на `/api/orders`, honeypot, antiforgery.
