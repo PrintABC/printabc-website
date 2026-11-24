@@ -204,3 +204,64 @@ address {
   #ru-calc .ru-incl { order: 2; }
   #ru-calc .ru-hero, #ru-calc .ru-qtys, #ru-calc .ru-more { flex-basis: 100%; }
 }
+
+/* ---- Banners (PVC, custom size) ---- */
+.bn-hero {
+    width: 100%;
+    height: clamp(220px, 26vw, 360px);
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.bn-form {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    padding: clamp(18px, 3vw, 28px);
+}
+
+.bn-size .field-row {
+    margin-bottom: 4px;
+}
+
+.bn-size .field__input--num, .bn-qty .field__input--num {
+    max-width: none;
+}
+
+.bn-qty .field__input--num {
+    max-width: 240px;
+}
+
+.bn-fin .opt-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.bn-fin .pill {
+    justify-content: center;
+    min-height: 56px;
+}
+
+#bn-big, #bn-more {
+    align-self: flex-start;
+}
+/* phone: order panel right under the calculator, "What's included" after it (as in the design) */
+@media (max-width: 767.98px) {
+    #bn-calc .product-layout__main {
+        display: contents;
+    }
+
+    #bn-calc .summary-panel {
+        order: 1;
+        flex-basis: 100%;
+    }
+
+    #bn-calc .bn-incl {
+        order: 2;
+    }
+
+    #bn-calc .bn-hero, #bn-calc .bn-form {
+        flex-basis: 100%;
+    }
+}
