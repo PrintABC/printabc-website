@@ -147,4 +147,7 @@
   <data name="stickers" xml:space="preserve">
     <value>Наклейки на заказ</value>
   </data>
+  <data name="accessibility" xml:space="preserve">
+    <value>Заявление о доступности</value>
+  </data>
 </root>

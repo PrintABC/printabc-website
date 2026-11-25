@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="meta_title" xml:space="preserve">
+    <value>Заявление о доступности | PrintABC</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>Заявление о доступности сайта PrintABC: какие адаптации сделаны, меню доступности и как с нами связаться по вопросам доступности.</value>
+  </data>
+  <data name="h1" xml:space="preserve">
+    <value>Заявление о доступности</value>
+  </data>
+  <data name="intro" xml:space="preserve">
+    <value>Мы в PrintABC хотим, чтобы каждый, в том числе люди с ограниченными возможностями, мог легко и самостоятельно рассчитать цену и заказать печать на сайте.</value>
+  </data>
+  <data name="updated" xml:space="preserve">
+    <value>Заявление обновлено:</value>
+  </data>
+  <data name="std_title" xml:space="preserve">
+    <value>Уровень доступности</value>
+  </data>
+  <data name="std_text" xml:space="preserve">
+    <value>Сайт адаптирован в соответствии с Положениями о равных правах людей с ограниченными возможностями (адаптация услуг), 2013, и израильским стандартом ת"י 5568 на основе WCAG 2.0, уровень AA.</value>
+  </data>
+  <data name="done_title" xml:space="preserve">
+    <value>Что сделано на сайте</value>
+  </data>
+  <data name="done_keyboard" xml:space="preserve">
+    <value>Весь сайт можно использовать только с клавиатуры (Tab, Enter, пробел, Esc).</value>
+  </data>
+  <data name="done_skip" xml:space="preserve">
+    <value>Ссылка «Перейти к содержимому» в начале каждой страницы.</value>
+  </data>
+  <data name="done_focus" xml:space="preserve">
+    <value>Элемент в фокусе выделен заметной рамкой.</value>
+  </data>
+  <data name="done_sr" xml:space="preserve">
+    <value>Заголовки, области страницы, подписи и описания для программ чтения с экрана; у изображений есть альтернативный текст.</value>
+  </data>
+  <data name="done_forms" xml:space="preserve">
+    <value>У каждого поля в калькуляторах есть подпись; ошибки и изменение цены озвучиваются программой чтения с экрана.</value>
+  </data>
+  <data name="done_contrast" xml:space="preserve">
+    <value>Достаточный контраст текста и фона.</value>
+  </data>
+  <data name="done_lang" xml:space="preserve">
+    <value>Язык страницы и направление текста (иврит справа налево, русский слева направо) заданы в коде.</value>
+  </data>
+  <data name="done_responsive" xml:space="preserve">
+    <value>Сайт адаптирован для компьютера, планшета и телефона; его можно увеличить до 400% без горизонтальной прокрутки.</value>
+  </data>
+  <data name="done_motion" xml:space="preserve">
+    <value>Если в системе включено «Уменьшение движения», анимации на сайте отключаются.</value>
+  </data>
+  <data name="panel_title" xml:space="preserve">
+    <value>Меню доступности</value>
+  </data>
+  <data name="panel_text" xml:space="preserve">
+    <value>В шапке каждой страницы есть кнопка «Доступность». Она открывает меню с такими настройками, они сохраняются до следующего визита:</value>
+  </data>
+  <data name="panel_text_size" xml:space="preserve">
+    <value>Увеличение текста в два шага (A+, A++).</value>
+  </data>
+  <data name="panel_contrast" xml:space="preserve">
+    <value>Высокий контраст.</value>
+  </data>
+  <data name="panel_links" xml:space="preserve">
+    <value>Подчёркивание ссылок.</value>
+  </data>
+  <data name="panel_reset" xml:space="preserve">
+    <value>Сброс всех настроек.</value>
+  </data>
+  <data name="panel_open" xml:space="preserve">
+    <value>Открыть меню доступности</value>
+  </data>
+  <data name="limits_title" xml:space="preserve">
+    <value>Оговорка</value>
+  </data>
+  <data name="limits_text" xml:space="preserve">
+    <value>Мы продолжаем проверять и улучшать доступность сайта. Возможно, какие-то части ещё не полностью доступны. Если вы столкнулись с проблемой, сообщите нам, и мы исправим её как можно скорее.</value>
+  </data>
+  <data name="place_title" xml:space="preserve">
+    <value>Доступность пункта самовывоза</value>
+  </data>
+  <data name="place_text" xml:space="preserve">
+    <value>Самовывоз заказов — ул. Штампфер 5, Нетания. Вход прямо с улицы, без ступенек. Парковка для инвалидов — примерно в 50 метрах. По другим вопросам доступности пункта самовывоза или чтобы договориться о помощи при получении заказа, позвоните нам, и мы поможем.</value>
+  </data>
+  <data name="contact_title" xml:space="preserve">
+    <value>Обращения по вопросам доступности</value>
+  </data>
+  <data name="contact_text" xml:space="preserve">
+    <value>Если какой-то элемент сайта недоступен или вам нужна информация или услуга в другом доступном виде, свяжитесь с нами:</value>
+  </data>
+  <data name="contact_phone" xml:space="preserve">
+    <value>Телефон:</value>
+  </data>
+  <data name="contact_email" xml:space="preserve">
+    <value>E-mail:</value>
+  </data>
+  <data name="contact_hours" xml:space="preserve">
+    <value>Часы ответа: вс–чт</value>
+  </data>
+  <data name="contact_details" xml:space="preserve">
+    <value>Чтобы мы могли помочь, укажите, пожалуйста, адрес страницы, описание проблемы и браузер или вспомогательную программу, которой вы пользуетесь.</value>
+  </data>
+</root>

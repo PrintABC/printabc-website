@@ -126,4 +126,7 @@
   <data name="call_us" xml:space="preserve">
     <value>התקשרו אלינו</value>
   </data>
+  <data name="quick_contact" xml:space="preserve">
+    <value>יצירת קשר מהירה</value>
+  </data>
 </root>

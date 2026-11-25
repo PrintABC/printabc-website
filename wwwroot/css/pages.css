@@ -437,3 +437,7 @@
         flex-basis: 100%;
     }
 }
+/* ---- Accessibility statement (legal text page) ---- */
+.legal { display: flex; flex-direction: column; gap: var(--sp-7); max-width: 46em; padding-block: var(--sp-6) var(--sp-8); }
+.legal section { display: flex; flex-direction: column; gap: var(--sp-3); align-items: flex-start; }
+.legal ul { display: flex; flex-direction: column; gap: var(--sp-2); padding-inline-start: 1.25em; list-style: disc; }

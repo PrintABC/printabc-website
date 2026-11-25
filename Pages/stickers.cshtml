@@ -86,13 +86,13 @@
             <p class="field__hint" id="q-hint">@L["quantity_price_limit"]</p>
         </div>
         <!--errors-->
-        <div class="alert alert--error" data-error="size" role="alert" hidden>
+        <div class="alert alert--error" data-error="size" id="err-size" role="alert" hidden>
             <div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_min_size"]</span></div><a href="https://wa.me/@(PHONE_NUMBER)">@L["special_description"]</a>
         </div>
-        <div class="alert alert--error" data-error="big" role="alert" hidden>
+        <div class="alert alert--error" data-error="big" id="err-big" role="alert" hidden>
             <div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_max_size"]</span></div><a href="https://wa.me/@(PHONE_NUMBER)">@L["special_description"]</a>
         </div>
-        <div class="alert alert--error" data-error="qty" role="alert" hidden>
+        <div class="alert alert--error" data-error="qty" id="err-qty" role="alert" hidden>
             <div class="alert__row"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg><span>@L["error_whole_number"]</span></div><a href="https://wa.me/@(PHONE_NUMBER)">@L["special_description"]</a>
         </div>
         <div class="alert alert--error" data-error="price_min" role="alert" hidden>
@@ -166,8 +166,24 @@
 
         const errorAlerts = form.querySelectorAll('.alert--error');
 
+        //which inputs an error belongs to (for screen readers: aria-invalid + link to the message)
+        const sizeInputs = ['calc-d', 'calc-w', 'calc-h'].map(id => document.getElementById(id));
+        const qtyInput = document.getElementById('calc-qty');
+        const errorFields = { size: sizeInputs, big: sizeInputs, qty: [qtyInput] };
+        const baseDescribedBy = new Map([...sizeInputs, qtyInput].map(i => [i, i.getAttribute('aria-describedby') || '']));
+
+        function markFields(code) {
+            baseDescribedBy.forEach((base, input) => {
+                const bad = (errorFields[code] || []).includes(input);
+                input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+                const ids = (base + (bad ? ' err-' + code : '')).trim();
+                if (ids) input.setAttribute('aria-describedby', ids); else input.removeAttribute('aria-describedby');
+            });
+        }
+
         function hideAllErrors() {
             errorAlerts.forEach(alert => alert.hidden = true);
+            markFields(null);
         }
 
         function setSend(enabled) {
@@ -225,6 +241,7 @@
 
                     if (targetError) {
                         targetError.hidden = false; //unhide the correct error message
+                        markFields(result.data.errorCode);
 
                         //disable "next" button and clear price outputs
                         setSend(false);

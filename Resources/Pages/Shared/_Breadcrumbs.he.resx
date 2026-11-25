@@ -147,4 +147,7 @@
   <data name="stickers" xml:space="preserve">
     <value>מדבקות בהזמנה אישית</value>
   </data>
+  <data name="accessibility" xml:space="preserve">
+    <value>הצהרת נגישות</value>
+  </data>
 </root>

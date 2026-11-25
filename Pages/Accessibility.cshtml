@@ -1,0 +1,69 @@
+@page "/accessibility"
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+}
+
+<div class="container page-head">
+    <h1>@L["h1"]</h1>
+    <p>@L["intro"]</p>
+    <p>@L["updated"] <bdi dir="ltr">25.11.2026</bdi></p>
+</div>
+
+<div class="container legal">
+    <section aria-labelledby="acc-std">
+        <h2 id="acc-std">@L["std_title"]</h2>
+        <p>@L["std_text"]</p>
+    </section>
+
+    <section aria-labelledby="acc-done">
+        <h2 id="acc-done">@L["done_title"]</h2>
+        <ul>
+            <li>@L["done_keyboard"]</li>
+            <li>@L["done_skip"]</li>
+            <li>@L["done_focus"]</li>
+            <li>@L["done_sr"]</li>
+            <li>@L["done_forms"]</li>
+            <li>@L["done_contrast"]</li>
+            <li>@L["done_lang"]</li>
+            <li>@L["done_responsive"]</li>
+            <li>@L["done_motion"]</li>
+        </ul>
+    </section>
+
+    <section aria-labelledby="acc-panel">
+        <h2 id="acc-panel">@L["panel_title"]</h2>
+        <p>@L["panel_text"]</p>
+        <ul>
+            <li>@L["panel_text_size"]</li>
+            <li>@L["panel_contrast"]</li>
+            <li>@L["panel_links"]</li>
+            <li>@L["panel_reset"]</li>
+        </ul>
+        <button class="btn btn--secondary" type="button" data-a11y-open aria-controls="a11y-panel" aria-expanded="false">@L["panel_open"]</button>
+    </section>
+
+    <section aria-labelledby="acc-limits">
+        <h2 id="acc-limits">@L["limits_title"]</h2>
+        <p>@L["limits_text"]</p>
+    </section>
+
+    <section aria-labelledby="acc-place">
+        <h2 id="acc-place">@L["place_title"]</h2>
+        <p>@L["place_text"]</p>
+    </section>
+
+    <section aria-labelledby="acc-contact">
+        <h2 id="acc-contact">@L["contact_title"]</h2>
+        <p>@L["contact_text"]</p>
+        <address>
+            <ul>
+                <li>@L["contact_phone"] <a href="tel:+@(LANDLINE)"><span class="ltr">09-887-4680</span></a></li>
+                <li>WhatsApp: <a href="https://wa.me/@(PHONE_NUMBER)"><span class="ltr">050-849-4172</span></a></li>
+                <li>@L["contact_email"] <a href="mailto:print@printabc.co.il">print@printabc.co.il</a></li>
+                <li>@L["contact_hours"] <bdi dir="ltr">9:00–14:00</bdi></li>
+            </ul>
+        </address>
+        <p>@L["contact_details"]</p>
+    </section>
+</div>
