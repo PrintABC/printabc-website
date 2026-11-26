@@ -1,7 +1,13 @@
-@page "/accessibility"
+﻿@page "/Accessibility"
+@using System.Globalization
+@model PrintABC.Pages.AccessibilityModel
 @{
     ViewData["Title"] = L["meta_title"];
     ViewData["MetaDescription"] = L["meta_description"];
+
+    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+    var dir = isRtl ? "rtl" : "ltr";
 }
 
 <div class="container page-head">
