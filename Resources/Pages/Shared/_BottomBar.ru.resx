@@ -126,4 +126,7 @@
   <data name="call_us" xml:space="preserve">
     <value>Позвонить</value>
   </data>
+  <data name="quick_contact" xml:space="preserve">
+    <value>Быстрая связь</value>
+  </data>
 </root>
