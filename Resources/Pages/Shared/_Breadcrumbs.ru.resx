@@ -150,4 +150,7 @@
   <data name="stickers" xml:space="preserve">
     <value>Наклейки на заказ</value>
   </data>
+  <data name="terms" xml:space="preserve">
+    <value>Условия использования</value>
+  </data>
 </root>

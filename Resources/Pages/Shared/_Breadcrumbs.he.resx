@@ -150,4 +150,7 @@
   <data name="stickers" xml:space="preserve">
     <value>מדבקות בהזמנה אישית</value>
   </data>
+  <data name="terms" xml:space="preserve">
+    <value>תנאי שימוש</value>
+  </data>
 </root>
