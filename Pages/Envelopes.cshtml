@@ -1,0 +1,300 @@
+﻿@page "/Envelopes"
+@using System.Globalization
+@model PrintABC.Pages.EnvelopesModel
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+
+    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+    var dir = isRtl ? "rtl" : "ltr";
+}
+
+<div class="container page-head">
+    <h1>@L["envelopes_header"]</h1>
+    <p>@L["envelopes_description"]</p>
+</div>
+
+<div class="container product-layout" id="env-calc">
+    <div class="product-layout__main product-layout__main--wide">
+        <img class="env-hero" src="~/img/envelopes.jpg" alt="@L["envelopes_img_alt"]" decoding="async">
+        <fieldset class="opt-group env-sizes">
+            <legend>@L["envelope_size"]</legend>
+            <div class="opt-list">
+                <label class="pill env-size"><input autocomplete="off" type="radio" name="size" value="s" checked><span>@L["tab_s"]</span></label>
+                <label class="pill env-size"><input autocomplete="off" type="radio" name="size" value="m"><span>@L["tab_m"]</span></label>
+                <label class="pill env-size"><input autocomplete="off" type="radio" name="size" value="l"><span>@L["tab_l"]</span></label>
+            </div>
+        </fieldset>
+        <section class="section__stack section__stack--tight" aria-labelledby="tbl-h">
+            <div class="section-head"><h2 id="tbl-h">@L["price_title"] · <span data-size-name="">@L["tab_s"]</span></h2><p>@L["select_table"]</p></div>
+            <div class="price-table-wrap">
+                <table class="price-table env-table" data-size="s">
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_s"] — @L["select_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["amount"]</th>
+                            <th scope="col">@L["bw"]</th>
+                            <th scope="col">@L["color"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="120" aria-pressed="false" aria-label="100 @L["unit"] · @L["bw"] · 120 ₪">120 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="180" aria-pressed="false" aria-label="100 @L["unit"] · @L["color"] · 180 ₪">180 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="160" aria-pressed="false" aria-label="250 @L["unit"] · @L["bw"] · 160 ₪">160 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="340" aria-pressed="false" aria-label="250 @L["unit"] · @L["color"] · 340 ₪">340 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500" class="is-selected">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="200" aria-pressed="true" aria-label="500 @L["unit"] · @L["bw"] · 200 ₪">200 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="390" aria-pressed="false" aria-label="500 @L["unit"] · @L["color"] · 390 ₪">390 ₪</button></td>
+                        </tr>
+                        <tr data-qty="1000">
+                            <th scope="row">1000</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="340" aria-pressed="false" aria-label="1000 @L["unit"] · @L["bw"] · 340 ₪">340 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="550" aria-pressed="false" aria-label="1000 @L["unit"] · @L["color"] · 550 ₪">550 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table env-table" data-size="m" hidden="">
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_m"] — @L["select_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["amount"]</th>
+                            <th scope="col">@L["bw"]</th>
+                            <th scope="col">@L["color"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="190" aria-pressed="false" aria-label="100 @L["unit"] · @L["bw"] · 190 ₪">190 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="280" aria-pressed="false" aria-label="100 @L["unit"] · @L["color"] · 280 ₪">280 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="265" aria-pressed="false" aria-label="250 @L["unit"] · @L["bw"] · 265 ₪">265 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="360" aria-pressed="false" aria-label="250 @L["unit"] · @L["color"] · 360 ₪">360 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="335" aria-pressed="false" aria-label="500 @L["unit"] · @L["bw"] · 335 ₪">335 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="490" aria-pressed="false" aria-label="500 @L["unit"] · @L["color"] · 490 ₪">490 ₪</button></td>
+                        </tr>
+                        <tr data-qty="1000">
+                            <th scope="row">1000</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="490" aria-pressed="false" aria-label="1000 @L["unit"] · @L["bw"] · 490 ₪">490 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="695" aria-pressed="false" aria-label="1000 @L["unit"] · @L["color"] · 695 ₪">695 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table env-table" data-size="l" hidden="">
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_m"] — @L["select_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["amount"]</th>
+                            <th scope="col">@L["bw"]</th>
+                            <th scope="col">@L["color"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="210" aria-pressed="false" aria-label="100 @L["unit"] · @L["bw"] · 210 ₪">210 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="320" aria-pressed="false" aria-label="100 @L["unit"] · @L["color"] · 320 ₪">320 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="530" aria-pressed="false" aria-label="500 @L["unit"] · @L["bw"] · 530 ₪">530 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="690" aria-pressed="false" aria-label="500 @L["unit"] · @L["color"] · 690 ₪">690 ₪</button></td>
+                        </tr>
+                        <tr data-qty="1000">
+                            <th scope="row">1000</th>
+                            <td><button class="price-btn" type="button" data-print="bw" data-price="840" aria-pressed="false" aria-label="1000 @L["unit"] · @L["bw"] · 840 ₪">840 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-print="c" data-price="1100" aria-pressed="false" aria-label="1000 @L["unit"] · @L["color"] · 1100 ₪">1100 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="info-card" aria-labelledby="incl-h">
+            <h2 id="incl-h">@L["what_included"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_1"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_2"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_3"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_4"] </span></li>
+            </ul>
+        </section>
+    </div>
+    <section class="product-layout__side product-layout__side--narrow panel panel--raised summary-panel is-sticky" aria-labelledby="sum-h">
+        <h2 id="sum-h">@L["your_order"]</h2>
+        <div class="price-box">
+            <p class="cat-summary"><strong id="env-sum-text"></strong></p>
+            <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="env-total" aria-live="polite">200 ₪</output></div>
+            <p class="field__hint">@L["inc_vat"]</p>
+            <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
+        </div>
+        <a class="btn btn--whatsapp btn--lg" id="env-next" href="#" target="_blank" rel="noopener noreferrer"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg><span>@L["next_load_file"]</span></a>
+        <a class="calc__ask" href="https://wa.me/@(PHONE_NUMBER)"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg>@L["question_write_us"]</a>
+    </section>
+</div>
+
+<section class="section--surface">
+    <div class="container info-cards">
+        <div class="info-card">
+            <h2>@L["file_requirements"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_1"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_2"]</span></li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h2>@L["pickup_payment"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["pickup"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["pay"]</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="after-h">
+    <div class="container section__stack">
+        <div class="section-head"><h2 id="after-h">@L["after_order"]</h2></div>
+        <ol class="steps">
+            <li class="step"><span class="step__num" aria-hidden="true">01</span><h3>@L["after_1"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">02</span><h3>@L["after_2"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">03</span><h3>@L["after_3"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">04</span><h3>@L["after_4"]</h3></li>
+        </ol>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        const messageTemplate = @Json.Serialize(L["whatsapp_template"]);
+        const sizeTexts = {
+            s: @Json.Serialize(L["tab_s"]),
+            m: @Json.Serialize(L["tab_m"]),
+            l: @Json.Serialize(L["tab_l"]),
+        };
+        const printTexts = {
+            bw: @Json.Serialize(L["wa_print_bw"]),
+            c: @Json.Serialize(L["wa_print_c"]),
+        };
+
+        const whatsappUrl = @Json.Serialize(WHATSAPP_URL);
+        const sizeRadios = document.querySelectorAll('#env-calc input[name="size"]');
+        const tables = document.querySelectorAll(".env-table");
+        const priceButtons = document.querySelectorAll(".env-table .price-btn");
+        const sizeName = document.querySelector("#env-calc [data-size-name]");
+        const summaryLine = @Json.Serialize(L["summary_line"]);
+        const sumPrint = { bw: @Json.Serialize(L["sum_print_bw"]), c: @Json.Serialize(L["sum_print_c"]) };
+        const sumText = document.getElementById("env-sum-text");
+        const totalPrice = document.getElementById("env-total");
+        const whatsappButton = document.getElementById("env-next");
+
+        let activeTable = getTable(getCheckedSize());
+
+        priceButtons.forEach(x => {
+            x.addEventListener('click', (e) => {
+                selectButton(e.currentTarget);
+                updateDisplayPrice();
+            });
+        });
+
+        sizeRadios.forEach(x => {
+            x.addEventListener('change', (e) => {
+                if (e.target.checked)
+                    switchSize(e.target.value);
+            });
+        });
+
+        function getCheckedSize() {
+            const checked = document.querySelector('#env-calc input[name="size"]:checked');
+            return checked ? checked.value : sizeRadios[0].value;
+        }
+        function getTable(size) {
+            return document.querySelector(`.env-table[data-size="${size}"]`);
+        }
+        function getSelectedButton(table) {
+            return table.querySelector('.price-btn[aria-pressed="true"]');
+        }
+
+        function selectButton(btn) {
+            const table = btn.closest(".env-table");
+            table.querySelectorAll(".price-btn").forEach(x => x.setAttribute("aria-pressed", "false"));
+            table.querySelectorAll("tbody tr").forEach(x => x.classList.remove("is-selected"));
+            btn.setAttribute("aria-pressed", "true");
+            btn.closest("tr").classList.add("is-selected");
+        }
+
+        function switchSize(size) {
+            const prevBtn = getSelectedButton(activeTable);
+            const prevQty = prevBtn ? Number(prevBtn.closest("tr").dataset.qty) : 0;
+            const print = prevBtn ? prevBtn.dataset.print : "bw";
+
+            tables.forEach(t => t.hidden = t.dataset.size !== size);
+            activeTable = getTable(size);
+
+            const rows = Array.from(activeTable.querySelectorAll("tbody tr"));
+            const row = rows.filter(r => Number(r.dataset.qty) <= prevQty).pop() || rows[0];
+            selectButton(row.querySelector(`.price-btn[data-print="${print}"]`));
+
+            const radio = document.querySelector(`#env-calc input[name="size"][value="${size}"]`);
+            sizeName.textContent = radio.closest("label").querySelector("span").textContent;
+
+            updateDisplayPrice();
+        }
+
+        function getSelection() {
+            let btn = getSelectedButton(activeTable);
+            if (!btn) {
+                btn = activeTable.querySelector(".price-btn");
+                selectButton(btn);
+            }
+            return {
+                size: activeTable.dataset.size,
+                print: btn.dataset.print,
+                qty: Number(btn.closest("tr").dataset.qty),
+                price: Number(btn.dataset.price)
+            };
+        }
+
+        function updateSummary(sel) {
+            sumText.textContent = summaryLine.value
+                .replace("{qty}", sel.qty)
+                .replace("{size}", sizeTexts[sel.size].value)
+                .replace("{print}", sumPrint[sel.print].value);
+        }
+
+        function updateWhatsappLink(sel) {
+            let template = messageTemplate.value;
+            const data = {
+                size: sizeTexts[sel.size].value,
+                print: printTexts[sel.print].value,
+                qty: sel.qty,
+                price: sel.price,
+            };
+            for (const [key, value] of Object.entries(data)) {
+                template = template.replaceAll(`{${key}}`, value);
+            }
+            whatsappButton.href = whatsappUrl + template;
+        }
+
+        function updateDisplayPrice() {
+            const sel = getSelection();
+            totalPrice.textContent = sel.price + " ₪";
+            updateSummary(sel);
+            updateWhatsappLink(sel);
+        }
+
+        switchSize(getCheckedSize());
+    </script>
+}

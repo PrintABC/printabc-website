@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="meta_title" xml:space="preserve">
+    <value>הדפסת שמשוניות PVC בנתניה — דפוס ABC</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>שמשונית PVC בגודל שלכם עד ⁦100×250⁩ ס״מ, עם טבעות או בלי. מחיר מיידי באתר, החל מ-130 ₪ כולל מע״מ. עד 3 ימי עבודה, איסוף עצמי בנתניה.</value>
+  </data>
+  <data name="banners_header" xml:space="preserve">
+    <value>שמשונית</value>
+  </data>
+  <data name="banners_description" xml:space="preserve">
+    <value>שמשונית PVC בכל גודל עד ⁦100×250⁩ ס״מ · טבעות לבחירה · החל מ-130 ₪ · מחירים כולל מע״מ</value>
+  </data>
+  <data name="banners_img_alt" xml:space="preserve">
+    <value>שמשונית PVC עם טבעות שהודפסה בדפוס ABC</value>
+  </data>
+  <data name="size_title" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="w_label" xml:space="preserve">
+    <value>רוחב, ס״מ</value>
+  </data>
+  <data name="h_label" xml:space="preserve">
+    <value>גובה, ס״מ</value>
+  </data>
+  <data name="size_hint" xml:space="preserve">
+    <value>מ-50 ס״מ; צד אחד עד 100 ס״מ, השני עד 250 ס״מ</value>
+  </data>
+  <data name="big_link" xml:space="preserve">
+    <value>צריכים גדול יותר? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="finish_title" xml:space="preserve">
+    <value>גימור</value>
+  </data>
+  <data name="finish_eyelets" xml:space="preserve">
+    <value>עם טבעות</value>
+  </data>
+  <data name="finish_none" xml:space="preserve">
+    <value>ללא גימור</value>
+  </data>
+  <data name="qty_title" xml:space="preserve">
+    <value>כמות</value>
+  </data>
+  <data name="qty_more" xml:space="preserve">
+    <value>צריכים יותר מ-10? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="err_int" xml:space="preserve">
+    <value>יש להזין מספר שלם</value>
+  </data>
+  <data name="err_min" xml:space="preserve">
+    <value>מינימום 50 ס״מ</value>
+  </data>
+  <data name="err_max" xml:space="preserve">
+    <value>צד אחד עד 100 ס״מ, השני עד 250 ס״מ</value>
+  </data>
+  <data name="err_qty" xml:space="preserve">
+    <value>מ-1 עד 10 יח׳</value>
+  </data>
+  <data name="what_included" xml:space="preserve">
+    <value>מה כלול</value>
+  </data>
+  <data name="incl_1" xml:space="preserve">
+    <value>הדפסה צבעונית על PVC לשמשוניות, צד אחד</value>
+  </data>
+  <data name="incl_2" xml:space="preserve">
+    <value>חיתוך לגודל</value>
+  </data>
+  <data name="incl_3" xml:space="preserve">
+    <value>טבעות מסביב — אם נבחרו</value>
+  </data>
+  <data name="incl_4" xml:space="preserve">
+    <value>הדפסה לפי הקובץ המוכן שלכם</value>
+  </data>
+  <data name="your_order" xml:space="preserve">
+    <value>ההזמנה שלכם</value>
+  </data>
+  <data name="summary_line" xml:space="preserve">
+    <value>שמשונית PVC ⁦{w}×{h}⁩ ס״מ · {finish} · {qty} יח׳</value>
+  </data>
+  <data name="sum_fin_e" xml:space="preserve">
+    <value>עם טבעות</value>
+  </data>
+  <data name="sum_fin_n" xml:space="preserve">
+    <value>ללא גימור</value>
+  </data>
+  <data name="area_label" xml:space="preserve">
+    <value>שטח</value>
+  </data>
+  <data name="area_val" xml:space="preserve">
+    <value>{a} מ״ר</value>
+  </data>
+  <data name="area_min" xml:space="preserve">
+    <value>מחושב כ-1 מ״ר</value>
+  </data>
+  <data name="unit_label" xml:space="preserve">
+    <value>מחיר ליחידה</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>סה״כ</value>
+  </data>
+  <data name="inc_vat" xml:space="preserve">
+    <value>כולל מע״מ</value>
+  </data>
+  <data name="price_ready" xml:space="preserve">
+    <value>זמן הכנה</value>
+  </data>
+  <data name="prep_time" xml:space="preserve">
+    <value>עד 3 ימי עבודה</value>
+  </data>
+  <data name="next_load_file" xml:space="preserve">
+    <value>להזמנה ב-WhatsApp</value>
+  </data>
+  <data name="question_write_us" xml:space="preserve">
+    <value>שאלה? כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="file_requirements" xml:space="preserve">
+    <value>דרישות לקובץ</value>
+  </data>
+  <data name="file_1" xml:space="preserve">
+    <value>PDF בגודל מלא של השמשונית, ‏150 dpi ומעלה</value>
+  </data>
+  <data name="file_2" xml:space="preserve">
+    <value>תוספת חיתוך ‏3 מ״מ מכל צד: הקובץ גדול ב-6 מ״מ מהשמשונית (לדוגמה: ⁦100×70⁩ ס״מ — קובץ ⁦1006×706⁩ מ״מ)</value>
+  </data>
+  <data name="file_3" xml:space="preserve">
+    <value>טקסט ולוגו — לפחות ‏3 ס״מ מהקצה (שם הטבעות)</value>
+  </data>
+  <data name="file_4" xml:space="preserve">
+    <value>אין קובץ מוכן? איננו מעצבים — אפשר לשאול אותנו ב-WhatsApp</value>
+  </data>
+  <data name="pickup_payment" xml:space="preserve">
+    <value>איסוף ותשלום</value>
+  </data>
+  <data name="pickup" xml:space="preserve">
+    <value>איסוף עצמי בלבד: רח׳ שטמפפר 5, נתניה — ללא תשלום. אין משלוחים.</value>
+  </data>
+  <data name="pay" xml:space="preserve">
+    <value>תשלום באיסוף: מזומן, אשראי, Bit או העברה בנקאית</value>
+  </data>
+  <data name="after_order" xml:space="preserve">
+    <value>מה קורה אחרי ההזמנה</value>
+  </data>
+  <data name="after_1" xml:space="preserve">
+    <value>מזינים גודל ובוחרים גימור</value>
+  </data>
+  <data name="after_2" xml:space="preserve">
+    <value>כותבים ב-WhatsApp ושולחים קובץ</value>
+  </data>
+  <data name="after_3" xml:space="preserve">
+    <value>מדפיסים תוך עד 3 ימי עבודה</value>
+  </data>
+  <data name="after_4" xml:space="preserve">
+    <value>אוספים מבית הדפוס</value>
+  </data>
+  <data name="whatsapp_template" xml:space="preserve">
+    <value>שלום! אני רוצה להזמין שמשונית.%0a
+חומר: PVC, הדפסה בצד אחד%0a
+גודל: ⁦{w}×{h}⁩ ס״מ%0a
+גימור: {finish}%0a
+כמות: {qty} יח׳%0a
+{price}%0a
+את קובץ ההדפסה אשלח מיד דרך %0a📎 ← "מסמך" (לא "גלריה").</value>
+  </data>
+  <data name="wa_fin_e" xml:space="preserve">
+    <value>טבעות מתכת מסביב</value>
+  </data>
+  <data name="wa_fin_n" xml:space="preserve">
+    <value>ללא (חיתוך בלבד)</value>
+  </data>
+  <data name="wa_price_one" xml:space="preserve">
+    <value>מחיר: {total} ₪ כולל מע״מ</value>
+  </data>
+  <data name="wa_price_many" xml:space="preserve">
+    <value>מחיר: {unit} ₪ ליחידה, סה״כ {total} ₪ כולל מע״מ</value>
+  </data>
+  <data name="wa_more" xml:space="preserve">
+    <value>שלום! יש צורך ביותר מ-10 שמשוניות PVC. כמה זה יעלה?</value>
+  </data>
+  <data name="wa_big" xml:space="preserve">
+    <value>שלום! יש צורך בשמשונית PVC ⁦{w}×{h}⁩ ס״מ. כמה זה יעלה?</value>
+  </data>
+</root>

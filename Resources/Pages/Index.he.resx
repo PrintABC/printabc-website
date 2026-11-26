@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="all_products" xml:space="preserve">
+    <value>כל המוצרים</value>
+  </data>
+  <data name="calc_stickers" xml:space="preserve">
+    <value>חשבו מחיר למדבקות</value>
+  </data>
+  <data name="hero_header" xml:space="preserve">
+    <value>מדבקות בכל צורה — עם מחיר מיידי אונליין</value>
+  </data>
+  <data name="hero_lead" xml:space="preserve">
+    <value>בוחרים חומר, צורה, גודל וכמות — ורואים מחיר כולל מע״מ מיד. הזמנה באתר 24/7.</value>
+  </data>
+  <data name="proof" xml:space="preserve">
+    <value>לפני ההדפסה — צילום או וידאו של הדפסת ניסיון לאישורכם</value>
+  </data>
+  <data name="ready_in" xml:space="preserve">
+    <value>מוכן מיום עבודה אחד</value>
+  </data>
+  <data name="since" xml:space="preserve">
+    <value>מאז 2001</value>
+  </data>
+  <data name="since_text" xml:space="preserve">
+    <value>בית דפוס משפחתי בנתניה · מאז 2001</value>
+  </data>
+  <data name="stickers_image_hero" xml:space="preserve">
+    <value>מדבקות בצורות ובצבעים שונים על גיליון</value>
+  </data>
+  <data name="rus_heb" xml:space="preserve">
+    <value>עברית ורוסית</value>
+  </data>
+  <data name="talk_whatsapp" xml:space="preserve">
+    <value>מדברים איתכם בשפה הנוחה לכם — בטלפון, ב-WhatsApp ובמייל.</value>
+  </data>
+  <data name="ready_depends" xml:space="preserve">
+    <value>זמן הייצור תלוי במוצר ובכמות.</value>
+  </data>
+  <data name="collect_print" xml:space="preserve">
+    <value>איסוף מבית הדפוס</value>
+  </data>
+  <data name="collect_address" xml:space="preserve">
+    <value>חינם, מרח׳ שטמפפר 5 בנתניה — בשעות הפעילות.</value>
+  </data>
+  <data name="order_site" xml:space="preserve">
+    <value>הזמנה באתר 24/7</value>
+  </data>
+  <data name="order_description" xml:space="preserve">
+    <value>מחשבים, מעלים קובץ ושולחים — גם מחוץ לשעות הפעילות.</value>
+  </data>
+  <data name="our_products" xml:space="preserve">
+    <value>המוצרים שלנו</value>
+  </data>
+  <data name="minimum_price_incl" xml:space="preserve">
+    <value>המחירים כוללים מע״מ · מינימום הזמנה 118 ₪</value>
+  </data>
+  <data name="stickers" xml:space="preserve">
+    <value>מדבקות</value>
+  </data>
+  <data name="stickers_description" xml:space="preserve">
+    <value>נייר או פלסטיק — עגולות, מלבניות או בצורה חופשית.</value>
+  </data>
+  <data name="price_calculator_badge" xml:space="preserve">
+    <value>מחשבון מחיר</value>
+  </data>
+  <data name="more_details" xml:space="preserve">
+    <value>לפרטים ומחיר </value>
+  </data>
+  <data name="price_table_badge" xml:space="preserve">
+    <value>טבלת מחירים</value>
+  </data>
+  <data name="business_cards" xml:space="preserve">
+    <value>כרטיסי ביקור</value>
+  </data>
+  <data name="business_cards_description" xml:space="preserve">
+    <value>חד או דו-צדדי, למינציה ופינות מעוגלות.</value>
+  </data>
+  <data name="print_events" xml:space="preserve">
+    <value>מיתוג ודפוס לאירועים</value>
+  </data>
+  <data name="print_events_description" xml:space="preserve">
+    <value>הזמנות, גלויות ותפריטים לחתונה, לבר/בת מצווה ולכל אירוע.</value>
+  </data>
+  <data name="pinkasim_description" xml:space="preserve">
+    <value>פנקסי קבלות, חשבוניות והזמנות עבודה ממוספרים.</value>
+  </data>
+  <data name="pinkasim" xml:space="preserve">
+    <value>פנקסים</value>
+  </data>
+  <data name="envelopes" xml:space="preserve">
+    <value>מעטפות</value>
+  </data>
+  <data name="envelopes_description" xml:space="preserve">
+    <value>מעטפות ממותגות עם לוגו וכתובת, בכל הגדלים.</value>
+  </data>
+  <data name="catalogs" xml:space="preserve">
+    <value>קטלוגים</value>
+  </data>
+  <data name="catalogs_description" xml:space="preserve">
+    <value>קטלוגים וחוברות — מחיר מיידי במחשבון.</value>
+  </data>
+  <data name="rollups" xml:space="preserve">
+    <value>רול-אפים</value>
+  </data>
+  <data name="rollups_description" xml:space="preserve">
+    <value>רול-אפ עם מתקן — לתערוכות, לחנויות ולאירועים.</value>
+  </data>
+  <data name="banners" xml:space="preserve">
+    <value>באנרים</value>
+  </data>
+  <data name="banners_description" xml:space="preserve">
+    <value>באנרים בפורמט רחב — מחיר מיידי במחשבון.</value>
+  </data>
+  <data name="how_to_order" xml:space="preserve">
+    <value>איך מזמינים</value>
+  </data>
+  <data name="approve_sample" xml:space="preserve">
+    <value>מאשרים הדפסת ניסיון</value>
+  </data>
+  <data name="approve_sample_description" xml:space="preserve">
+    <value>נשלח צילום או וידאו ב-WhatsApp. מדפיסים אחרי האישור.</value>
+  </data>
+  <data name="collect_order" xml:space="preserve">
+    <value>אוספים מבית הדפוס</value>
+  </data>
+  <data name="collect_order_description" xml:space="preserve">
+    <value>ההזמנה מוכנה — אוספים חינם מרח׳ שטמפפר 5, נתניה.</value>
+  </data>
+  <data name="pick_calculate" xml:space="preserve">
+    <value>בוחרים ומחשבים</value>
+  </data>
+  <data name="pick_calculate_description" xml:space="preserve">
+    <value>בוחרים מוצר ופרמטרים ורואים מחיר כולל מע״מ.</value>
+  </data>
+  <data name="send_file" xml:space="preserve">
+    <value>מעלים קובץ ושולחים</value>
+  </data>
+  <data name="send_file_description" xml:space="preserve">
+    <value>PDF, PNG או JPEG עד 100MB. אישור הזמנה יגיע למייל.</value>
+  </data>
+  <data name="pay_line" xml:space="preserve">
+    <value>התשלום מחוץ לאתר: מזומן, כרטיס אשראי, Bit או העברה בנקאית.</value>
+  </data>
+  <data name="what_clients_say" xml:space="preserve">
+    <value>מה הלקוחות אומרים</value>
+  </data>
+  <data name="reviews_count" xml:space="preserve">
+    <value>13 ביקורות בגוגל</value>
+  </data>
+  <data name="all_google_reviews" xml:space="preserve">
+    <value>לכל הביקורות בגוגל </value>
+  </data>
+  <data name="review_1_text" xml:space="preserve">
+    <value>«תודה רבה, היה שירות מעולה ברמה גבוהה מאוד.»</value>
+  </data>
+  <data name="review_1_author" xml:space="preserve">
+    <value>Artem Y · Google</value>
+  </data>
+  <data name="review_2_text" xml:space="preserve">
+    <value>«שירות נפלא, איכות מדהימה!»</value>
+  </data>
+  <data name="review_2_author" xml:space="preserve">
+    <value>Oren Grinfeld · Google</value>
+  </data>
+  <data name="review_3_text" xml:space="preserve">
+    <value>«שירות מעולה ומהיר, ממליצה בחום.»</value>
+  </data>
+  <data name="review_3_author" xml:space="preserve">
+    <value>מירי חורם · Google</value>
+  </data>
+  <data name="reviews_translated_note" xml:space="preserve">
+    <value />
+  </data>
+  <data name="about_photo_alt" xml:space="preserve">
+    <value>המשפחה של דפוס איי.בי.סי בבית הדפוס בנתניה</value>
+  </data>
+  <data name="about_photo_caption" xml:space="preserve">
+    <value>אנחנו — דפוס איי.בי.סי</value>
+  </data>
+  <data name="since_badge_small" xml:space="preserve">
+    <value>מאז</value>
+  </data>
+  <data name="about_eyebrow" xml:space="preserve">
+    <value>מי אנחנו</value>
+  </data>
+  <data name="about_header" xml:space="preserve">
+    <value>בית דפוס משפחתי מאז 2001</value>
+  </data>
+  <data name="about_text_1" xml:space="preserve">
+    <value>דפוס איי.בי.סי הוא עסק משפחתי בנתניה. מאז 2001 אנחנו מדפיסים לעצמאים, לעסקים וללקוחות פרטיים — ומכירים אישית את מי שמזמין מאיתנו.</value>
+  </data>
+  <data name="checklist_1" xml:space="preserve">
+    <value>מדפיסים בעצמנו — בבית הדפוס שלנו בנתניה</value>
+  </data>
+  <data name="checklist_2" xml:space="preserve">
+    <value>בודקים כל קובץ לפני ההדפסה</value>
+  </data>
+  <data name="checklist_3" xml:space="preserve">
+    <value>מדברים איתכם ישירות — בעברית או ברוסית</value>
+  </data>
+  <data name="contact_header" xml:space="preserve">
+    <value>איך מגיעים אלינו</value>
+  </data>
+  <data name="address_label" xml:space="preserve">
+    <value>כתובת</value>
+  </data>
+  <data name="address_value" xml:space="preserve">
+    <value>רח׳ שטמפפר 5, נתניה</value>
+  </data>
+  <data name="waze_nav" xml:space="preserve">
+    <value>ניווט ב-Waze </value>
+  </data>
+  <data name="hours_label" xml:space="preserve">
+    <value>שעות פעילות</value>
+  </data>
+  <data name="hours_value" xml:space="preserve">
+    <value>א׳–ה׳ </value>
+  </data>
+  <data name="hours_sub" xml:space="preserve">
+    <value>הזמנה באתר — 24/7</value>
+  </data>
+  <data name="phone_label" xml:space="preserve">
+    <value>טלפון</value>
+  </data>
+  <data name="whatsapp_label" xml:space="preserve">
+    <value>WhatsApp</value>
+  </data>
+  <data name="email_label" xml:space="preserve">
+    <value>דוא״ל</value>
+  </data>
+  <data name="map_caption" xml:space="preserve">
+    <value>מפת גוגל: רח׳ שטמפפר 5, נתניה</value>
+  </data>
+  <data name="logo_text" xml:space="preserve">
+    <value>דפוס איי.בי.סי</value>
+  </data>
+  <data name="footer_subtitle" xml:space="preserve">
+    <value>בית דפוס משפחתי בנתניה</value>
+  </data>
+  <data name="footer_since" xml:space="preserve">
+    <value>מאז 2001</value>
+  </data>
+  <data name="footer_products_heading" xml:space="preserve">
+    <value>מוצרים</value>
+  </data>
+  <data name="footer_info_heading" xml:space="preserve">
+    <value>מידע</value>
+  </data>
+  <data name="footer_contact_heading" xml:space="preserve">
+    <value>יצירת קשר</value>
+  </data>
+  <data name="footer_info_about" xml:space="preserve">
+    <value>אודות</value>
+  </data>
+  <data name="footer_info_file_req" xml:space="preserve">
+    <value>דרישות לקבצים</value>
+  </data>
+  <data name="footer_info_order_terms" xml:space="preserve">
+    <value>תנאי הזמנה</value>
+  </data>
+  <data name="footer_info_terms" xml:space="preserve">
+    <value>תנאי שימוש</value>
+  </data>
+  <data name="footer_info_privacy" xml:space="preserve">
+    <value>מדיניות פרטיות</value>
+  </data>
+  <data name="footer_info_accessibility" xml:space="preserve">
+    <value>הצהרת נגישות</value>
+  </data>
+  <data name="copyright" xml:space="preserve">
+    <value>דפוס איי.בי.סי. כל הזכויות שמורות.</value>
+  </data>
+  <data name="wa_aria" xml:space="preserve">
+    <value>כתבו לנו ב-WhatsApp</value>
+  </data>
+  <data name="call_aria" xml:space="preserve">
+    <value>התקשרו אלינו</value>
+  </data>
+  <data name="meta_title" xml:space="preserve">
+    <value>דפוס איי.בי.סי — מדבקות ודפוס בנתניה</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>בוחרים חומר, צורה, גודל וכמות — ורואים מחיר כולל מע״מ מיד. הזמנה באתר 24/7.</value>
+  </data>
+</root>

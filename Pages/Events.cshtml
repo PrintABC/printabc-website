@@ -1,0 +1,714 @@
+﻿@page "/Events"
+@using System.Globalization
+@model PrintABC.Pages.EventsModel
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+
+    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+    var dir = isRtl ? "rtl" : "ltr";
+}
+
+<div class="container page-head">
+    <h1>@L["events_header"]</h1>
+    <p>@L["events_description"]</p>
+</div>
+
+<div class="container product-layout" id="ev-calc">
+    <div class="product-layout__main product-layout__main--wide">
+        <img class="ev-hero" src="~/img/event-printing.jpg" alt="@L["events_img_alt"]" decoding="async">
+        <fieldset class="opt-group ev-sizes">
+            <legend>@L["size_title"]</legend>
+            <div class="opt-list">
+                <label class="pill ev-size">
+                    <input autocomplete="off" type="radio" name="size" value="a" checked>
+                    <span>@L["tab_1"]</span>
+                </label>
+                <label class="pill ev-size">
+                    <input autocomplete="off" type="radio" name="size" value="b">
+                    <span>@L["tab_2"]</span>
+                </label>
+                <label class="pill ev-size">
+                    <input autocomplete="off" type="radio" name="size" value="c">
+                    <span>@L["tab_3"]</span>
+                </label>
+                <label class="pill ev-size">
+                    <input autocomplete="off" type="radio" name="size" value="d">
+                    <span>@L["tab_4"]</span>
+                </label>
+            </div>
+        </fieldset>
+        <fieldset class="opt-group ev-papers">
+            <legend>@L["paper_title"]</legend>
+            <div class="opt-list">
+                <label class="pill ev-paper">
+                    <input autocomplete="off" type="radio" name="paper" value="250">
+                    <span class="ev-paper__name">@L["paper_250"]</span><span class="ev-paper__sub">@L["paper_sub"]</span>
+                </label>
+                <label class="pill ev-paper">
+                    <input autocomplete="off" type="radio" name="paper" value="300" checked>
+                    <span class="ev-paper__name">@L["paper_300"]</span><span class="ev-paper__sub">@L["paper_sub"]</span>
+                </label>
+            </div>
+        </fieldset>
+        <section class="section__stack section__stack--tight" aria-labelledby="tbl-h">
+            <div class="section-head"><h2 id="tbl-h">@L["price_title"] · <span id="ev-kind-name">@L["tab_1"] · @L["paper_300"]</span></h2><p>@L["select_from_table"]</p></div>
+            <div class="price-table-wrap">
+                <table class="price-table ev-table" data-size="a" data-paper="250" hidden>
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_1"] · @L["paper_250"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["col_qty"]</th>
+                            <th scope="col">@L["col_1"]</th>
+                            <th scope="col">@L["col_2"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="50">
+                            <th scope="row">50</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="124" aria-pressed="false" aria-label="50 @L["units"] · @L["col_1"] · 124 ₪">124 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="142" aria-pressed="false" aria-label="50 @L["units"] · @L["col_2"] · 142 ₪">142 ₪</button></td>
+                        </tr>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="158" aria-pressed="false" aria-label="100 @L["units"] · @L["col_1"] · 158 ₪">158 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="177" aria-pressed="false" aria-label="100 @L["units"] · @L["col_2"] · 177 ₪">177 ₪</button></td>
+                        </tr>
+                        <tr data-qty="150">
+                            <th scope="row">150</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="185" aria-pressed="false" aria-label="150 @L["units"] · @L["col_1"] · 185 ₪">185 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="223" aria-pressed="false" aria-label="150 @L["units"] · @L["col_2"] · 223 ₪">223 ₪</button></td>
+                        </tr>
+                        <tr data-qty="200">
+                            <th scope="row">200</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="211" aria-pressed="false" aria-label="200 @L["units"] · @L["col_1"] · 211 ₪">211 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="233" aria-pressed="false" aria-label="200 @L["units"] · @L["col_2"] · 233 ₪">233 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="216" aria-pressed="false" aria-label="250 @L["units"] · @L["col_1"] · 216 ₪">216 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="234" aria-pressed="false" aria-label="250 @L["units"] · @L["col_2"] · 234 ₪">234 ₪</button></td>
+                        </tr>
+                        <tr data-qty="300">
+                            <th scope="row">300</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="266" aria-pressed="false" aria-label="300 @L["units"] · @L["col_1"] · 266 ₪">266 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="288" aria-pressed="false" aria-label="300 @L["units"] · @L["col_2"] · 288 ₪">288 ₪</button></td>
+                        </tr>
+                        <tr data-qty="350">
+                            <th scope="row">350</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="269" aria-pressed="false" aria-label="350 @L["units"] · @L["col_1"] · 269 ₪">269 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="309" aria-pressed="false" aria-label="350 @L["units"] · @L["col_2"] · 309 ₪">309 ₪</button></td>
+                        </tr>
+                        <tr data-qty="400">
+                            <th scope="row">400</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="272" aria-pressed="false" aria-label="400 @L["units"] · @L["col_1"] · 272 ₪">272 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="329" aria-pressed="false" aria-label="400 @L["units"] · @L["col_2"] · 329 ₪">329 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="331" aria-pressed="false" aria-label="500 @L["units"] · @L["col_1"] · 331 ₪">331 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="383" aria-pressed="false" aria-label="500 @L["units"] · @L["col_2"] · 383 ₪">383 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table ev-table" data-size="a" data-paper="300">
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_1"] · @L["paper_300"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["col_qty"]</th>
+                            <th scope="col">@L["col_1"]</th>
+                            <th scope="col">@L["col_2"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="50">
+                            <th scope="row">50</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="138" aria-pressed="false" aria-label="50 @L["units"] · @L["col_1"] · 138 ₪">138 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="158" aria-pressed="false" aria-label="50 @L["units"] · @L["col_2"] · 158 ₪">158 ₪</button></td>
+                        </tr>
+                        <tr data-qty="100" class="is-selected">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="175" aria-pressed="true" aria-label="100 @L["units"] · @L["col_1"] · 175 ₪">175 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="197" aria-pressed="false" aria-label="100 @L["units"] · @L["col_2"] · 197 ₪">197 ₪</button></td>
+                        </tr>
+                        <tr data-qty="150">
+                            <th scope="row">150</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="205" aria-pressed="false" aria-label="150 @L["units"] · @L["col_1"] · 205 ₪">205 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="248" aria-pressed="false" aria-label="150 @L["units"] · @L["col_2"] · 248 ₪">248 ₪</button></td>
+                        </tr>
+                        <tr data-qty="200">
+                            <th scope="row">200</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="234" aria-pressed="false" aria-label="200 @L["units"] · @L["col_1"] · 234 ₪">234 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="259" aria-pressed="false" aria-label="200 @L["units"] · @L["col_2"] · 259 ₪">259 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="240" aria-pressed="false" aria-label="250 @L["units"] · @L["col_1"] · 240 ₪">240 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="260" aria-pressed="false" aria-label="250 @L["units"] · @L["col_2"] · 260 ₪">260 ₪</button></td>
+                        </tr>
+                        <tr data-qty="300">
+                            <th scope="row">300</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="295" aria-pressed="false" aria-label="300 @L["units"] · @L["col_1"] · 295 ₪">295 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="320" aria-pressed="false" aria-label="300 @L["units"] · @L["col_2"] · 320 ₪">320 ₪</button></td>
+                        </tr>
+                        <tr data-qty="350">
+                            <th scope="row">350</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="299" aria-pressed="false" aria-label="350 @L["units"] · @L["col_1"] · 299 ₪">299 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="343" aria-pressed="false" aria-label="350 @L["units"] · @L["col_2"] · 343 ₪">343 ₪</button></td>
+                        </tr>
+                        <tr data-qty="400">
+                            <th scope="row">400</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="302" aria-pressed="false" aria-label="400 @L["units"] · @L["col_1"] · 302 ₪">302 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="366" aria-pressed="false" aria-label="400 @L["units"] · @L["col_2"] · 366 ₪">366 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="368" aria-pressed="false" aria-label="500 @L["units"] · @L["col_1"] · 368 ₪">368 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="425" aria-pressed="false" aria-label="500 @L["units"] · @L["col_2"] · 425 ₪">425 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table ev-table" data-size="b" data-paper="250" hidden>
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_2"] · @L["paper_250"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["col_qty"]</th>
+                            <th scope="col">@L["col_1"]</th>
+                            <th scope="col">@L["col_2"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="50">
+                            <th scope="row">50</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="113" aria-pressed="false" aria-label="50 @L["units"] · @L["col_1"] · 113 ₪">113 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="129" aria-pressed="false" aria-label="50 @L["units"] · @L["col_2"] · 129 ₪">129 ₪</button></td>
+                        </tr>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="192" aria-pressed="false" aria-label="100 @L["units"] · @L["col_1"] · 192 ₪">192 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="197" aria-pressed="false" aria-label="100 @L["units"] · @L["col_2"] · 197 ₪">197 ₪</button></td>
+                        </tr>
+                        <tr data-qty="150">
+                            <th scope="row">150</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="218" aria-pressed="false" aria-label="150 @L["units"] · @L["col_1"] · 218 ₪">218 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="225" aria-pressed="false" aria-label="150 @L["units"] · @L["col_2"] · 225 ₪">225 ₪</button></td>
+                        </tr>
+                        <tr data-qty="200">
+                            <th scope="row">200</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="243" aria-pressed="false" aria-label="200 @L["units"] · @L["col_1"] · 243 ₪">243 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="261" aria-pressed="false" aria-label="200 @L["units"] · @L["col_2"] · 261 ₪">261 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="319" aria-pressed="false" aria-label="250 @L["units"] · @L["col_1"] · 319 ₪">319 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="324" aria-pressed="false" aria-label="250 @L["units"] · @L["col_2"] · 324 ₪">324 ₪</button></td>
+                        </tr>
+                        <tr data-qty="300">
+                            <th scope="row">300</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="342" aria-pressed="false" aria-label="300 @L["units"] · @L["col_1"] · 342 ₪">342 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="374" aria-pressed="false" aria-label="300 @L["units"] · @L["col_2"] · 374 ₪">374 ₪</button></td>
+                        </tr>
+                        <tr data-qty="350">
+                            <th scope="row">350</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="402" aria-pressed="false" aria-label="350 @L["units"] · @L["col_1"] · 402 ₪">402 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="432" aria-pressed="false" aria-label="350 @L["units"] · @L["col_2"] · 432 ₪">432 ₪</button></td>
+                        </tr>
+                        <tr data-qty="400">
+                            <th scope="row">400</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="462" aria-pressed="false" aria-label="400 @L["units"] · @L["col_1"] · 462 ₪">462 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="486" aria-pressed="false" aria-label="400 @L["units"] · @L["col_2"] · 486 ₪">486 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="598" aria-pressed="false" aria-label="500 @L["units"] · @L["col_1"] · 598 ₪">598 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="651" aria-pressed="false" aria-label="500 @L["units"] · @L["col_2"] · 651 ₪">651 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table ev-table" data-size="b" data-paper="300" hidden>
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_2"] · @L["paper_300"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["col_qty"]</th>
+                            <th scope="col">@L["col_1"]</th>
+                            <th scope="col">@L["col_2"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="50">
+                            <th scope="row">50</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="125" aria-pressed="false" aria-label="50 @L["units"] · @L["col_1"] · 125 ₪">125 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="143" aria-pressed="false" aria-label="50 @L["units"] · @L["col_2"] · 143 ₪">143 ₪</button></td>
+                        </tr>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="213" aria-pressed="false" aria-label="100 @L["units"] · @L["col_1"] · 213 ₪">213 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="219" aria-pressed="false" aria-label="100 @L["units"] · @L["col_2"] · 219 ₪">219 ₪</button></td>
+                        </tr>
+                        <tr data-qty="150">
+                            <th scope="row">150</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="242" aria-pressed="false" aria-label="150 @L["units"] · @L["col_1"] · 242 ₪">242 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="250" aria-pressed="false" aria-label="150 @L["units"] · @L["col_2"] · 250 ₪">250 ₪</button></td>
+                        </tr>
+                        <tr data-qty="200">
+                            <th scope="row">200</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="270" aria-pressed="false" aria-label="200 @L["units"] · @L["col_1"] · 270 ₪">270 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="290" aria-pressed="false" aria-label="200 @L["units"] · @L["col_2"] · 290 ₪">290 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="354" aria-pressed="false" aria-label="250 @L["units"] · @L["col_1"] · 354 ₪">354 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="360" aria-pressed="false" aria-label="250 @L["units"] · @L["col_2"] · 360 ₪">360 ₪</button></td>
+                        </tr>
+                        <tr data-qty="300">
+                            <th scope="row">300</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="380" aria-pressed="false" aria-label="300 @L["units"] · @L["col_1"] · 380 ₪">380 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="415" aria-pressed="false" aria-label="300 @L["units"] · @L["col_2"] · 415 ₪">415 ₪</button></td>
+                        </tr>
+                        <tr data-qty="350">
+                            <th scope="row">350</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="447" aria-pressed="false" aria-label="350 @L["units"] · @L["col_1"] · 447 ₪">447 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="480" aria-pressed="false" aria-label="350 @L["units"] · @L["col_2"] · 480 ₪">480 ₪</button></td>
+                        </tr>
+                        <tr data-qty="400">
+                            <th scope="row">400</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="513" aria-pressed="false" aria-label="400 @L["units"] · @L["col_1"] · 513 ₪">513 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="540" aria-pressed="false" aria-label="400 @L["units"] · @L["col_2"] · 540 ₪">540 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="664" aria-pressed="false" aria-label="500 @L["units"] · @L["col_1"] · 664 ₪">664 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="723" aria-pressed="false" aria-label="500 @L["units"] · @L["col_2"] · 723 ₪">723 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table ev-table" data-size="c" data-paper="250" hidden>
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_3"] · @L["paper_250"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["col_qty"]</th>
+                            <th scope="col">@L["col_1"]</th>
+                            <th scope="col">@L["col_2"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="50">
+                            <th scope="row">50</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="110" aria-pressed="false" aria-label="50 @L["units"] · @L["col_1"] · 110 ₪">110 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="122" aria-pressed="false" aria-label="50 @L["units"] · @L["col_2"] · 122 ₪">122 ₪</button></td>
+                        </tr>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="140" aria-pressed="false" aria-label="100 @L["units"] · @L["col_1"] · 140 ₪">140 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="162" aria-pressed="false" aria-label="100 @L["units"] · @L["col_2"] · 162 ₪">162 ₪</button></td>
+                        </tr>
+                        <tr data-qty="150">
+                            <th scope="row">150</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="189" aria-pressed="false" aria-label="150 @L["units"] · @L["col_1"] · 189 ₪">189 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="216" aria-pressed="false" aria-label="150 @L["units"] · @L["col_2"] · 216 ₪">216 ₪</button></td>
+                        </tr>
+                        <tr data-qty="200">
+                            <th scope="row">200</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="216" aria-pressed="false" aria-label="200 @L["units"] · @L["col_1"] · 216 ₪">216 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="261" aria-pressed="false" aria-label="200 @L["units"] · @L["col_2"] · 261 ₪">261 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="270" aria-pressed="false" aria-label="250 @L["units"] · @L["col_1"] · 270 ₪">270 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="324" aria-pressed="false" aria-label="250 @L["units"] · @L["col_2"] · 324 ₪">324 ₪</button></td>
+                        </tr>
+                        <tr data-qty="300">
+                            <th scope="row">300</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="306" aria-pressed="false" aria-label="300 @L["units"] · @L["col_1"] · 306 ₪">306 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="374" aria-pressed="false" aria-label="300 @L["units"] · @L["col_2"] · 374 ₪">374 ₪</button></td>
+                        </tr>
+                        <tr data-qty="350">
+                            <th scope="row">350</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="356" aria-pressed="false" aria-label="350 @L["units"] · @L["col_1"] · 356 ₪">356 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="432" aria-pressed="false" aria-label="350 @L["units"] · @L["col_2"] · 432 ₪">432 ₪</button></td>
+                        </tr>
+                        <tr data-qty="400">
+                            <th scope="row">400</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="387" aria-pressed="false" aria-label="400 @L["units"] · @L["col_1"] · 387 ₪">387 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="486" aria-pressed="false" aria-label="400 @L["units"] · @L["col_2"] · 486 ₪">486 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="477" aria-pressed="false" aria-label="500 @L["units"] · @L["col_1"] · 477 ₪">477 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="594" aria-pressed="false" aria-label="500 @L["units"] · @L["col_2"] · 594 ₪">594 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table ev-table" data-size="c" data-paper="300" hidden>
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_3"] · @L["paper_300"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["col_qty"]</th>
+                            <th scope="col">@L["col_1"]</th>
+                            <th scope="col">@L["col_2"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="50">
+                            <th scope="row">50</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="122" aria-pressed="false" aria-label="50 @L["units"] · @L["col_1"] · 122 ₪">122 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="136" aria-pressed="false" aria-label="50 @L["units"] · @L["col_2"] · 136 ₪">136 ₪</button></td>
+                        </tr>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="155" aria-pressed="false" aria-label="100 @L["units"] · @L["col_1"] · 155 ₪">155 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="180" aria-pressed="false" aria-label="100 @L["units"] · @L["col_2"] · 180 ₪">180 ₪</button></td>
+                        </tr>
+                        <tr data-qty="150">
+                            <th scope="row">150</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="210" aria-pressed="false" aria-label="150 @L["units"] · @L["col_1"] · 210 ₪">210 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="240" aria-pressed="false" aria-label="150 @L["units"] · @L["col_2"] · 240 ₪">240 ₪</button></td>
+                        </tr>
+                        <tr data-qty="200">
+                            <th scope="row">200</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="240" aria-pressed="false" aria-label="200 @L["units"] · @L["col_1"] · 240 ₪">240 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="290" aria-pressed="false" aria-label="200 @L["units"] · @L["col_2"] · 290 ₪">290 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="300" aria-pressed="false" aria-label="250 @L["units"] · @L["col_1"] · 300 ₪">300 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="360" aria-pressed="false" aria-label="250 @L["units"] · @L["col_2"] · 360 ₪">360 ₪</button></td>
+                        </tr>
+                        <tr data-qty="300">
+                            <th scope="row">300</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="340" aria-pressed="false" aria-label="300 @L["units"] · @L["col_1"] · 340 ₪">340 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="415" aria-pressed="false" aria-label="300 @L["units"] · @L["col_2"] · 415 ₪">415 ₪</button></td>
+                        </tr>
+                        <tr data-qty="350">
+                            <th scope="row">350</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="395" aria-pressed="false" aria-label="350 @L["units"] · @L["col_1"] · 395 ₪">395 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="480" aria-pressed="false" aria-label="350 @L["units"] · @L["col_2"] · 480 ₪">480 ₪</button></td>
+                        </tr>
+                        <tr data-qty="400">
+                            <th scope="row">400</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="430" aria-pressed="false" aria-label="400 @L["units"] · @L["col_1"] · 430 ₪">430 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="540" aria-pressed="false" aria-label="400 @L["units"] · @L["col_2"] · 540 ₪">540 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="530" aria-pressed="false" aria-label="500 @L["units"] · @L["col_1"] · 530 ₪">530 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="660" aria-pressed="false" aria-label="500 @L["units"] · @L["col_2"] · 660 ₪">660 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table ev-table" data-size="d" data-paper="250" hidden>
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_4"] · @L["paper_250"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["col_qty"]</th>
+                            <th scope="col">@L["col_1"]</th>
+                            <th scope="col">@L["col_2"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="50">
+                            <th scope="row">50</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="107" aria-pressed="false" aria-label="50 @L["units"] · @L["col_1"] · 107 ₪">107 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="140" aria-pressed="false" aria-label="50 @L["units"] · @L["col_2"] · 140 ₪">140 ₪</button></td>
+                        </tr>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="154" aria-pressed="false" aria-label="100 @L["units"] · @L["col_1"] · 154 ₪">154 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="185" aria-pressed="false" aria-label="100 @L["units"] · @L["col_2"] · 185 ₪">185 ₪</button></td>
+                        </tr>
+                        <tr data-qty="150">
+                            <th scope="row">150</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="189" aria-pressed="false" aria-label="150 @L["units"] · @L["col_1"] · 189 ₪">189 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="216" aria-pressed="false" aria-label="150 @L["units"] · @L["col_2"] · 216 ₪">216 ₪</button></td>
+                        </tr>
+                        <tr data-qty="200">
+                            <th scope="row">200</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="216" aria-pressed="false" aria-label="200 @L["units"] · @L["col_1"] · 216 ₪">216 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="261" aria-pressed="false" aria-label="200 @L["units"] · @L["col_2"] · 261 ₪">261 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="270" aria-pressed="false" aria-label="250 @L["units"] · @L["col_1"] · 270 ₪">270 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="324" aria-pressed="false" aria-label="250 @L["units"] · @L["col_2"] · 324 ₪">324 ₪</button></td>
+                        </tr>
+                        <tr data-qty="300">
+                            <th scope="row">300</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="306" aria-pressed="false" aria-label="300 @L["units"] · @L["col_1"] · 306 ₪">306 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="374" aria-pressed="false" aria-label="300 @L["units"] · @L["col_2"] · 374 ₪">374 ₪</button></td>
+                        </tr>
+                        <tr data-qty="350">
+                            <th scope="row">350</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="356" aria-pressed="false" aria-label="350 @L["units"] · @L["col_1"] · 356 ₪">356 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="432" aria-pressed="false" aria-label="350 @L["units"] · @L["col_2"] · 432 ₪">432 ₪</button></td>
+                        </tr>
+                        <tr data-qty="400">
+                            <th scope="row">400</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="387" aria-pressed="false" aria-label="400 @L["units"] · @L["col_1"] · 387 ₪">387 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="486" aria-pressed="false" aria-label="400 @L["units"] · @L["col_2"] · 486 ₪">486 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="477" aria-pressed="false" aria-label="500 @L["units"] · @L["col_1"] · 477 ₪">477 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="594" aria-pressed="false" aria-label="500 @L["units"] · @L["col_2"] · 594 ₪">594 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="price-table ev-table" data-size="d" data-paper="300" hidden>
+                    <caption class="visually-hidden">@L["price_title"] · @L["tab_4"] · @L["paper_300"] — @L["select_from_table"]</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">@L["col_qty"]</th>
+                            <th scope="col">@L["col_1"]</th>
+                            <th scope="col">@L["col_2"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-qty="50">
+                            <th scope="row">50</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="119" aria-pressed="false" aria-label="50 @L["units"] · @L["col_1"] · 119 ₪">119 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="156" aria-pressed="false" aria-label="50 @L["units"] · @L["col_2"] · 156 ₪">156 ₪</button></td>
+                        </tr>
+                        <tr data-qty="100">
+                            <th scope="row">100</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="171" aria-pressed="false" aria-label="100 @L["units"] · @L["col_1"] · 171 ₪">171 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="205" aria-pressed="false" aria-label="100 @L["units"] · @L["col_2"] · 205 ₪">205 ₪</button></td>
+                        </tr>
+                        <tr data-qty="150">
+                            <th scope="row">150</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="210" aria-pressed="false" aria-label="150 @L["units"] · @L["col_1"] · 210 ₪">210 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="240" aria-pressed="false" aria-label="150 @L["units"] · @L["col_2"] · 240 ₪">240 ₪</button></td>
+                        </tr>
+                        <tr data-qty="200">
+                            <th scope="row">200</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="240" aria-pressed="false" aria-label="200 @L["units"] · @L["col_1"] · 240 ₪">240 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="290" aria-pressed="false" aria-label="200 @L["units"] · @L["col_2"] · 290 ₪">290 ₪</button></td>
+                        </tr>
+                        <tr data-qty="250">
+                            <th scope="row">250</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="300" aria-pressed="false" aria-label="250 @L["units"] · @L["col_1"] · 300 ₪">300 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="360" aria-pressed="false" aria-label="250 @L["units"] · @L["col_2"] · 360 ₪">360 ₪</button></td>
+                        </tr>
+                        <tr data-qty="300">
+                            <th scope="row">300</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="340" aria-pressed="false" aria-label="300 @L["units"] · @L["col_1"] · 340 ₪">340 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="415" aria-pressed="false" aria-label="300 @L["units"] · @L["col_2"] · 415 ₪">415 ₪</button></td>
+                        </tr>
+                        <tr data-qty="350">
+                            <th scope="row">350</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="395" aria-pressed="false" aria-label="350 @L["units"] · @L["col_1"] · 395 ₪">395 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="480" aria-pressed="false" aria-label="350 @L["units"] · @L["col_2"] · 480 ₪">480 ₪</button></td>
+                        </tr>
+                        <tr data-qty="400">
+                            <th scope="row">400</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="430" aria-pressed="false" aria-label="400 @L["units"] · @L["col_1"] · 430 ₪">430 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="540" aria-pressed="false" aria-label="400 @L["units"] · @L["col_2"] · 540 ₪">540 ₪</button></td>
+                        </tr>
+                        <tr data-qty="500">
+                            <th scope="row">500</th>
+                            <td><button class="price-btn" type="button" data-sides="1" data-price="530" aria-pressed="false" aria-label="500 @L["units"] · @L["col_1"] · 530 ₪">530 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-sides="2" data-price="660" aria-pressed="false" aria-label="500 @L["units"] · @L["col_2"] · 660 ₪">660 ₪</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="info-card" aria-labelledby="incl-h">
+            <h2 id="incl-h">@L["what_included"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_1"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_2"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_3"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_4"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_5"]</span></li>
+            </ul>
+        </section>
+    </div>
+    <section class="product-layout__side product-layout__side--narrow panel panel--raised summary-panel is-sticky" aria-labelledby="sum-h">
+        <h2 id="sum-h">@L["your_order"]</h2>
+        <div class="price-box">
+            <p class="cat-summary"><strong id="ev-sum-text"></strong></p>
+            <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="ev-total" aria-live="polite">175 ₪</output></div>
+            <p class="field__hint">@L["inc_vat"]</p>
+            <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
+        </div>
+        <a class="btn btn--whatsapp btn--lg" id="ev-next" href="#" target="_blank" rel="noopener noreferrer"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg><span>@L["next_load_file"]</span></a>
+        <a class="calc__ask" href="https://wa.me/@(PHONE_NUMBER)"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg>@L["question_write_us"]</a>
+    </section>
+</div>
+
+<section class="section--surface">
+    <div class="container info-cards">
+        <div class="info-card">
+            <h2>@L["file_requirements"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_1"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_2"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_3"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_4"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_5"]</span></li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h2>@L["pickup_payment"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["pickup"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["pay"]</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="after-h">
+    <div class="container section__stack">
+        <div class="section-head"><h2 id="after-h">@L["after_order"]</h2></div>
+        <ol class="steps">
+            <li class="step"><span class="step__num" aria-hidden="true">01</span><h3>@L["after_1"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">02</span><h3>@L["after_2"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">03</span><h3>@L["after_3"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">04</span><h3>@L["after_4"]</h3></li>
+        </ol>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        const messageTemplate = @Json.Serialize(L["whatsapp_template"]);
+        const sizeTexts = {
+            a: @Json.Serialize(L["tab_1"]),
+            b: @Json.Serialize(L["tab_2"]),
+            c: @Json.Serialize(L["tab_3"]),
+            d: @Json.Serialize(L["tab_4"]),
+        };
+        const sidesTexts = {
+            "1": @Json.Serialize(L["wa_sides_1"]),
+            "2": @Json.Serialize(L["wa_sides_2"]),
+        };
+
+        const whatsappUrl = @Json.Serialize(WHATSAPP_URL);
+        const sizeRadios = document.querySelectorAll('#ev-calc input[name="size"]');
+        const paperRadios = document.querySelectorAll('#ev-calc input[name="paper"]');
+        const tables = document.querySelectorAll(".ev-table");
+        const priceButtons = document.querySelectorAll(".ev-table .price-btn");
+        const kindName = document.getElementById("ev-kind-name");
+        const summaryLine = @Json.Serialize(L["summary_line"]);
+        const sumSides = { "1": @Json.Serialize(L["sum_sides_1"]), "2": @Json.Serialize(L["sum_sides_2"]) };
+        const sumText = document.getElementById("ev-sum-text");
+        const totalPrice = document.getElementById("ev-total");
+        const whatsappButton = document.getElementById("ev-next");
+
+        let activeTable = getTable(getCheckedSize(), getCheckedPaper());
+
+        priceButtons.forEach(x => {
+            x.addEventListener('click', (e) => {
+                selectButton(e.currentTarget);
+                updateDisplayPrice();
+            });
+        });
+
+        sizeRadios.forEach(x => {
+            x.addEventListener('change', (e) => {
+                if (e.target.checked)
+                    switchTable(e.target.value, getCheckedPaper());
+            });
+        });
+
+        paperRadios.forEach(x => {
+            x.addEventListener('change', (e) => {
+                if (e.target.checked)
+                    switchTable(getCheckedSize(), e.target.value);
+            });
+        });
+
+        function getCheckedSize() {
+            const checked = document.querySelector('#ev-calc input[name="size"]:checked');
+            return checked ? checked.value : sizeRadios[0].value;
+        }
+        function getCheckedPaper() {
+            const checked = document.querySelector('#ev-calc input[name="paper"]:checked');
+            return checked ? checked.value : paperRadios[paperRadios.length - 1].value;
+        }
+        function getTable(size, paper) {
+            return document.querySelector(`.ev-table[data-size="${size}"][data-paper="${paper}"]`);
+        }
+        function getSelectedButton(table) {
+            return table.querySelector('.price-btn[aria-pressed="true"]');
+        }
+
+        function selectButton(btn) {
+            const table = btn.closest(".ev-table");
+            table.querySelectorAll(".price-btn").forEach(x => x.setAttribute("aria-pressed", "false"));
+            table.querySelectorAll("tbody tr").forEach(x => x.classList.remove("is-selected"));
+            btn.setAttribute("aria-pressed", "true");
+            btn.closest("tr").classList.add("is-selected");
+        }
+
+        function switchTable(size, paper) {
+            const prevBtn = getSelectedButton(activeTable);
+            const prevQty = prevBtn ? Number(prevBtn.closest("tr").dataset.qty) : 0;
+            const sides = prevBtn ? prevBtn.dataset.sides : "1";
+
+            activeTable = getTable(size, paper);
+            tables.forEach(t => t.hidden = t !== activeTable);
+
+            const rows = Array.from(activeTable.querySelectorAll("tbody tr"));
+            const row = rows.filter(r => Number(r.dataset.qty) <= prevQty).pop() || rows[0];
+            selectButton(row.querySelector(`.price-btn[data-sides="${sides}"]`));
+
+            const sizeRadio = document.querySelector(`#ev-calc input[name="size"][value="${size}"]`);
+            const paperRadio = document.querySelector(`#ev-calc input[name="paper"][value="${paper}"]`);
+            kindName.textContent = sizeRadio.closest("label").querySelector("span").textContent
+                + " · " + paperRadio.closest("label").querySelector(".ev-paper__name").textContent;
+
+            updateDisplayPrice();
+        }
+
+        function getSelection() {
+            let btn = getSelectedButton(activeTable);
+            if (!btn) {
+                btn = activeTable.querySelector(".price-btn");
+                selectButton(btn);
+            }
+            return {
+                size: activeTable.dataset.size,
+                paper: activeTable.dataset.paper,
+                sides: btn.dataset.sides,
+                qty: Number(btn.closest("tr").dataset.qty),
+                price: Number(btn.dataset.price)
+            };
+        }
+
+        function updateSummary(sel) {
+            sumText.textContent = summaryLine.value
+                .replace("{qty}", sel.qty)
+                .replace("{size}", sizeTexts[sel.size].value)
+                .replace("{paper}", sel.paper)
+                .replace("{sides}", sumSides[sel.sides].value);
+        }
+
+        function updateWhatsappLink(sel) {
+            let template = messageTemplate.value;
+            const data = {
+                size: sizeTexts[sel.size].value,
+                paper: sel.paper,
+                sides: sidesTexts[sel.sides].value,
+                qty: sel.qty,
+                price: sel.price,
+            };
+            for (const [key, value] of Object.entries(data)) {
+                template = template.replaceAll(`{${key}}`, value);
+            }
+            whatsappButton.href = whatsappUrl + template;
+        }
+
+        function updateDisplayPrice() {
+            const sel = getSelection();
+            totalPrice.textContent = "" + sel.price + " ₪";
+            updateSummary(sel);
+            updateWhatsappLink(sel);
+        }
+
+        switchTable(getCheckedSize(), getCheckedPaper());
+
+    </script>
+}

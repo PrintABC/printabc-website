@@ -1,0 +1,321 @@
+﻿@page "/Banners"
+@using System.Globalization
+@model PrintABC.Pages.BannersModel
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+
+    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+    var dir = isRtl ? "rtl" : "ltr";
+}
+
+<div class="container page-head">
+    <h1>@L["banners_header"]</h1>
+    <p>@L["banners_description"]</p>
+</div>
+
+<div class="container product-layout" id="bn-calc" data-print-m2="110" data-min-m2="1" data-eyelet-first="30" data-eyelet-next="20" data-vat="1.18">
+    <div class="product-layout__main product-layout__main--wide">
+        <img class="bn-hero" src="~/img/banners.jpg" alt="@L["banners_img_alt"]" width="1456" height="1088" decoding="async">
+        <div class="panel bn-form">
+            <fieldset class="opt-group bn-size" aria-describedby="bn-size-hint">
+                <legend>@L["size_title"]</legend>
+                <div class="field-row">
+                    <div class="field">
+                        <label class="field__label" for="bn-w">@L["w_label"]</label>
+                        <input class="field__input field__input--num" id="bn-w" name="w" type="number" inputmode="numeric" min="50" step="1" value="100" autocomplete="off" aria-describedby="bn-size-hint bn-size-err">
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="bn-h">@L["h_label"]</label>
+                        <input class="field__input field__input--num" id="bn-h" name="h" type="number" inputmode="numeric" min="50" step="1" value="70" autocomplete="off" aria-describedby="bn-size-hint bn-size-err">
+                    </div>
+                </div>
+                <p class="field__hint" id="bn-size-hint">@L["size_hint"]</p>
+                <p class="field__error" id="bn-size-err" hidden><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg><span data-err></span></p>
+                <a class="calc__ask" id="bn-big" href="#" target="_blank" rel="noopener noreferrer" hidden>@L["big_link"]</a>
+            </fieldset>
+            <fieldset class="opt-group bn-fin">
+                <legend>@L["finish_title"]</legend>
+                <div class="opt-list">
+                    <label class="pill"><input autocomplete="off" type="radio" name="fin" value="e" checked><span>@L["finish_eyelets"]</span></label>
+                    <label class="pill"><input autocomplete="off" type="radio" name="fin" value="n"><span>@L["finish_none"]</span></label>
+                </div>
+            </fieldset>
+            <div class="field bn-qty">
+                <label class="field__label" for="bn-q">@L["qty_title"]</label>
+                <input class="field__input field__input--num" id="bn-q" name="qty" type="number" inputmode="numeric" min="1" max="10" step="1" value="1" autocomplete="off" aria-describedby="bn-qty-err">
+                <p class="field__error" id="bn-qty-err" hidden><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg><span data-err></span></p>
+                <a class="calc__ask" id="bn-more" href="@(WHATSAPP_URL + L["wa_more"].Value)" target="_blank" rel="noopener noreferrer">@L["qty_more"]</a>
+            </div>
+        </div>
+        <section class="info-card bn-incl" aria-labelledby="incl-h">
+            <h2 id="incl-h">@L["what_included"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_1"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_2"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_3"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_4"]</span></li>
+            </ul>
+        </section>
+    </div>
+    <section class="product-layout__side product-layout__side--narrow panel panel--raised summary-panel is-sticky" aria-labelledby="sum-h">
+        <h2 id="sum-h">@L["your_order"]</h2>
+        <div class="price-box">
+            <p class="cat-summary"><strong id="bn-sum-text"></strong></p>
+            <div class="price-box__row"><span>@L["area_label"]</span><span id="bn-area"></span></div>
+            <div class="price-box__row"><span>@L["unit_label"]</span><span id="bn-unit">165 ₪</span></div>
+            <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="bn-total" aria-live="polite">165 ₪</output></div>
+            <p class="field__hint">@L["inc_vat"]</p>
+            <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
+        </div>
+        <a class="btn btn--whatsapp btn--lg" id="bn-next" href="#" target="_blank" rel="noopener noreferrer"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg><span>@L["next_load_file"]</span></a>
+        <a class="calc__ask" href="https://wa.me/@(PHONE_NUMBER)"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg>@L["question_write_us"]</a>
+    </section>
+</div>
+
+<section class="section--surface">
+    <div class="container info-cards">
+        <div class="info-card">
+            <h2>@L["file_requirements"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_1"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_2"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_3"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["file_4"]</span></li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h2>@L["pickup_payment"]</h2>
+            <ul class="check-list">
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["pickup"]</span></li>
+                <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["pay"]</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="after-h">
+    <div class="container section__stack">
+        <div class="section-head"><h2 id="after-h">@L["after_order"]</h2></div>
+        <ol class="steps">
+            <li class="step"><span class="step__num" aria-hidden="true">01</span><h3>@L["after_1"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">02</span><h3>@L["after_2"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">03</span><h3>@L["after_3"]</h3></li>
+            <li class="step"><span class="step__num" aria-hidden="true">04</span><h3>@L["after_4"]</h3></li>
+        </ol>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        const messageTemplate = @Json.Serialize(L["whatsapp_template"]);
+        const finishTexts = {
+            e: @Json.Serialize(L["wa_fin_e"]),
+            n: @Json.Serialize(L["wa_fin_n"]),
+        };
+        const priceLines = {
+            one: @Json.Serialize(L["wa_price_one"]),
+            many: @Json.Serialize(L["wa_price_many"]),
+        };
+        const bigTemplate = @Json.Serialize(L["wa_big"]);
+        const summaryLine = @Json.Serialize(L["summary_line"]);
+        const sumFinish = { e: @Json.Serialize(L["sum_fin_e"]), n: @Json.Serialize(L["sum_fin_n"]) };
+        const areaValue = @Json.Serialize(L["area_val"]);
+        const areaMin = @Json.Serialize(L["area_min"]);
+        const errTexts = {
+            int: @Json.Serialize(L["err_int"]),
+            min: @Json.Serialize(L["err_min"]),
+            max: @Json.Serialize(L["err_max"]),
+            qty: @Json.Serialize(L["err_qty"]),
+        };
+
+        const whatsappUrl = @Json.Serialize(WHATSAPP_URL);
+        const calc = document.getElementById("bn-calc");
+        const rates = {
+            print: Number(calc.dataset.printM2),
+            minArea: Number(calc.dataset.minM2) * 10000,
+            eyeletFirst: Number(calc.dataset.eyeletFirst),
+            eyeletNext: Number(calc.dataset.eyeletNext),
+            vat: Math.round(Number(calc.dataset.vat) * 100),
+        };
+        const FIRST_M2 = 10000; 
+        const SIZE_MIN = 50, SHORT_MAX = 100, LONG_MAX = 250, QTY_MIN = 1, QTY_MAX = 10;
+
+        const widthInput = document.getElementById("bn-w");
+        const heightInput = document.getElementById("bn-h");
+        const qtyInput = document.getElementById("bn-q");
+        const finishRadios = document.querySelectorAll('#bn-calc input[name="fin"]');
+        const sizeError = document.getElementById("bn-size-err");
+        const qtyError = document.getElementById("bn-qty-err");
+        const bigLink = document.getElementById("bn-big");
+        const sumText = document.getElementById("bn-sum-text");
+        const areaText = document.getElementById("bn-area");
+        const unitPrice = document.getElementById("bn-unit");
+        const totalPrice = document.getElementById("bn-total");
+        const whatsappButton = document.getElementById("bn-next");
+        const areaFormat = new Intl.NumberFormat(@Json.Serialize(currentCulture), { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        let sizeErrorShown = false;
+        let qtyErrorShown = false;
+
+        //recalculate on every keystroke; error text appears on change/blur,
+        //or right away if the field group already shows an error.
+        [widthInput, heightInput].forEach(x => {
+            x.addEventListener('input', () => updateDisplayPrice(sizeErrorShown, qtyErrorShown));
+            x.addEventListener('change', () => updateDisplayPrice(true, qtyErrorShown));
+            x.addEventListener('blur', () => updateDisplayPrice(true, qtyErrorShown));
+        });
+
+        qtyInput.addEventListener('input', () => updateDisplayPrice(sizeErrorShown, qtyErrorShown));
+        qtyInput.addEventListener('change', () => updateDisplayPrice(sizeErrorShown, true));
+        qtyInput.addEventListener('blur', () => updateDisplayPrice(sizeErrorShown, true));
+
+        finishRadios.forEach(x => {
+            x.addEventListener('change', (e) => {
+                if (e.target.checked)
+                    updateDisplayPrice(sizeErrorShown, qtyErrorShown);
+            });
+        });
+
+        function isInteger(value) {
+            return /^-?\d+$/.test(value);
+        }
+
+        function getCheckedFinish() {
+            const checked = document.querySelector('#bn-calc input[name="fin"]:checked');
+            return checked ? checked.value : finishRadios[0].value;
+        }
+
+        //order: err_int → err_min → err_max. Returns { code, inputs } or null.
+        function validateSize(w, h) {
+            const fields = [[widthInput, w], [heightInput, h]];
+            let bad = fields.filter(([, v]) => !isInteger(v));
+            if (bad.length) return { code: "int", inputs: bad.map(([i]) => i) };
+            bad = fields.filter(([, v]) => Number(v) < SIZE_MIN);
+            if (bad.length) return { code: "min", inputs: bad.map(([i]) => i) };
+            const shortSide = Math.min(Number(w), Number(h));
+            const longSide = Math.max(Number(w), Number(h));
+            if (shortSide > SHORT_MAX || longSide > LONG_MAX) return { code: "max", inputs: [widthInput, heightInput] };
+            return null;
+        }
+
+        function validateQty(q) {
+            if (!isInteger(q)) return { code: "int", inputs: [qtyInput] };
+            if (Number(q) < QTY_MIN || Number(q) > QTY_MAX) return { code: "qty", inputs: [qtyInput] };
+            return null;
+        }
+
+        function getSelection() {
+            const w = widthInput.value.trim();
+            const h = heightInput.value.trim();
+            const q = qtyInput.value.trim();
+            return {
+                w: w,
+                h: h,
+                qty: q,
+                finish: getCheckedFinish(),
+                sizeError: validateSize(w, h),
+                qtyError: validateQty(q),
+            };
+        }
+
+        
+        function getUnitPrice(sel) {
+            const area = Number(sel.w) * Number(sel.h);
+            let eyelets = 0;
+            if (sel.finish === "e")
+                eyelets = area < FIRST_M2
+                    ? rates.eyeletFirst * 10000
+                    : rates.eyeletFirst * 10000 + rates.eyeletNext * (area - FIRST_M2);
+            const x = (rates.print * Math.max(area, rates.minArea) + eyelets) * rates.vat;
+            return Math.floor((x + 500000) / 1000000);
+        }
+
+        function getAreaText(sel) {
+            const area = Number(sel.w) * Number(sel.h);
+            let text = areaValue.value.replace("{a}", areaFormat.format(Math.floor(area / 100) / 100));
+            if (area < rates.minArea)
+                text += " · " + areaMin.value;
+            return text;
+        }
+
+        function showError(errorBox, inputs, error, show) {
+            const span = errorBox.querySelector("[data-err]");
+            inputs.forEach(i => i.removeAttribute("aria-invalid"));
+            if (error && show) {
+                span.textContent = errTexts[error.code].value;
+                error.inputs.forEach(i => i.setAttribute("aria-invalid", "true"));
+                errorBox.hidden = false;
+                return true;
+            }
+            span.textContent = "";
+            errorBox.hidden = true;
+            return false;
+        }
+
+        function updateBigLink(sel) {
+            const show = sizeErrorShown && sel.sizeError && sel.sizeError.code === "max";
+            bigLink.hidden = !show;
+            if (show)
+                bigLink.href = whatsappUrl + bigTemplate.value.replaceAll("{w}", sel.w).replaceAll("{h}", sel.h);
+        }
+
+        function updateSummary(sel) {
+            sumText.textContent = summaryLine.value
+                .replace("{w}", sel.w)
+                .replace("{h}", sel.h)
+                .replace("{finish}", sumFinish[sel.finish].value)
+                .replace("{qty}", sel.qty);
+        }
+
+        function updateWhatsappLink(sel, unit, total) {
+            if (unit === null) {
+                whatsappButton.removeAttribute("href");
+                whatsappButton.setAttribute("aria-disabled", "true");
+                return;
+            }
+            let template = messageTemplate.value;
+            const priceLine = (Number(sel.qty) > 1 ? priceLines.many : priceLines.one).value
+                .replaceAll("{unit}", unit)
+                .replaceAll("{total}", total);
+            const data = {
+                w: sel.w,
+                h: sel.h,
+                finish: finishTexts[sel.finish].value,
+                qty: Number(sel.qty),
+                price: priceLine,
+            };
+            for (const [key, value] of Object.entries(data)) {
+                template = template.replaceAll(`{${key}}`, value);
+            }
+            whatsappButton.href = whatsappUrl + template;
+            whatsappButton.removeAttribute("aria-disabled");
+        }
+
+        function updateDisplayPrice(showSizeError, showQtyError) {
+            const sel = getSelection();
+            sizeErrorShown = showError(sizeError, [widthInput, heightInput], sel.sizeError, showSizeError);
+            qtyErrorShown = showError(qtyError, [qtyInput], sel.qtyError, showQtyError);
+            updateBigLink(sel);
+            updateSummary(sel);
+
+            if (sel.sizeError || sel.qtyError) {
+                areaText.textContent = sel.sizeError ? "—" : getAreaText(sel);
+                unitPrice.textContent = "—";
+                totalPrice.textContent = "—";
+                updateWhatsappLink(sel, null, null);
+                return;
+            }
+
+            const unit = getUnitPrice(sel);
+            const total = unit * Number(sel.qty);
+            areaText.textContent = getAreaText(sel);
+            unitPrice.textContent = "" + unit + " ₪";
+            totalPrice.textContent = "" + total + " ₪";
+            updateWhatsappLink(sel, unit, total);
+        }
+
+        updateDisplayPrice(false, false);
+    </script>
+}
