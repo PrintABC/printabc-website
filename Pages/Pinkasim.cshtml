@@ -1,15 +1,25 @@
 ﻿@page "/Pinkasim"
 @using System.Globalization
 @model PrintABC.Pages.PinkasimModel
+@*
+    Страница «Бухгалтерские книжки». На сервере логики нет (решение 15.11): цены — в data-price кнопок таблицы,
+    итог, сводку «Ваш заказ», ссылку WhatsApp и нижнюю панель собирает скрипт внизу страницы.
+    Классы, id и data-* — как в макете design/mockup/{he,ru}/pinkasim.html: на них завязаны CSS и JS.
+*@
 @{
     ViewData["Title"] = L["meta_title"];
     ViewData["MetaDescription"] = L["meta_description"];
+    // Нижняя панель на телефоне: вместо «Рассчитать цену наклеек» показать «Итого … Заказать →».
+    // Смотрите Pages/Shared/_BottomBar.cshtml.
+    ViewData["BottomBar"] = "order";
 
-    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
-    var dir = isRtl ? "rtl" : "ltr";
-}
 
+    // LRM (U+200E) — невидимый символ «слева направо». В иврите им обрамляем «240 ₪»,
+    // чтобы число и знак ₪ не поменялись местами внутри текста справа налево (ТЗ §5).
+    // В русском оба не нужны — пустая строка.
+    var lrm = isRtl ? "‎" : "";
+}
 
 <div class="container page-head">
     <h1>@L["pinkasim_header"]</h1>
@@ -18,57 +28,67 @@
 
 <div class="container product-layout" id="pk-calc">
     <div class="product-layout__main product-layout__main--wide">
-        <img class="pk-hero" src="~/img/receipt-books.jpg" alt="@L["pinkasim_img_alt"]" decoding="async">
+        @* width/height — настоящий размер файла: браузер заранее оставит место под фото и страница не «прыгнет» (CLS). *@
+        <img class="pk-hero" src="~/img/receipt-books.jpg" alt="@L["pinkasim_img_alt"]" width="1600" height="1073" decoding="async">
         <fieldset class="opt-group pk-kinds">
             <legend>@L["pinkasim_type"]</legend>
             <div class="opt-list">
                 <label class="pill pk-kind">
                     <input autocomplete="off" type="radio" name="kind" value="a5" checked>
-                    <span><strong>A5 </strong><small>@L["type_a5"]</small></span>
+                    <span><strong>@L["kind_a5"]</strong><small>@L["type_a5"]</small></span>
                 </label>
                 <label class="pill pk-kind">
                     <input autocomplete="off" type="radio" name="kind" value="six">
-                    <span><strong>@L["tab_sixes"] </strong><small>@L["type_sixes"]</small></span>
+                    <span><strong>@L["tab_sixes"]</strong><small>@L["type_sixes"]</small></span>
                 </label>
             </div>
         </fieldset>
         <section class="section__stack section__stack--tight" aria-labelledby="tbl-h">
-            <div class="section-head"><h2 id="tbl-h">@L["price_title"] · <span id="pk-kind-name">A5</span></h2><p>@L["select_from_table"]</p></div>
+            @* data-kind-name — сюда скрипт пишет название выбранного вида. *@
+            <div class="section-head"><h2 id="tbl-h">@L["price_title"] · <span data-kind-name>@L["kind_a5"]</span></h2><p>@L["select_from_table"]</p></div>
             <div class="price-table-wrap">
+                @*
+                    Две таблицы: A5 и шестёрки. Видна только таблица выбранного вида (у второй атрибут hidden).
+                    У строки: data-qty — количество, data-books — то же количество словами из resx
+                    («4 книжки» / «4 פנקסים»); скрипт берёт его для сводки и WhatsApp, склонять в JS не нужно.
+                    У кнопки: data-copies — листов в комплекте, data-price — цена с НДС (ТЗ §2),
+                    aria-label — что прочитает скринридер: «4 книжки · 3 листа · 240 ₪» (на /ru — по-русски).
+                    По умолчанию выбрано A5 · 3 листа · 4 книжки: class="is-selected" и aria-pressed="true".
+                *@
                 <table class="price-table pk-table" data-kind="a5">
-                    <caption class="visually-hidden">@L["price_title"] · A5 — @L["select_from_table"]</caption>
+                    <caption class="visually-hidden">@L["price_title"] · @L["kind_a5"] — @L["select_from_table"]</caption>
                     <thead>
                         <tr>
-                            <th scope="col">@L["pinkasim_header"]</th>
+                            <th scope="col">@L["col_qty"]</th>
                             <th scope="col">@L["3_copies"]</th>
                             <th scope="col">@L["2_copies"]</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-qty="1">
+                        <tr data-qty="1" data-books="@L["books_1"]">
                             <th scope="row">1</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="90" aria-pressed="false" aria-label="פנקס אחד · 3 @L["copies"] · 90 ₪">90 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="72" aria-pressed="false" aria-label="פנקס אחד · 2 @L["copies"] · 72 ₪">72 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="90" aria-pressed="false" aria-label="@L["books_1"] · 3 @L["copies"] · 90 ₪">90 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="72" aria-pressed="false" aria-label="@L["books_1"] · 2 @L["copies"] · 72 ₪">72 ₪</button></td>
                         </tr>
-                        <tr data-qty="2">
+                        <tr data-qty="2" data-books="@L["books_2"]">
                             <th scope="row">2</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="145" aria-pressed="false" aria-label="2 פנקסים · 3 @L["copies"] · 145 ₪">145 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="116" aria-pressed="false" aria-label="2 פנקסים · 2 @L["copies"] · 116 ₪">116 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="145" aria-pressed="false" aria-label="@L["books_2"] · 3 @L["copies"] · 145 ₪">145 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="116" aria-pressed="false" aria-label="@L["books_2"] · 2 @L["copies"] · 116 ₪">116 ₪</button></td>
                         </tr>
-                        <tr data-qty="4" class="is-selected">
+                        <tr data-qty="4" data-books="@L["books_4"]" class="is-selected">
                             <th scope="row">4</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="240" aria-pressed="true" aria-label="4 פנקסים · 3 @L["copies"] · 240 ₪">240 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="192" aria-pressed="false" aria-label="4 פנקסים · 2 @L["copies"] · 192 ₪">192 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="240" aria-pressed="true" aria-label="@L["books_4"] · 3 @L["copies"] · 240 ₪">240 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="192" aria-pressed="false" aria-label="@L["books_4"] · 2 @L["copies"] · 192 ₪">192 ₪</button></td>
                         </tr>
-                        <tr data-qty="10">
+                        <tr data-qty="10" data-books="@L["books_10"]">
                             <th scope="row">10</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="380" aria-pressed="false" aria-label="10 פנקסים · 3 @L["copies"] · 380 ₪">380 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="304" aria-pressed="false" aria-label="10 פנקסים · 2 @L["copies"] · 304 ₪">304 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="380" aria-pressed="false" aria-label="@L["books_10"] · 3 @L["copies"] · 380 ₪">380 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="304" aria-pressed="false" aria-label="@L["books_10"] · 2 @L["copies"] · 304 ₪">304 ₪</button></td>
                         </tr>
-                        <tr data-qty="20">
+                        <tr data-qty="20" data-books="@L["books_20"]">
                             <th scope="row">20</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="520" aria-pressed="false" aria-label="20 פנקסים · 3 @L["copies"] · 520 ₪">520 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="416" aria-pressed="false" aria-label="20 פנקסים · 2 @L["copies"] · 416 ₪">416 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="520" aria-pressed="false" aria-label="@L["books_20"] · 3 @L["copies"] · 520 ₪">520 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="416" aria-pressed="false" aria-label="@L["books_20"] · 2 @L["copies"] · 416 ₪">416 ₪</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -76,35 +96,37 @@
                     <caption class="visually-hidden">@L["price_title"] · @L["tab_sixes"] — @L["select_from_table"]</caption>
                     <thead>
                         <tr>
-                            <th scope="col">@L["pinkasim_header"]</th>
+                            <th scope="col">@L["col_qty"]</th>
                             <th scope="col">@L["3_copies"]</th>
                             <th scope="col">@L["2_copies"]</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-qty="1">
+                        <tr data-qty="1" data-books="@L["books_1"]">
                             <th scope="row">1</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="145" aria-pressed="false" aria-label="פנקס אחד · 3 @L["copies"] · 145 ₪">145 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="116" aria-pressed="false" aria-label="פנקס אחד · 2 @L["copies"] · 116 ₪">116 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="145" aria-pressed="false" aria-label="@L["books_1"] · 3 @L["copies"] · 145 ₪">145 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="116" aria-pressed="false" aria-label="@L["books_1"] · 2 @L["copies"] · 116 ₪">116 ₪</button></td>
                         </tr>
-                        <tr data-qty="2">
+                        <tr data-qty="2" data-books="@L["books_2"]">
                             <th scope="row">2</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="240" aria-pressed="false" aria-label="2 פנקסים · 3 @L["copies"] · 240 ₪">240 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="192" aria-pressed="false" aria-label="2 פנקסים · 2 @L["copies"] · 192 ₪">192 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="240" aria-pressed="false" aria-label="@L["books_2"] · 3 @L["copies"] · 240 ₪">240 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="192" aria-pressed="false" aria-label="@L["books_2"] · 2 @L["copies"] · 192 ₪">192 ₪</button></td>
                         </tr>
-                        <tr data-qty="5">
+                        <tr data-qty="5" data-books="@L["books_5"]">
                             <th scope="row">5</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="420" aria-pressed="false" aria-label="5 פנקסים · 3 @L["copies"] · 420 ₪">420 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="336" aria-pressed="false" aria-label="5 פנקסים · 2 @L["copies"] · 336 ₪">336 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="420" aria-pressed="false" aria-label="@L["books_5"] · 3 @L["copies"] · 420 ₪">420 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="336" aria-pressed="false" aria-label="@L["books_5"] · 2 @L["copies"] · 336 ₪">336 ₪</button></td>
                         </tr>
-                        <tr data-qty="10">
+                        <tr data-qty="10" data-books="@L["books_10"]">
                             <th scope="row">10</th>
-                            <td><button class="price-btn" type="button" data-copies="3" data-price="620" aria-pressed="false" aria-label="10 פנקסים · 3 @L["copies"] · 620 ₪">620 ₪</button></td>
-                            <td><button class="price-btn" type="button" data-copies="2" data-price="496" aria-pressed="false" aria-label="10 פנקסים · 2 @L["copies"] · 496 ₪">496 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="3" data-price="620" aria-pressed="false" aria-label="@L["books_10"] · 3 @L["copies"] · 620 ₪">620 ₪</button></td>
+                            <td><button class="price-btn" type="button" data-copies="2" data-price="496" aria-pressed="false" aria-label="@L["books_10"] · 2 @L["copies"] · 496 ₪">496 ₪</button></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            @* Строка ошибки (ТЗ §4). Показывается, только если выбранный вариант не нашёлся в таблице. *@
+            <div class="alert alert--error" data-error role="alert" hidden><div class="alert__row"><span>@L["error_not_found"]</span></div></div>
         </section>
         <section class="info-card" aria-labelledby="incl-h">
             <h2 id="incl-h">@L["what_included"]</h2><ul class="check-list">
@@ -116,18 +138,24 @@
             <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>@L["incl_6"]</span></li>
         </ul>
     </section>
-</div>
-<section class="product-layout__side product-layout__side--narrow panel panel--raised summary-panel is-sticky" aria-labelledby="sum-h">
-    <h2 id="sum-h">@L["your_order"]</h2>
-    <div class="price-box">
-        <p class="cat-summary"><strong id="pk-sum-text"></strong></p>
-        <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="pk-total" aria-live="polite">240 ₪</output></div>
-        <p class="field__hint">@L["inc_vat"]</p>
-        <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
     </div>
-    <a class="btn btn--whatsapp btn--lg" id="pk-next" href="#" target="_blank" rel="noopener noreferrer"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg><span>@L["next_load_file"]</span></a>
-    <a class="calc__ask" href="https://wa.me/@(PHONE_NUMBER)"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg>@L["question_write_us"]</a>
-</section>
+    <section class="product-layout__side product-layout__side--narrow panel panel--raised summary-panel is-sticky" aria-labelledby="sum-h">
+        <h2 id="sum-h">@L["your_order"]</h2>
+        <div class="price-box">
+            @*
+                data-summary — сюда скрипт пишет строку заказа по шаблону summary_a5 / summary_six из resx:
+                ru «A5 · 3 листа · 4 книжки по 50 комплектов», he «4 פנקסים בגודל אי5, מקור + 2 עותקים, 50 סטים בפנקס».
+                Ниже — то же для выбора по умолчанию, чтобы строка была видна ещё до запуска скрипта.
+            *@
+            <p class="cat-summary" data-summary>@(L["summary_a5"].Value.Replace("{qty}", L["books_4"].Value).Replace("{n}", "4").Replace("{copies}", L["sum_copies_3"].Value))</p>
+            <div class="price-box__row price-box__row--total"><span>@L["total"]</span><output class="price-box__total" id="pk-total" aria-live="polite">@(lrm)240 ₪@(lrm)</output></div>
+            <p class="field__hint">@L["inc_vat"]</p>
+            <div class="price-box__row"><span>@L["price_ready"]</span><span>@L["prep_time"]</span></div>
+        </div>
+        @* href сразу ведёт в WhatsApp (на случай, если скрипт не сработал); скрипт заменит его ссылкой с готовым текстом. *@
+        <a class="btn btn--whatsapp btn--lg" id="pk-next" href="https://wa.me/@(PHONE_NUMBER)" target="_blank" rel="noopener noreferrer"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg><span>@L["next_load_file"]</span></a>
+        <a class="calc__ask" href="https://wa.me/@(PHONE_NUMBER)"><svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 7.9 19.3z"></path><path d="M9 8.3c-.2 3.3 3.4 6.9 6.7 6.7l1.1-1.7-2.1-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2.1z" stroke-width="1.6"></path></svg>@L["question_write_us"]</a>
+    </section>
 </div>
 
 <section class="section--surface">
@@ -164,142 +192,178 @@
 
 @section Scripts {
     <script>
-        const messageTemplate = @Json.Serialize(L["whatsapp_template"]);
-        const kindTexts = {
-            a5: @Json.Serialize(L["wa_kind_a5"]),
-            six: @Json.Serialize(L["wa_kind_six"]),
-        };
-        const copiesTexts = {
-            "3": @Json.Serialize(L["wa_copies_3"]),
-            "2": @Json.Serialize(L["wa_copies_2"]),
-        };
-        const qtyTexts = {
-            one: @Json.Serialize(L["wa_qty_one"]),
-            few: @Json.Serialize(L["wa_qty_few"]),
-            many: @Json.Serialize(L["wa_qty_many"]),
-            other: @Json.Serialize(L["wa_qty_other"]),
-        };
+        /* Бухгалтерские книжки: выбор в таблице → итог, «Ваш заказ», ссылка WhatsApp, нижняя панель.
+         *
+         * Как работает:
+         *   1. Клиент нажимает цену в таблице → запоминаем выбор sel = {kind, copies, q}.
+         *   2. render() перерисовывает всё по sel.
+         *   3. Выбор сохраняется в sessionStorage, чтобы после «Назад» в браузере он вернулся (ТЗ §3).
+         *
+         * Цена считается здесь, в браузере (ТЗ v1.1): итог = data-price нажатой кнопки.
+         */
+        (function () {
+            'use strict';
 
-        const pluralRules = new Intl.PluralRules(@Json.Serialize(currentCulture));
-        const whatsappUrl = @Json.Serialize(WHATSAPP_URL);
-        const kindRadios = document.querySelectorAll('#pk-calc input[name="kind"]');
-        const tables = document.querySelectorAll(".pk-table");
-        const priceButtons = document.querySelectorAll(".pk-table .price-btn");
-        const kindName = document.getElementById("pk-kind-name");
-        const summaryLines = {
-            a5: { other: @Json.Serialize(L["summary_line_a5"]) },
-            six: { one: @Json.Serialize(L["summary_line_sixes_one"]), other: @Json.Serialize(L["summary_line_sixes"]) },
-        };
-        const sumKind = { a5: @Json.Serialize(L["sum_kind_a5"]), six: @Json.Serialize(L["sum_kind_six"]) };
-        const sumCopies = { "3": @Json.Serialize(L["sum_copies_3"]), "2": @Json.Serialize(L["sum_copies_2"]) };
-        const sumText = document.getElementById("pk-sum-text");
-        const totalPrice = document.getElementById("pk-total");
-        const whatsappButton = document.getElementById("pk-next");
-
-        let activeTable = getTable(getCheckedKind());
-
-        priceButtons.forEach(x => {
-            x.addEventListener('click', (e) => {
-                selectButton(e.currentTarget);
-                updateDisplayPrice();
-            });
-        });
-
-        kindRadios.forEach(x => {
-            x.addEventListener('change', (e) => {
-                if (e.target.checked)
-                    switchKind(e.target.value);
-            });
-        });
-
-        function getCheckedKind() {
-            const checked = document.querySelector('#pk-calc input[name="kind"]:checked');
-            return checked ? checked.value : kindRadios[0].value;
-        }
-        function getTable(kind) {
-            return document.querySelector(`.pk-table[data-kind="${kind}"]`);
-        }
-        function getSelectedButton(table) {
-            return table.querySelector('.price-btn[aria-pressed="true"]');
-        }
-
-        function selectButton(btn) {
-            const table = btn.closest(".pk-table");
-            table.querySelectorAll(".price-btn").forEach(x => x.setAttribute("aria-pressed", "false"));
-            table.querySelectorAll("tbody tr").forEach(x => x.classList.remove("is-selected"));
-            btn.setAttribute("aria-pressed", "true");
-            btn.closest("tr").classList.add("is-selected");
-        }
-
-        function switchKind(kind) {
-            const prevBtn = getSelectedButton(activeTable);
-            const prevQty = prevBtn ? Number(prevBtn.closest("tr").dataset.qty) : 0;
-            const copies = prevBtn ? prevBtn.dataset.copies : "3";
-
-            tables.forEach(t => t.hidden = t.dataset.kind !== kind);
-            activeTable = getTable(kind);
-
-            const rows = Array.from(activeTable.querySelectorAll("tbody tr"));
-            const row = rows.filter(r => Number(r.dataset.qty) <= prevQty).pop() || rows[0];
-            selectButton(row.querySelector(`.price-btn[data-copies="${copies}"]`));
-
-            const radio = document.querySelector(`#pk-calc input[name="kind"][value="${kind}"]`);
-            kindName.textContent = radio.closest("label").querySelector("strong").textContent;
-
-            updateDisplayPrice();
-        }
-
-        function getSelection() {
-            let btn = getSelectedButton(activeTable);
-            if (!btn) {
-                btn = activeTable.querySelector(".price-btn");
-                selectButton(btn);
-            }
-            return {
-                kind: activeTable.dataset.kind,
-                copies: btn.dataset.copies,
-                qty: Number(btn.closest("tr").dataset.qty),
-                price: Number(btn.dataset.price)
+            // ---- 1. Тексты из resx ----------------------------------------------------------
+            // Json.Serialize превращает строку из resx в JS-строку в кавычках и экранирует опасные символы.
+            // .Value — обычный текст (без HTML-кодирования). Слов на русском/иврите в самом JS нет.
+            const t = {
+                kind_a5: @Json.Serialize(L["kind_a5"].Value),
+                kind_six: @Json.Serialize(L["kind_six"].Value),
+                kind_msg_a5: @Json.Serialize(L["wa_kind_a5"].Value),
+                kind_msg_six: @Json.Serialize(L["wa_kind_six"].Value),
+                copies_msg_3: @Json.Serialize(L["wa_copies_3"].Value),
+                copies_msg_2: @Json.Serialize(L["wa_copies_2"].Value),
+                qty_line: @Json.Serialize(L["qty_line"].Value),     // «{0} по 50 комплектов»
+                msg_hello: @Json.Serialize(L["msg_hello"].Value),
+                msg_kind: @Json.Serialize(L["msg_kind"].Value),     // «Вид: {0}»
+                msg_copies: @Json.Serialize(L["msg_copies"].Value),
+                msg_qty: @Json.Serialize(L["msg_qty"].Value),
+                msg_price: @Json.Serialize(L["msg_price"].Value),
+                msg_start: @Json.Serialize(L["msg_start"].Value),   // «Начальный номер: »
+                msg_file: @Json.Serialize(L["msg_file"].Value),
+                lrm: @Json.Serialize(lrm),                          // в иврите невидимый LRM, в русском ""
+                // Шаблоны строки «Ваш заказ» — у каждого вида свой, порядок слов задаёт владелец
+                summary_a5: @Json.Serialize(L["summary_a5"].Value),
+                summary_six: @Json.Serialize(L["summary_six"].Value),
+                sum_copies_3: @Json.Serialize(L["sum_copies_3"].Value),
+                sum_copies_2: @Json.Serialize(L["sum_copies_2"].Value)
             };
-        }
+            // Общий адрес WhatsApp из Utils/Helpers.cs, к нему дописываем закодированный текст.
+            const whatsappUrl = @Json.Serialize(WHATSAPP_URL);
+            const KEY = 'printabc-pinkasim'; // ключ в sessionStorage
 
-        function getQtyText(n) {
-            const t = qtyTexts[pluralRules.select(n)];
-            const text = (t && !t.isResourceNotFound) ? t : qtyTexts.other;
-            return text.value.replaceAll("{n}", n);
-        }
+            // ---- 2. Элементы страницы -------------------------------------------------------
+            const root = document.getElementById('pk-calc');
+            const tables = root.querySelectorAll('.pk-table');
+            const kindName = root.querySelector('[data-kind-name]'); // название вида в заголовке таблицы
+            const summary = root.querySelector('[data-summary]');    // строка в «Ваш заказ»
+            const errBox = root.querySelector('[data-error]');       // строка ошибки (ТЗ §4)
+            const total = document.getElementById('pk-total');       // «Итого»
+            const next = document.getElementById('pk-next');         // кнопка «Заказать в WhatsApp»
+            // Нижняя панель на телефоне (разметка в _BottomBar.cshtml, режим "order").
+            const barTotal = document.querySelector('.bottom-bar [data-bar-total]');
+            const barOk = document.querySelector('.bottom-bar [data-bar-ok]');
 
-        function updateSummary(sel) {
-            const lines = summaryLines[sel.kind];
-            const t = lines[pluralRules.select(sel.qty)];
-            const template = (t && !t.isResourceNotFound) ? t.value : lines.other.value;
-            sumText.textContent = template
-                .replace("{n}", sel.qty)
-                .replace("{qty}", getQtyText(sel.qty))
-                .replace("{copies}", sumCopies[sel.copies].value);
-        }
+            // Текущий выбор. По умолчанию (ТЗ §3): A5, 3 листа, 4 книжки.
+            //   kind — 'a5' или 'six' (data-kind таблицы), copies — 3 или 2 (data-copies), q — книжек (data-qty).
+            let sel = { kind: 'a5', copies: 3, q: 4 };
 
-        function updateWhatsappLink(sel) {
-            let template = messageTemplate.value;
-            const data = {
-                kind: kindTexts[sel.kind].value,
-                copies: copiesTexts[sel.copies].value,
-                qty: getQtyText(sel.qty),
-                price: sel.price,
-            };
-            for (const [key, value] of Object.entries(data)) {
-                template = template.replaceAll(`{${key}}`, value);
+            // ---- 3. Помощники ---------------------------------------------------------------
+            function table(kind) {
+                return root.querySelector('.pk-table[data-kind="' + kind + '"]');
             }
-            whatsappButton.href = whatsappUrl + template;
-        }
+            // Количества в таблице вида, например для A5 → [1, 2, 4, 10, 20].
+            function qtys(kind) {
+                return Array.from(table(kind).querySelectorAll('tbody tr'), tr => +tr.dataset.qty);
+            }
+            // fill('Вид: {0}', 'A5') → 'Вид: A5'
+            function fill(template, value) {
+                return template.replace('{0}', value);
+            }
+            // Выбор из sessionStorage берём, только если такая кнопка есть в таблице
+            // (там может оказаться что угодно: старая версия страницы, ручная правка).
+            function valid(s) {
+                return !!s && (s.kind === 'a5' || s.kind === 'six') &&
+                    (s.copies === 2 || s.copies === 3) && qtys(s.kind).includes(s.q);
+            }
+            // sessionStorage может бросить ошибку (приватный режим, запрет cookies) — страница не должна ломаться.
+            function save() {
+                try { sessionStorage.setItem(KEY, JSON.stringify(sel)); } catch (e) { /* не сохранили — не страшно */ }
+            }
+            function load() {
+                try { return JSON.parse(sessionStorage.getItem(KEY)); } catch (e) { return null; }
+            }
 
-        function updateDisplayPrice() {
-            const sel = getSelection();
-            totalPrice.textContent = "" + sel.price + " ₪";
-            updateSummary(sel);
-            updateWhatsappLink(sel);
-        }
+            // ---- 4. Перерисовка по выбору sel -----------------------------------------------
+            function render() {
+                // 4.1. Таблица выбранного вида видна, вторая скрыта; радиокнопка вида отмечена.
+                tables.forEach(tb => tb.hidden = tb.dataset.kind !== sel.kind);
+                root.querySelectorAll('input[name="kind"]').forEach(r => r.checked = r.value === sel.kind);
+                kindName.textContent = t['kind_' + sel.kind];
 
-        switchKind(getCheckedKind());
+                // 4.2. Подсветка строки и кнопки; заодно берём цену и текст «4 книжки» (data-books).
+                let price = null, books = '';
+                table(sel.kind).querySelectorAll('tbody tr').forEach(tr => {
+                    const rowOn = +tr.dataset.qty === sel.q;
+                    tr.classList.toggle('is-selected', rowOn);
+                    if (rowOn) books = tr.dataset.books;
+                    tr.querySelectorAll('.price-btn').forEach(b => {
+                        const on = rowOn && +b.dataset.copies === sel.copies;
+                        b.setAttribute('aria-pressed', on ? 'true' : 'false'); // скринридер узнает, что кнопка выбрана
+                        if (on) price = +b.dataset.price;
+                    });
+                });
+
+                // 4.3. Кнопка не нашлась (не должно случаться) → ошибка и «— ₪».
+                const ok = price !== null;
+                errBox.hidden = ok;
+
+                // 4.4. Тексты. t.lrm не даёт числу и ₪ поменяться местами в иврите.
+                const money = ok ? t.lrm + price + ' ₪' + t.lrm : '— ₪';
+                const qtyText = fill(t.qty_line, books); // «4 книжки по 50 комплектов»
+                // Строка «Ваш заказ» по шаблону: в иврите другой порядок слов, поэтому не склеиваем куски в коде.
+                // У каждого вида свой шаблон: summary_a5 или summary_six.
+                // {qty} — «4 книжки» (data-books), {n} — просто число, {copies} — «מקור + 2 עותקים».
+                summary.textContent = t['summary_' + sel.kind]
+                    .replace('{qty}', books)
+                    .replace('{n}', sel.q)
+                    .replace('{copies}', t['sum_copies_' + sel.copies]);
+                total.textContent = money;
+
+                // 4.5. Сообщение WhatsApp (ТЗ §5). Строки соединяем '\n', всё сообщение кодируем
+                //      encodeURIComponent: он сам сделает из '\n' %0A, из пробела %20, из иврита и 📎 — нужные коды.
+                //      Руками %0a в текстах НЕ писать (из-за «%0📎» ссылка раньше ломалась).
+                const msg = [
+                    t.msg_hello,
+                    fill(t.msg_kind, t['kind_msg_' + sel.kind]),
+                    fill(t.msg_copies, t['copies_msg_' + sel.copies]),
+                    fill(t.msg_qty, qtyText),
+                    fill(t.msg_price, money),
+                    t.msg_start, // «Начальный номер: » — клиент допишет номер сам
+                    t.msg_file
+                ].join('\n');
+                const href = whatsappUrl + encodeURIComponent(msg);
+
+                next.href = href;
+                next.toggleAttribute('aria-disabled', !ok); // серая некликабельная кнопка (.btn[aria-disabled] в pages.css)
+
+                // 4.6. Нижняя панель на телефоне: тот же итог и та же ссылка.
+                if (barTotal) barTotal.textContent = money;
+                if (barOk) { barOk.href = href; barOk.toggleAttribute('aria-disabled', !ok); }
+
+                save(); // для кнопки «Назад»
+            }
+
+            // ---- 5. События -----------------------------------------------------------------
+            // Нажатие на цену. Один обработчик на весь блок: closest('.price-btn') находит кнопку,
+            // даже если нажали на текст внутри неё.
+            root.addEventListener('click', e => {
+                const b = e.target.closest('.price-btn');
+                if (!b) return;
+                sel = { kind: b.closest('.pk-table').dataset.kind, copies: +b.dataset.copies, q: +b.closest('tr').dataset.qty };
+                render();
+            });
+
+            // Смена вида. ТЗ §3: листы сохраняем, количество — ближайшее допустимое не больше текущего.
+            // Пример: A5 · 4 → шестёрки · 2 (4 у шестёрок нет).
+            root.addEventListener('change', e => {
+                if (e.target.name !== 'kind') return;
+                const k = e.target.value;
+                const notAbove = qtys(k).filter(q => q <= sel.q);
+                sel = { kind: k, copies: sel.copies, q: notAbove.length ? notAbove[notAbove.length - 1] : qtys(k)[0] };
+                render();
+            });
+
+            // ---- 6. Восстановление выбора ---------------------------------------------------
+            function restore() {
+                const s = load();
+                if (valid(s)) sel = s;
+                render();
+            }
+            // pageshow с e.persisted = страницу достали из кэша по «Назад» (тогда код ниже второй раз не выполняется).
+            window.addEventListener('pageshow', e => { if (e.persisted) restore(); });
+            restore();
+        })();
     </script>
 }

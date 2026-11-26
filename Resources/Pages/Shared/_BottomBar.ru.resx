@@ -126,4 +126,10 @@
   <data name="call_us" xml:space="preserve">
     <value>Позвонить</value>
   </data>
+  <data name="total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="order" xml:space="preserve">
+    <value>Заказать</value>
+  </data>
 </root>
