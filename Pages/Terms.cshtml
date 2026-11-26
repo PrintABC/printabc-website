@@ -1,0 +1,127 @@
+﻿@page "/Terms"
+@using System.Globalization
+@model PrintABC.Pages.TermsModel
+@{
+    ViewData["Title"] = L["meta_title"];
+    ViewData["MetaDescription"] = L["meta_description"];
+
+    var isRu = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ru";
+}
+
+<div class="container page-head">
+    <h1>@L["h1"]</h1>
+    <p>@L["updated"] <bdi dir="ltr">26.11.2026</bdi></p>
+    @if (isRu)
+    {
+        <p>@L["lang_note"]</p>
+    }
+</div>
+
+<div class="container legal">
+    <section aria-labelledby="tos-1">
+        <h2 id="tos-1">@L["s1_title"]</h2>
+        <p>@L["s1_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-2">
+        <h2 id="tos-2">@L["s2_title"]</h2>
+        <p>@L["s2_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-3">
+        <h2 id="tos-3">@L["s3_title"]</h2>
+        <ol>
+            <li>@L["s3_step1"]</li>
+            <li>@L["s3_step2"]</li>
+            <li>@L["s3_step3"]</li>
+            <li>@L["s3_step4"]</li>
+        </ol>
+        <p>@L["s3_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-4">
+        <h2 id="tos-4">@L["s4_title"]</h2>
+        <p>@L["s4_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-5">
+        <h2 id="tos-5">@L["s5_title"]</h2>
+        <p>@L["s5_text"]</p>
+        <p>@L["s5_rights"]</p>
+    </section>
+
+    <section aria-labelledby="tos-6">
+        <h2 id="tos-6">@L["s6_title"]</h2>
+        <p>@L["s6_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-7">
+        <h2 id="tos-7">@L["s7_title"]</h2>
+        <p>@L["s7_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-8">
+        <h2 id="tos-8">@L["s8_title"]</h2>
+        <ul>
+            <li>@L["s8_pickup"]</li>
+            <li>@L["s8_delivery"]</li>
+            <li>@L["s8_storage"]</li>
+        </ul>
+    </section>
+
+    <section aria-labelledby="tos-9">
+        <h2 id="tos-9">@L["s9_title"]</h2>
+        <p>@L["s9_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-10">
+        <h2 id="tos-10">@L["s10_title"]</h2>
+        <ul>
+            <li>@L["s10_before"]</li>
+            <li>@L["s10_after"]</li>
+        </ul>
+    </section>
+
+    <section aria-labelledby="tos-11">
+        <h2 id="tos-11">@L["s11_title"]</h2>
+        <p>@L["s11_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-12">
+        <h2 id="tos-12">@L["s12_title"]</h2>
+        <p>@L["s12_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-13">
+        <h2 id="tos-13">@L["s13_title"]</h2>
+        <p>@L["s13_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-14">
+        <h2 id="tos-14">@L["s14_title"]</h2>
+        <p>@L["s14_privacy"]</p>
+        <p>@L["s14_access"] <a href="/accessibility">@L["s14_access_link"]</a>.</p>
+    </section>
+
+    <section aria-labelledby="tos-15">
+        <h2 id="tos-15">@L["s15_title"]</h2>
+        <p>@L["s15_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-16">
+        <h2 id="tos-16">@L["s16_title"]</h2>
+        <p>@L["s16_text"]</p>
+    </section>
+
+    <section aria-labelledby="tos-17">
+        <h2 id="tos-17">@L["s17_title"]</h2>
+        <address>
+            <ul>
+                <li>@L["contact_address"]</li>
+                <li>@L["contact_phone"] <a href="tel:+@(LANDLINE)"><span class="ltr">09-887-4680</span></a></li>
+                <li>WhatsApp: <a href="https://wa.me/@(PHONE_NUMBER)"><span class="ltr">050-849-4172</span></a></li>
+                <li>@L["contact_email"] <a href="mailto:print@printabc.co.il">print@printabc.co.il</a></li>
+            </ul>
+        </address>
+    </section>
+</div>

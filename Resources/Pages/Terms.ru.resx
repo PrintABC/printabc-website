@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="meta_title" xml:space="preserve">
+    <value>Условия использования | PrintABC — типография в Нетании</value>
+  </data>
+  <data name="meta_description" xml:space="preserve">
+    <value>Условия использования сайта PrintABC: заказ через WhatsApp, цены, макет, сроки, самовывоз, оплата, отмена и брак.</value>
+  </data>
+  <data name="h1" xml:space="preserve">
+    <value>Условия использования</value>
+  </data>
+  <data name="updated" xml:space="preserve">
+    <value>Обновлено:</value>
+  </data>
+  <data name="lang_note" xml:space="preserve">
+    <value>При расхождении с версией на иврите действует версия на иврите.</value>
+  </data>
+  <data name="s1_title" xml:space="preserve">
+    <value>1. Общее</value>
+  </data>
+  <data name="s1_text" xml:space="preserve">
+    <value>Сайт PrintABC (далее «сайт») работает от имени «&lt;bdi lang='he'&gt;דפוס איי בי סי&lt;/bdi&gt;», &lt;bdi lang='he'&gt;עוסק מורשה&lt;/bdi&gt; 323419580, ул. Штампфер 5, Нетания (далее «мы»). Пользуясь сайтом и оформляя заказ, вы соглашаетесь с этими условиями.</value>
+  </data>
+  <data name="s2_title" xml:space="preserve">
+    <value>2. Что делает сайт</value>
+  </data>
+  <data name="s2_text" xml:space="preserve">
+    <value>На сайте есть описание продукции и калькуляторы цены. Регистрации, загрузки файлов и онлайн-оплаты нет. Заказ вы отправляете сообщением WhatsApp со своего телефона, файл для печати прикладываете в тот же чат (или присылаете по почте).</value>
+  </data>
+  <data name="s3_title" xml:space="preserve">
+    <value>3. Как оформляется заказ</value>
+  </data>
+  <data name="s3_step1" xml:space="preserve">
+    <value>Вы выбираете параметры в калькуляторе и отправляете сообщение WhatsApp.</value>
+  </data>
+  <data name="s3_step2" xml:space="preserve">
+    <value>Прикладываете файл для печати.</value>
+  </data>
+  <data name="s3_step3" xml:space="preserve">
+    <value>Мы проверяем заказ и файл, присылаем итоговую цену и, если нужно, макет на утверждение.</value>
+  </data>
+  <data name="s3_step4" xml:space="preserve">
+    <value>Заказ уходит в печать только после вашего ответа «&lt;bdi lang='he'&gt;מאשר/ת&lt;/bdi&gt;» («подтверждаю»).</value>
+  </data>
+  <data name="s3_text" xml:space="preserve">
+    <value>Сообщение с сайта ещё не является обязательным заказом. Мы можем отказать в заказе, например если файл не подходит для печати или его содержание запрещено законом.</value>
+  </data>
+  <data name="s4_title" xml:space="preserve">
+    <value>4. Цены</value>
+  </data>
+  <data name="s4_text" xml:space="preserve">
+    <value>Все цены на сайте в шекелях и включают НДС. Цена в калькуляторе предварительная. Окончательная цена — та, что мы подтвердили вам в WhatsApp до печати. Если на сайте ошибка в цене, мы сообщим до печати, и вы можете отменить заказ бесплатно.</value>
+  </data>
+  <data name="s5_title" xml:space="preserve">
+    <value>5. Макет и ответственность за файл</value>
+  </data>
+  <data name="s5_text" xml:space="preserve">
+    <value>За содержание файла отвечаете вы: текст, орфография, цифры, цвета, расположение. Ответ «&lt;bdi lang='he'&gt;מאשר/ת&lt;/bdi&gt;» означает, что вы проверили макет и согласны на печать как есть. За ошибки в утверждённом файле мы не отвечаем. Требования к файлам — на странице «Требования к файлам».</value>
+  </data>
+  <data name="s5_rights" xml:space="preserve">
+    <value>Вы подтверждаете, что имеете право использовать всё содержимое файла (логотипы, фото, тексты) и оно не нарушает прав других лиц.</value>
+  </data>
+  <data name="s6_title" xml:space="preserve">
+    <value>6. Цвет и технические отклонения</value>
+  </data>
+  <data name="s6_text" xml:space="preserve">
+    <value>Цвета на экране отличаются от цветов печати. Небольшое расхождение оттенка между экраном и печатью или между тиражами, а также небольшое отклонение в резке или фальцовке — норма печати, а не брак. Если вам важен точный цвет, попросите пробную печать до запуска тиража, это бесплатно.</value>
+  </data>
+  <data name="s7_title" xml:space="preserve">
+    <value>7. Сроки изготовления</value>
+  </data>
+  <data name="s7_text" xml:space="preserve">
+    <value>Срок считается с момента утверждения макета и указан на странице каждого товара (до 3 рабочих дней, если не сказано иначе). Рабочие дни: воскресенье–четверг, кроме субботы, праздников и канунов. Срок ориентировочный, о задержке мы сообщим.</value>
+  </data>
+  <data name="s8_title" xml:space="preserve">
+    <value>8. Самовывоз и доставка</value>
+  </data>
+  <data name="s8_pickup" xml:space="preserve">
+    <value>Самовывоз бесплатно: ул. Штампфер 5, Нетания, в часы работы, указанные на сайте.</value>
+  </data>
+  <data name="s8_delivery" xml:space="preserve">
+    <value>Доставка курьером есть только для товаров, у которых это написано. Цена и срок доставки — на странице товара.</value>
+  </data>
+  <data name="s8_storage" xml:space="preserve">
+    <value>Мы храним заказ 60 дней после сообщения «готово» и напоминаем в WhatsApp. После 60 дней заказ остаётся у нас, но за его сохранность и состояние мы больше не отвечаем.</value>
+  </data>
+  <data name="s9_title" xml:space="preserve">
+    <value>9. Оплата</value>
+  </data>
+  <data name="s9_text" xml:space="preserve">
+    <value>Оплата только при получении заказа. Мы не просим коды (например, из SMS) и не присылаем ссылки на оплату. Такое сообщение от нашего имени — не от нас. Способы оплаты: наличные, карта, Bit, PayBox или банковский перевод. Чек (&lt;bdi lang='he'&gt;חשבונית&lt;/bdi&gt;) выдаётся при оплате.</value>
+  </data>
+  <data name="s10_title" xml:space="preserve">
+    <value>10. Отмена заказа</value>
+  </data>
+  <data name="s10_before" xml:space="preserve">
+    <value>До утверждения макета заказ можно отменить бесплатно — в WhatsApp, по телефону или по почте.</value>
+  </data>
+  <data name="s10_after" xml:space="preserve">
+    <value>Печатная продукция изготавливается специально для вас по вашему файлу. Поэтому, согласно п. 6(а)(2) Правил защиты прав потребителей (отмена сделки), 2010, после утверждения макета и начала печати заказ отменить нельзя.</value>
+  </data>
+  <data name="s11_title" xml:space="preserve">
+    <value>11. Брак</value>
+  </data>
+  <data name="s11_text" xml:space="preserve">
+    <value>Проверьте заказ при получении и сразу сообщите о видимом браке или несоответствии утверждённому макету. О браке, который нельзя было заметить при обычной проверке, сообщите сразу, как обнаружили, желательно с фото. Если брак по нашей вине, мы бесплатно перепечатаем бракованную часть или вернём за неё деньги. То, что совпадает с утверждённым макетом, браком не считается. Это не ограничивает ваши права по закону.</value>
+  </data>
+  <data name="s12_title" xml:space="preserve">
+    <value>12. Ограничение ответственности</value>
+  </data>
+  <data name="s12_text" xml:space="preserve">
+    <value>Наша ответственность ограничена суммой, уплаченной за заказ, кроме случаев умысла или грубой небрежности. Мы не отвечаем за косвенный ущерб, например упущенную выгоду или перенесённое мероприятие, если закон не требует иного. Информация на сайте предоставляется «как есть» и может содержать ошибки.</value>
+  </data>
+  <data name="s13_title" xml:space="preserve">
+    <value>13. Интеллектуальная собственность</value>
+  </data>
+  <data name="s13_text" xml:space="preserve">
+    <value>Дизайн, изображения и тексты сайта принадлежат нам. Копировать их без письменного разрешения нельзя. Ваши файлы остаются вашими, мы используем их только для выполнения заказа.</value>
+  </data>
+  <data name="s14_title" xml:space="preserve">
+    <value>14. Конфиденциальность и доступность</value>
+  </data>
+  <data name="s14_privacy" xml:space="preserve">
+    <value>Как мы собираем и используем данные — на странице «Политика конфиденциальности».</value>
+  </data>
+  <data name="s14_access" xml:space="preserve">
+    <value>О доступности сайта и пункта выдачи — на странице</value>
+  </data>
+  <data name="s14_access_link" xml:space="preserve">
+    <value>Заявление о доступности</value>
+  </data>
+  <data name="s15_title" xml:space="preserve">
+    <value>15. Изменение условий</value>
+  </data>
+  <data name="s15_text" xml:space="preserve">
+    <value>Мы можем обновлять эти условия. Для заказа действует редакция, опубликованная на сайте в день отправки заказа.</value>
+  </data>
+  <data name="s16_title" xml:space="preserve">
+    <value>16. Применимое право</value>
+  </data>
+  <data name="s16_text" xml:space="preserve">
+    <value>К этим условиям применяется право Израиля.</value>
+  </data>
+  <data name="s17_title" xml:space="preserve">
+    <value>17. Контакты</value>
+  </data>
+  <data name="contact_address" xml:space="preserve">
+    <value>Адрес: ул. Штампфер 5, Нетания</value>
+  </data>
+  <data name="contact_phone" xml:space="preserve">
+    <value>Телефон:</value>
+  </data>
+  <data name="contact_email" xml:space="preserve">
+    <value>Эл. почта:</value>
+  </data>
+</root>
