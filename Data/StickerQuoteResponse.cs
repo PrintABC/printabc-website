@@ -14,6 +14,8 @@ namespace PrintABC.Data
         public decimal? VatIls { get; set; }
         public decimal? PriceIncVatIls { get; set; }
         public decimal? UnitPriceExVatIls { get; set; }
+        /// <summary>Цена за штуку с НДС: показанный итог (целые ₪) ÷ тираж, 4 знака (Р17).</summary>
+        public decimal? UnitPriceIncVatIls { get; set; }
     }
 
 }
