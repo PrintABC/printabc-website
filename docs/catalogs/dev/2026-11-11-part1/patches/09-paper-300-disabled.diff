@@ -1,0 +1,24 @@
+diff --git a/Pages/Catalogs.cshtml b/Pages/Catalogs.cshtml
+index bad867e..25ed313 100644
+--- a/Pages/Catalogs.cshtml
++++ b/Pages/Catalogs.cshtml
+@@ -527,6 +527,7 @@
+             form.querySelectorAll("input[name='InnerPaper']").forEach(radio => {
+                 const allowed = pageLimitsTable.some(r => r.binding == binding && r.paper == radio.value);
+                 radio.disabled = !allowed;
++                radio.closest('label').classList.toggle('pill--disabled', !allowed); //grey, dashed and crossed out (pages.css)
+                 if (!allowed && radio.checked)
+                     form.querySelector("input[name='InnerPaper'][value='250']").checked = true;
+             });
+diff --git a/wwwroot/css/pages.css b/wwwroot/css/pages.css
+index d678807..5fdbded 100644
+--- a/wwwroot/css/pages.css
++++ b/wwwroot/css/pages.css
+@@ -292,6 +292,7 @@
+ .product-layout > *, .order-layout__main, .order-layout__side { min-width: 0; }
+ 
+ /* ---------- Catalogs & magazines (Catalogs.cshtml), copied from the mockup design/mockup/assets/css/pages.css ---------- */
++.pill--disabled { background: var(--c-surface); color: var(--c-border); border-style: dashed; text-decoration: line-through; cursor: not-allowed; }
+ .cat-cover-opts { display: flex; flex-direction: column; gap: 22px; }
+ .cat-cover-opts[hidden] { display: none; }
+ .cat-summary { margin: 0 0 6px; color: var(--c-muted); font-size: var(--fs-small); }
